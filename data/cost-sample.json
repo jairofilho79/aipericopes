@@ -1,0 +1,75 @@
+{
+  "model": "google/gemini-3.7-flash",
+  "sample_n": 5,
+  "sample_cost_usd": 0.019044,
+  "avg_cost_usd": 0.0038087999999999998,
+  "total_prompt_tokens": 9639,
+  "total_completion_tokens": 8229,
+  "avg_prompt_tokens": 1927.8,
+  "avg_completion_tokens": 1645.8,
+  "catalog_total": 2647,
+  "estimate_full_usd": 10.081893599999999,
+  "estimate_full_brl_approx": 55.4504148,
+  "items": [
+    {
+      "ordem": 0,
+      "titulo_en": "The Creation of the Heavens and the Earth",
+      "chars_texto": 4169,
+      "usage": {
+        "prompt_tokens": 2148,
+        "completion_tokens": 1504,
+        "total_tokens": 3652,
+        "cost_usd": 0.0036255,
+        "generation_id": "gen-1786764707-QIe6T3JdhetaZ56Q4ryk"
+      }
+    },
+    {
+      "ordem": 1,
+      "titulo_en": "Adam and Eve in the Garden of Eden",
+      "chars_texto": 2581,
+      "usage": {
+        "prompt_tokens": 1696,
+        "completion_tokens": 1707,
+        "total_tokens": 3403,
+        "cost_usd": 0.003836625,
+        "generation_id": "gen-1786764717-HAkKp1K1zoe5tqsigbZ8"
+      }
+    },
+    {
+      "ordem": 2,
+      "titulo_en": "The Fall of Man",
+      "chars_texto": 3240,
+      "usage": {
+        "prompt_tokens": 1855,
+        "completion_tokens": 1625,
+        "total_tokens": 3480,
+        "cost_usd": 0.0037425,
+        "generation_id": "gen-1786764730-7x13aYacgZd9cKmQdvT0"
+      }
+    },
+    {
+      "ordem": 3,
+      "titulo_en": "The Descendants of Adam",
+      "chars_texto": 5667,
+      "usage": {
+        "prompt_tokens": 2723,
+        "completion_tokens": 1460,
+        "total_tokens": 4183,
+        "cost_usd": 0.003758625,
+        "generation_id": "gen-1786764742-cCkEK5Oyds6zfLU4Pi9L"
+      }
+    },
+    {
+      "ordem": 4,
+      "titulo_en": "Corruption on the Earth",
+      "chars_texto": 1022,
+      "usage": {
+        "prompt_tokens": 1217,
+        "completion_tokens": 1933,
+        "total_tokens": 3150,
+        "cost_usd": 0.00408075,
+        "generation_id": "gen-1786764753-V3yWWROdbJLc2WCbIuTs"
+      }
+    }
+  ]
+}

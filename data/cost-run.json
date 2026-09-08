@@ -1,0 +1,15 @@
+{
+  "model": "google/gemini-3.7-flash",
+  "concurrency": 5,
+  "done": 0,
+  "pending_total": 0,
+  "sample_cost_usd": 0,
+  "avg_cost_usd": 0.0038088,
+  "estimate_remaining_usd": 0,
+  "estimate_full_run_usd": 0,
+  "elapsed_sec": 0.207,
+  "throughput_per_sec": 0,
+  "eta_sec": 0,
+  "catalog_total": 2823,
+  "items": []
+}

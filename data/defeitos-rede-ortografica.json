@@ -1,0 +1,2475 @@
+{
+ "gerado": "2026-09-07T12:56:30-03:00",
+ "rede": "ortográfica (3ª rede)",
+ "corpus": {
+  "pericopes": 2823,
+  "versiculos": 31102,
+  "caracteres": 3903240,
+  "fonte": "public/data/texto/*.json — texto JÁ com as 421 correções da Sessão 3 aplicadas"
+ },
+ "testemunhas": {
+  "KJV": "data/raw/PericopeGroupedKJVVerses.json (local)",
+  "A11": "Almeida 1911, digitalização CrossWire PorAlmeida1911, conferida em duas cópias independentes (BibliaJFAAL/JFAAL e damarals/biblias)",
+  "ressalva": "A Almeida 1911 é a ANCESTRAL da Bíblia Livre, não uma testemunha independente dela. Onde as duas concordam, isso não absolve: pode ser defeito herdado. A independência real vem da KJV."
+ },
+ "achados": [
+  {
+   "ordem": 39,
+   "ref": "Gn 26:29",
+   "tipo": "grafia espanhola",
+   "de": "tocamos, y como",
+   "para": "tocamos, e como",
+   "trecho": "Que não nos faças mal, como nós não te tocamos, y como somente te fizemos bem, e te enviamos em …",
+   "correcao": "tocamos, e como",
+   "testemunhas": [
+    "A11: … faças mal, como nós te não temos tocado, e como te fizemos sómente bem, e te deixámos ir em paz. Ago…",
+    "KJV: That thou wilt do us no hurt, as we have not touched thee, and as we have done unto thee nothing but good, and h…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 71,
+   "ref": "Gn 46:17",
+   "tipo": "grafia espanhola",
+   "de": "Isvi y Berias",
+   "para": "Isvi, e Berias",
+   "trecho": "E os filhos de Aser: Imna, e Isva, e Isvi y Berias, e Sera, irmã deles. Os filhos de Berias:…",
+   "correcao": "Isvi, e Berias",
+   "testemunhas": [
+    "A11: E os filhos de Asher: Imnah, e Ischva, e Ischvi, e Beria, e Serah, a irmã d'elles: e os filhos de …",
+    "KJV: And the sons of Asher; Jimnah, and Ishuah, and Isui, and Beriah, and Serah their sister: and the sons of Beriah; Heber, and…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 72,
+   "ref": "Gn 47:27",
+   "tipo": "grafia espanhola",
+   "de": "nela, y se aumentaram",
+   "para": "nela, e se aumentaram",
+   "trecho": "… Egito, na terra de Gósen; e apossaram-se nela, y se aumentaram, e multiplicaram em grande maneira.",
+   "correcao": "nela, e se aumentaram",
+   "testemunhas": [
+    "A11: …ra do Egypto, na terra de Gosen, e n'ella tomaram possessão, e fructificaram, e multiplicaram-se muito.",
+    "KJV: …lt in the land of Egypt, in the country of Goshen; and they had possessions therein, and grew, and multiplied exceedingly."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 900,
+   "ref": "2Cr 6:20",
+   "tipo": "grafia espanhola",
+   "de": "que oigas a oração",
+   "para": "que ouças a oração",
+   "trecho": "…ar do qual disseste, Meu nome estará ali; que oigas a oração com que teu servo ora em este lugar.",
+   "correcao": "que ouças a oração",
+   "testemunhas": [
+    "A11: …e que disseste que ali porias o teu nome; para ouvires a oração que o teu servo orar n'este logar.",
+    "KJV: …ereof thou hast said that thou wouldest put thy name there; to hearken unto the prayer which thy servant prayeth toward this place."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 737,
+   "ref": "2Rs 9:27",
+   "tipo": "grafia espanhola",
+   "de": "E siguiu-o Jeú",
+   "para": "E seguiu-o Jeú",
+   "trecho": "…udá, fugiu pelo caminho da casa da horta. E siguiu-o Jeú, dizendo: Feri também a este no carro. E …",
+   "correcao": "E seguiu-o Jeú",
+   "testemunhas": [
+    "A11: …giu pelo caminho da casa do jardim, porém Jehu seguiu após elle, e disse: Tambem feri a este no carro á s…",
+    "KJV: …of Judah saw this , he fled by the way of the garden house. And Jehu followed after him, and said, Smite him also in the chariot. And they did so a…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 803,
+   "ref": "2Rs 23:26",
+   "tipo": "grafia espanhola",
+   "de": "se havia encendido sua ira",
+   "para": "se havia acendido sua ira",
+   "trecho": "…sviou do ardor de sua grande ira, com que se havia encendido sua ira contra Judá, por todas as provocações com…",
+   "correcao": "se havia acendido sua ira",
+   "testemunhas": [
+    "A11: …se não tornou do ardor da sua grande ira, com que ardia a sua ira contra Judah, por todas as provocações co…",
+    "KJV: …urned not from the fierceness of his great wrath, wherewith his anger was kindled against Judah, because of all the provocations that Manasse…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 583,
+   "ref": "2Sm 7:12",
+   "tipo": "grafia espanhola",
+   "de": "eu establecerei tua semente",
+   "para": "eu estabelecerei tua semente",
+   "trecho": "…m cumpridos, e descansares com teus pais, eu establecerei tua semente depois de ti, a qual procederá de tuas en…",
+   "correcao": "eu estabelecerei tua semente",
+   "testemunhas": [
+    "A11: …a semente, que sair das tuas entranhas, e estabelecerei o seu reino.",
+    "KJV: …y days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I wi…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 596,
+   "ref": "2Sm 13:15",
+   "tipo": "grafia espanhola",
+   "de": "de tão grande aborrecimiento",
+   "para": "de tão grande aborrecimento",
+   "trecho": "Aborreceu-a logo Amnom de tão grande aborrecimiento, que o ódio com que a aborreceu foi maior…",
+   "correcao": "de tão grande aborrecimento",
+   "testemunhas": [
+    "A11: Depois Amnon a aborreceu com grandissimo aborrecimento, porque maior era o aborrecimento com que…",
+    "KJV: Then Amnon hated her exceedingly; so that the hatred wherewith he hated her was greater than…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1398,
+   "ref": "Ez 38:20",
+   "tipo": "grafia espanhola",
+   "de": "andam se arrastrando",
+   "para": "andam se arrastando",
+   "trecho": "…éu, os animais do campo, todos os répteis andam se arrastrando sobre a terra, e todos os seres humanos q…",
+   "correcao": "andam se arrastando",
+   "testemunhas": [
+    "A11: …do céu, e os animaes do campo, e todos os reptis que se arrastam sobre a terra, e todos os homens que estã…",
+    "KJV: …e fowls of the heaven, and the beasts of the field, and all creeping things that creep upon the earth, and all the men that are upon the face of t…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 19,
+   "ref": "Gn 17:17",
+   "tipo": "grafia espanhola",
+   "de": "Abraão postrou-se",
+   "para": "Abraão prostrou-se",
+   "trecho": "Então Abraão postrou-se com o rosto ao chão, riu, e disse em seu …",
+   "correcao": "Abraão prostrou-se",
+   "testemunhas": [
+    "A11: Então caiu Abrahão sobre o seu rosto, e riu-se, e disse no seu coração: A um h…",
+    "KJV: Then Abraham fell upon his face, and laughed, and said in his heart, Shall a child be born …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 689,
+   "ref": "1Rs 19:6",
+   "tipo": "grafia espanhola",
+   "de": "sobre as ascuas",
+   "para": "sobre as brasas",
+   "trecho": "… eis que a sua cabeceira uma torta cozida sobre as ascuas, e um vaso de água: e comeu e bebeu e vol…",
+   "correcao": "sobre as brasas",
+   "testemunhas": [
+    "A11: …, e eis que á sua cabeceira estava um pão cozido sobre as brazas, e uma botija de agua: e comeu, e bebeu, …",
+    "KJV: And he looked, and, behold, there was a cake baked on the coals, and a cruse of water at his head. And he did eat and drink…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 476,
+   "ref": "Jz 14:12",
+   "tipo": "grafia espanhola",
+   "de": "trinta sábanas",
+   "para": "trinta lençóis",
+   "trecho": "… declarardes e descobrirdes, eu vos darei trinta sábanas e trinta mudas de vestidos.",
+   "correcao": "trinta lençóis",
+   "testemunhas": [
+    "A11: …m'o declarardes e descobrirdes, vos darei trinta lençoes e trinta mudas de vestidos.",
+    "KJV: …en days of the feast, and find it out, then I will give you thirty sheets and thirty change of garments:"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 826,
+   "ref": "1Cr 2:19",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Calebe tmou por mulher",
+   "para": "Calebe tomou por mulher",
+   "trecho": "E Azuba morreu, e Calebe tmou por mulher a Efrate, a qual lhe gerou a Hur.",
+   "correcao": "Calebe tomou por mulher",
+   "testemunhas": [
+    "A11: E morreu Azuba; e Caleb tomou para si a Ephrath, a qual lhe pariu a Hur.",
+    "KJV: And when Azubah was dead, Caleb took unto him Ephrath, which bore him Hur."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 831,
+   "ref": "1Cr 5:20",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "foram enregues em suas mãos",
+   "para": "foram entregues em suas mãos",
+   "trecho": "…arenos, e todos quantos estavam com eles, foram enregues em suas mãos, porque clamaram a Deus na batalha, e ele…",
+   "correcao": "foram entregues em suas mãos",
+   "testemunhas": [
+    "A11: …garenos e todos quantos estavam com elles foram entregues em sua mão; porque clamaram a Deus na peleja, e lhes…",
+    "KJV: And they were helped against them, and the Hagarites were delivered into their hand, and all that were with them: for they cried to God in the …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 863,
+   "ref": "1Cr 19:11",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "que os pôes em formação",
+   "para": "que os pôs em formação",
+   "trecho": "…s os outros nas mãos de seu irmão Abisai, que os pôes em formação de batalha contra os amonitas.",
+   "correcao": "que os pôs em formação",
+   "testemunhas": [
+    "A11: …o entregou na mão de Abisai, seu irmão; e pozeram-se em ordem de batalha contra os filhos d'Ammon.",
+    "KJV: …ople he delivered unto the hand of Abishai his brother, and they set themselves in array against the children of Ammon."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 875,
+   "ref": "1Cr 24:10",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "A sétiam por Coz",
+   "para": "A sétima por Coz",
+   "trecho": "A sétiam por Coz, a oitava por Abias;",
+   "correcao": "A sétima por Coz",
+   "testemunhas": [
+    "A11: A setima a Hakkos, a oitava a Abias,",
+    "KJV: The seventh to Hakkoz, the eighth to Abijah,"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 875,
+   "ref": "1Cr 24:15",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "a décima outiva por Hapises",
+   "para": "a décima oitava por Hapises",
+   "trecho": "A décima sétima por Hezir, a décima outiva por Hapises;",
+   "correcao": "a décima oitava por Hapises",
+   "testemunhas": [
+    "A11: A decima setima a Hezir, a decima oitava a Happises,",
+    "KJV: The seventeenth to Hezir, the eighteenth to Aphses,"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 643,
+   "ref": "1Rs 8:37",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Quando nesta herra houver fome",
+   "para": "Quando nesta terra houver fome",
+   "trecho": "Quando nesta herra houver fome, ou pestilência, ou ferrugem, ou mofo, ou…",
+   "correcao": "Quando nesta terra houver fome",
+   "testemunhas": [
+    "A11: Quando houver fome na terra, quando houver peste, quando houver queim…",
+    "KJV: If there be in the land famine, if there be pestilence, blasting, mildew, locust, or if th…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 643,
+   "ref": "1Rs 8:50",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "dos que os teem cativos",
+   "para": "dos que os têm cativos",
+   "trecho": "… ti; e concede-lhes misericórdia da parte dos que os teem cativos, para que tenham compaixão deles.",
+   "correcao": "dos que os têm cativos",
+   "testemunhas": [
+    "A11: …contra ti; e dá-lhes misericordia perante aquelles que os teem captivos, para que d'elles tenham compaixão.",
+    "KJV: And forgive thy people that have sinned against thee, and all their transgressions wherein they have transgres…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 658,
+   "ref": "1Rs 13:34",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "cortada e desraigada",
+   "para": "cortada e desarraigada",
+   "trecho": "… pecado à casa de Jeroboão; pelo qual foi cortada e desraigada de sobre a face da terra.",
+   "correcao": "cortada e desarraigada",
+   "testemunhas": [
+    "A11: … foi causa de peccado á casa de Jeroboão, para destruil-a e extinguil-a da terra. ",
+    "KJV: And this thing became sin unto the house of Jeroboam, even to cut it off, and to destroy it from off the face of the earth."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 972,
+   "ref": "2Cr 36:10",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "com os utensílos preciosos",
+   "para": "com os utensílios preciosos",
+   "trecho": "… que o trouxessem à Babilônia, juntamente com os utensílos preciosos da casa do SENHOR; e constituiu o seu irm…",
+   "correcao": "com os utensílios preciosos",
+   "testemunhas": [
+    "A11: …codonosor, e mandou trazel-o a Babylonia, com os mais preciosos vasos da casa do Senhor; e poz a Zedekias, seu …",
+    "KJV: …ired, king Nebuchadnezzar sent, and brought him to Babylon, with the goodly vessels of the house of the LORD, and made Zedekiah his brother kin…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1150,
+   "ref": "Ec 5:11",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "os que os cosomem",
+   "para": "os que os consomem",
+   "trecho": "…se multiplicam, ali se multiplicam também os que os cosomem; e que proveito pois tem seus donos, a nã…",
+   "correcao": "os que os consomem",
+   "testemunhas": [
+    "A11: … se multiplica, ali se multiplicam tambem os que a comem: que mais proveito pois teem os seus dono…",
+    "KJV: When goods increase, they are increased that eat them: and what good is there to the owners thereof, saving the b…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1155,
+   "ref": "Ec 8:13",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "não tem temor diane de Deus",
+   "para": "não tem temor diante de Deus",
+   "trecho": "…dias, que serão como uma sombra, pois ele não tem temor diane de Deus.",
+   "correcao": "não tem temor diante de Deus",
+   "testemunhas": [
+    "A11: …rá os dias; será como a sombra; visto que elle não teme diante de Deus.",
+    "KJV: …, neither shall he prolong his days, which are as a shadow; because he feareth not before God."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 158,
+   "ref": "Êx 36:10",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "uma com aa outra",
+   "para": "uma com a outra",
+   "trecho": "…tra: também uniu as outras cinco cortinas uma com aa outra.",
+   "correcao": "uma com a outra",
+   "testemunhas": [
+    "A11: … uma com a outra; e outras cinco cortinas ligou uma com outra.",
+    "KJV: …five curtains one unto another: and the other five curtains he coupled one unto another."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1357,
+   "ref": "Ez 17:23",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "e se tronará um cedro",
+   "para": "e se tornará um cedro",
+   "trecho": "…plantarei, e produzirá ramos, dará fruto, e se tronará um cedro excelente; e habitarão debaixo dele todas…",
+   "correcao": "e se tornará um cedro",
+   "testemunhas": [
+    "A11: …ntarei, e produzirá ramos, e dará fructo, e se fará um cedro excellente; e habitarão debaixo d'elle todas as aves…",
+    "KJV: … plant it: and it shall bring forth boughs, and bear fruit, and be a goodly cedar: and under it shall dwell all fowl of every wing; in the sh…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1393,
+   "ref": "Ez 35:13",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Assim vos engradecestes",
+   "para": "Assim vos engrandecestes",
+   "trecho": "Assim vos engradecestes contra mim com vossa boca, e multiplicast…",
+   "correcao": "Assim vos engrandecestes",
+   "testemunhas": [
+    "A11: Assim vos engrandecestes contra mim com a vossa bocca, e multiplicastes as vo…",
+    "KJV: Thus with your mouth ye have boasted against me, and have multiplied your words against me: I have heard th…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 74,
+   "ref": "Gn 49:8",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Tua mão esterá sobre o pescoço",
+   "para": "Tua mão estará sobre o pescoço",
+   "trecho": "Judá, teus irmãos te louvarão: Tua mão esterá sobre o pescoço de teus inimigos: Os filhos de teu pai se…",
+   "correcao": "Tua mão estará sobre o pescoço",
+   "testemunhas": [
+    "A11: Judah, te louvarão os teus irmãos; a tua mão será sobre o pescoço de teus inimigos: os filhos de teu pae a …",
+    "KJV: Judah, thou art he whom thy brethren shall praise: thy hand shall be in the neck of thine enemies; thy father's children shall bow down befo…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1250,
+   "ref": "Is 59:17",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Pois ele se vestu de justiça",
+   "para": "Pois ele se vestiu de justiça",
+   "trecho": "Pois ele se vestu de justiça como uma armadura, e pôs o capacete da sa…",
+   "correcao": "Pois ele se vestiu de justiça",
+   "testemunhas": [
+    "A11: Porque se vestiu de justiça, como de uma couraça, e poz o elmo da sal…",
+    "KJV: For he put on righteousness as a breastplate, and a helmet of salvation upon his head; …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1260,
+   "ref": "Is 66:3",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "oferece sangue de proco",
+   "para": "oferece sangue de porco",
+   "trecho": "…o degola a um cão; quem apresenta oferta, oferece sangue de proco; quem oferece incenso adora a um ídolo; t…",
+   "correcao": "oferece sangue de porco",
+   "testemunhas": [
+    "A11: …o; quem offerece uma oblação é como o que offerece sangue de porco; quem offerece incenso memorativo é como …",
+    "KJV: …s if he cut off a dog's neck; he that offereth an oblation, as if he offered swine's blood; he that burneth incense, as if he blessed an idol. Yea, th…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1278,
+   "ref": "Jr 23:33",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "te peguntar, dizendo",
+   "para": "te perguntar, dizendo",
+   "trecho": "… este povo, ou o profeta, ou o sacerdote, te peguntar, dizendo: Qual é a revelação, a carga do SENHOR? E…",
+   "correcao": "te perguntar, dizendo",
+   "testemunhas": [
+    "A11: Quando pois te perguntar este povo, ou qualquer propheta, ou sacerdote, dize…",
+    "KJV: And when this people, or the prophet, or a priest, shall ask thee, saying, What is the burden of the LORD? thou shalt then say unto t…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1283,
+   "ref": "Jr 29:14",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "e vos restauarei de vosso infortúnio",
+   "para": "e vos restaurarei de vosso infortúnio",
+   "trecho": "E serei achado por vós, diz o SENHOR, e vos restauarei de vosso infortúnio, e vos ajuntarei de todas as nações, e de…",
+   "correcao": "e vos restaurarei de vosso infortúnio",
+   "testemunhas": [
+    "A11: E serei achado de vós, diz o Senhor, e farei tornar os vossos captivos, e congregar-vos-hei de todas as nações, …",
+    "KJV: And I will be found of you, saith the LORD: and I will turn away your captivity, and I will gather you from all the nations, and from all t…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1283,
+   "ref": "Jr 29:19",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "enviar; próem não escutastes",
+   "para": "enviar; porém não escutastes",
+   "trecho": "…meus servos os profetas, insistindo em os enviar; próem não escutastes, diz o SENHOR.",
+   "correcao": "enviar; porém não escutastes",
+   "testemunhas": [
+    "A11: …vos, os prophetas, madrugando e enviando; porém vós não escutastes, diz o Senhor.",
+    "KJV: …y servants the prophets, rising up early and sending them ; but ye would not hear, saith the LORD."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1292,
+   "ref": "Jr 36:10",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "no pático de cima",
+   "para": "no pátio de cima",
+   "trecho": "…ra de Gemarias, filho de Safã, o escriba, no pático de cima, à entrada da porta nova da casa do SENHO…",
+   "correcao": "no pátio de cima",
+   "testemunhas": [
+    "A11: … de Gemarias, filho de Saphan, o escriba, no atrio superior, á entrada da porta nova da casa do Senho…",
+    "KJV: …, in the chamber of Gemariah the son of Shaphan the scribe, in the higher court, at the entry of the new gate of the LORD's house, in the e…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1299,
+   "ref": "Jr 39:5",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "nas plancíes de Jericó",
+   "para": "nas planícies de Jericó",
+   "trecho": "…us os perseguiu, e alcançaram a Zedequias nas plancíes de Jericó; e o prenderam, e o fizeram subir a Nabuc…",
+   "correcao": "nas planícies de Jericó",
+   "testemunhas": [
+    "A11: …eos os perseguiu; e alcançaram a Zedekias nas campinas de Jericó, e o prenderam, e o fizeram subir a Nabuc…",
+    "KJV: …e Chaldeans' army pursued after them, and overtook Zedekiah in the plains of Jericho: and when they had taken him, they brought him up to Nebuch…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1309,
+   "ref": "Jr 47:3",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "o tremor de suas caruagens",
+   "para": "o tremor de suas carruagens",
+   "trecho": "… ruído dos cascos de seus fortes cavalos, o tremor de suas caruagens, e o estrondo de suas rodas; os pais não …",
+   "correcao": "o tremor de suas carruagens",
+   "testemunhas": [
+    "A11: …unhas dos seus fortes cavallos, por causa do arroido de seus carros e do estrondo das suas rodas: os paes não…",
+    "KJV: … noise of the stamping of the hooves of his strong horses , at the rushing of his chariots, and at the rumbling of his wheels, the fathers shall not l…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1074,
+   "ref": "Jó 15:30",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "de sua boca desparecerá",
+   "para": "de sua boca desaparecerá",
+   "trecho": "…as; a chama secará seus ramos, e ao sopro de sua boca desparecerá.",
+   "correcao": "de sua boca desaparecerá",
+   "testemunhas": [
+    "A11: …ogo seccará os seus renovos, e ao assopro da sua bocca desapparecerá.",
+    "KJV: …e shall dry up his branches, and by the breath of his mouth shall he go away."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1076,
+   "ref": "Jó 17:1",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "a sepultura já etá pronta",
+   "para": "a sepultura já está pronta",
+   "trecho": "…rruinado, meus dias vão se extinguindo, e a sepultura já etá pronta para mim.",
+   "correcao": "a sepultura já está pronta",
+   "testemunhas": [
+    "A11: …rompendo, os meus dias se vão apagando, e tenho perante mim as sepulturas.",
+    "KJV: My breath is corrupt, my days are extinct, the graves are ready for me."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1079,
+   "ref": "Jó 20:16",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Veneno de cobras subará",
+   "para": "Veneno de cobras sugará",
+   "trecho": "Veneno de cobras subará; língua de víbora o matará.",
+   "correcao": "Veneno de cobras sugará",
+   "testemunhas": [
+    "A11: Veneno d'aspides sorverá; lingua de vibora o matará.",
+    "KJV: He shall suck the poison of asps: the viper's tongue shall slay him."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1079,
+   "ref": "Jó 20:18",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "da riqueza de seu comério",
+   "para": "da riqueza de seu comércio",
+   "trecho": "Restituirá o trabalho e não o engolirá; da riqueza de seu comério não desfrutará.",
+   "correcao": "da riqueza de seu comércio",
+   "testemunhas": [
+    "A11: …ituirá do seu trabalho, e não o engulirá: conforme ao poder de sua mudança, e não saltará de gozo.",
+    "KJV: …abored for shall he restore, and shall not swallow it down: according to his substance shall the restitution be , and he shall not rejoice therein…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1079,
+   "ref": "Jó 20:23",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "enchendo seu vendre",
+   "para": "enchendo seu ventre",
+   "trecho": "Quando ele estiver enchendo seu vendre, Deus mandará sobre ele o ardor de sua ir…",
+   "correcao": "enchendo seu ventre",
+   "testemunhas": [
+    "A11: Haja porém ainda de que possa encher o seu ventre; comtudo Deus mandará sobre elle o ardor …",
+    "KJV: When he is about to fill his belly, God shall cast the fury of his wrath upon him, and shall r…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1090,
+   "ref": "Jó 34:25",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "de noite os trastorna",
+   "para": "de noite os transtorna",
+   "trecho": "Visto que ele conhece suas obras, de noite os trastorna, e ficam destroçados.",
+   "correcao": "de noite os transtorna",
+   "testemunhas": [
+    "A11: Elle conhece pois as suas obras, de noite os transtorna, e ficam moidos.",
+    "KJV: Therefore he knoweth their works, and he overturneth them in the night, so that they are destroyed."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 423,
+   "ref": "Js 19:9",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "era escessiva para eles",
+   "para": "era excessiva para eles",
+   "trecho": "…eão; porquanto a parte dos filhos de Judá era escessiva para eles: assim que os filhos de Simeão tiveram su…",
+   "correcao": "era excessiva para eles",
+   "testemunhas": [
+    "A11: …; porquanto a herança dos filhos de Judah era demasiadamente grande para elles: pelo que os filhos de Simeão …",
+    "KJV: …e children of Simeon: for the part of the children of Judah was too much for them: therefore the children of Simeon had their inheritance wit…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 474,
+   "ref": "Jz 13:24",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "E o menino creceu",
+   "para": "E o menino cresceu",
+   "trecho": "…z um filho, e chamou-lhe por nome Sansão. E o menino creceu, e o SENHOR o abençoou.",
+   "correcao": "E o menino cresceu",
+   "testemunhas": [
+    "A11: …her um filho, e chamou o seu nome Sansão: e o menino cresceu, e o Senhor o abençoou.",
+    "KJV: And the woman bore a son, and called his name Samson: and the child grew, and the LORD blessed him."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1783,
+   "ref": "Mc 7:13",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Assim invalidaias a palavra",
+   "para": "Assim invalidais a palavra",
+   "trecho": "Assim invalidaias a palavra de Deus por vossa tradição, que ordenaste…",
+   "correcao": "Assim invalidais a palavra",
+   "testemunhas": [
+    "A11: Invalidando assim a palavra de Deus pela vossa tradição, que vós ordenastes. …",
+    "KJV: Making the word of God of none effect through your tradition, which ye have delivered: and many s…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1794,
+   "ref": "Mc 9:3",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "ficaram resplandescentes",
+   "para": "ficaram resplandecentes",
+   "trecho": "E suas roupas ficaram resplandescentes, muito brancas como a neve, como nenhum l…",
+   "correcao": "ficaram resplandecentes",
+   "testemunhas": [
+    "A11: E os seus vestidos tornaram-se resplandecentes, mui brancos como a neve, taes como nenhu…",
+    "KJV: And his raiment became shining, exceeding white as snow; so as no fuller on earth can whit…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 154,
+   "ref": "Êx 34:30",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "rosto era resplandescente",
+   "para": "rosto era resplandecente",
+   "trecho": "… Israel a Moisés, e eis que a pele de seu rosto era resplandescente; e tiveram medo de chegar-se a ele.",
+   "correcao": "rosto era resplandecente",
+   "testemunhas": [
+    "A11: …hos d'Israel para Moysés, eis que a pelle do seu rosto resplandecia; pelo que temeram de chegar-se a elle.",
+    "KJV: …hen Aaron and all the children of Israel saw Moses, behold, the skin of his face shone; and they were afraid to come nigh him."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 154,
+   "ref": "Êx 34:35",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "rosto era resplandescente",
+   "para": "rosto era resplandecente",
+   "trecho": "…rael o rosto de Moisés, que a pele de seu rosto era resplandescente; e voltava Moisés a pôr o véu sobre seu r…",
+   "correcao": "rosto era resplandecente",
+   "testemunhas": [
+    "A11: Assim pois viam os filhos d'Israel o rosto de Moysés, que resplandecia a pelle do rosto de Moysés: e tornou Mo…",
+    "KJV: And the children of Israel saw the face of Moses, that the skin of Moses' face shone: and Moses put the veil upon his face again, until he went …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1805,
+   "ref": "Mc 10:52",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "E logo consegiu ver",
+   "para": "E logo conseguiu ver",
+   "trecho": "Jesus lhe disse: Vai; a tua fé te salvou. E logo consegiu ver. Então seguiu Jesus pelo caminho.",
+   "correcao": "E logo conseguiu ver",
+   "testemunhas": [
+    "A11: …Jesus lhe disse: Vae, a tua fé te salvou. E logo viu, e seguiu a Jesus pelo caminho. ",
+    "KJV: … said unto him, Go thy way; thy faith hath made thee whole. And immediately he received his sight, and followed Jesus in the way."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1694,
+   "ref": "Mt 18:33",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "do sevo colega teu",
+   "para": "do servo colega teu",
+   "trecho": "…s tu a obrigação de ter tido misericórdia do sevo colega teu, assim como eu tive misericórdia de ti?”",
+   "correcao": "do servo colega teu",
+   "testemunhas": [
+    "A11: Não devias tu egualmente ter compaixão do teu companheiro, como eu tambem tive misericordia de ti?",
+    "KJV: Shouldest not thou also have had compassion on thy fellow servant, even as I had pity on thee?"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1741,
+   "ref": "Mt 27:27",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "toda a unidade miltar",
+   "para": "toda a unidade militar",
+   "trecho": "…s consigo ao pretório, ajuntaram-se a ele toda a unidade miltar.",
+   "correcao": "toda a unidade militar",
+   "testemunhas": [
+    "A11: … Jesus á audiencia, reuniram junto d'elle toda a cohorte.",
+    "KJV: …rnor took Jesus into the common hall, and gathered unto him the whole band of soldiers."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1030,
+   "ref": "Ne 13:15",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "pisavam nas presnas de uvas",
+   "para": "pisavam nas prensas de uvas",
+   "trecho": "Naqueles dias vi em Judá alguns que pisavam nas presnas de uvas no sábado, e que traziam feixes, e carreg…",
+   "correcao": "pisavam nas prensas de uvas",
+   "testemunhas": [
+    "A11: N'aquelles dias vi em Judah os que pisavam lagares ao sabbado e traziam feixes que carregava…",
+    "KJV: In those days saw I in Judah some treading wine presses on the sabbath, and bringing in sheaves, and lading asses; …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 281,
+   "ref": "Nm 22:17",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "almaldiçoa para mim a este povo",
+   "para": "amaldiçoa para mim a este povo",
+   "trecho": "…i tudo o que me disseres: vem pois agora, almaldiçoa para mim a este povo.",
+   "correcao": "amaldiçoa para mim a este povo",
+   "testemunhas": [
+    "A11: …udo o que me disseres: vem pois, rogo-te, amaldiçoa-me este povo.",
+    "KJV: …hatsoever thou sayest unto me: come therefore, I pray thee, curse me this people."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1125,
+   "ref": "Pv 16:22",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "para queles que o possuem",
+   "para": "para aqueles que o possuem",
+   "trecho": "Manancial de vida é o entendimento, para queles que o possuem; mas a instrução dos tolos é loucura.",
+   "correcao": "para aqueles que o possuem",
+   "testemunhas": [
+    "A11: O entendimento, para aquelles que o possuem, é uma fonte de vida, mas a instrucção do…",
+    "KJV: Understanding is a wellspring of life unto him that hath it: but the instruction of fools is folly."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1563,
+   "ref": "Sf 3:20",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "quando eu vos resutaurar",
+   "para": "quando eu vos restaurar",
+   "trecho": "…e e louvor entre todos os povos da terra, quando eu vos resutaurar de vosso infortúnio diante de vossos olho…",
+   "correcao": "quando eu vos restaurar",
+   "testemunhas": [
+    "A11: … um louvor entre todos os povos da terra, quando reconduzir os vossos captivos diante dos vossos olhos.  ",
+    "KJV: …make you a name and a praise among all people of the earth, when I turn back your captivity before your eyes, saith the LORD."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1569,
+   "ref": "Zc 1:6",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "e nossos antos, assim ele fez",
+   "para": "e nossos atos, assim ele fez",
+   "trecho": "…os planejou fazer segundo nossos caminhos e nossos antos, assim ele fez conosco.",
+   "correcao": "e nossos atos, assim ele fez",
+   "testemunhas": [
+    "A11: …nos tratar, segundo os nossos caminhos, e segundo as nossas obras, assim elle nos tratou.",
+    "KJV: … of hosts thought to do unto us, according to our ways, and according to our doings, so hath he dealt with us."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1763,
+   "ref": "Mc 3:21",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "“Ele stá fora de si”",
+   "para": "“Ele está fora de si”",
+   "trecho": "…isso, saíram para detê-lo, porque diziam: “Ele stá fora de si”.",
+   "correcao": "“Ele está fora de si”",
+   "testemunhas": [
+    "A11: …to, sairam para o prender; porque diziam: Está fóra de si.",
+    "KJV: …ard of it, they went out to lay hold on him: for they said, He is beside himself."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1270,
+   "ref": "Jr 13:26",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Asim também eu descobrirei",
+   "para": "Assim também eu descobrirei",
+   "trecho": "Asim também eu descobrirei também tuas roupas até sobre teu rosto, e…",
+   "correcao": "Assim também eu descobrirei",
+   "testemunhas": [
+    "A11: Assim tambem eu descobrirei as tuas fraldas até sobre o teu rosto: e …",
+    "KJV: Therefore will I discover thy skirts upon thy face, that thy shame may appear."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 189,
+   "ref": "Lv 13:38",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "tiver machas, machas brancas",
+   "para": "tiver manchas, manchas brancas",
+   "trecho": "…em ou mulher, quando na pele de sua carne tiver machas, machas brancas,",
+   "correcao": "tiver manchas, manchas brancas",
+   "testemunhas": [
+    "A11: E, quando homem ou mulher tiverem empolas brancas na pelle da sua carne,",
+    "KJV: If a man also or a woman have in the skin of their flesh bright spots, even white bright spots;"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 189,
+   "ref": "Lv 13:39",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "parecerem machas brancas",
+   "para": "parecerem manchas brancas",
+   "trecho": "…cerdote olhará: e se na pele de sua carne parecerem machas brancas algo escurecidas, é impigem que brotou na…",
+   "correcao": "parecerem manchas brancas",
+   "testemunhas": [
+    "A11: Então o sacerdote olhará, e eis que, se na pelle da sua carne apparecem empolas recolhidas, brancas, bustela b…",
+    "KJV: Then the priest shall look: and, behold, if the bright spots in the skin of their flesh be darkish white; it is a freckl…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 192,
+   "ref": "Lv 14:37",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "se virem machas nas paredes",
+   "para": "se virem manchas nas paredes",
+   "trecho": "E olhará a praga: e se se virem machas nas paredes da casa, cavidades esverdeadas ou vermelh…",
+   "correcao": "se virem manchas nas paredes",
+   "testemunhas": [
+    "A11: E, vendo a praga, e eis que se a praga nas paredes da casa tem covinhas verdes ou vermelhas, e parecem mais fu…",
+    "KJV: …nd, behold, if the plague be in the walls of the house with hollow streaks, greenish or reddish, which in sight are lower than the wall;"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1514,
+   "ref": "Am 9:3",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "até ali mandia uma serpente",
+   "para": "até ali mandarei uma serpente",
+   "trecho": "… de diante de meus olhos no fundo do mar, até ali mandia uma serpente para os morder.",
+   "correcao": "até ali mandarei uma serpente",
+   "testemunhas": [
+    "A11: …ccultarem aos meus olhos no fundo do mar, ali darei ordem á serpente, e ella os morderá.",
+    "KJV: … though they be hid from my sight in the bottom of the sea, thence will I command the serpent, and he shall bite them:"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 826,
+   "ref": "1Cr 2:7",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "estava separado por maldiçãos",
+   "para": "estava separado por maldição",
+   "trecho": "…de Israel, porque transgrediu naquilo que estava separado por maldiçãos.",
+   "correcao": "estava separado por maldição",
+   "testemunhas": [
+    "A11: …armi foram Acar, o perturbador de Israel, que peccou no anathema.",
+    "KJV: And the sons of Carmi; Achar, the troubler of Israel, who transgressed in the thing accursed."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1400,
+   "ref": "Ez 39:27",
+   "tipo": "letra trocada, transposta ou faltando",
+   "de": "Quando eu trouxé-los de volta",
+   "para": "Quando eu os trouxer de volta",
+   "trecho": "Quando eu trouxé-los de volta dos povos, e os juntar das terras de seus…",
+   "correcao": "Quando eu os trouxer de volta",
+   "testemunhas": [
+    "A11: Quando eu os tornar a trazer de entre os povos, e os houver ajuntado d…",
+    "KJV: When I have brought them again from the people, and gathered them out of their enemies' la…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 395,
+   "ref": "Js 6:13",
+   "tipo": "palavra truncada",
+   "de": "e tocando l.",
+   "para": "e tocando as trombetas.",
+   "trecho": "…nida ia detrás da arca do SENHOR, andando e tocando l.",
+   "correcao": "e tocando as trombetas.",
+   "testemunhas": [
+    "A11: …ca do Senhor; os sacerdotes iam andando e tocando as buzinas.",
+    "KJV: …d came after the ark of the LORD, the priests going on, and blowing with the trumpets."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1014,
+   "ref": "Ne 5:17",
+   "tipo": "resto de edição",
+   "de": "dentre as ns nações",
+   "para": "dentre as nações",
+   "trecho": "…us, dos oficiais, e dos que vinha até nós dentre as ns nações que estão ao nosso redor, se punham à min…",
+   "correcao": "dentre as nações",
+   "testemunhas": [
+    "A11: … cincoenta homens, e os que vinham a nós, d'entre as gentes, que estão á roda de nós, se punham á min…",
+    "KJV: …ifty of the Jews and rulers, beside those that came unto us from among the heathen that are about us."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1150,
+   "ref": "Ec 5:8",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "outros que têmautoridade",
+   "para": "outros que têm autoridade",
+   "trecho": "…r que o supervisiona; e acima de ambos há outros que têmautoridade ainda maior.",
+   "correcao": "outros que têm autoridade",
+   "testemunhas": [
+    "A11: … alto é do que os altos n'isso attenta; e ha mais altos do que elles.",
+    "KJV: …tter: for he that is higher than the highest regardeth; and there be higher than they."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 19,
+   "ref": "Gn 17:17",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "de cem anos nasceráfilho?",
+   "para": "de cem anos nascerá filho?",
+   "trecho": "…, riu, e disse em seu coração: A um homem de cem anos nasceráfilho? E Sara, já de noventa anos, há de dar à l…",
+   "correcao": "de cem anos nascerá filho?",
+   "testemunhas": [
+    "A11: …e no seu coração: A um homem de cem annos ha de nascer um filho? e parirá Sarah da edade de noventa annos…",
+    "KJV: …ham fell upon his face, and laughed, and said in his heart, Shall a child be born unto him that is a hundred years old? and shall Sarah, that…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 443,
+   "ref": "Jz 2:18",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "arrependia pelo gemideles",
+   "para": "arrependia pelo gemido deles",
+   "trecho": "…le tempo daquele juiz, porque o SENHOR se arrependia pelo gemideles, por causa dos que os oprimiam e afligiam…",
+   "correcao": "arrependia pelo gemido deles",
+   "testemunhas": [
+    "A11: …s dias d'aquelle juiz; porquanto o Senhor se arrependia pelo seu gemido, por causa dos que os apertavam e opprimi…",
+    "KJV: …enemies all the days of the judge: for it repented the LORD because of their groanings by reason of them that oppressed them and vexed them."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 206,
+   "ref": "Lv 20:19",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "levarão sobresi a sua perversidade",
+   "para": "levarão sobre si a sua perversidade",
+   "trecho": "…rirás; uma vez que descobriu sua parente, levarão sobresi a sua perversidade.",
+   "correcao": "levarão sobre si a sua perversidade",
+   "testemunhas": [
+    "A11: …rirás: porquanto descobriu a sua parenta, sobre si levarão a sua iniquidade.",
+    "KJV: …nor of thy father's sister: for he uncovereth his near kin: they shall bear their iniquity."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1751,
+   "ref": "Mc 1:22",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "como quem temautoridade",
+   "para": "como quem tem autoridade",
+   "trecho": "…erentemente dos escribas, ele os ensinava como quem temautoridade.",
+   "correcao": "como quem tem autoridade",
+   "testemunhas": [
+    "A11: …am-se da sua doutrina, porque os ensinava como tendo auctoridade, e não como os escribas.",
+    "KJV: …nd they were astonished at his doctrine: for he taught them as one that had authority, and not as the scribes."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1606,
+   "ref": "Mt 3:10",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "E agora mesmoo machado",
+   "para": "E agora mesmo o machado",
+   "trecho": "E agora mesmoo machado está posto à raiz das árvores; portanto t…",
+   "correcao": "E agora mesmo o machado",
+   "testemunhas": [
+    "A11: E tambem agora está posto o machado á raiz das arvores; toda a arvore, pois, …",
+    "KJV: And now also the axe is laid unto the root of the trees: therefore every tree which brin…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1644,
+   "ref": "Mt 10:3",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "por sobrenomeTadeu",
+   "para": "por sobrenome Tadeu",
+   "trecho": "…ublicano; Tiago, filho de Alfeu; e Lebeu, por sobrenomeTadeu;",
+   "correcao": "por sobrenome Tadeu",
+   "testemunhas": [
+    "A11: …icano; Thiago, filho de Alpheo, e Lebbeo, appellidado Thaddeo;",
+    "KJV: …tthew the publican; James the son of Alphaeus, and Lebbaeus whose surname was Thaddaeus;"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 252,
+   "ref": "Nm 11:11",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "que puseste sobremim a carga",
+   "para": "que puseste sobre mim a carga",
+   "trecho": "…E por que não achei favor aos teus olhos, que puseste sobremim a carga de todo este povo?",
+   "correcao": "que puseste sobre mim a carga",
+   "testemunhas": [
+    "A11: … e porque não achei graça aos teus olhos; que pozesses sobre mim o cargo de todo este povo?",
+    "KJV: …servant? and wherefore have I not found favor in thy sight, that thou layest the burden of all this people upon me?"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1069,
+   "ref": "Jó 10:3",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "Parece -te bem",
+   "para": "Parece-te bem",
+   "trecho": "Parece -te bem que me oprimas, que rejeites o trabalho d…",
+   "correcao": "Parece-te bem",
+   "testemunhas": [
+    "A11: Parece-te bem que me opprimas? que rejeites o trabalho das tuas mãos? e…",
+    "KJV: Is it good unto thee that thou shouldest oppress, that thou shouldest despise th…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 3183,
+   "ref": "Sl 139:6",
+   "tipo": "espaço perdido ou sobrando",
+   "de": "não posso alcançá -lo",
+   "para": "não posso alcançá-lo",
+   "trecho": "…maravilhoso demais para mim, tão alto que não posso alcançá -lo.",
+   "correcao": "não posso alcançá-lo",
+   "testemunhas": [
+    "A11: …é para mim maravilhosissima; tão alta que não a posso attingir.",
+    "KJV: Such knowledge is too wonderful for me; it is high, I cannot attain unto it."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 652,
+   "ref": "1Rs 11:23",
+   "tipo": "acento",
+   "de": "o qual havia fugído",
+   "para": "o qual havia fugido",
+   "trecho": "… por adversário a Rezom, filho de Eliada, o qual havia fugído de seu amo Hadadezer, rei de Zobá.",
+   "correcao": "o qual havia fugido",
+   "testemunhas": [
+    "A11: …tro adversario, a Rezon, filho de Eliada, que tinha fugido de seu senhor Hadad-ezer, rei de Zoba,",
+    "KJV: …stirred him up another adversary, Rezon the son of Eliadah, which fled from his lord Hadadezer king of Zobah:"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 348,
+   "ref": "Dt 17:8",
+   "tipo": "acento",
+   "de": "em negócios de litigio",
+   "para": "em negócios de litígio",
+   "trecho": "…tre causa e causa, e entre chaga e chaga, em negócios de litigio em tuas cidades; então te levantarás e re…",
+   "correcao": "em negócios de litígio",
+   "testemunhas": [
+    "A11: …demanda e demanda, entre ferida e ferida, em negocios de pendencias nas tuas portas, então te levantarás, e s…",
+    "KJV: …lood, between plea and plea, and between stroke and stroke, being matters of controversy within thy gates: then shalt thou arise, and get thee up in…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 126,
+   "ref": "Êx 23:2",
+   "tipo": "acento",
+   "de": "nem responderás em litigio",
+   "para": "nem responderás em litígio",
+   "trecho": "Não seguirás aos muitos para mal fazer; nem responderás em litigio inclinando-te à maioria para fazer injust…",
+   "correcao": "nem responderás em litígio",
+   "testemunhas": [
+    "A11: …o seguirás a multidão para fazeres o mal: nem n'uma demanda fallarás, tomando parte com o maior numero para to…",
+    "KJV: Thou shalt not follow a multitude to do evil; neither shalt thou speak in a cause to decline after many to wrest judgment :"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 987,
+   "ref": "Ed 6:2",
+   "tipo": "acento",
+   "de": "estava escrito assim: Memórial",
+   "para": "estava escrito assim: Memorial",
+   "trecho": "…víncia de Média, um livro, dentro do qual estava escrito assim: Memórial:",
+   "correcao": "estava escrito assim: Memorial",
+   "testemunhas": [
+    "A11: …ncia de Media, se achou um rôlo, e n'elle estava escripto um memorial que dizia assim:",
+    "KJV: …he palace that is in the province of the Medes, a roll, and therein was a record thus written:"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1119,
+   "ref": "Pv 10:17",
+   "tipo": "contração desfeita",
+   "de": "é d aquele que guarda",
+   "para": "é daquele que guarda",
+   "trecho": "O caminho para a vida é d aquele que guarda a correção; mas aquele que abandona a rep…",
+   "correcao": "é daquele que guarda",
+   "testemunhas": [
+    "A11: O caminho para a vida é d'aquelle que guarda a correcção, mas o que deixa a reprehensã…",
+    "KJV: He is in the way of life that keepeth instruction: but he that refuseth reproof erreth."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1178,
+   "ref": "Is 5:23",
+   "tipo": "contração desfeita",
+   "de": "Ai d os que inocentam",
+   "para": "Ai dos que inocentam",
+   "trecho": "Ai d os que inocentam o perverso por causa de suborno, e se des…",
+   "correcao": "Ai dos que inocentam",
+   "testemunhas": [
+    "A11: Dos que justificam ao impio por peitas, e da justiça dos justos se de…",
+    "KJV: Which justify the wicked for reward, and take away the righteousness of the righteou…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1778,
+   "ref": "Mc 6:11",
+   "tipo": "contração desfeita",
+   "de": "será a os de Sodoma",
+   "para": "será aos de Sodoma",
+   "trecho": "…s Em verdade vos digo, que mais tolerável será a os de Sodoma ou Gomorra no dia do juízo, do que a os d…",
+   "correcao": "será aos de Sodoma",
+   "testemunhas": [
+    "A11: E, quando alguns vos não receberem, nem vos ouvirem, saindo d'ali, sacudi o pó que estiver debaixo dos vossos …",
+    "KJV: … testimony against them. Verily I say unto you, It shall be more tolerable for Sodom and Gomorrah in the day of judgment, than for that city."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1778,
+   "ref": "Mc 6:11",
+   "tipo": "contração desfeita",
+   "de": "do que a os d aquela cidade",
+   "para": "do que aos daquela cidade",
+   "trecho": "… os de Sodoma ou Gomorra no dia do juízo, do que a os d aquela cidade.",
+   "correcao": "do que aos daquela cidade",
+   "testemunhas": [
+    "A11: …ia no dia de juizo para Sodoma e Gomorrah do que para os d'aquella cidade.",
+    "KJV: …re tolerable for Sodom and Gomorrah in the day of judgment, than for that city."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1567,
+   "ref": "Ag 2:18",
+   "tipo": "contração desfeita",
+   "de": "desde o dia em o fundamento",
+   "para": "desde o dia em que o fundamento",
+   "trecho": "…de o dia vigésimo quatro dia do nono mês, desde o dia em o fundamento do templo do SENHOR foi posto; considerai…",
+   "correcao": "desde o dia em que o fundamento",
+   "testemunhas": [
+    "A11: … desde o vigesimo quarto dia do mez nono, desde o dia em que se fundou o templo do Senhor, ponde o vosso coração n'isto.",
+    "KJV: …d, from the four and twentieth day of the ninth month, even from the day that the foundation of the LORD's temple was laid, consider it ."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:26",
+   "tipo": "contração desfeita",
+   "de": "em o que ofereceu holocaustos",
+   "para": "em que ofereceu holocaustos",
+   "trecho": "E edificou ali Davi um altar a o SENHOR, em o que ofereceu holocaustos e sacrifícios pacíficos, e invocou a o SE…",
+   "correcao": "em que ofereceu holocaustos",
+   "testemunhas": [
+    "A11: …ão David edificou ali um altar ao Senhor, e offereceu n'elle holocaustos e sacrificios pacificos: e invocou o Senh…",
+    "KJV: And David built there an altar unto the LORD, and offered burnt offerings and peace offerings, and called upon the LORD; and he answe…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:26",
+   "tipo": "contração desfeita",
+   "de": "em o altar do holocausto",
+   "para": "no altar do holocausto",
+   "trecho": "…R, o qual lhe respondeu por fogo dos céus em o altar do holocausto.",
+   "correcao": "no altar do holocausto",
+   "testemunhas": [
+    "A11: …hor, o qual lhe respondeu com fogo do céu sobre o altar do holocausto.",
+    "KJV: …nd called upon the LORD; and he answered him from heaven by fire upon the altar of burnt offering."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 211,
+   "ref": "Lv 22:28",
+   "tipo": "contração desfeita",
+   "de": "em um dia a o e a seu filho",
+   "para": "em um dia a ele e a seu filho",
+   "trecho": "E seja boi ou carneiro, não degolareis em um dia a o e a seu filho.",
+   "correcao": "em um dia a ele e a seu filho",
+   "testemunhas": [
+    "A11: Tambem boi ou gado miudo, a elle e a seu filho não degolareis n'um dia.",
+    "KJV: And whether it be cow or ewe, ye shall not kill it and her young both in one day."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 280,
+   "ref": "Nm 21:34",
+   "tipo": "contração desfeita",
+   "de": "o dei, a o e a todo seu povo",
+   "para": "o dei, a ele e a todo seu povo",
+   "trecho": "…sés: Não tenhas medo dele, que em tua mão o dei, a o e a todo seu povo, e a sua terra; e farás dele como fizeste…",
+   "correcao": "o dei, a ele e a todo seu povo",
+   "testemunhas": [
+    "A11: …mas, porque eu t'o tenho dado na tua mão, a elle, e a todo o seu povo, e a sua terra, e far-lhe-has como fizest…",
+    "KJV: …ORD said unto Moses, Fear him not: for I have delivered him into thy hand, and all his people, and his land; and thou shalt do to him as thou didst unto …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 711,
+   "ref": "2Rs 2:7",
+   "tipo": "contração desfeita",
+   "de": "em frente a o longe",
+   "para": "em frente, ao longe",
+   "trecho": "…ens dos filhos dos profetas, e pararam-se em frente a o longe: e eles dois se pararam junto ao Jordão.",
+   "correcao": "em frente, ao longe",
+   "testemunhas": [
+    "A11: …incoenta homens dos filhos dos prophetas, e de longe pararam defronte: e elles ambos pararam junto ao Jordão.",
+    "KJV: And fifty men of the sons of the prophets went, and stood to view afar off: and they two stood by Jordan."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 494,
+   "ref": "Rt 3:2",
+   "tipo": "contração desfeita",
+   "de": "aventa esta noite a os grãos",
+   "para": "aventa esta noite os grãos",
+   "trecho": "…m cujas moças tu tens estado? Eis que ele aventa esta noite a os grãos de cevada.",
+   "correcao": "aventa esta noite os grãos",
+   "testemunhas": [
+    "A11: …e, de nossa parentela? eis que esta noite padejará a cevada na eira.",
+    "KJV: … Boaz of our kindred, with whose maidens thou wast? Behold, he winnoweth barley tonight in the threshingfloor."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1247,
+   "ref": "Is 57:18",
+   "tipo": "contração desfeita",
+   "de": "a ele a os que por ele lamentam",
+   "para": "a ele e aos que por ele lamentam",
+   "trecho": "…i, e o guiarei, e voltarei a dar consolo, a ele a os que por ele lamentam.",
+   "correcao": "a ele e aos que por ele lamentam",
+   "testemunhas": [
+    "A11: …iarei, e lhes tornarei a dar consolações, a saber, aos seus pranteadores.",
+    "KJV: … ways, and will heal him: I will lead him also, and restore comforts unto him and to his mourners."
+   ],
+   "confianca": "média",
+   "aplicavel": true
+  },
+  {
+   "ordem": 905,
+   "ref": "2Cr 9:12",
+   "tipo": "contração desfeita",
+   "de": "mais de o que havia trazido",
+   "para": "mais do que havia trazido",
+   "trecho": "… de Sabá tudo o que ela quis e lhe pediu, mais de o que havia trazido ao rei. Depois se voltou e foi-se a sua t…",
+   "correcao": "mais do que havia trazido",
+   "testemunhas": [
+    "A11: …do quanto lhe agradou, e o que lhe pediu, alem do que ella mesma trouxera ao rei: assim virou-se e foi para a sua t…",
+    "KJV: …to the queen of Sheba all her desire, whatsoever she asked, beside that which she had brought unto the king. So she turned, and went away to her own land…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 166,
+   "ref": "Êx 38:15",
+   "tipo": "contração desfeita",
+   "de": "cortinas de a quinze côvados",
+   "para": "cortinas de quinze côvados",
+   "trecho": "…e uma parte e da outra da porta do átrio, cortinas de a quinze côvados, suas três colunas, e suas três bases.",
+   "correcao": "cortinas de quinze côvados",
+   "testemunhas": [
+    "A11: …banda da porta do pateo de ambos os lados eram cortinas de quinze covados: as suas columnas tres e as suas bases tr…",
+    "KJV: …er side of the court gate, on this hand and that hand, were hangings of fifteen cubits; their pillars three, and their sockets three."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1406,
+   "ref": "Ez 40:29",
+   "tipo": "contração desfeita",
+   "de": "e de a largura de vinte e cinco",
+   "para": "e a largura de vinte e cinco",
+   "trecho": "…; o comprimento era de cinquenta côvados, e de a largura de vinte e cinco côvados.",
+   "correcao": "e a largura de vinte e cinco",
+   "testemunhas": [
+    "A11: …: o comprimento era de cincoenta covados, e a largura de vinte e cinco covados.",
+    "KJV: … porches thereof round about: it was fifty cubits long, and five and twenty cubits broad."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1132,
+   "ref": "Pv 24:18",
+   "tipo": "contração desfeita",
+   "de": "aconteça de o SENHOR veja",
+   "para": "aconteça de o SENHOR ver",
+   "trecho": "Para que não aconteça de o SENHOR veja, e o desagrade, e desvie dele sua ira.",
+   "correcao": "aconteça de o SENHOR ver",
+   "testemunhas": [
+    "A11: Para que o Senhor o não veja, e seja mau aos seus olhos, e desvie d'el…",
+    "KJV: Lest the LORD see it , and it displease him, and he turn away his wrath from him…"
+   ],
+   "confianca": "média",
+   "aplicavel": true
+  },
+  {
+   "ordem": 874,
+   "ref": "1Cr 23:31",
+   "tipo": "contração desfeita",
+   "de": "por a conta e forma",
+   "para": "pela conta e forma",
+   "trecho": "…OR os sábados, novas luas, e solenidades, por a conta e forma que tinham, continuamente diante do SENHO…",
+   "correcao": "pela conta e forma",
+   "testemunhas": [
+    "A11: …ados, nas luas novas, e nas solemnidades, por conta, segundo o seu costume, continuamente perante o Senhor:",
+    "KJV: …D in the sabbaths, in the new moons, and on the set feasts, by number, according to the order commanded unto them, continually before the LORD:"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 871,
+   "ref": "1Cr 23:11",
+   "tipo": "contração desfeita",
+   "de": "por o qual foram contados",
+   "para": "pelo qual foram contados",
+   "trecho": "…eus e Berias não multiplicaram em filhos, por o qual foram contados por uma família.",
+   "correcao": "pelo qual foram contados",
+   "testemunhas": [
+    "A11: … Jeus e Berias não tiveram muitos filhos; pelo que foram contados em casa de seus paes por uma só familia.",
+    "KJV: …d Zizah the second: but Jeush and Beriah had not many sons; therefore they were in one reckoning, according to their father's house."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 920,
+   "ref": "2Cr 18:2",
+   "tipo": "contração desfeita",
+   "de": "por o que matou Acabe",
+   "para": "pelo que matou Acabe",
+   "trecho": "… de alguns anos desceu a Acabe a Samaria; por o que matou Acabe muitas ovelhas e bois para ele, e para a …",
+   "correcao": "pelo que matou Acabe",
+   "testemunhas": [
+    "A11: …s annos desceu elle para Achab a Samaria; e Achab matou ovelhas e bois em abundancia, para elle e para o povo qu…",
+    "KJV: And after certain years he went down to Ahab to Samaria. And Ahab killed sheep and oxen for him in abundance, and for the people that he had with h…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 922,
+   "ref": "2Cr 18:34",
+   "tipo": "contração desfeita",
+   "de": "por o que esteve o rei",
+   "para": "pelo que esteve o rei",
+   "trecho": "E intensificou a batalha aquele dia, por o que esteve o rei de Israel em pé no carro em frente dos sí…",
+   "correcao": "pelo que esteve o rei",
+   "testemunhas": [
+    "A11: E aquelle dia cresceu a peleja, mas o rei d'Israel susteve-se em pé no carro defronte dos syros até á tarde; e…",
+    "KJV: And the battle increased that day: howbeit the king of Israel stayed himself up in his chariot against the Syrians until the even: and abou…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 928,
+   "ref": "2Cr 22:1",
+   "tipo": "contração desfeita",
+   "de": "por o qual reinou Acazias",
+   "para": "pelo qual reinou Acazias",
+   "trecho": "…ao campo, havia morto a todos os maiores; por o qual reinou Acazias, filho de Jeorão rei de Judá.",
+   "correcao": "pelo qual reinou Acazias",
+   "testemunhas": [
+    "A11: …aial, tinha morto a todos os mais velhos: e assim reinou Achazias, filho de Jorão, rei de Judah.",
+    "KJV: And the inhabitants of Jerusalem made Ahaziah his youngest son king in his stead: for the band of men that cam…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1549,
+   "ref": "Hc 1:4",
+   "tipo": "contração desfeita",
+   "de": "por o juízo é distorcido",
+   "para": "por isso o juízo é distorcido",
+   "trecho": "… cumpre: porque o perverso cerca o justo, por o juízo é distorcido.",
+   "correcao": "por isso o juízo é distorcido",
+   "testemunhas": [
+    "A11: … nunca sae; porque o impio cérca o justo, e sae a sentença torcida.",
+    "KJV: … go forth: for the wicked doth compass about the righteous; therefore wrong judgment proceedeth."
+   ],
+   "confianca": "média",
+   "aplicavel": true
+  },
+  {
+   "ordem": 856,
+   "ref": "1Cr 15:11",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "oque e Abiatar, e a os levitas Uriel, As",
+   "para": "aos",
+   "trecho": "E Davi chamou aos sacerdotes Zadoque e Abiatar, e a os levitas Uriel, Asaías, Joel, Semaías, Eliel, e Aminadabe;",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E chamou David os sacerdotes Zadok e Abiathar, e os levitas, Uriel, Asaias, Joel, Semaias, Eliel, e Amminadab;",
+    "KJV: And David called for Zadok and Abiathar the priests, and for…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 859,
+   "ref": "1Cr 16:34",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "Celebrai a o SENHOR, porque é ",
+   "para": "ao",
+   "trecho": "Celebrai a o SENHOR, porque é bom; Porque sua misericórdia é eterna.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Louvae ao Senhor, porque é bom; pois a sua benignidade dur…",
+    "KJV: O give thanks unto the LORD; for he is good; for his mercy e…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 860,
+   "ref": "1Cr 16:40",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "arde, holocaustos a o SENHOR no altar d",
+   "para": "ao",
+   "trecho": "…e sacrificassem continuamente, a manhã e tarde, holocaustos a o SENHOR no altar do holocausto, conforme a todo o que está e…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Para offerecerem ao Senhor os holocaustos sobre o altar dos holocaus…",
+    "KJV: To offer burnt offerings unto the LORD upon the altar of the…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 860,
+   "ref": "1Cr 16:41",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": ", para glorificar a o SENHOR, porque é ",
+   "para": "ao",
+   "trecho": "…utros escolhidos declarados por seus nomes, para glorificar a o SENHOR, porque é eterna sua misericórdia;",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …apontados pelos seus nomes, para louvarem ao Senhor, porque a sua benignidade dura perpetuame…",
+    "KJV: And with them Heman and Jeduthun, and the rest that were cho…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 860,
+   "ref": "1Cr 16:42",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "música de Deus; e a os filhos de Jedutum",
+   "para": "aos",
+   "trecho": "…para tanger, e com outros instrumentos de música de Deus; e a os filhos de Jedutum, por porteiros.",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: Com elles pois estavam Heman e Jeduthun, com trombetas e cymbalos, para os que se faziam ouvir, e com instrume…",
+    "KJV: And with them Heman and Jeduthun with trumpets and cymbals f…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 861,
+   "ref": "1Cr 17:5",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "e o dia que tirei a os filhos de Israel ",
+   "para": "aos",
+   "trecho": "Porque não habitei em casa alguma desde o dia que tirei a os filhos de Israel até hoje; antes estive de tenda em tenda, …",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: Porque em casa nenhuma morei, desde o dia em que fiz subir a Israel até ao dia de hoje; mas fui de tenda em te…",
+    "KJV: For I have not dwelt in a house since the day that I brought…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 861,
+   "ref": "1Cr 17:6",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "juízes de Israel, a os quais mandei que ",
+   "para": "aos",
+   "trecho": "…todo Israel falei uma palavra a algum dos juízes de Israel, a os quais mandei que apascentassem meu povo, para dizer-lhes: P…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: Por todas as partes por onde andei com todo o Israel, porventura fallei alguma palavra a algum dos juizes de I…",
+    "KJV: Wheresoever I have walked with all Israel, spoke I a word to…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 862,
+   "ref": "1Cr 18:11",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " rei Davi dedicou a o SENHOR, com a pra",
+   "para": "ao",
+   "trecho": "os quais o rei Davi dedicou a o SENHOR, com a prata e ouro que havia tomado de todas as naç…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Os quaes David tambem consagrou ao Senhor, juntamente com a prata e oiro que trouxe…",
+    "KJV: Them also king David dedicated unto the LORD, with the silve…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 865,
+   "ref": "1Cr 21:2",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "se Davi a Joabe e a os príncipes do povo",
+   "para": "aos",
+   "trecho": "E disse Davi a Joabe e a os príncipes do povo: Ide, contai a Israel desde Berseba até D…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E disse David a Joab e aos maioraes do povo: Ide, numerae a Israel, …",
+    "KJV: And David said to Joab and to the rulers of the people, Go, …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 866,
+   "ref": "1Cr 21:7",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "adou este negócio a os olhos de Deus, e ",
+   "para": "aos",
+   "trecho": "Assim desagradou este negócio a os olhos de Deus, e feriu a Israel.",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E este negocio tambem pareceu mal aos olhos de Deus: pelo que feriu a Israel.",
+    "KJV: And God was displeased with this thing; therefore he smote I…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:18",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "struísse um altar a o SENHOR na era de ",
+   "para": "ao",
+   "trecho": "…ade que dissesse a Davi, que subisse e construísse um altar a o SENHOR na era de Ornã jebuseu.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: … que subisse David para levantar um altar ao Senhor na eira d'Ornan, jebuseo.",
+    "KJV: Then the angel of the LORD commanded Gad to say to David, th…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:22",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "edifique um altar a o SENHOR, e dá-o a ",
+   "para": "ao",
+   "trecho": "… a Ornã: Dá-me este lugar da eira, em que edifique um altar a o SENHOR, e dá-o a mim por seu devido preço, para que cesse a…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …ar da eira, para edificar n'elle um altar ao Senhor; dá-m'o pelo seu valor, para que cesse es…",
+    "KJV: Then David said to Ornan, Grant me the place of this threshi…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:26",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "ali Davi um altar a o SENHOR, em o que ",
+   "para": "ao",
+   "trecho": "E edificou ali Davi um altar a o SENHOR, em o que ofereceu holocaustos e sacrifícios pacífic…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Então David edificou ali um altar ao Senhor, e offereceu n'elle holocaustos e sacrifi…",
+    "KJV: And David built there an altar unto the LORD, and offered bu…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 868,
+   "ref": "1Cr 21:26",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "íficos, e invocou a o SENHOR, o qual lh",
+   "para": "ao",
+   "trecho": "…que ofereceu holocaustos e sacrifícios pacíficos, e invocou a o SENHOR, o qual lhe respondeu por fogo dos céus em o altar d…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Então David edificou ali um altar ao Senhor, e offereceu n'elle holocaustos e sacrifi…",
+    "KJV: And David built there an altar unto the LORD, and offered bu…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:5",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "se há de edificar a o SENHOR há de ser ",
+   "para": "ao",
+   "trecho": "…o meu filho é jovem e tenro, e a casa que se há de edificar a o SENHOR há de ser magnífica por excelência, para nome e honr…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Porque dizia David: Salomão, meu filho, ainda é moço e tenro, e a casa que se ha de edificar para o Senhor se …",
+    "KJV: And David said, Solomon my son is young and tender, and the …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:6",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "e edificasse casa a o SENHOR Deus de Is",
+   "para": "ao",
+   "trecho": "… Davi a Salomão seu filho, e mandou-lhe que edificasse casa a o SENHOR Deus de Israel.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …ho, e lhe ordenou que edificasse uma casa ao Senhor Deus de Israel.",
+    "KJV: Then he called for Solomon his son, and charged him to build…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:11",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " e edifiques casa a o SENHOR teu Deus, ",
+   "para": "ao",
+   "trecho": "…, seja contigo o SENHOR, e sejas próspero, e edifiques casa a o SENHOR teu Deus, como ele disse de ti.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Agora pois, meu filho, o Senhor seja comtigo; e prospera, e edifica a casa do Senhor teu Deus, como elle disse…",
+    "KJV: Now, my son, the LORD be with thee; and prosper thou, and bu…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:14",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " madeira e pedra, a o qual tu acrescent",
+   "para": "ao",
+   "trecho": "…em o ferro, porque é muito. Assim aprontei madeira e pedra, a o qual tu acrescentarás.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Eis que na minha oppressão preparei para a casa do Senhor cem mil talentos de oiro, e um milhão de talentos de…",
+    "KJV: Now, behold, in my trouble I have prepared for the house of …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:19",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " ânimos em buscar a o SENHOR vosso Deus",
+   "para": "ao",
+   "trecho": "…onde, pois, agora vossos corações e vossos ânimos em buscar a o SENHOR vosso Deus; e levantai-vos, e edificai o santuário d…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …sso coração e a vossa alma para buscardes ao Senhor vosso Deus; e levantae-vos, e edificae o …",
+    "KJV: Now set your heart and your soul to seek the LORD your God; …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 870,
+   "ref": "1Cr 23:2",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "pais de Israel, e a os sacerdotes e levi",
+   "para": "aos",
+   "trecho": "E juntando a todos os principais de Israel, e a os sacerdotes e levitas,",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: …todos os principes de Israel, como tambem aos sacerdotes e levitas.",
+    "KJV: And he gathered together all the princes of Israel, with the…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 870,
+   "ref": "1Cr 23:5",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "o mil para louvar a o SENHOR, disse Dav",
+   "para": "ao",
+   "trecho": "Ademais quatro mil porteiros; e quatro mil para louvar a o SENHOR, disse Davi, com os instrumentos que fiz para render…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …mil porteiros, e quatro mil para louvarem ao Senhor com os instrumentos, que eu fiz para o lo…",
+    "KJV: Moreover four thousand were porters; and four thousand prais…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 870,
+   "ref": "1Cr 23:6",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "m ordens conforme a os filhos de Levi, G",
+   "para": "aos",
+   "trecho": "E repartiu-os Davi em ordens conforme a os filhos de Levi, Gérson e Coate e Merari.",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E David os repartiu por turnos, segundo os filhos de Levi, Gerson, Kohath e Merari.",
+    "KJV: And David divided them into courses among the sons of Levi, …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 874,
+   "ref": "1Cr 23:30",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "onfessar e louvar a o SENHOR, e assim à",
+   "para": "ao",
+   "trecho": "…e assistissem cada manhã todos os dias a confessar e louvar a o SENHOR, e assim à tarde;",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …da manhã em pé para louvarem e celebrarem ao Senhor; e similhantemente á tarde;",
+    "KJV: And to stand every morning to thank and praise the LORD, and…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 874,
+   "ref": "1Cr 23:31",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "os os holocaustos a o SENHOR os sábados",
+   "para": "ao",
+   "trecho": "E para oferecer todos os holocaustos a o SENHOR os sábados, novas luas, e solenidades, por a conta e…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: E para cada offerecimento dos holocaustos do Senhor, nos sabbados, nas luas novas, e nas solemnidades, por con…",
+    "KJV: And to offer all burnt sacrifices unto the LORD in the sabba…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 876,
+   "ref": "1Cr 25:1",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "para o ministério a os filhos de Asafe, ",
+   "para": "aos",
+   "trecho": "…Davi e os príncipes do exército apartaram para o ministério a os filhos de Asafe, e de Hemã, e de Jedutum, os quais profetiz…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E David, juntamente com os capitães do exercito, separou para o ministerio os filhos de Asaph, e de Heman, e d…",
+    "KJV: Moreover David and the captains of the host separated to the…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 876,
+   "ref": "1Cr 25:3",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "celebrar e louvar a o SENHOR.",
+   "para": "ao",
+   "trecho": "…dutum, o qual profetizava com harpa, para celebrar e louvar a o SENHOR.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …ual prophetizava, louvando e dando graças ao Senhor.",
+    "KJV: Of Jeduthun: the sons of Jeduthun; Gedaliah, and Zeri, and J…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 878,
+   "ref": "1Cr 26:21",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "Quanto a os filhos de Ladã, f",
+   "para": "aos",
+   "trecho": "Quanto a os filhos de Ladã, filhos de Gérson: de Ladã, os príncipes das…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: Quanto aos filhos de Ladan, filhos de Ladan gersonit…",
+    "KJV: As concerning the sons of Laadan; the sons of the Gershonite…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 882,
+   "ref": "1Cr 29:5",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "fazer hoje oferta a o SENHOR?",
+   "para": "ao",
+   "trecho": "… a obra de mãos dos oficiais. E quem quer fazer hoje oferta a o SENHOR?",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: … mão, para offerecer hoje voluntariamente ao Senhor?",
+    "KJV: The gold for things of gold, and the silver for things of si…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 882,
+   "ref": "1Cr 29:9",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "oração ofereceram a o SENHOR voluntaria",
+   "para": "ao",
+   "trecho": "…buído de sua vontade; porque com inteiro coração ofereceram a o SENHOR voluntariamente.",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: …om coração perfeito voluntariamente deram ao Senhor: e tambem o rei David se alegrou com gran…",
+    "KJV: Then the people rejoiced, for that they offered willingly, b…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 883,
+   "ref": "1Cr 29:10",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " Davi, e abençoou a o SENHOR diante de ",
+   "para": "ao",
+   "trecho": "Assim folgou-se muito o rei Davi, e abençoou a o SENHOR diante de toda a congregação; e disse Davi: Bendito …",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Pelo que David louvou ao Senhor perante os olhos de toda a congregação; e…",
+    "KJV: Wherefore David blessed the LORD before all the congregation…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 884,
+   "ref": "1Cr 29:25",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "extremo a Salomão a os olhos de todo Isr",
+   "para": "aos",
+   "trecho": "E o SENHOR engrandeceu em extremo a Salomão a os olhos de todo Israel, e deu-lhe glória do reino, qual nenhu…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: E o Senhor magnificou a Salomão grandissimamente, perante os olhos de todo o Israel: e deu-lhe magestade real,…",
+    "KJV: And the LORD magnified Solomon exceedingly in the sight of a…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 529,
+   "ref": "1Sm 15:9",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "param a Agague, e a o melhor das ovelha",
+   "para": "ao",
+   "trecho": "E Saul e o povo pouparam a Agague, e a o melhor das ovelhas, e ao gado maior, aos grossos e aos carn…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: E Saul e o povo perdoaram a Agag, e ao melhor das ovelhas e das vaccas, e ás da …",
+    "KJV: But Saul and the people spared Agag, and the best of the she…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 953,
+   "ref": "2Cr 30:18",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "scoa não conforme a o que está escrito.",
+   "para": "ao",
+   "trecho": "…, não se haviam purificado, e comeram a páscoa não conforme a o que está escrito. Mas Ezequias orou por eles, dizendo: SENH…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Porque uma multidão do povo, muitos d'Ephraim e Manasseh, Issacar e Zebulon, se não tinham purificado, e comtu…",
+    "KJV: For a multitude of the people, even many of Ephraim, and Man…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1358,
+   "ref": "Ez 18:17",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": " mão de fazer mal a o pobre, não recebe",
+   "para": "ao",
+   "trecho": "Desviar sua mão de fazer mal a o pobre, não receber juros nem lucro; e praticar meus juízos,…",
+   "correcao": "ao",
+   "testemunhas": [
+    "A11: Desviar do afflicto a sua mão, não receber usura em demasia, fizer os meus juizos, e andar nos meus estatutos,…",
+    "KJV: That hath taken off his hand from the poor, that hath not re…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 435,
+   "ref": "Js 24:15",
+   "tipo": "contração desfeita (bloco `a o`)",
+   "de": "is; se aos deuses a os quais serviram vo",
+   "para": "aos",
+   "trecho": "…rvir ao SENHOR, escolhei hoje a quem sirvais; se aos deuses a os quais serviram vossos pais, quando estiveram da outra parte…",
+   "correcao": "aos",
+   "testemunhas": [
+    "A11: Porém, se vos parece mal aos vossos olhos servir ao Senhor, escolhei-v…",
+    "KJV: And if it seem evil unto you to serve the LORD, choose you t…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1424,
+   "ref": "Ez 46:3",
+   "tipo": "pontuação",
+   "de": "nas luas novas,.",
+   "para": "nas luas novas.",
+   "trecho": "…o à entrada da mesma porta, nos sábados e nas luas novas,.",
+   "correcao": "nas luas novas.",
+   "testemunhas": [
+    "A11: … á entrada da mesma porta, nos sabbados e nas luas novas, diante do Senhor.",
+    "KJV: …land shall worship at the door of this gate before the LORD in the sabbaths and in the new moons."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 924,
+   "ref": "2Cr 20:15",
+   "tipo": "pontuação",
+   "de": "rei Josafá. o SENHOR vos diz",
+   "para": "rei Josafá, o SENHOR vos diz",
+   "trecho": "…todo, e vós moradores de Jerusalém, e tu, rei Josafá. o SENHOR vos diz assim: Não temais nem vos amedronteis dia…",
+   "correcao": "rei Josafá, o SENHOR vos diz",
+   "testemunhas": [
+    "A11: …dah, e vós, moradores de Jerusalem, e tu, ó rei Josaphat: assim o Senhor vos diz: Não temaes, nem vos assusteis por causa …",
+    "KJV: …id, Hearken ye, all Judah, and ye inhabitants of Jerusalem, and thou king Jehoshaphat, Thus saith the LORD unto you, Be not afraid nor dismayed by reason of this grea…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 26,
+   "ref": "Gn 22:7",
+   "tipo": "pontuação",
+   "de": "Meu pai. e ele respondeu",
+   "para": "Meu pai! E ele respondeu",
+   "trecho": "…o falou Isaque a Abraão seu pai, e disse: Meu pai. e ele respondeu: Eis-me aqui, meu filho. E ele disse: Eis…",
+   "correcao": "Meu pai! E ele respondeu",
+   "testemunhas": [
+    "A11: … fallou Isaac a Abrahão seu pae, e disse: Meu pae! E elle disse: Eis-me aqui, meu filho! E elle disse: Ei…",
+    "KJV: And Isaac spoke unto Abraham his father, and said, My father: and he said, Here am I, my son. And he said, Behold the fire and the wo…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 271,
+   "ref": "Nm 19:18",
+   "tipo": "pontuação",
+   "de": "tomará hissopo. e o molhará",
+   "para": "tomará hissopo, e o molhará",
+   "trecho": "E um homem limpo tomará hissopo. e o molhará na água, e espargirá sobre a tenda, e sob…",
+   "correcao": "tomará hissopo, e o molhará",
+   "testemunhas": [
+    "A11: E um homem limpo tomará hyssopo, e o molhará n'aquella agua, e a espargirá sobre aquel…",
+    "KJV: And a clean person shall take hyssop, and dip it in the water, and sprinkle it upon the tent, and upon all t…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1778,
+   "ref": "Mc 6:11",
+   "tipo": "pontuação",
+   "de": "contra eles Em verdade vos digo",
+   "para": "contra eles. Em verdade vos digo",
+   "trecho": "…iver debaixo de vossos pés, em testemunho contra eles Em verdade vos digo, que mais tolerável será a os de Sodoma o…",
+   "correcao": "contra eles. Em verdade vos digo",
+   "testemunhas": [
+    "A11: …ver debaixo dos vossos pés, em testemunho para com elles. Em verdade vos digo que haverá mais tolerancia no dia de juiz…",
+    "KJV: …, when ye depart thence, shake off the dust under your feet for a testimony against them. Verily I say unto you, It shall be more tolerable for Sodom and Gomorrah…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1723,
+   "ref": "Mt 25:20",
+   "tipo": "pontuação",
+   "de": "e disse: ”Senhor",
+   "para": "e disse: “Senhor",
+   "trecho": "…hegou trazendo-lhe outros cinco talentos, e disse: ”Senhor, cinco talentos me entregaste, eis que ga…",
+   "correcao": "e disse: “Senhor",
+   "testemunhas": [
+    "A11: …ntos, e trouxe-lhe outros cinco talentos, dizendo: Senhor, entregaste-me cinco talentos; eis aqui o…",
+    "KJV: … received five talents came and brought other five talents, saying, Lord, thou deliveredst unto me five talents: behold, I have gain…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 562,
+   "ref": "1Sm 30:1",
+   "tipo": "maiúscula indevida no meio da frase",
+   "de": "E Quando Davi",
+   "para": "E quando Davi",
+   "trecho": "E Quando Davi e os seus vieram a Ziclague o terceiro di…",
+   "correcao": "E quando Davi",
+   "testemunhas": [
+    "A11: Succedeu pois que, chegando David e os seus homens ao terceiro dia a Siclag, já os amalekita…",
+    "KJV: And it came to pass, when David and his men were come to Ziklag on the third day, that the Amalekites had invaded…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 142,
+   "ref": "Êx 29:1",
+   "tipo": "maiúscula indevida no meio da frase",
+   "de": "E Isto é o que lhes farás",
+   "para": "E isto é o que lhes farás",
+   "trecho": "E Isto é o que lhes farás para consagrá-los, para que sejam meus sa…",
+   "correcao": "E isto é o que lhes farás",
+   "testemunhas": [
+    "A11: Isto é o que lhes has de fazer, para os sanctificar, para que me adminis…",
+    "KJV: And this is the thing that thou shalt do unto them to hallow them, to minister unto me in the priest…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1336,
+   "ref": "Ez 2:1",
+   "tipo": "maiúscula indevida no meio da frase",
+   "de": "E Disse-me: Filho do homem",
+   "para": "E disse-me: Filho do homem",
+   "trecho": "E Disse-me: Filho do homem, fica de pé, e falarei contigo.",
+   "correcao": "E disse-me: Filho do homem",
+   "testemunhas": [
+    "A11: E disse-me: Filho do homem, põe-te sobre os teus pés, e fallarei com…",
+    "KJV: And he said unto me, Son of man, stand upon thy feet, and I will speak unto thee."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 467,
+   "ref": "Jz 10:1",
+   "tipo": "maiúscula indevida no meio da frase",
+   "de": "E Depois de Abimeleque",
+   "para": "E depois de Abimeleque",
+   "trecho": "E Depois de Abimeleque levantou-se para livrar a Israel, Tolá fi…",
+   "correcao": "E depois de Abimeleque",
+   "testemunhas": [
+    "A11: E depois de Abimelech, se levantou, para livrar a Israel, Tola,…",
+    "KJV: And after Abimelech there arose to defend Israel Tola the son of Puah, the son …"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 1074,
+   "ref": "Jó 15:13",
+   "tipo": "palavra repetida",
+   "de": "sair tais tais palavras",
+   "para": "sair tais palavras",
+   "trecho": "… vires teu espírito contra Deus, e deixes sair tais tais palavras de tua boca?",
+   "correcao": "sair tais palavras",
+   "testemunhas": [
+    "A11: …ara virares contra Deus o teu espirito, e deixares sair taes palavras da tua bocca?",
+    "KJV: That thou turnest thy spirit against God, and lettest such words go out of thy mouth?"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 861,
+   "ref": "1Cr 17:17",
+   "tipo": "artigo indevido no vocativo",
+   "de": "excelente, ó o SENHOR Deus",
+   "para": "excelente, ó SENHOR Deus",
+   "trecho": "… mais longe, e me olhaste como a um homem excelente, ó o SENHOR Deus.",
+   "correcao": "excelente, ó SENHOR Deus",
+   "testemunhas": [
+    "A11: …o costume dos homens, com esta exaltação, ó Senhor Deus.",
+    "KJV: …egarded me according to the estate of a man of high degree, O LORD God."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 883,
+   "ref": "1Cr 29:10",
+   "tipo": "artigo indevido no vocativo",
+   "de": "tu, ó o SENHOR, Deus de Israel",
+   "para": "tu, ó SENHOR, Deus de Israel",
+   "trecho": "… congregação; e disse Davi: Bendito sejas tu, ó o SENHOR, Deus de Israel nosso pai, de um século a outro.",
+   "correcao": "tu, ó SENHOR, Deus de Israel",
+   "testemunhas": [
+    "A11: Pelo que David louvou ao Senhor perante os olhos de toda a congregação; e disse David: Bemdito és tu, Senhor, …",
+    "KJV: Wherefore David blessed the LORD before all the congregation: and David said, Blessed be thou, LORD God of Isr…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 883,
+   "ref": "1Cr 29:11",
+   "tipo": "artigo indevido no vocativo",
+   "de": "Tua é, ó o SENHOR, a magnificência",
+   "para": "Tua é, ó SENHOR, a magnificência",
+   "trecho": "Tua é, ó o SENHOR, a magnificência, e o poder, e a glória, a vitória, e a ho…",
+   "correcao": "Tua é, ó SENHOR, a magnificência",
+   "testemunhas": [
+    "A11: Tua é, Senhor, a magnificencia, e o poder, e a honra, e a victoria, e a magestade; porque teu é tudo quanto ha…",
+    "KJV: Thine, O LORD, is the greatness, and the power, and the glory, and the vi…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 883,
+   "ref": "1Cr 29:11",
+   "tipo": "artigo indevido no vocativo",
+   "de": "Teu, ó o SENHOR, é o reino",
+   "para": "Teu, ó SENHOR, é o reino",
+   "trecho": "…s que estão nos céus e na terra são tuas. Teu, ó o SENHOR, é o reino, e a altura sobre todos os que estão por …",
+   "correcao": "Teu, ó SENHOR, é o reino",
+   "testemunhas": [
+    "A11: Tua é, Senhor, a magnificencia, e o poder, e a honra, e a victoria, e a magestade; porque teu é tudo quanto ha…",
+    "KJV: Thine, O LORD, is the greatness, and the power, and the glory, and the vi…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:19",
+   "tipo": "artigo indevido na aposição",
+   "de": "do Deus o SENHOR",
+   "para": "do SENHOR Deus",
+   "trecho": "…s; e levantai-vos, e edificai o santuário do Deus o SENHOR, para trazer a arca do pacto do SENHOR, e…",
+   "correcao": "do SENHOR Deus",
+   "testemunhas": [
+    "A11: … e levantae-vos, e edificae o sanctuario do Senhor Deus, para que a arca do concerto do Senhor, e…",
+    "KJV: …RD your God; arise therefore, and build ye the sanctuary of the LORD God, to bring the ark of the covenant of the LORD, and the holy…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 881,
+   "ref": "1Cr 28:20",
+   "tipo": "artigo indevido na aposição",
+   "de": "o Deus o SENHOR, meu Deus",
+   "para": "o SENHOR Deus, meu Deus",
+   "trecho": "…efetua-o; não temas, nem desmaies, porque o Deus o SENHOR, meu Deus, será contigo: ele não te deixará, nem te…",
+   "correcao": "o SENHOR Deus, meu Deus",
+   "testemunhas": [
+    "A11: …ra; não temas, nem te espavoreças; porque o Senhor Deus, meu Deus, ha de ser comtigo; não te deix…",
+    "KJV: …of good courage, and do it : fear not, nor be dismayed: for the LORD God, even my God, will be with thee; he will not fail thee, nor…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 957,
+   "ref": "2Cr 32:16",
+   "tipo": "artigo indevido na aposição",
+   "de": "contra o Deus o SENHOR",
+   "para": "contra o SENHOR Deus",
+   "trecho": "E outras coisas falaram seus servos contra o Deus o SENHOR, e contra seu servo Ezequias.",
+   "correcao": "contra o SENHOR Deus",
+   "testemunhas": [
+    "A11: …em seus servos fallaram ainda mais contra o Senhor Deus, e contra Ezequias, o seu servo.",
+    "KJV: And his servants spoke yet more against the LORD God, and against his servant Hezekiah."
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 869,
+   "ref": "1Cr 22:19",
+   "tipo": "concordância de número",
+   "de": "e o santos vasos de Deus",
+   "para": "e os santos vasos de Deus",
+   "trecho": "…R, para trazer a arca do pacto do SENHOR, e o santos vasos de Deus, à casa edificada ao nome do SENHOR.",
+   "correcao": "e os santos vasos de Deus",
+   "testemunhas": [
+    "A11: …s, para que a arca do concerto do Senhor, e os vasos sagrados de Deus se tragam a esta casa, que se ha de edifi…",
+    "KJV: …the LORD God, to bring the ark of the covenant of the LORD, and the holy vessels of God, into the house that is to be built to the name of the LORD…"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  },
+  {
+   "ordem": 836,
+   "ref": "1Cr 6:57",
+   "tipo": "resíduo ortográfico",
+   "de": "Jathir e Estemoa",
+   "para": "Jatir e Estemoa",
+   "trecho": "…refúgio: Hebrom, e Libna com seus campos; Jathir e Estemoa com seus campos;",
+   "correcao": "Jatir e Estemoa",
+   "testemunhas": [
+    "A11: …io: Hebron, e Libna e os seus arrabaldes, e Jattir, e Esthemo e os seus arrabaldes,",
+    "KJV: … , Hebron, the city of refuge, and Libnah with her suburbs, and Jattir, and Eshtemoa, with their suburbs,"
+   ],
+   "confianca": "alta",
+   "aplicavel": true
+  }
+ ],
+ "sem_receita": [
+  {
+   "ordem": 2485,
+   "ref": "Tg 3:7",
+   "tipo": "palavra inexistente",
+   "trecho": "é dominível e tem sido dominada",
+   "porque": "`dominível` não existe em português e é hapax; mas nenhuma testemunha fixa a forma — a A11 traz `se amansa` e a KJV `is tamed`, as duas com verbo onde a BLIVRE pôs adjetivo. `domável` é o palpite óbvio e continua palpite."
+  },
+  {
+   "ordem": 2487,
+   "ref": "Tg 4:5",
+   "tipo": "acento ausente ou verbo arcaico",
+   "trecho": "O Espírito que habita em nós ansia com ciúmes",
+   "porque": "`ansia` sem acento é hapax. Pode ser `ânsia` (substantivo) ou `anseia`. A A11 traz `tem desejo de inveja`, substantivo; a KJV `lusteth to envy`, verbo. As duas se contradizem sobre a classe da palavra."
+  },
+  {
+   "ordem": 1096,
+   "ref": "Jó 41:7",
+   "tipo": "palavra desconhecida",
+   "trecho": "encher sua pele de espetos",
+   "porque": "`espetos` é hapax e soa errado; a A11 traz `ganchos` e a KJV `barbed irons`. Trocar seria escolher tradução, não corrigir grafia. Fica registrado, não corrigido."
+  },
+  {
+   "ordem": null,
+   "ref": "Ap e outros 7 livros",
+   "tipo": "aspa que nunca fecha",
+   "trecho": "30 aspas de abertura sem par no corpus inteiro",
+   "porque": "508 `“` contra 478 `”`. 20 das 30 estão em Apocalipse 1—3 (as cartas às sete igrejas), e o resto em Gn 3, Gn 28, Js 3—4, Jz 2, 1Sm 2, Mt 5/21/22/25, Mc 14 e Lc 3/10. Onde a aspa deveria fechar é decisão de leitura, não de varredura — e o app usa aspa para decidir o que é fala de personagem, então isto não é cosmético."
+  },
+  {
+   "ordem": 2587,
+   "ref": "Ap 3:22",
+   "tipo": "aspa que fecha sem abrir",
+   "trecho": "ouça o que o Espírito diz às igrejas.”",
+   "porque": "Contraparte do bloco acima: a aspa aberta em Ap 3:19 (perícope anterior) fecha aqui, atravessando o corte de perícope. Corrigir uma sem a outra piora."
+  },
+  {
+   "ordem": 2630,
+   "ref": "Ap 17:14",
+   "tipo": "aspa que fecha sem abrir",
+   "trecho": "porque ele é o Senhor dos senhores…",
+   "porque": "Mesmo caso: a aspa foi aberta em Ap 17:7, na perícope 2629."
+  },
+  {
+   "ordem": null,
+   "ref": "(25 versículos)",
+   "tipo": "aposição com artigo repetido",
+   "trecho": "o SENHOR o Deus de Israel",
+   "porque": "25 ocorrências, contra `o SENHOR Deus` nas duas testemunhas. É frequente demais para ser digitação: parece decisão de casa (aposição, `o SENHOR, o Deus de Israel`). Uniformizar é decisão do dono, não conserto."
+  }
+ ],
+ "descartes": [
+  {
+   "ref": "Jr 36:25",
+   "trecho": "ele se recusou a os ouvir",
+   "porque": "`a os ouvir` é o infinitivo pessoal clássico (`recusou-se a ouvi-los`), não contração desfeita. A A11 traz `não lhes deu ouvidos` e a KJV `would not hear them` — as duas confirmam o sentido, e a construção da BLIVRE é português correto."
+  },
+  {
+   "ref": "Jó 1:21",
+   "trecho": "Nu saí do ventre de minha mãe",
+   "porque": "`Nu` parece truncado e não é: é o adjetivo, e o próprio versículo repete `e nu para lá tornarei`. A11: `Nú sahi do ventre de minha mãe`."
+  },
+  {
+   "ref": "Jo 9:13",
+   "trecho": "Levaram aos Fariseus o ex-cego",
+   "porque": "`ex` só aparece como token curto porque o hífen o separa. Palavra composta legítima."
+  },
+  {
+   "ref": "2Sm 6:8 · Êx 1:21",
+   "trecho": "por o SENHOR ter ferido · por as parteiras terem temido",
+   "porque": "`por` + artigo + infinitivo pessoal é construção causal clássica (`por o SENHOR ter ferido` = `porque o SENHOR feriu`). Não é `pelo`. Uma regra geral sobre `por o` teria estragado os dois."
+  },
+  {
+   "ref": "18 versículos",
+   "trecho": "a fim de o acusarem · depois de os despedir · cansado de as suportar · digno de o ler · a ponto de o matarem…",
+   "porque": "Dos 21 casos de `de` + artigo, 18 são infinitivo pessoal legítimo. Só 3 são defeito (Êx 38:15, Ez 40:29, 2Cr 9:12), e o que os separa não é a forma: é que neles não há infinitivo nenhum depois."
+  },
+  {
+   "ref": "37 versículos",
+   "trecho": "a aquele · a aqueles · a aquela",
+   "porque": "A fonte escreve `a aquel*` 37 vezes e `àquel*` 28. Já estava julgado no catálogo da Sessão 3 (Lc 19:27): é estilo da casa, não crase perdida. A rede levantou os 37 de novo e eles continuam descartados."
+  },
+  {
+   "ref": "16 verbos",
+   "trecho": "vamo-nos · alegremo-nos · aproximemo-nos · prostremo-nos · façamo-nos · esforcemo-nos · limpemo-nos · partimo-nos…",
+   "porque": "Parecem `-mos` truncado e são a próclise correta: o `s` cai antes de `-nos`. Dezesseis formas distintas, todas português certo. Teria sido o maior falso positivo da rede."
+  },
+  {
+   "ref": "Sô (2Rs 17:4) · Hã (Gn 14:5) · Eí (Gn 46:21) · Di-Zaabe (Dt 1:1) · Bete-Le-Afra (Mq 1:10) · panague (Ez 27:17) · Nô (Ez 30:14) · Uz · Ur · Om",
+   "trecho": "tokens de 1—3 letras fora do dicionário",
+   "porque": "Todos são nome próprio hebraico. KJV: So, Ham, Ehi, Di-zahab, Beth-le-aphrah, Pannag, No. A rede de token curto levanta muito nome e é o preço dela."
+  },
+  {
+   "ref": "pavês · relha · jeira · descinge · abrolho · despelou · carniceira · escarva · metretas · arrátel · corbã · cumi · logue · him · mulo",
+   "trecho": "palavras antigas ou técnicas fora do dicionário moderno",
+   "porque": "São vocabulário legítimo da tradução — medida (arrátel, metreta, jeira, him, logue), peça (relha, pavês), verbo antigo (descingir, escarvar, despelar) ou transliteração (corbã, talita cumi). Mesma regra de `alambre` no catálogo da Sessão 3: não se corrige, se explica."
+  },
+  {
+   "ref": "Ec 12:8 · Ec 1:2 · Is 22:25 · Lm 1:10",
+   "trecho": "- diz o Pregador -",
+   "porque": "Hífen solto usado como travessão. É escolha de composição da fonte, uniforme nos quatro lugares, e não erro de digitação."
+  },
+  {
+   "ref": "2Sm 22:13 · 2Sm 23:4 · Dt 32:8 · Sl",
+   "trecho": "Do resplendor de sua presença Se acenderam brasas",
+   "porque": "Maiúscula no meio da frase, mas em verso: a BLIVRE capitaliza o começo de cada linha poética. Convenção da casa, aplicada com consistência."
+  },
+  {
+   "ref": "1Cr 16:3 · Êx 12:3",
+   "trecho": "a cada um um bolo · cada um um cordeiro",
+   "porque": "Já derrubados no catálogo da Sessão 3 pela A11. A rede de palavra repetida os levantou outra vez; continuam corretos."
+  },
+  {
+   "ref": "todo o corpus",
+   "trecho": "w, k, q sem u, y interno",
+   "porque": "Zero ocorrências em 3,9 milhões de caracteres. A rede de sequência impossível rodou e não achou nada além dos três `y` isolados. Registro o vazio porque ele economiza a varredura de quem vier depois."
+  }
+ ]
+}

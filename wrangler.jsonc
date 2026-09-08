@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "biblia-pericopes",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-08-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "r2_buckets": [
+    {
+      "binding": "AUDIO",
+      "bucket_name": "biblia-pericopes-audio"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "biblia-pericopes",
+      "database_id": "9918986e-1100-432f-8347-567ac5fb81fc",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "APP_URL": "https://biblia-pericopes.jairofilho79.workers.dev",
+    "EMAIL_FROM": "aiPericopes <acesso@send.aipericopes.com>"
+  }
+}

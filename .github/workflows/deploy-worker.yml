@@ -1,0 +1,37 @@
+name: Deploy to Cloudflare Workers
+
+# DESLIGADO do gatilho automático por decisão do dono (2026-09-05): com um
+# usuário só e deploy raro, publicar da máquina com `npm run deploy` basta, e
+# evita manter o segredo CLOUDFLARE_API_TOKEN no GitHub.
+#
+# O arquivo FICA de propósito. Ele é a receita completa do portão — lint,
+# testes, typecheck do worker, build, migrations, deploy — e o `npm run deploy`
+# do package.json faz exatamente os mesmos passos, na mesma ordem. Mudou um,
+# mude o outro.
+#
+# Para religar: devolva o bloco `push: branches: [main]` abaixo e grave o
+# segredo com `gh secret set CLOUDFLARE_API_TOKEN`.
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run typecheck:worker
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: d1 migrations apply biblia-pericopes --remote
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

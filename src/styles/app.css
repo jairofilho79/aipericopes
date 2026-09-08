@@ -1,0 +1,2968 @@
+:root,
+[data-theme='light'] {
+  --bg: #f5f1e8;
+  --bg-deep: #ebe3d3;
+  --ink: #1c1914;
+  --read-ink: #12100e;
+  /* ponytail: subtle glyph lift for long-form reading */
+  --read-shadow: 0 1px 0 rgb(18 16 14 / 0.1);
+  --muted: #5f574a;
+  /* ── os dois âmbares ──
+     `--accent` é o âmbar QUEIMADO: tudo que carrega texto (links, CTA, foco,
+     cabeçalhos). Precisa de 4,5:1.
+
+     `--flame` é o âmbar VIVO: tudo que é luz e nunca texto (barra de
+     progresso, a chama da marca). Precisa de 3:1 — e sobre papel quase branco
+     o âmbar vivo original (#d98613) dava só 2,53:1, por isso este é mais
+     fundo. Ver scripts/paleta.test.ts: mexeu aqui, o teste cobra. */
+  --accent: #92500a;
+  --accent-soft: #f6e5c8;
+  --flame: #c4780e;
+  --line: #ddd2bd;
+  --paper: #fffdf7;
+  /* ── a superfície cheia da marca ──
+     Um botão cheio tem duas receitas possíveis: fundo escuro + letra clara,
+     ou fundo claro + letra escura. A primeira obriga o fundo a escurecer para
+     a letra branca aparecer, e âmbar escurecido deixa de parecer âmbar: vira
+     marrom. Então aqui é a segunda, nos DOIS temas — o escuro já fazia assim.
+
+     Por isso `--cta-bg` existe separado de `--accent`: --accent carrega texto
+     sobre papel e precisa ser fundo; --cta-bg É o fundo e pode ser vivo. */
+  --cta-bg: #d98613;
+  --cta-ink: #1c1914;
+  --erro: #a33b30;
+  --glow-a: #f5e8cf;
+  --glow-b: #f0dfc0;
+  --focus-bg: color-mix(in srgb, var(--accent) 14%, var(--paper));
+  --focus-line: color-mix(in srgb, var(--accent) 45%, var(--line));
+  --hl-verde: #cfe9c8;
+  --hl-azul: #cadff2;
+  --hl-rosa: #f4d0dd;
+  /* ── realce da narração ──
+     `--candle` é a cor do tema no realce: a barra na borda do trecho em fala,
+     a barra sob a palavra atual e a cor do TÍTULO FALADO.
+
+     É por causa do título falado que `--candle` é `--accent` e não `--flame`:
+     título é texto, e `--flame` daria 3,42:1 aqui — reprovaria. Não troque.
+
+     `--candle-fundo` é o véu chapado atrás do trecho: pouco no escuro, um
+     pouco mais aqui — papel quase branco precisa de mais véu para o trecho se
+     destacar.
+
+     `--candle-luz-pct` é a luz branca que sobe na palavra atual, e no tema
+     CLARO ela é 0: sobre papel quase branco o branco não tem para onde
+     brilhar — ele só desfazia o véu e o resultado ficava sujo em vez de aceso.
+     Aqui a palavra é marcada só pela barra embaixo dela, que já basta. A luz
+     sobrou onde ela realmente funciona: no tema escuro. */
+  --candle: var(--accent);
+  --candle-fundo: color-mix(in srgb, var(--candle) 15%, transparent);
+  --candle-luz-pct: 0%;
+  /* gravando: o vermelho do microfone aberto. */
+  --rec: #c0392b;
+  --radius: 12px;
+  /* a chama da marca, para máscara CSS: mesma silhueta nos dois temas. */
+  --chama-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 24'%3E%3Cpath d='M10 0C10 6 4 7.5 4 14a6 6 0 0 0 12 0c0-3-1.5-5-3-6.5 0 2-1 3-2 3s-1.5-1-1.5-2.5C9.5 5 10 3 10 0z'/%3E%3C/svg%3E");
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Source Serif 4 Variable', Georgia, serif;
+  --font-ui: 'DM Sans Variable', system-ui, sans-serif;
+  --read-size: 1.15rem;
+  --read-font: 'Source Serif 4 Variable', Georgia, serif;
+  --measure: 38rem;
+  /* shared page wash — keep body + sticky header in sync */
+  --page-bg:
+    radial-gradient(1200px 600px at 10% -10%, var(--glow-a) 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, var(--glow-b) 0%, transparent 50%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-deep) 35%, transparent), transparent 28rem),
+    var(--bg);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #16130f;
+  --bg-deep: #0e0c09;
+  --ink: #ece6da;
+  --read-ink: #f5f2eb;
+  --read-shadow: 0 1px 0 rgb(0 0 0 / 0.28), 0 -1px 0 rgb(255 255 255 / 0.1);
+  --muted: #a89f90;
+  --accent: #f0b357;
+  --accent-soft: #3a2a12;
+  --flame: #ffc46b;
+  --line: #2e2820;
+  --paper: #1e1a15;
+  --cta-bg: var(--accent);
+  --cta-ink: #1a1206;
+  --erro: #e08b80;
+  --glow-a: #2a2113;
+  --glow-b: #241c10;
+  --focus-bg: color-mix(in srgb, var(--accent) 18%, var(--paper));
+  --focus-line: color-mix(in srgb, var(--accent) 40%, var(--line));
+  --hl-verde: #24452c;
+  --hl-azul: #1f3c58;
+  --hl-rosa: #4e2437;
+  /* no escuro o véu CLAREIA em vez de escurecer — âmbar claro translúcido
+     sobre papel escuro — e por isso basta pouco: 8% já separa o trecho. */
+  --candle: var(--accent);
+  --candle-fundo: color-mix(in srgb, var(--candle) 8%, transparent);
+  /* só aqui a luz existe: branco sobre papel escuro é luz de verdade, e basta
+     pouco. */
+  --candle-luz-pct: 22%;
+  /* no escuro o vermelho sobe um tom, senão afunda no papel. */
+  --rec: #e4655a;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #16130f;
+    --bg-deep: #0e0c09;
+    --ink: #ece6da;
+    --read-ink: #f5f2eb;
+    --read-shadow: 0 1px 0 rgb(0 0 0 / 0.28), 0 -1px 0 rgb(255 255 255 / 0.1);
+    --muted: #a89f90;
+    --accent: #f0b357;
+    --accent-soft: #3a2a12;
+    --flame: #ffc46b;
+    --line: #2e2820;
+    --paper: #1e1a15;
+    --cta-bg: var(--accent);
+  --cta-ink: #1a1206;
+    --erro: #e08b80;
+    --glow-a: #2a2113;
+    --glow-b: #241c10;
+    --focus-bg: color-mix(in srgb, var(--accent) 18%, var(--paper));
+    --focus-line: color-mix(in srgb, var(--accent) 40%, var(--line));
+    --hl-verde: #24452c;
+    --hl-azul: #1f3c58;
+    --hl-rosa: #4e2437;
+    --candle: var(--accent);
+    --candle-fundo: color-mix(in srgb, var(--candle) 8%, transparent);
+    --candle-luz-pct: 22%;
+    --rec: #e4655a;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--page-bg);
+  background-attachment: fixed;
+  line-height: 1.55;
+  font-size-adjust: from-font;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.shell {
+  --shell-pad: 1.1rem;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 max(var(--shell-pad), env(safe-area-inset-right, 0px))
+    calc(3rem + env(safe-area-inset-bottom, 0px))
+    max(var(--shell-pad), env(safe-area-inset-left, 0px));
+}
+
+.top {
+  display: grid;
+  /* Uma coluna só: a marca na linha 1, a nav (grid-column: 1 / -1) na 2. A
+     2ª coluna existia para o ThemeMenu solto, que virou item da nav — sem
+     ele o grid ainda reservava o column-gap de uma trilha vazia. */
+  grid-template-columns: 1fr;
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 0.15rem;
+  /* ponytail: full-bleed sticky so bg matches body edge-to-edge */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding-top: calc(0.85rem + env(safe-area-inset-top, 0px));
+  padding-right: calc(50vw - 50% + max(var(--shell-pad), env(safe-area-inset-right, 0px)));
+  padding-bottom: 0.55rem;
+  padding-left: calc(50vw - 50% + max(var(--shell-pad), env(safe-area-inset-left, 0px)));
+  position: sticky;
+  top: 0;
+  background: var(--page-bg);
+  background-attachment: fixed;
+  z-index: 5;
+  transition: transform 0.25s ease;
+}
+
+.top-hidden {
+  transform: translateY(-100%);
+  /* visibility sai do fluxo de foco/leitores, mas só no fim do transform,
+     senão o header some antes de terminar de deslizar */
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top {
+    transition: none;
+  }
+
+  .top-hidden {
+    transition: none;
+  }
+}
+
+.shell:has(.leitura) .top {
+  padding-block: calc(0.55rem + env(safe-area-inset-top, 0px)) 0.4rem;
+}
+
+.shell:has(.leitura) .brand {
+  font-size: 1.15rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* "ai" é a única parte da marca que a máquina assina: a cor faz a divisão
+   que o nome já faz, sem precisar explicar. */
+.brand-ai {
+  color: var(--accent);
+}
+
+.top nav {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  min-width: 0;
+}
+
+.top nav a {
+  color: var(--muted);
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.15rem;
+  white-space: nowrap;
+}
+
+.top nav a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 379.98px) {
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  .top nav {
+    gap: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* tablet+: brand | nav on one row */
+@media (min-width: 640px) {
+  .top {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .top nav {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    gap: 0.35rem 0.85rem;
+  }
+}
+
+.main {
+  padding-top: 0.35rem;
+}
+
+.eyebrow {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin: 1.25rem 0 0.35rem;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+  text-wrap: balance;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin: 0 0 0.65rem;
+}
+
+.ref,
+.muted {
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+}
+
+.lead {
+  margin: 0.85rem 0 1.35rem;
+  font-size: 1.05rem;
+  max-width: 36rem;
+  color: color-mix(in srgb, var(--ink) 88%, var(--muted));
+}
+
+.streak {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin: -0.55rem 0 1.15rem;
+}
+
+.streak-recorde {
+  color: var(--muted);
+}
+
+/* Era um emoji 🔥: o único elemento não-desenhado da Home, e renderizava
+   diferente em cada sistema. Agora é a chama da marca, na cor da marca. */
+.streak-chama {
+  display: inline-block;
+  width: 0.85em;
+  height: 1em;
+  vertical-align: -0.12em;
+  background: var(--flame);
+  -webkit-mask: var(--chama-svg) center / contain no-repeat;
+  mask: var(--chama-svg) center / contain no-repeat;
+}
+
+/* esqueletos: a silhueta da página enquanto o JSON grande não chega */
+.skeleton-page {
+  /* nada aqui recebe seleção: é rascunho visual, não conteúdo */
+  user-select: none;
+}
+
+.skeleton {
+  display: block;
+  border-radius: 6px;
+  background-color: var(--line);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--paper) 65%, transparent) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 60% 100%;
+  background-position: -120% 0;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position: 220% 0;
+  }
+}
+
+.skeleton-line {
+  height: 0.85rem;
+  margin: 0 0 0.55rem;
+}
+
+.skeleton-title {
+  height: 1.9rem;
+  width: 78%;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.skeleton-subtitle {
+  height: 1.1rem;
+  width: 40%;
+  margin: 0 0 0.7rem;
+}
+
+.skeleton-crumb {
+  height: 0.75rem;
+  width: 45%;
+  margin: 0 0 0.75rem;
+}
+
+.skeleton-ref {
+  height: 0.8rem;
+  width: 32%;
+  margin: 0 0 1.3rem;
+}
+
+.skeleton-cta {
+  height: 2.75rem;
+  margin-top: 0.9rem;
+  border-radius: 999px;
+}
+
+.skeleton-block {
+  margin: 1.35rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background-image: none;
+  }
+}
+
+.track-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.track-card {
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.2rem;
+}
+
+.track-card h2 {
+  font-size: 1.15rem;
+  margin: 0.15rem 0 0.35rem;
+}
+
+.track-label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 0;
+  font-weight: 600;
+}
+
+.track-progress {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0.5rem 0 1rem;
+}
+
+.track-card .cta {
+  width: 100%;
+  min-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .track-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* "Vale reler": abaixo do conteúdo principal, ausente do DOM quando vazio —
+   lugar que se visita, nunca alarme. ★ é o pin manual, ● é o decay de 1 ano. */
+.vale-reler {
+  margin-top: 2rem;
+}
+
+.vale-reler h2 {
+  margin-bottom: 0.5rem;
+}
+
+.vale-reler ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vale-reler li a {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  min-height: 3rem;
+}
+
+.vale-reler li a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.vale-reler li a > span:first-child {
+  flex: 0 0 1.1rem;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.vale-reler-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.vale-reler-texto strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.vale-reler-texto span {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.vale-reler .linkish {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.peri-row {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+}
+
+.check {
+  flex: 0 0 1.1rem;
+  width: 1.1rem;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.35;
+}
+
+.peri-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.peri-list li a.done strong {
+  color: var(--muted);
+}
+
+.cta,
+button.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.35rem;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  min-height: 2.75rem;
+}
+
+.ghost,
+button.ghost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  min-height: 2.5rem;
+}
+
+.leitura {
+  max-width: var(--read-measure, var(--measure));
+  /* ponytail: paper plane — surface only, no card chrome */
+  background: var(--paper);
+  padding: 1rem 1.05rem 1.35rem;
+  border-radius: 6px;
+}
+
+.block {
+  margin: 1.35rem 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.block-plain + .block-plain {
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  padding-top: 1.25rem;
+}
+
+.notes {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+}
+
+.notes-tabs {
+  display: flex;
+  gap: 0.15rem;
+  margin: -0.25rem 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.notes-tab {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.45rem 0.7rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.notes-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.topics-view {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.topic-h {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  margin: 0.65rem 0 0.15rem;
+}
+
+.topic-h:first-child {
+  margin-top: 0;
+}
+
+.topic-bullet {
+  margin: 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.topic-bullet::before {
+  content: '·';
+  position: absolute;
+  left: 0.15rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.conversar-bloco {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+  margin: 1.25rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+.copy-btn {
+  justify-self: start;
+}
+
+.contexto-ia-text {
+  margin: 0;
+  white-space: pre-wrap;
+  font: inherit;
+  line-height: 1.5;
+  user-select: all;
+}
+
+/* Linha de meta do cabeçalho da perícope: só a referência e a estimativa de
+   tempo. O grupo ←/→/Aa que justificava o flex-wrap saiu — as setas foram
+   para o pager do rodapé e o swipe, e o "Aa" para o menu Perfil. */
+.ref-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 0.85rem;
+}
+
+.ref-row .ref {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ref-min {
+  white-space: nowrap;
+}
+
+.readmenu-pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.4rem);
+  z-index: 6;
+  min-width: 230px;
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.75rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.14);
+}
+
+.readmenu-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* Pager: no celular um link por linha, largura cheia, para o título da
+   perícope não virar uma caixinha estreita quebrada em três linhas; de 640px
+   para cima lado a lado, cada um encostado no seu canto. */
+.pager {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.75rem;
+  font-family: var(--font-ui);
+}
+
+.pager-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  width: 100%;
+  text-align: start;
+}
+
+.pager-next {
+  justify-content: flex-end;
+  text-align: end;
+}
+
+@media (min-width: 640px) {
+  .pager {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pager-link {
+    width: auto;
+    justify-self: start;
+  }
+
+  /* fixo na 2ª coluna: sem "anterior" (primeira perícope) ele não pula
+     para a esquerda. */
+  .pager-next {
+    grid-column: 2;
+    justify-self: end;
+  }
+}
+
+.read-tool {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.35rem 0.55rem;
+  min-height: 2.25rem;
+  min-width: 2.25rem;
+  cursor: pointer;
+}
+
+.read-tool:hover,
+.read-tool:focus-visible {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  outline: none;
+}
+
+.read-tool.active {
+  color: var(--accent);
+  border-color: var(--focus-line);
+  background: var(--accent-soft);
+}
+
+/* tablet+: mais respiro em volta da linha de referência. */
+@media (min-width: 640px) {
+  .ref-row {
+    gap: 0.5rem 1.25rem;
+    margin-bottom: 1.1rem;
+  }
+}
+
+/* barra de âncoras: sticky abaixo do header, e colada no topo quando ele some.
+   z-index 4 fica abaixo do .top (5) e da .verse-actions (8) de propósito.
+
+   Fundo OPACO, não translúcido: com 82% + blur(6px) o texto que passava por
+   baixo aparecia borrado na faixa de padding acima do pill, e a barra parecia
+   descolada do header — o vão aparente era texto vazando, não espaço.
+
+   Sem `transition: top`: o offset vem de --top-h, medido em JS, e o header
+   anima um `transform` em paralelo. Animar os dois separadamente deixa a barra,
+   durante 250ms, num offset que não corresponde a estado nenhum. Quando o
+   header desliza, o certo é a barra saltar. */
+.section-chips {
+  position: sticky;
+  top: var(--top-h, 0px);
+  z-index: 4;
+  margin: 0 -1.05rem 0.9rem;
+  padding: 0.3rem 1.05rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-ui);
+}
+
+/* Clique num chip ou `?v=` na URL rolam até a seção via âncora nativa: sem
+   esse respiro ela para colada embaixo das barras sticky (header + barra de
+   chips, ~54px com o pill) e o título fica escondido. */
+#contexto,
+#texto,
+#resenha,
+#reflexao,
+#notas {
+  scroll-margin-top: calc(var(--top-h, 0px) + 4rem);
+}
+
+.shell:has(.top-hidden) .section-chips {
+  top: 0;
+}
+
+/* Controle segmentado: um pill com borda e quatro colunas iguais dentro.
+   minmax(0, 1fr) (e não 1fr, que vale minmax(auto, 1fr)) é o que impede um
+   rótulo longo de alargar a sua coluna e empurrar as outras para fora — sem
+   overflow-x, sem rolagem lateral, em 375px como em 1200px. */
+.section-chips-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.section-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.3rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.15;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.section-chip:hover {
+  color: var(--ink);
+}
+
+/* Sem outline padrão do browser: dentro do pill ele vaza pela borda
+   arredondada. Anel com o accent, por fora do segmento. */
+.section-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.section-chip.active {
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+/* Linha do header de leitura: os chips + (quando a narração já começou) o
+   botão compacto de pausa. O grid de quatro colunas segue intacto dentro do
+   flex; o botão entra à direita sem quebrar nada. */
+.section-chips-linha {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.section-chips-linha .section-chips-row {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Pausar/continuar a narração sem rolar de volta ao player: um botão redondo
+   na altura do pill dos chips. */
+.narracao-mini {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.narracao-mini:hover {
+  color: var(--ink);
+}
+
+.narracao-mini:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Progresso da perícope: um filete rente à borda de baixo da barra sticky.
+   A largura vem de --pct-lida, pintada direto pelo JS — pelo scroll na
+   leitura, pelo relógio do áudio quando a narração toca. O -1px cobre o
+   border-bottom da própria barra. */
+.leitura-progresso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  pointer-events: none;
+}
+
+.leitura-progresso::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--pct-lida, 0%);
+  background: var(--flame);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.25s linear;
+}
+
+/* "Você parou aqui": um pulso curto no elemento restaurado pelo checkpoint,
+   que morre sozinho — informação de chegada, não estado. */
+@keyframes retomada-pulso {
+  0% {
+    background-color: color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.retomada-flash {
+  animation: retomada-pulso 2s ease-out;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leitura-progresso::before {
+    transition: none;
+  }
+
+  .retomada-flash {
+    animation: none;
+  }
+}
+
+.texto-biblico,
+.prose,
+.perguntas {
+  color: var(--read-ink);
+  font-weight: 500;
+  font-weight: 450;
+  font-optical-sizing: auto;
+  text-shadow: var(--read-shadow);
+}
+
+/* Âmbar é a voz do app; a Escritura é a exceção, e se marca pela AUSÊNCIA da
+   marca. A exceção vai por token e NÃO por `color` no #texto de propósito:
+   #texto é id (1,0,0) e atropelaria `.leitura h2.heading-speaking` (0,2,1),
+   matando o realce da narração justamente neste cabeçalho. */
+.leitura > .block-plain > h2 {
+  color: var(--cabecalho, var(--accent));
+  text-shadow: var(--read-shadow);
+}
+
+#texto {
+  --cabecalho: var(--read-ink);
+}
+
+.collapse-h {
+  margin-bottom: 0.35rem;
+}
+
+.collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.25rem;
+  padding: 0.1rem 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.collapse-chevron {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.85em;
+  transition: transform 0.18s ease;
+}
+
+.collapse-chevron.open {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapse-chevron {
+    transition: none;
+  }
+}
+
+/*
+ * Sobrescrito do salmo — epígrafe, não versículo. Fica acima do texto, em
+ * itálico e com um recuo, para o olho ver de cara que não é a fala do salmo:
+ * "Salmo de Davi, quando ele fugia da presença de seu filho Absalão".
+ */
+.sobrescrito {
+  margin: 0 0 1.1rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--read-ink);
+  border-left-color: color-mix(in srgb, var(--read-ink) 25%, transparent);
+  color: color-mix(in srgb, var(--read-ink) 72%, transparent);
+  font-style: italic;
+  font-size: 0.95em;
+  line-height: 1.5;
+  text-shadow: var(--read-shadow);
+}
+
+.texto-biblico {
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-leading, 1.65);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size-adjust: from-font;
+}
+
+.cap-label {
+  font-family: var(--font-display);
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 1.1rem 0 0.45rem;
+  letter-spacing: 0.02em;
+}
+
+.cap-label:first-child {
+  margin-top: 0.2rem;
+}
+
+.verse {
+  display: block;
+  width: 100%;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.35rem 0.45rem;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.verse:hover {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.verse:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.verse-focus {
+  background: var(--focus-bg);
+  border-color: var(--focus-line);
+}
+
+/* player de narração: cartão no papel, controles do app (o <audio> fica
+   escondido). Mobile-first: rótulo e tempo em cima, barra no meio, transporte
+   embaixo — a barra ganha a largura inteira, que é onde o dedo precisa dela. */
+.narracao {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'rotulo tempo'
+    'barra barra'
+    'controles controles';
+  align-items: center;
+  column-gap: 0.6rem;
+  row-gap: 0.15rem;
+  margin: -0.3rem 0 0.9rem;
+  padding: 0.55rem 0.8rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-family: var(--font-ui);
+}
+
+.narracao-rotulo {
+  grid-area: rotulo;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.narracao-controles {
+  grid-area: controles;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.narracao-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  cursor: pointer;
+}
+
+.narracao-btn:hover {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.narracao-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.narracao-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.narracao-salto {
+  color: var(--muted);
+}
+
+/* o play é o controle principal: cheio, na cor de destaque, maior que os outros */
+.narracao-play {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 0.4rem;
+  background: var(--cta-bg);
+  border-color: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+.narracao-play:hover {
+  background: color-mix(in srgb, var(--accent) 88%, var(--ink));
+}
+
+.narracao-tempo {
+  grid-area: tempo;
+  display: inline-flex;
+  gap: 0.3em;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.narracao-tempo-sep {
+  opacity: 0.6;
+}
+
+/* a barra: trilho fino pintado até --pct (que o componente atualiza), polegar
+   redondo. A altura do input é o alvo de toque; o trilho desenhado é menor. */
+.narracao-barra {
+  grid-area: barra;
+  --pct: 0%;
+  --trilho: linear-gradient(to right, var(--accent) var(--pct), var(--line) var(--pct));
+  width: 100%;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.narracao-barra:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.narracao-barra::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--trilho);
+}
+
+.narracao-barra::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--trilho);
+}
+
+.narracao-barra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s ease;
+}
+
+.narracao-barra::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s ease;
+}
+
+.narracao-barra:hover::-webkit-slider-thumb,
+.narracao-barra:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+
+.narracao-barra:hover::-moz-range-thumb,
+.narracao-barra:active::-moz-range-thumb {
+  transform: scale(1.25);
+}
+
+.narracao-barra:focus-visible {
+  outline: none;
+}
+
+.narracao-barra:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.narracao-barra:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.narracao-erro {
+  grid-column: 1 / -1;
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narracao-barra::-webkit-slider-thumb,
+  .narracao-barra::-moz-range-thumb {
+    transition: none;
+  }
+}
+
+/* desktop: tudo numa linha só, a barra ocupando o que sobrar */
+@media (min-width: 40rem) {
+  .narracao {
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-areas: 'rotulo controles barra tempo';
+    column-gap: 0.75rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.8rem;
+  }
+
+  .narracao-controles {
+    justify-content: flex-start;
+    gap: 0.2rem;
+  }
+
+  .narracao-play {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 0.15rem;
+  }
+}
+
+/* ── O realce da narração ──
+   Três peças, e só três:
+
+   1. o FUNDO do trecho em fala ganha um véu chapado na cor do tema;
+   2. uma BARRA na borda esquerda desse mesmo véu, da altura exata dele;
+   3. a PALAVRA atual tem uma barra embaixo e a luz dela sobe pela palavra.
+
+   As duas primeiras são o mesmo pseudo-elemento: o véu é o fundo do ::after
+   e a barra é a borda esquerda dele. É por isso que a barra tem a altura da
+   caixa sem ninguém precisar mantê-las em sincronia — é uma caixa só.
+
+   A luz de verdade mora só na palavra. Tentar pintar luz no papel do trecho
+   inteiro não funciona num tema claro: papel quase branco não tem para onde
+   clarear, e toda tentativa vira mancha. Um véu honesto na cor do tema
+   resolve o realce; a luz fica onde ela cabe. */
+
+/* `isolation: isolate` abre um contexto de empilhamento no próprio elemento:
+   assim o ::after com z-index -1 fica ATRÁS do texto mas ACIMA do fundo de
+   foco/destaque dele — sem isso, "-1" o mandaria para trás do papel.
+   `.verse-inline` entra aqui porque um <button> nunca é `inline` de verdade:
+   o navegador o trata como inline-block, uma caixa só, que pode ter várias
+   linhas dentro. */
+.verse,
+.verse-inline,
+.prose,
+.perguntas li {
+  position: relative;
+  isolation: isolate;
+}
+
+/* O véu existe sempre, apagado, para a opacidade poder transitar nos dois
+   sentidos — numa regra só de `.verse-speaking` a saída seria seca. */
+.verse::after,
+.verse-inline::after,
+.prose::after,
+.perguntas li::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--candle-fundo);
+  border-inline-start: 0.2em solid var(--candle);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+/* p e li não têm padding: o véu respira um pouco para fora do texto, e a
+   barra vai parar na margem do papel — onde ela já ficava. */
+.prose::after,
+.perguntas li::after {
+  inset: -0.25em -0.45em;
+  border-radius: 6px;
+}
+
+/* na pergunta o véu abraça também o número da lista: -1.7em é exatamente o
+   padding-left do `ol`, então a barra encosta antes do número em vez de
+   cortá-lo ao meio. */
+.perguntas li::after {
+  inset-inline-start: -1.7em;
+}
+
+/* menos que o anel de foco (3px), para o véu não vazar por fora dele. No
+   corrido a barra não cabe: um versículo curto pode começar no meio da
+   linha, e uma barra ali cairia no meio da frase anterior. O véu sozinho já
+   diz qual versículo está falando. */
+.verse-inline::after {
+  inset: -0.05em -0.15em;
+  border-radius: 4px;
+  border-inline-start: none;
+}
+
+/* `li.prose-speaking` explícito: `.perguntas li::after` pesa mais que
+   `.prose-speaking::after` e, sem isso, a pergunta nunca acenderia. */
+.verse.verse-speaking::after,
+.verse-inline.verse-speaking::after,
+.prose-speaking::after,
+.perguntas li.prose-speaking::after {
+  opacity: 1;
+}
+
+/* Títulos falados (h1, a referência abaixo dele, h2 das seções, "Capítulo
+   N"): só a cor. Um título é curto e já tem peso próprio; um véu atrás dele
+   competiria com o do trecho, que é o realce que importa. `.leitura h2.`
+   bate a regra `.leitura > .block-plain > h2`; `.leitura .ref.` bate o
+   `.ref, .muted` da cor. */
+[data-fala-id] {
+  transition: color 200ms ease;
+}
+
+.leitura h1.heading-speaking,
+.leitura h2.heading-speaking,
+.leitura h3.heading-speaking,
+.leitura .ref.heading-speaking {
+  color: var(--candle);
+}
+
+/* ── A palavra ──
+   Uma barra embaixo e a luz dela subindo pela palavra, apagando antes do
+   topo. Barra e luz são o MESMO `background-image`, e é isso que faz a
+   iluminação andar junto na transição: o que anima é a largura, então a luz
+   cresce na palavra nova e se recolhe na anterior sem nunca piscar.
+
+   Em repouso o gradiente está preso à direita com largura zero; em fala,
+   preso à esquerda com largura cheia. Como `background-position` NÃO
+   transita, só o tamanho, a luz nasce de um lado e some pelo outro.
+
+   A luz é branca e só existe no tema escuro (`--candle-luz-pct` é 0 nos
+   claros): branco sobre papel escuro é luz; sobre papel claro é só sujeira.
+   Nos temas claros sobra a barra, que já marca a palavra sozinha.
+
+   A continuidade entre uma palavra e a seguinte não é feita aqui — vem de
+   os spans `[data-w]` estarem encostados, com o espaço separador dentro do
+   span em vez de entre eles (ver TextoFalado em Leitura.tsx). Sem isso, o
+   espaço entre palavras é texto nu que nenhum fundo alcança, e o realce
+   pisca numa fresta escura a cada troca.
+
+   `--candeia` é o único resto de fogo no desenho: a luz que sobe respira de
+   leve. Ele mora no trecho em fala (ver a regra da animação abaixo), não na
+   palavra — uma palavra dura ~400ms, e uma animação por palavra viraria
+   soluço em vez de chama. Assim a palavra nova entra no meio do tremor. */
+[data-w] {
+  background-image: linear-gradient(
+    to top,
+    var(--candle) 0 0.12em,
+    color-mix(
+        in srgb,
+        #fff calc(var(--candle-luz-pct) * var(--candeia, 1)),
+        transparent
+      )
+      0.12em,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: 100% 100%;
+  border-radius: 0.1em;
+  transition: background-size 160ms ease-out;
+}
+
+[data-w].word-speaking {
+  background-size: 100% 100%;
+  background-position: 0 100%;
+}
+
+/* A tremulação. `--candeia` vai de ~0.83 a ~1.04 e multiplica a força da luz
+   que sobe na palavra. Registrado com @property porque só uma custom
+   property tipada interpola — sem isso o navegador saltaria de passo em
+   passo. O `, 1` no ponto de uso é o fallback para navegador sem @property:
+   luz parada, nada quebrado.
+
+   Os passos são irregulares de propósito: fogo não pulsa em senoide. */
+@property --candeia {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@keyframes candeia-tremula {
+  0% {
+    --candeia: 1;
+  }
+  9% {
+    --candeia: 0.9;
+  }
+  17% {
+    --candeia: 0.99;
+  }
+  28% {
+    --candeia: 0.86;
+  }
+  36% {
+    --candeia: 1.04;
+  }
+  47% {
+    --candeia: 0.92;
+  }
+  55% {
+    --candeia: 0.98;
+  }
+  63% {
+    --candeia: 0.83;
+  }
+  74% {
+    --candeia: 1.02;
+  }
+  85% {
+    --candeia: 0.91;
+  }
+  100% {
+    --candeia: 1;
+  }
+}
+
+/* no trecho, não na palavra — ver o comentário de `[data-w]` */
+.verse-speaking,
+.prose-speaking,
+.heading-speaking {
+  animation: candeia-tremula 4.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse::after,
+  .verse-inline::after,
+  .prose::after,
+  .perguntas li::after,
+  [data-fala-id],
+  [data-w] {
+    transition: none;
+  }
+
+  /* o realce continua aceso, só para de tremer */
+  .verse-speaking,
+  .prose-speaking,
+  .heading-speaking {
+    animation: none;
+  }
+}
+
+.verse-num {
+  font-family: var(--font-ui);
+  font-size: 0.72em;
+  font-weight: 600;
+  color: var(--accent);
+  margin-inline-end: 0.35em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.verse-text {
+  font-family: inherit;
+}
+
+.corrido-group {
+  margin: 0 0 0.9rem;
+}
+
+.corrido {
+  margin: 0;
+  max-width: var(--read-measure, var(--measure));
+  font-family: inherit;
+  line-height: var(--read-leading, 1.65);
+}
+
+.verse-inline {
+  display: inline;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  text-align: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.verse-inline:hover {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.verse-inline:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.verse-inline.verse-focus {
+  background: var(--focus-bg);
+  box-shadow: 0 0 0 3px var(--focus-bg);
+}
+
+/* Destaque de cor é o FUNDO do versículo; o foco de seleção continua sendo o
+   anel/borda — por isso estas regras vêm DEPOIS de .verse-focus e repetem a
+   especificidade composta do modo corrido, senão o foco comeria a cor. */
+.verse.verse-hl-verde,
+.verse-inline.verse-hl-verde {
+  background: var(--hl-verde);
+}
+
+.verse.verse-hl-azul,
+.verse-inline.verse-hl-azul {
+  background: var(--hl-azul);
+}
+
+.verse.verse-hl-rosa,
+.verse-inline.verse-hl-rosa {
+  background: var(--hl-rosa);
+}
+
+/* anel mais forte que o fundo, para o foco continuar visível sobre a cor */
+.verse-inline.verse-focus {
+  box-shadow: 0 0 0 3px var(--focus-line);
+}
+
+.verse-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.7rem max(var(--shell-pad, 1.1rem), env(safe-area-inset-right, 0px))
+    calc(0.7rem + env(safe-area-inset-bottom, 0px))
+    max(var(--shell-pad, 1.1rem), env(safe-area-inset-left, 0px));
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 24px rgb(0 0 0 / 0.14);
+  font-family: var(--font-ui);
+}
+
+.verse-actions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.verse-actions-ref {
+  color: var(--accent);
+}
+
+.verse-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.verse-actions-aviso {
+  margin: 0;
+  min-height: 1.1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.hl-swatch {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.hl-verde {
+  background: var(--hl-verde);
+}
+
+.hl-azul {
+  background: var(--hl-azul);
+}
+
+.hl-rosa {
+  background: var(--hl-rosa);
+}
+
+/* a barra é fixa: abre espaço embaixo para o último versículo não sumir */
+.shell:has(.verse-actions) .main {
+  padding-bottom: 9rem;
+}
+
+.prose {
+  margin: 0 0 0.85rem;
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-leading, 1.65);
+  max-width: var(--read-measure, var(--measure));
+  font-size-adjust: from-font;
+}
+
+.perguntas {
+  margin: 0;
+  /* em `em`, não rem: o marcador "10." escala com a fonte da lista e precisa
+     caber no padding em qualquer tamanho — é aqui que a candeia se apoia. */
+  padding-left: 1.7em;
+  font-family: var(--read-font);
+  font-size: calc(var(--read-size) * 0.96);
+  line-height: var(--read-leading, 1.65);
+  font-size-adjust: from-font;
+}
+
+.perguntas li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.15rem;
+}
+
+
+.note-form textarea,
+.filters input,
+.filters select {
+  width: 100%;
+  font: inherit;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 2.75rem;
+}
+
+.note-form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.note-form button {
+  justify-self: start;
+  font-family: var(--font-ui);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 2.5rem;
+}
+
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.note-list li {
+  border-top: 1px solid var(--line);
+  padding: 0.75rem 0;
+}
+
+.note-ref-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.note-ref-chip {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  margin-bottom: 0.35rem;
+  min-height: 2.75rem;
+}
+
+.note-form-actions,
+.note-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+/* Ditado: microfone redondo no fim da linha de ações, encostado à direita —
+   o texto de estado (prévia do que está sendo dito, contador, hora da volta)
+   fica à esquerda dele e é cortado com reticências quando não cabe, para
+   nunca empurrar "Salvar" nem o microfone de lugar.
+   `.note-form button` pinta todo botão do form; daqui a especificidade maior
+   para o microfone escapar do estilo de "Salvar". */
+.ditar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: auto;
+}
+
+.note-form .ditar-botao {
+  width: 2.5rem;
+  min-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--accent);
+}
+
+.note-form .ditar-botao:disabled {
+  color: var(--muted);
+  cursor: default;
+  opacity: 0.7;
+}
+
+.note-form .ditar-botao.gravando {
+  background: var(--rec);
+  border-color: var(--rec);
+  color: #fff;
+  animation: ditar-pulso 1.4s ease-out infinite;
+}
+
+.ditar-status {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+  /* dígitos de largura fixa: o contador não "treme" a cada segundo. */
+  font-variant-numeric: tabular-nums;
+  /* uma linha só: a prévia do ditado cresce sem parar. */
+  min-width: 0;
+  max-width: 16rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* o aviso de microfone bloqueado é para ser lido inteiro: pode quebrar linha
+   e vai à direita, alinhado ao botão. */
+.ditar-status.ditar-aviso {
+  white-space: normal;
+  text-align: right;
+  color: var(--ink);
+}
+
+/* rastro de diagnóstico do ditado (`?ditado=debug`): ocupa a linha toda
+   abaixo do botão, texto miúdo, para print. */
+.ditar:has(.ditar-debug) {
+  flex-wrap: wrap;
+}
+
+.ditar-debug {
+  flex-basis: 100%;
+  margin: 0.25rem 0 0;
+  padding: 0.4rem 0.5rem;
+  font: 11px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--ink);
+  background: var(--paper-2, rgba(0, 0, 0, 0.05));
+  border-radius: 0.4rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 14rem;
+  overflow: auto;
+}
+
+/* "Ouvindo…"/contador na cor de gravação; a prévia do que está sendo dito
+   fica muted, é rascunho e não alarme. */
+.ditar-status:has(+ .ditar-botao.gravando):not(.ditar-previa) {
+  color: var(--rec);
+}
+
+@keyframes ditar-pulso {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--rec) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 0.6rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-form .ditar-botao.gravando {
+    animation: none;
+    /* sem o pulso, o anel parado ainda diz "aberto". */
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rec) 35%, transparent);
+  }
+}
+
+.linkish {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  min-height: 2.25rem;
+}
+
+/* Fecho da perícope: separado das anotações por um fio sutil; o CTA ocupa a
+   linha inteira no celular e tem largura natural em telas maiores. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+@media (max-width: 639.98px) {
+  .actions .cta {
+    width: 100%;
+  }
+}
+
+.desmarcar {
+  display: block;
+  margin: 0.75rem auto 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.reler {
+  display: block;
+  margin: 0.5rem auto 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.reler[aria-pressed='true'] {
+  color: var(--accent);
+}
+
+.historico-leitura {
+  margin: 0.5rem auto 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.badge {
+  font-family: var(--font-ui);
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.done-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--focus-line);
+  border-radius: var(--radius);
+  background: var(--focus-bg);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-ui);
+}
+
+.done-card .badge {
+  margin: 0;
+}
+
+.done-next {
+  font-size: 0.95rem;
+}
+
+.crumb {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.25rem 0 0.75rem;
+}
+
+.filters {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.peri-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.peri-list li a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  min-height: 3rem;
+}
+
+/* content-visibility corta o layout do <li> nos limites da caixa: o anel de
+   foco padrão do navegador vaza pra fora e fica cortado. Anel interno resolve. */
+.peri-list li a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.peri-list li a strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.peri-list li a span {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.book-group {
+  margin-bottom: 1.5rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+
+.pesquisar .testament-h {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.pesquisar .section-h {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1rem 0 0.45rem;
+}
+
+.book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.book-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font: inherit;
+  font-family: var(--font-ui);
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 2.4rem;
+}
+
+.book-chip .book-abbrev {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.book-chip.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.book-chip.active .book-abbrev {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.ref-panel {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.ref-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0.75rem 0 1rem;
+  padding: 0.85rem 0 0.95rem;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.selected-book {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.selected-book-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.selected-book-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.trocar-livro {
+  flex-shrink: 0;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.7rem;
+  min-height: 2.25rem;
+}
+
+.ref-form {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.85rem 0 1rem;
+}
+
+.ref-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.ref-form input {
+  width: 100%;
+  font: inherit;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 2.75rem;
+}
+
+.ref-form input:disabled {
+  opacity: 0.5;
+}
+
+.ref-form button {
+  justify-self: start;
+  font-family: var(--font-ui);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 2.5rem;
+}
+
+.ref-form button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.peri-count {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0.5rem 0 0.75rem;
+}
+
+.search-hit {
+  margin: 0.75rem 0 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.search-hit a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: inherit;
+}
+
+.search-hit a strong {
+  font-family: var(--font-display);
+}
+
+.search-hit a span {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.catalog-hint {
+  margin-top: 1rem;
+}
+
+.modo-busca {
+  display: flex;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.modo-btn {
+  flex: 0 0 auto;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.modo-btn.active {
+  background: var(--cta-bg);
+  border-color: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+/* mais específico que `.peri-list li a span`, senão o trecho fica miúdo e cinza */
+.peri-list li a span.hit-snippet {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.hit-snippet mark {
+  padding: 0 0.1em;
+  border-radius: 3px;
+  background: var(--focus-bg);
+  color: inherit;
+}
+
+@media (min-width: 640px) {
+  .ref-form {
+    grid-template-columns: 1fr 1fr auto;
+    align-items: end;
+  }
+}
+
+.peri-list.compact li a {
+  padding: 0.55rem 0;
+}
+
+/* Virtualização barata, sem biblioteca: o navegador pula layout e paint dos
+   itens fora da viewport e usa o tamanho estimado no lugar. Navegador sem
+   suporte simplesmente ignora as duas propriedades — degradação limpa.
+   O ganho é no livro aberto e na busca, onde a lista tem centenas de itens. */
+.peri-list > li {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 72px;
+}
+
+.peri-list.compact > li {
+  contain-intrinsic-size: auto 48px;
+}
+
+.book-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.book-group-head h2 {
+  margin: 0;
+}
+
+.book-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book-progress {
+  width: 6rem;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.book-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  /* o progresso é a chama subindo: --flame, não --accent. Não carrega texto,
+     então os 3:1 bastam. */
+  background: var(--flame);
+}
+
+.book-progress-label {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 640px) {
+  .filters {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .shell {
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse {
+    transition: none;
+  }
+}
+
+.entrar {
+  max-width: 24rem;
+}
+
+.entrar-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.entrar-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.entrar-form input {
+  width: 100%;
+  font: inherit;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 2.75rem;
+}
+
+.entrar-form input[inputmode='numeric'] {
+  font-size: 1.5rem;
+  letter-spacing: 0.4em;
+  text-align: center;
+}
+
+.entrar-erro {
+  font-family: var(--font-ui);
+  color: var(--erro);
+  font-size: 0.9rem;
+}
+
+/* Mesmo padrão de .verse-actions-aviso: texto simples, sem borda/sombra, cor
+   de erro igual à do .entrar-erro.
+
+   Mora dentro do .perfil-pop desde que o "Sair" virou item do menu: é uma
+   linha normal do grid, logo abaixo do botão. Nada de position: absolute
+   aqui — o .perfil-pop tem overflow-y: auto, o que faz o overflow-x computar
+   para auto também, então um filho fora do fluxo seria recortado pelo
+   contêiner de rolagem (ou viraria rolagem escondida) justamente quando a
+   mensagem precisa ser vista. Sem nowrap pelo mesmo motivo: o texto quebra
+   dentro dos 260px em vez de vazar na horizontal. O padding-inline é o do
+   .perfil-item, para o aviso alinhar com o rótulo do "Sair". */
+.nav-conta-erro {
+  padding-inline: 0.55rem;
+  color: var(--erro);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+/* Task 6 (jornadas): Home mostra a jornada ativa em vez das trilhas VT/NT.
+   Reaproveita .track-label/.track-progress/.book-progress/.cta — só o
+   invólucro do card e o convite abaixo das trilhas são novos. */
+.jornada-card {
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  max-width: 28rem;
+}
+
+.jornada-card .book-progress {
+  width: 100%;
+  height: 6px;
+  margin: 0 0 1rem;
+}
+
+.jornada-card .cta {
+  width: 100%;
+  min-height: 2.75rem;
+}
+
+/* "Comece uma jornada" / "Entre para criar jornadas", abaixo das trilhas
+   VT/NT — convite, não obrigação, por isso .ghost e não .cta. */
+.jornada-convite {
+  margin: 1rem 0 0;
+}
+
+/* Task 7 (jornadas): tela de gestão em /jornada. Reaproveita .jornada-card,
+   .track-progress, .book-progress, .ghost e .linkish (Task 6 e Leitura já os
+   definem) — só os dois agrupamentos novos (ações/confirmação e histórico)
+   precisam de layout próprio. */
+.jornada-acoes,
+.jornada-confirmar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  font-family: var(--font-ui);
+}
+
+.jornada-historico-titulo {
+  margin-top: 2rem;
+}
+
+.jornada-historico {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.jornada-historico li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.jornada-historico li .track-progress {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.jornada-historico-nome {
+  font-family: var(--font-ui);
+  color: var(--ink);
+}
+
+/* visível só para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Task 8 (jornadas): catálogo de escopos (passo 1) e confirmação (passo 2)
+   em /jornada. Reaproveita .muted, .ghost, .linkish, .cta e .jornada-acoes
+   (Tasks 6/7 já os definem) — só a escada de grupos, os cards de escopo e
+   os dois campos do passo 2 precisam de layout próprio. */
+.jornada-catalogo,
+.jornada-confirmacao {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+}
+
+.jornada-grupo + .jornada-grupo {
+  margin-top: 1.25rem;
+}
+
+.jornada-grupo h3 {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.jornada-escopos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Cada escopo é um botão a largura toda: nome à esquerda, tamanho à direita
+   — o mesmo par que .track-progress já usa noutras telas, só que aqui é a
+   PRÉVIA do tamanho, não o progresso de uma jornada gravada. */
+.jornada-escopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.jornada-escopo-tamanho {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.jornada-confirmacao h2,
+.jornada-catalogo h2 {
+  margin-top: 0;
+}
+
+/* Rótulo + controle empilhados, como .entrar-form já faz — só que aqui um
+   <label> vira <fieldset>/<legend> para o grupo de rádios. */
+.jornada-campo {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.jornada-campo input[type='text'] {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+fieldset.jornada-campo {
+  border: none;
+  padding: 0;
+}
+
+.jornada-campo legend {
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.jornada-campo label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+/* Aviso ANTES do botão de criar — não é erro (por isso sem a cor de
+   .entrar-erro), é uma decisão que o leitor toma de olhos abertos. */
+.jornada-aviso {
+  margin: 1rem 0 0;
+  padding: 0.65rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.ajustes-livro {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.ajustes-livro select {
+  font: inherit;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.ajustes-alvos {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+}
+
+.ajustes-alvos li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.ajustes-rotulo {
+  flex: 1;
+}
+
+.ajustes-contagem {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-family: var(--font-ui);
+}
+
+.ajustes-confirma {
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+.ajustes-confirma-acoes {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.85rem;
+}
+
+.ajustes-aviso {
+  margin: 1rem 0 0;
+  min-height: 1.1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-ui);
+  color: var(--muted);
+}
+
+/* ── Menu Perfil ─────────────────────────────────────────────────────────
+   Reúne tema, tipografia, Ajustes e conta. É o popover mais alto do app:
+   ~520px na Leitura, contra os ~240px do antigo "Aa". Daí as medidas
+   abaixo. */
+
+/* margin-left: auto empurra o gatilho para a borda direita da nav, que é a
+   borda direita do header. Não é estética: o .readmenu-pop abre com
+   `right: 0` e cresce para a esquerda, então quem ancora o popover é a
+   direita do gatilho. Antes quem garantia isso era o `justify-self: end` do
+   .theme-menu; a nav abaixo de 640px é `flex-start`, e sem esta regra um
+   popover de 260px pendurado num gatilho que ficou no meio da linha vazaria
+   pela esquerda da tela. Acima de 640px a nav já é `flex-end` e isto é
+   inócuo. */
+.perfil-wrap {
+  position: relative;
+  margin-left: auto;
+}
+
+/* 260px e não os 230px do .readmenu-pop porque a 230px a linha de fontes
+   (Serif/Literata/Sans) e a de tema (quatro rótulos) quebram em duas linhas.
+   O max-width é o que herdamos do .theme-pop, apagado junto com o ThemeMenu:
+   é ele que segura o popover dentro da tela em 375px (com o margin-left: auto
+   do .perfil-wrap acima, sobra --shell-pad de cada lado). Não apagar.
+   max-height + rolagem porque num aparelho de 568px de altura os ~520px não
+   cabem abaixo do header; overscroll-behavior impede a rolagem de vazar para
+   a página atrás quando chega ao fim. */
+.perfil-pop {
+  min-width: 260px;
+  max-width: calc(100vw - 2 * var(--shell-pad));
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.perfil-secao {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.perfil-sep {
+  height: 1px;
+  background: var(--line);
+  margin: 0.15rem 0;
+}
+
+.perfil-item {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding-inline: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.perfil-item:hover,
+.perfil-item:focus-visible {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  outline: none;
+}
+
+.perfil-item:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* O gatilho é um <button> no meio de <a>s: sem herdar font e cor ele destoa
+   dos vizinhos da nav. Aberto, acende como o link ativo acende. */
+.top nav .perfil-btn {
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding-inline: 0.15rem;
+  min-height: 2.5rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.top nav .perfil-btn[aria-expanded='true'] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ===== Explorar: catálogo de livros ===== */
+.livro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.livro-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.65rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  min-height: 2.75rem;
+}
+
+.livro-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.livro-nome {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 600;
+  min-width: 0;
+}
+
+.livro-abbrev {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Livro sem nada no recorte ativo continua no lugar dele: apagado, não some.
+   A memória muscular de onde fica cada livro não pode quebrar conforme se lê. */
+.livro-vazio {
+  opacity: 0.45;
+}
+
+.catalogo .section-block {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 240px;
+}
+
+.explorar .testament-h {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.explorar .section-h {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1rem 0 0.45rem;
+}
+
+/* ===== Explorar: chips de recorte e seções de resultado ===== */
+.chips-filtro {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.25rem;
+}
+
+.chip-filtro {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  min-height: 2.25rem;
+}
+
+.chip-filtro.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.secao-resultado {
+  margin-bottom: 1.75rem;
+}
+
+.secao-h {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.secao-n {
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.75;
+}
+
+/* Crédito da tradução: exigência da licença, não decoração — legível, sem gritar. */
+.ajustes-credito {
+  max-width: 60ch;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* O cabeçalho da lista — o mesmo que a narração fala em voz alta ("Palavras
+   do trecho."), para que a tela e o áudio anunciem a mesma coisa. */
+.palavras-titulo {
+  margin: 1.3rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* As palavras do trecho — a lista que fecha a resenha.
+   O dono pediu tópicos em vez de tudo emendado por ponto-e-vírgula, e a cor
+   sai de `--accent`, que já é verde no claro, verde claro no escuro e âmbar
+   no sépia. Uma variável resolve os três temas. */
+.palavras-do-trecho {
+  margin: 0.55rem 0 0;
+  padding: 0 0 0.15rem 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.palavras-do-trecho > li {
+  position: relative;
+  padding-left: 1.05rem;
+}
+
+/* O marcador é um traço curto na cor do tema — some para o leitor de tela,
+   que já recebe a lista pela semântica do <ul>. */
+.palavras-do-trecho > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.5rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}

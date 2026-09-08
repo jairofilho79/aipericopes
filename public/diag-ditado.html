@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico do ditado</title>
+<style>
+  body { font: 16px/1.4 -apple-system, system-ui, sans-serif; margin: 1rem; background: #fff; color: #111; }
+  button { font: inherit; padding: .8rem 1.2rem; border-radius: .6rem; border: 1px solid #888; background: #eee; }
+  button.on { background: #c33; color: #fff; }
+  pre { white-space: pre-wrap; word-break: break-word; background: #f4f4f4; padding: .8rem; border-radius: .6rem; font-size: 13px; }
+  .info { color: #555; font-size: 13px; }
+</style>
+</head>
+<body>
+<!-- Página isolada do app: só a Web Speech API crua, com todo evento impresso.
+     Serve para ver o que o aparelho responde de verdade quando o ditado da
+     Leitura fica em "Ouvindo…" sem entregar nada. Pode ser apagada depois. -->
+<h1>Diagnóstico do ditado</h1>
+<p class="info" id="ua"></p>
+<p><button id="b" type="button">Começar</button></p>
+<p><strong>Parcial:</strong> <span id="p"></span></p>
+<p><strong>Final:</strong> <span id="f"></span></p>
+<pre id="log"></pre>
+<script>
+  var log = document.getElementById('log')
+  function l(s) {
+    var t = new Date().toISOString().slice(11, 23)
+    log.textContent += t + '  ' + s + '\n'
+  }
+  document.getElementById('ua').textContent =
+    navigator.userAgent + ' | standalone=' + (navigator.standalone === true) +
+    ' | secure=' + window.isSecureContext
+  var C = window.SpeechRecognition || window.webkitSpeechRecognition
+  l('construtor: ' + (C ? C.name || 'ok' : 'AUSENTE'))
+  var rec = null, ligado = false
+  var b = document.getElementById('b')
+  function novo() {
+    var r = new C()
+    r.lang = 'pt-BR'
+    r.continuous = true
+    r.interimResults = true
+    r.maxAlternatives = 1
+    r.onstart = function () { l('onstart') }
+    r.onaudiostart = function () { l('onaudiostart') }
+    r.onsoundstart = function () { l('onsoundstart') }
+    r.onspeechstart = function () { l('onspeechstart') }
+    r.onspeechend = function () { l('onspeechend') }
+    r.onsoundend = function () { l('onsoundend') }
+    r.onaudioend = function () { l('onaudioend') }
+    r.onnomatch = function () { l('onnomatch') }
+    r.onresult = function (ev) {
+      var fin = [], par = ''
+      for (var i = ev.resultIndex; i < ev.results.length; i++) {
+        var x = ev.results[i], t = x[0] ? x[0].transcript : ''
+        if (x.isFinal) fin.push(t); else par += t
+      }
+      l('onresult idx=' + ev.resultIndex + ' n=' + ev.results.length + ' finais=' + fin.length + ' parcial="' + par + '"')
+      document.getElementById('p').textContent = par
+      if (fin.length) document.getElementById('f').textContent += fin.join(' ') + ' '
+    }
+    r.onerror = function (ev) { l('onerror: ' + ev.error + (ev.message ? ' — ' + ev.message : '')) }
+    r.onend = function () { l('onend'); ligado = false; b.textContent = 'Começar'; b.className = '' }
+    return r
+  }
+  b.onclick = function () {
+    if (!C) return
+    if (ligado) {
+      l('stop()')
+      try { rec.stop() } catch (e) { l('stop lançou: ' + e) }
+      return
+    }
+    rec = rec || novo()
+    try {
+      rec.start()
+      l('start() ok')
+      ligado = true
+      b.textContent = 'Parar'
+      b.className = 'on'
+    } catch (e) {
+      l('start() lançou: ' + e.name + ' ' + e.message)
+    }
+  }
+</script>
+</body>
+</html>

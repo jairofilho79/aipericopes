@@ -1,0 +1,80 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+.wrangler/
+.dev.vars
+
+# ETL / enrich bulky intermediates (keep NAA path local)
+data/raw/
+data/enriched/
+data/raw-pericopes.jsonl
+data/etl-warnings.json
+data/enrich-state.json
+data/NAA.json
+data/preach-sample/
+
+# Derivados do catálogo (gerados por scripts/shard-catalogo.ts no build)
+public/data/index.json
+public/data/versao.json
+public/data/texto/
+public/data/estudo/
+public/data/trilha.json
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.worktrees/
+
+.superpowers/
+.tts-key.local
+
+# worktrees criadas pela ferramenta nativa do Claude Code (como .worktrees/)
+.claude/worktrees/
+data/NAA.json.bak
+data/novas-pericopes.jsonl
+
+# Fonte da Bíblia Livre (BLIVRE) e o JSON derivado dela
+data/bliv-tr_vpl.txt
+data/BLIVRE.json
+data/raw-pericopes-brutas.jsonl
+
+# Área de trabalho do reenriquecimento (Sessão 3) — entrada derivável, saída vai para data/enriched/
+data/reenriquecimento/
+data/titulos/
+data/registro/
+data/contextos/
+
+# Filas de auditoria (Sessão 3) — julgamento já aplicado em data/pericopes.json;
+# o que vale ficar está no material e no relatório, não na fila.
+data/pendurada/
+data/pendurada-resenha/
+data/leitura/
+data/invencao/
+data/repeticao/
+data/conserto-invencao/
+data/sobra/
+data/leitura-amostra/
+data/leitura-larga/
+
+# Backups pontuais de data/pericopes.json (14 MB cada), feitos antes de cada lote de edição
+data/pericopes.json.pre-*
