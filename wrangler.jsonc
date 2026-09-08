@@ -14,6 +14,16 @@
   // A regra é necessária porque `run_worker_first` abaixo deixa os arquivos
   // estáticos serem servidos antes do Worker — um acesso a `www/` nunca chega
   // ao middleware canônico. Ver worker/canonico.ts.
+  // EXPLÍCITO de propósito. Ausente, o wrangler desliga o workers.dev por
+  // conta própria assim que existe um Custom Domain — e foi o que aconteceu no
+  // primeiro deploy do domínio, com o APP_URL ainda apontando para lá: o link
+  // do e-mail de acesso passou a levar a um 404 por alguns minutos. Deixar
+  // escrito impede a surpresa nos dois sentidos.
+  //
+  // `false` e não `true`: com domínio próprio, o workers.dev seria um segundo
+  // endereço servindo o mesmo app — o mesmo defeito de cookie partido que o
+  // redirecionamento de `www` existe para impedir.
+  "workers_dev": false,
   "routes": [
     { "pattern": "aipericopes.com", "custom_domain": true },
     { "pattern": "www.aipericopes.com", "custom_domain": true }
@@ -41,7 +51,7 @@
     "binding": "AI"
   },
   "vars": {
-    "APP_URL": "https://biblia-pericopes.jairofilho79.workers.dev",
+    "APP_URL": "https://aipericopes.com",
     "EMAIL_FROM": "aiPericopes <acesso@send.aipericopes.com>"
   }
 }
