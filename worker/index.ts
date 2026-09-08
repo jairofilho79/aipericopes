@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cabecalhoContentRange, chaveAudio } from './audio'
 import { createAuth } from './auth'
+import { destinoCanonico } from './canonico'
 import {
   TAMANHO_PAGINA_PULL,
   UPSERT_PROGRESSO,
@@ -29,6 +30,24 @@ import {
 import type { Env } from './env.d'
 
 const app = new Hono<{ Bindings: Env }>()
+
+// ANTES DE QUALQUER ROTA, de propósito: o app tem um endereço só, a raiz, e
+// `www` apenas leva até lá. Se isto ficasse depois, `www` responderia a API e
+// gravaria cookie de sessão no host errado — o defeito que o redirecionamento
+// existe para impedir. Ver worker/canonico.ts para o porquê do 308.
+//
+// ALCANCE: isto NÃO cobre o carregamento da página. `assets.run_worker_first`
+// só manda `/api/*` ao Worker primeiro; um GET em `www/` é servido pelo
+// index.html sem passar por aqui. Quem redireciona a página é uma Redirect
+// Rule no painel da Cloudflare. Este middleware é a retaguarda para `/api/*`
+// — que é justamente o caminho onde o cookie de sessão nasceria no host
+// errado — e o que mantém a regra escrita no repositório, e não só num
+// ajuste de painel que ninguém enxerga a partir do código.
+app.use('*', async (c, next) => {
+  const destino = destinoCanonico(c.req.url)
+  if (destino) return c.redirect(destino, 308)
+  await next()
+})
 
 // O better-auth responde `{ success: true }` ao pedido de OTP mesmo quando o
 // envio do e-mail estourou — ele engole a exceção no próprio logger. Sem esta

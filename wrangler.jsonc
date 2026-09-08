@@ -4,6 +4,20 @@
   "main": "worker/index.ts",
   "compatibility_date": "2026-08-01",
   "compatibility_flags": ["nodejs_compat"],
+  // Custom Domain, não Route: o Worker É o site, não um pedaço dele. A
+  // Cloudflare cria o registro de DNS e emite o certificado sozinha no
+  // `wrangler deploy` — não crie A/CNAME na raiz à mão, ele colide com isto e
+  // o deploy falha.
+  //
+  // `www` entra para o registro existir e ter certificado, mas NÃO serve o
+  // app: uma Redirect Rule no painel manda todo acesso a `www` para a raiz.
+  // A regra é necessária porque `run_worker_first` abaixo deixa os arquivos
+  // estáticos serem servidos antes do Worker — um acesso a `www/` nunca chega
+  // ao middleware canônico. Ver worker/canonico.ts.
+  "routes": [
+    { "pattern": "aipericopes.com", "custom_domain": true },
+    { "pattern": "www.aipericopes.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application",
