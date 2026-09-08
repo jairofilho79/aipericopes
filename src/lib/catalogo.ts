@@ -1,5 +1,5 @@
 import type { BibleBook } from './bible-books'
-import type { FiltroLeitura, LivroProgresso } from './content'
+import type { FiltroLeitura } from './content'
 import type { Testament } from './testament'
 
 export type Grupo = {
@@ -26,10 +26,14 @@ export function agruparLivros(livros: BibleBook[]): Grupo[] {
 }
 
 /** O número à direita da linha. Zero é informação boa ("terminei"), então o
- *  livro fica com "0" em vez de sumir da lista. */
+ *  livro fica com "0" em vez de sumir da lista.
+ *
+ *  Recebe o mínimo estrutural (não `LivroProgresso` inteiro) porque
+ *  `CatalogoRegistros` chama isto com `RegistroProgresso` — outro formato,
+ *  mesmos dois campos que a função de fato usa. */
 export function rotuloContagem(
   filtro: FiltroLeitura,
-  prog: LivroProgresso | undefined,
+  prog: { concluidas: number; total: number } | undefined,
   noRecorte: number,
 ): string {
   if (filtro === 'todos') return `${prog?.concluidas ?? 0} de ${prog?.total ?? 0}`

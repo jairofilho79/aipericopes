@@ -2803,6 +2803,37 @@ fieldset.jornada-campo {
   font-weight: 600;
 }
 
+/* ===== Explorar: seletor de eixo (Livros | Registros) =====
+   Mesma linguagem visual de `.notes-tabs`/`.notes-tab` (Leitura, notas —
+   sublinhado em --accent), mas como regra própria: lá a margem superior
+   negativa compensa o padding do container `.notes`, e o seletor de eixo
+   fica direto no fluxo da página, sem esse container. */
+.eixo-tabs {
+  display: flex;
+  gap: 0.15rem;
+  margin: 0 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.eixo-tab {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.45rem 0.7rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.eixo-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 /* ===== Explorar: catálogo de livros ===== */
 .livro-list {
   list-style: none;

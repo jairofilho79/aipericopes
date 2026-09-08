@@ -45,4 +45,11 @@ describe('rotuloContagem', () => {
   it('livro ausente do progresso não quebra', () => {
     expect(rotuloContagem('todos', undefined, 0)).toBe('0 de 0')
   })
+
+  it('aceita o formato mínimo de progresso — RegistroProgresso não tem `livro`', () => {
+    // Prova em runtime do alargamento de tipo: CatalogoRegistros passa
+    // RegistroProgresso (slug/total/concluidas/pct), não LivroProgresso.
+    const progRegistro = { slug: 'lamento', total: 40, concluidas: 10, pct: 25 }
+    expect(rotuloContagem('todos', progRegistro, 40)).toBe('10 de 40')
+  })
 })

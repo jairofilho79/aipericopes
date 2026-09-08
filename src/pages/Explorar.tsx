@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SkeletonIndice } from '../components/Skeleton'
 import CatalogoLivros from '../components/CatalogoLivros'
+import CatalogoRegistros from '../components/CatalogoRegistros'
 import LivroAberto from '../components/LivroAberto'
+import RegistroAberto from '../components/RegistroAberto'
 import ListaPericopes from '../components/ListaPericopes'
 // `itemDeIndice`, `itemDeHit` e `ItemPericope` NÃO moram no arquivo do
 // componente: exportar função pura ao lado de um componente dispara
@@ -26,6 +28,13 @@ import {
 } from '../lib/content'
 import { parseConsulta } from '../lib/consulta'
 import {
+  contagemPorRegistro,
+  loadRegistros,
+  progressoPorRegistro,
+  registroPorSlug,
+  type Registro,
+} from '../lib/registros'
+import {
   fatiarResultado,
   indexPronto,
   LIMITE_RESULTADOS,
@@ -47,6 +56,13 @@ const FILTROS: { valor: FiltroLeitura; rotulo: string }[] = [
 function ehFiltro(v: string | null): v is FiltroLeitura {
   return v === 'nao-lidos' || v === 'comecei' || v === 'lidos'
 }
+
+type Eixo = 'livros' | 'registros'
+
+const EIXOS: { valor: Eixo; rotulo: string }[] = [
+  { valor: 'livros', rotulo: 'Livros' },
+  { valor: 'registros', rotulo: 'Registros' },
+]
 
 export default function Explorar() {
   const [params, setParams] = useSearchParams()
@@ -71,6 +87,22 @@ export default function Explorar() {
     !consulta.termo && livroParam ? bookByName(livroParam) : undefined
   const capParam = Number(params.get('cap'))
   const cap = livro && Number.isInteger(capParam) && capParam >= 1 ? capParam : null
+
+  const [registros, setRegistros] = useState<Registro[]>([])
+  // Mesma disciplina do `livro` acima, um degrau abaixo na hierarquia: uma
+  // URL colada com `q`, `livro` E `registro` de uma vez não passa por
+  // handler nenhum, então a exclusão tem que valer aqui, na derivação —
+  // `consulta.termo > livro > registro`. `registroPorSlug` devolve
+  // `undefined` para um slug que não existe (mais no fixture antigo, ou
+  // digitado à mão), e isso já basta para cair no repouso sem lançar.
+  const registroParam = params.get('registro') ?? ''
+  const registro: Registro | undefined =
+    !consulta.termo && !livro && registroParam
+      ? registroPorSlug(registros, registroParam)
+      : undefined
+
+  const eixoParam = params.get('eixo')
+  const eixo: Eixo = eixoParam === 'registros' ? 'registros' : 'livros'
 
   const [todas, setTodas] = useState<PericopeIndex[]>([])
   const [status, setStatus] = useState(new Map<number, ProgressoStatus>())
@@ -115,6 +147,23 @@ export default function Explorar() {
     }
   }, [])
 
+  // Fora do `Promise.all` acima de propósito: os registros não bloqueiam o
+  // catálogo de livros nem a busca, só o eixo "Registros" e `?registro=`. Uma
+  // falha aqui (offline, `npm run shard` não rodou) deixa `registros` vazio —
+  // `registroPorSlug` some com `undefined` e a tela cai no repouso, sem erro
+  // visível, mesmo padrão do efeito de Títulos logo abaixo.
+  useEffect(() => {
+    let vivo = true
+    void loadRegistros()
+      .then((r) => {
+        if (vivo) setRegistros(r)
+      })
+      .catch(() => {})
+    return () => {
+      vivo = false
+    }
+  }, [])
+
   // Do sync só o progresso muda: o catálogo é estático e recarregá-lo faria a
   // lista piscar por causa de uma conclusão feita em outro aparelho.
   useSyncRefresh(() => {
@@ -128,31 +177,35 @@ export default function Explorar() {
   }
 
   // Digitar navega com replace: teclar não pode entulhar o histórico. Mas o
-  // `replace` é `!livro`, não sempre `true`: a primeira tecla que fecha um
-  // livro aberto (`livro` ainda válido neste render) vira `push` de
-  // propósito, para o botão voltar DEVOLVER o livro em vez de pular direto
-  // para antes dele ter sido aberto — mesma lógica de `abrirLivro`.
+  // `replace` é `!livro && !registro`, não sempre `true`: a primeira tecla
+  // que fecha um painel aberto (livro OU registro, ainda válido neste
+  // render) vira `push` de propósito, para o botão voltar DEVOLVER o painel
+  // em vez de pular direto para antes dele ter sido aberto — mesma lógica de
+  // `abrirLivro`/`abrirRegistro`.
   const setQ = (valor: string) =>
     mexerNaUrl((p) => {
       // Mesma exclusão dos dois lados: apagar o texto também não pode revelar
-      // um painel de livro que o leitor nunca escolheu abrir (`?q=amor&livro=
-      // João` apagado até vazio não é o mesmo que ter clicado em "João").
+      // um painel de livro ou registro que o leitor nunca escolheu abrir
+      // (`?q=amor&livro=João` apagado até vazio não é o mesmo que ter
+      // clicado em "João").
       p.delete('livro')
       p.delete('cap')
+      p.delete('registro')
       if (!valor) {
         p.delete('q')
         return
       }
       p.set('q', valor)
-    }, /* replace */ !livro)
+    }, /* replace */ !livro && !registro)
   const setFiltro = (valor: FiltroLeitura) =>
     mexerNaUrl((p) => (valor === 'todos' ? p.delete('f') : p.set('f', valor)), false)
   const abrirLivro = (b: BibleBook) => {
     mexerNaUrl((p) => {
       p.set('livro', b.name)
       p.delete('cap')
-      // Simétrico ao setQ: abrir um livro fecha a busca.
+      // Simétrico ao setQ: abrir um livro fecha a busca e o registro aberto.
       p.delete('q')
+      p.delete('registro')
     }, false)
     // Herdado do `selectBook` de Pesquisar.tsx:149 (main) — a lista de
     // catálogo em repouso ocupa ~4,5 telas, e sem isto abrir um livro do fim
@@ -167,6 +220,35 @@ export default function Explorar() {
     }, false)
   const setCap = (valor: number | null) =>
     mexerNaUrl((p) => (valor == null ? p.delete('cap') : p.set('cap', String(valor))), false)
+
+  const abrirRegistro = (slug: string) => {
+    mexerNaUrl((p) => {
+      p.set('registro', slug)
+      // `eixo=registros` sobrevive ao fechar o registro (ver `fecharRegistro`)
+      // — sem setar aqui, abrir um registro a partir de um link direto
+      // (`?registro=x`, sem `eixo`) devolveria o catálogo de LIVROS ao voltar.
+      p.set('eixo', 'registros')
+      // Simétrico a abrirLivro: abrir um registro fecha a busca e o livro.
+      p.delete('q')
+      p.delete('livro')
+      p.delete('cap')
+    }, false)
+    // Mesmo motivo de abrirLivro: sem isto, abrir um registro grande a partir
+    // do fim da lista de catálogo deixa o leitor sem ver o cabeçalho.
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const fecharRegistro = () =>
+    mexerNaUrl((p) => {
+      p.delete('registro')
+    }, false)
+  const setEixo = (v: Eixo) =>
+    mexerNaUrl((p) => {
+      // `livros` é o padrão: fora da URL, não `?eixo=livros` explícito —
+      // mesmo espírito de `filtro`/`f` acima, URL curta para o caso comum.
+      if (v === 'livros') p.delete('eixo')
+      else p.set('eixo', 'registros')
+      p.delete('registro')
+    }, false)
 
   /**
    * Submeter capítulo+versículo no livro aberto tem que FECHAR o livro, não só
@@ -342,9 +424,26 @@ export default function Explorar() {
     [doLivro, aceita],
   )
 
+  const progressoRegistros = useMemo(
+    () => progressoPorRegistro(registros, concluidas),
+    [registros, concluidas],
+  )
+  const contagemRegistros = useMemo(
+    () => contagemPorRegistro(registros, aceita),
+    [registros, aceita],
+  )
+  // `todas` já está em ordem de leitura (`seq`, não `ordem` — ver
+  // `src/lib/types.ts:2`); filtrar por pertencimento preserva essa ordem sem
+  // reordenar nada, exatamente como o contrato de `registros.ts` documenta.
+  const itensRegistro: PericopeIndex[] = useMemo(() => {
+    if (!registro) return []
+    const ordens = new Set(registro.ordens)
+    return todas.filter((p) => ordens.has(p.ordem) && aceita(p.ordem))
+  }, [registro, todas, aceita])
+
   if (erro) return <p className="muted">{erro}</p>
 
-  const emRepouso = !consulta.termo && !livro
+  const emRepouso = !consulta.termo && !livro && !registro
 
   return (
     <section className="explorar">
@@ -388,13 +487,50 @@ export default function Explorar() {
           onTrocar={fecharLivro}
           onIrParaVersiculo={(c, v) => irParaReferencia(livro.abbrev, c, v)}
         />
-      ) : emRepouso ? (
-        <CatalogoLivros
-          progresso={progresso}
-          contagem={contagem}
-          filtro={filtro}
-          onAbrir={abrirLivro}
+      ) : registro ? (
+        <RegistroAberto
+          registro={registro}
+          prog={progressoRegistros.get(registro.slug)}
+          itens={itensRegistro}
+          concluidas={concluidas}
+          onTrocar={fecharRegistro}
         />
+      ) : emRepouso ? (
+        <>
+          {/* Só no repouso: com busca, livro ou registro aberto, o eixo que
+              está sendo consultado já está óbvio na tela — o seletor voltaria
+              a decidir algo que o leitor já decidiu. */}
+          <div className="eixo-tabs" role="tablist" aria-label="Livros ou Registros">
+            {EIXOS.map((e) => (
+              <button
+                key={e.valor}
+                type="button"
+                role="tab"
+                aria-selected={eixo === e.valor}
+                className={`eixo-tab${eixo === e.valor ? ' active' : ''}`}
+                onClick={() => setEixo(e.valor)}
+              >
+                {e.rotulo}
+              </button>
+            ))}
+          </div>
+          {eixo === 'registros' ? (
+            <CatalogoRegistros
+              registros={registros}
+              progresso={progressoRegistros}
+              contagem={contagemRegistros}
+              filtro={filtro}
+              onAbrir={abrirRegistro}
+            />
+          ) : (
+            <CatalogoLivros
+              progresso={progresso}
+              contagem={contagem}
+              filtro={filtro}
+              onAbrir={abrirLivro}
+            />
+          )}
+        </>
       ) : (
         <>
           {(consulta.ref || consulta.refForaDeFaixa) && (

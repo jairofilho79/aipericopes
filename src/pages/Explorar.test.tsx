@@ -42,6 +42,22 @@ const MUITOS_TITULOS = Array.from({ length: 60 }, (_, i) => ({
   minutos: 1,
 }))
 
+// Fixture pequeno e estável entre testes: `loadRegistros` cacheia em módulo,
+// então mockar a função inteira (em vez de mockar `fetch`) evita que um
+// teste que rode antes deixe o cache do módulo real sujo para os seguintes.
+// `lamento` carrega a `ordem: 1` — a mesma perícope do fixture de
+// `loadIndex` abaixo — para os testes de registro aberto terem algo pra
+// mostrar; `louvor` fica vazio para exercitar o rótulo "0".
+const FIXTURE_REGISTROS = [
+  { slug: 'lamento', nome: 'Lamento', ordens: [1] },
+  { slug: 'louvor', nome: 'Louvor', ordens: [] },
+]
+
+vi.mock('../lib/registros', async (original) => ({
+  ...(await original<typeof import('../lib/registros')>()),
+  loadRegistros: async () => FIXTURE_REGISTROS,
+}))
+
 vi.mock('../lib/content', async (original) => {
   const real = await original<typeof import('../lib/content')>()
   const ALL = [
@@ -183,5 +199,91 @@ describe('Explorar', () => {
     expect(secaoTitulos).toBeDefined()
     expect(secaoTitulos?.querySelectorAll('.peri-list li')).toHaveLength(50)
     expect(secaoTitulos?.querySelector('.secao-h')?.textContent).toContain('(primeiros)')
+  })
+
+  // ---- Eixo "Registros" ----
+
+  it('em repouso, o seletor de eixo aparece, com "Livros" ativo por padrão', async () => {
+    await montar('/explorar')
+    const abas = [...host.querySelectorAll('.eixo-tab')]
+    expect(abas.map((a) => a.textContent)).toEqual(['Livros', 'Registros'])
+    expect(host.querySelector('.eixo-tab.active')?.textContent).toBe('Livros')
+  })
+
+  it('?eixo=registros desenha o catálogo dos registros em vez dos 66 livros', async () => {
+    await montar('/explorar?eixo=registros')
+    expect(host.querySelector('.eixo-tab.active')?.textContent).toBe('Registros')
+    const linhas = [...host.querySelectorAll('.livro-row .livro-nome')].map((n) => n.textContent)
+    expect(linhas).toEqual(['Lamento', 'Louvor'])
+  })
+
+  it('o seletor de eixo NÃO aparece com busca ativa', async () => {
+    await montar('/explorar?q=amor%20de%20Deus')
+    expect(host.querySelector('.eixo-tabs')).toBeNull()
+  })
+
+  it('o seletor de eixo NÃO aparece com livro aberto', async () => {
+    await montar('/explorar?livro=Jo%C3%A3o')
+    expect(host.querySelector('.eixo-tabs')).toBeNull()
+  })
+
+  it('o seletor de eixo NÃO aparece com registro aberto', async () => {
+    await montar('/explorar?registro=lamento')
+    expect(host.querySelector('.eixo-tabs')).toBeNull()
+  })
+
+  it('?registro=<slug> abre o registro e a caixa de busca fica vazia', async () => {
+    await montar('/explorar?registro=lamento')
+    expect(host.querySelector('.selected-book-name')?.textContent).toBe('Lamento')
+    expect((host.querySelector('input[type="search"]') as HTMLInputElement).value).toBe('')
+  })
+
+  it('precedência: ?q=amor&registro=lamento — a busca vence, o registro é ignorado', async () => {
+    await montar('/explorar?q=amor&registro=lamento')
+    expect(host.querySelector('.selected-book-name')).toBeNull()
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+  })
+
+  it('precedência: ?livro=João&registro=lamento — o livro vence', async () => {
+    await montar('/explorar?livro=Jo%C3%A3o&registro=lamento')
+    expect(host.querySelector('.selected-book-name')?.textContent).toBe('João')
+    expect(host.querySelector('.ref-form')).not.toBeNull()
+  })
+
+  it('precedência de três: ?livro=João&q=amor&registro=lamento — a busca vence', async () => {
+    // Mesmo caso do teste "livro aberto e busca são estados exclusivos"
+    // acima, estendido com `registro` na URL: a hierarquia inteira
+    // (`consulta.termo > livro > registro`) precisa valer de uma vez, não
+    // só par a par.
+    await montar('/explorar?livro=Jo%C3%A3o&q=amor&registro=lamento')
+    expect(host.querySelector('.ref-sticky')).toBeNull()
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+  })
+
+  it('?registro=slug-que-nao-existe não quebra a tela: cai no repouso', async () => {
+    await montar('/explorar?registro=slug-que-nao-existe')
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(66)
+    expect(host.querySelector('.eixo-tabs')).not.toBeNull()
+  })
+
+  it('o recorte de leitura estreita a lista dentro do registro aberto', async () => {
+    // `ordem: 1` já está "concluído" no mock de `listAllProgresso` — com
+    // "não lidos" ativo, nada do registro sobrevive ao recorte.
+    await montar('/explorar?registro=lamento&f=nao-lidos')
+    expect(host.querySelector('.selected-book-name')?.textContent).toBe('Lamento')
+    expect(host.querySelector('.muted')?.textContent).toBe(
+      'Nenhuma perícope deste registro sobrevive ao recorte.',
+    )
+  })
+
+  it('voltar do registro devolve o catálogo de registros, não o de livros', async () => {
+    await montar('/explorar?eixo=registros&registro=lamento')
+    const botao = host.querySelector('.trocar-livro') as HTMLButtonElement
+    await act(async () => {
+      botao.click()
+    })
+    expect(host.querySelector('.selected-book-name')).toBeNull()
+    const linhas = [...host.querySelectorAll('.livro-row .livro-nome')].map((n) => n.textContent)
+    expect(linhas).toEqual(['Lamento', 'Louvor'])
   })
 })
