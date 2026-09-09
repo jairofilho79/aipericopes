@@ -19,6 +19,7 @@ import {
   refLabel,
 } from '../lib/content'
 import { paragraphize, alvosDaResenha, MAX_PARAGRAFOS } from '../lib/paragraphize'
+import { textoSobrescrito } from '../lib/sobrescrito'
 import { readingMinutes } from '../lib/reading-time'
 import { useWakeLock } from '../lib/use-wake-lock'
 import { groupCorrido, parseTexto, type VerseBlock } from '../lib/parse-texto'
@@ -197,6 +198,14 @@ export default function Leitura() {
     () => (p ? paragraphize(p.contexto_historico_literario, { maxParas: MAX_PARAGRAFOS.contexto }) : []),
     [p],
   )
+  // A narração funde "Capítulo N." com o sobrescrito numa frase só e fecha
+  // com ponto (o campo do catálogo não tem). O <TextoFalado> do sobrescrito e
+  // o alvo de alinhamento abaixo usam ESTE texto — nunca `p.sobrescrito` cru —
+  // para tela e áudio dizerem a mesma coisa. Ver `sobrescrito.ts`.
+  const sobrescritoFalado = useMemo(
+    () => (p?.sobrescrito ? textoSobrescrito(p.sobrescrito) : undefined),
+    [p],
+  )
   // A resenha alimenta DUAS seções: a prosa e as palavras do trecho. Na tela a
   // lista se distingue pela cor; no áudio não há cor, então ela é seção própria,
   // com cabeçalho falado. Os mesmos arrays daqui viram os alvos de alinhamento.
@@ -211,9 +220,14 @@ export default function Leitura() {
       { secao: 'contexto', alvos: parasContexto.map((t, i) => ({ id: `contexto-${i}`, texto: t })) },
       {
         secao: 'texto',
-        alvos: blocks
-          .filter((b): b is VerseBlock => b.kind === 'verse')
-          .map((b) => ({ id: b.id, texto: b.text })),
+        // O sobrescrito é falado ANTES do versículo 1 (fundido com "Capítulo
+        // N."), então entra como 1º alvo da seção — sem ele, o fluxo de
+        // tokens do manifesto não bate com a tela e a seção inteira perde o
+        // realce (Salmos 102 e as outras 119 perícopes com sobrescrito).
+        alvos: [
+          ...(sobrescritoFalado ? [{ id: 'sobrescrito', texto: sobrescritoFalado }] : []),
+          ...blocks.filter((b): b is VerseBlock => b.kind === 'verse').map((b) => ({ id: b.id, texto: b.text })),
+        ],
       },
       { secao: 'resenha', alvos: resenhaAlvos.prosa },
       { secao: 'palavras', alvos: resenhaAlvos.palavras },
@@ -222,7 +236,7 @@ export default function Leitura() {
         alvos: (p?.perguntas_reflexao ?? []).map((q, i) => ({ id: `reflexao-${i}`, texto: q })),
       },
     ],
-    [parasContexto, blocks, resenhaAlvos, p],
+    [parasContexto, blocks, resenhaAlvos, p, sobrescritoFalado],
   )
 
   async function refreshNotes() {
@@ -925,7 +939,7 @@ export default function Leitura() {
             data-fala-id="sobrescrito"
             data-verse-id="sobrescrito"
           >
-            <TextoFalado texto={p.sobrescrito} ativo={falando === 'sobrescrito'} />
+            <TextoFalado texto={sobrescritoFalado!} ativo={falando === 'sobrescrito'} />
           </p>
         )}
         <div className="texto-biblico">
