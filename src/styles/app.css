@@ -1058,37 +1058,60 @@ button.ghost {
   top: 0;
 }
 
-/* Controle segmentado: um pill com borda e quatro colunas iguais dentro.
-   minmax(0, 1fr) (e não 1fr, que vale minmax(auto, 1fr)) é o que impede um
-   rótulo longo de alargar a sua coluna e empurrar as outras para fora — sem
-   overflow-x, sem rolagem lateral, em 375px como em 1200px. */
+/* Controle segmentado: um pill com borda e os quatro chips dentro.
+   Cada chip tem a largura do SEU rótulo, não um quarto da barra. Quatro
+   colunas iguais pareciam justas e não eram: medido a 375px, "CONTEXTO" e
+   "REFLEXÕES" precisam de 87px e "TEXTO" de 56px, com 73px para cada um —
+   TEXTO sobrava 30px enquanto os dois das pontas vazavam por cima do vizinho
+   (o rótulo é `nowrap`, então o excesso não encolhe, escapa).
+
+   `flex-wrap` é a rede de baixo: quando a barra fica estreita demais para os
+   quatro na mesma linha, eles passam para a de baixo. Vale em qualquer
+   largura e falha macio — a barra fica mais alta, nunca sobreposta. */
 .section-chips-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.15rem;
   padding: 0.15rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: color-mix(in srgb, var(--paper) 70%, transparent);
+  /* container de consulta para o corpo do rótulo (o clamp em `cqi` do
+     .section-chip): o que decide o tamanho é a largura DESTA barra. */
+  container-type: inline-size;
 }
 
 .section-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 1 auto;
   min-width: 0;
   min-height: 2.75rem;
-  padding: 0.2rem 0.3rem;
+  padding: 0.2rem 0.45rem;
   border: 0;
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
   font-family: inherit;
-  font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.15;
+  /* O corpo acompanha a largura da barra, com teto no tamanho de projeto e
+     piso onde caixa alta ainda se lê.
+
+     Medidos os quatro rótulos, eles somam 21px de largura por px de corpo; o
+     resto — recuo dos chips, vãos, recuo da barra — é fixo em ~70px. De
+     `largura = 21 · corpo + 70` sai este 4.7cqi − 3.15px.
+
+     Não precisa ser exato ao pixel: se errar para o lado apertado, o
+     `flex-wrap` da barra passa um chip para a linha de baixo. O papel do
+     clamp é só evitar que isso aconteça em tela de celular comum — medido,
+     uma linha só de 360px para cima, e o corpo cheio de 414px. */
+  font-size: clamp(0.62rem, calc(4.7cqi - 3.15px), 0.78rem);
   /* caixa alta espaçada como as demais abas, mas com menos espaço que um
-     rótulo passivo: cinco rótulos têm de caber na grade de quatro em 375px. */
+     rótulo passivo — é o que a spec de tipografia reserva para rótulo de
+     seção e para esta barra. */
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
@@ -3085,16 +3108,22 @@ fieldset.jornada-campo {
   display: inline-flex;
 }
 
-/* 260px e não os 230px do .readmenu-pop porque a 230px a linha de fontes
-   (Serif/Literata/Sans) quebra em duas linhas. O max-width é o que herdamos
-   do .theme-pop, apagado junto com o ThemeMenu: é ele que segura o popover
-   dentro da tela em 375px, sobrando --shell-pad de cada lado. Não apagar.
+/* O popover cresce para a ESQUERDA a partir do "Aa", que não está na borda da
+   tela: entre ele e a borda há o ícone de Perfil e os dois recuos. Medido a
+   320px, sobravam 254px e o mínimo de 260px que havia aqui vazava 24px para
+   fora da tela, cortando os rótulos. Daí o max-width contar cada termo do
+   caminho — ícone, vão, recuo dos dois lados — em vez de só descontar recuo,
+   que era o que deixava passar.
+
+   Os 230px do .readmenu-pop bastam: o que não caberia a essa largura era a
+   linha Serif/Literata/Sans, e ela cabe com folga desde que os rótulos dos
+   grupos possam ocupar a linha inteira.
+
    max-height + rolagem porque num aparelho de 568px de altura os cinco
    controles não cabem abaixo do header; overscroll-behavior impede a rolagem
    de vazar para a página atrás quando chega ao fim. */
 .pop-tipografia {
-  min-width: 260px;
-  max-width: calc(100vw - 2 * var(--shell-pad));
+  max-width: calc(100vw - 46px - 0.15rem - 2 * var(--shell-pad));
   max-height: calc(100dvh - 5rem);
   overflow-y: auto;
   overscroll-behavior: contain;

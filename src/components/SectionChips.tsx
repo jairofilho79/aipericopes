@@ -112,21 +112,17 @@ export default function SectionChips({ ordem, onIr, onSecaoAtiva, progresso }: P
 
   return (
     <nav className="section-chips" aria-label="Seções da perícope">
-      {/* Controle segmentado: os quatro chips dividem a largura em partes
-          iguais, então nunca há rolagem lateral nem chip cortado — e não há
-          mais faixa para trazer o chip ativo "para dentro". O invólucro de
-          linha que dividia o espaço com o mini-player saiu junto com ele: os
-          chips voltaram a ser a barra inteira, e a pausa mora na doca. */}
+      {/* Controle segmentado: cada chip tem a largura do seu rótulo e o CSS
+          cuida do que acontece quando eles não cabem — sem rolagem lateral e
+          sem chip cortado. O invólucro de linha que dividia o espaço com o
+          mini-player saiu junto com ele: os chips voltaram a ser a barra
+          inteira, e a pausa mora na doca. */}
       <div className="section-chips-row">
         {SECTIONS.map((s) => (
           <button
             key={s.id}
             type="button"
-            // `section-chip-texto`: o único rótulo de duas palavras; no
-            // celular o CSS deixa só ele quebrar em duas linhas.
-            className={`section-chip${s.id === 'texto' ? ' section-chip-texto' : ''}${
-              ativo === s.id ? ' active' : ''
-            }`}
+            className={`section-chip${ativo === s.id ? ' active' : ''}`}
             aria-current={ativo === s.id ? 'true' : undefined}
             onClick={() => irPara(s.id)}
           >
