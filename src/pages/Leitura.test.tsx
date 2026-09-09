@@ -37,6 +37,7 @@ const PERICOPE_102: Pericope = {
   capitulo_fim: 102,
   versiculo_fim: 2,
   minutos: 1,
+  narrado: false,
   texto: 'Capítulo 102\n1 Ó SENHOR, ouve minha oração.\n2 Não escondas de mim o teu rosto.',
   sobrescrito: 'Oração do aflito, quando ele se viu desfalecido',
   titulo_pericope_pt: 'Oração do aflito',
@@ -57,6 +58,7 @@ const INDICE: PericopeIndex[] = [
     versiculo_fim: 2,
     titulo_pericope_pt: 'Oração do aflito',
     minutos: 1,
+    narrado: false,
   },
 ]
 
