@@ -185,7 +185,10 @@ a {
 
 .shell {
   --shell-pad: 1.1rem;
-  max-width: 720px;
+  /* Em variável porque a doca de narração (`position: fixed`, fora do fluxo do
+     shell) precisa da mesma conta para casar com a largura da coluna. */
+  --shell-max: 720px;
+  max-width: var(--shell-max);
   margin: 0 auto;
   padding: 0 max(var(--shell-pad), env(safe-area-inset-right, 0px))
     calc(3rem + env(safe-area-inset-bottom, 0px))
@@ -803,6 +806,10 @@ button.ghost {
 
 .leitura {
   max-width: var(--read-measure, var(--measure));
+  /* Centrada, e não encostada à esquerda do `.shell`: a doca de narração é
+     `position: fixed` e se centraliza na viewport, então a coluna precisa
+     estar no meio para as duas ficarem alinhadas em tela larga. */
+  margin-inline: auto;
   /* ponytail: paper plane — surface only, no card chrome */
   background: var(--paper);
   padding: 1rem 1.05rem 1.35rem;
@@ -1327,16 +1334,24 @@ button.ghost {
    do artigo, logo abaixo dos chips. Depois, a doca fixa no rodapé assume o
    lugar dele e o cartão sai do DOM.
 
-   `--doca-h` é a altura da doca somada À MÃO: nada a mede em JS. É a soma das
-   três linhas dela (estado + área de toque da barra + controles), do padding
-   de cima e de baixo, da borda superior e da faixa de segurança do aparelho.
+   `--doca-h` é a altura da doca somada À MÃO: nada a mede em JS. `--doca-corpo`
+   é a soma das três linhas dela (estado + área de toque da barra + controles)
+   mais o padding de cima e de baixo; `--doca-h` acrescenta o que a doca ocupa
+   FORA do próprio corpo, e isso muda com a largura da tela — no celular ela
+   encosta no rodapé (uma borda, mais a faixa de segurança do aparelho), do
+   tablet para cima ela é um painel solto (duas bordas e o vão de baixo).
    Duas coisas dependem desse número — a folga no fim do artigo e o piso da
    `.verse-actions` — e as duas são da `.leitura`, que é onde ele precisa
    estar visível. Mexeu em qualquer altura da doca, mexa aqui também. */
 .leitura {
-  --doca-h: calc(
-    0.35rem + 1.3rem + 2.75rem + 3.75rem + 0.35rem + 1px + env(safe-area-inset-bottom, 0px)
-  );
+  --doca-corpo: calc(0.35rem + 1.3rem + 2.75rem + 3.75rem + 0.35rem);
+  --doca-h: calc(var(--doca-corpo) + 1px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 640px) {
+  .leitura {
+    --doca-h: calc(var(--doca-corpo) + 2px + 1rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* Com a doca no ar, o fim do artigo (as perguntas de reflexão) terminaria
@@ -1484,6 +1499,50 @@ button.ghost {
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   backdrop-filter: blur(6px);
   font-family: var(--font-ui);
+}
+
+/* Da largura da tela para a largura da COLUNA, a partir do tablet. De ponta a
+   ponta a doca só funciona no celular, onde a coluna é a tela: numa tela de
+   1900px ela virava um fio de 1900px de borda com três botões flutuando no
+   meio do vazio, a meio metro do texto que está sendo narrado — dava para
+   olhar a tela e concluir que não havia player nenhum, e foi o que aconteceu.
+
+   Contida na medida do texto, com borda inteira, canto e sombra, ela lê como
+   um objeto: o painel que toca ESTA perícope, ancorado embaixo da coluna que
+   se está ouvindo. A largura vem de `--read-measure`, a mesma variável do
+   `max-width` da `.leitura`, então a preferência de largura do leitor move as
+   duas juntas.
+
+   Centraliza na viewport porque a `.leitura` também centraliza (`margin-inline:
+   auto`, lá em cima): a doca é `position: fixed`, não tem como saber onde a
+   coluna está, e as duas só ficam alinhadas enquanto as duas estiverem no meio.
+   Mexeu numa, confira a outra.
+
+   O vão de baixo entra no `bottom`, e não em `margin`, para o `--doca-h` da
+   `.leitura` continuar sendo a única conta de altura da doca. */
+@media (min-width: 640px) {
+  .narracao-doca {
+    width: min(
+      var(--read-measure, var(--measure)),
+      calc(min(100%, var(--shell-max, 720px)) - 2 * var(--shell-pad, 1.1rem))
+    );
+    margin-inline: auto;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.35rem 1.05rem;
+    /* Opaco aqui, contra os 94% + blur da faixa do celular: a faixa cobre a
+       largura toda e o que passa por baixo dela é a margem da página, mas o
+       painel fica em cima da COLUNA — translúcido, o texto do artigo aparecia
+       borrado atrás do relógio e dos botões. Sem nada atrás para desfocar, o
+       `backdrop-filter` também sai. */
+    background: var(--paper);
+    backdrop-filter: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    /* Mais funda que a da `.verse-actions` (0.14) porque aqui a sombra é a
+       única coisa que separa o painel do fundo: os dois são `--paper`, e uma
+       borda de 1px sozinha não levanta o painel do artigo. */
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+  }
 }
 
 .narracao-doca-estado {
@@ -2730,8 +2789,13 @@ button.trocar-livro {
    havia dois controles lado a lado. Com um filho só — o campo de referência —
    a segunda coluna virava vão morto à direita dele no desktop. */
 @media (min-width: 640px) {
+  /* A variável, e não `padding-inline`: `--shell-pad` é o recuo que o resto do
+     app usa para se alinhar com a coluna (a largura da doca de narração, a
+     barra de ações do versículo, o teto do popover "Aa"). Escrever o padding
+     por fora dela fazia esse recuo valer 20px aqui e 17,6px para quem lia a
+     variável — a doca ficava 2,4px mais larga que o texto de cada lado. */
   .shell {
-    padding-inline: 1.25rem;
+    --shell-pad: 1.25rem;
   }
 }
 

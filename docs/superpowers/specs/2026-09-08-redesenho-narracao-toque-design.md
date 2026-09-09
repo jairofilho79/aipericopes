@@ -137,6 +137,20 @@ nunca deixar o texto rolando atravessar por baixo, o mesmo defeito que a
 spec de 2026-09-03 corrigiu na barra de chips). Borda superior
 `1px solid var(--line)`.
 
+**Revisto em 09/09 — de ponta a ponta só no celular.** O desenho acima vale
+até 639px, onde a coluna É a tela. Do tablet para cima (`min-width: 640px`) a
+doca passa a ser um painel contido na largura da coluna de leitura, com borda
+inteira, `border-radius: var(--radius)`, sombra `0 12px 32px rgb(0 0 0 /
+0.28)`, fundo opaco (nada mais passa por baixo, então o `backdrop-filter`
+sai) e um vão de `1rem` até a borda de baixo. Motivo: numa tela de 1900px a
+faixa virava um fio de borda de ponta a ponta com três botões flutuando no
+vazio, longe do texto narrado — dava para olhar a tela e concluir que não
+havia player nenhum, e foi o que aconteceu na verificação. A largura vem de
+`--read-measure` (a mesma variável do `max-width` da `.leitura`), e a `.leitura`
+ganhou `margin-inline: auto` para as duas ficarem alinhadas: a doca é
+`position: fixed` e só sabe se centralizar na viewport. `--doca-h` cresce
+`1px` (a segunda borda) mais o vão nesse trecho.
+
 Anatomia, de cima para baixo:
 
 **1. Linha de estado** — `font-family: var(--font-ui)`, `padding` lateral
