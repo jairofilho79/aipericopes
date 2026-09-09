@@ -2770,10 +2770,43 @@ button.trocar-livro {
   margin: 0;
 }
 
+/* Grade de duas colunas, e não flex, por causa do que cada uma pode ceder: a
+   barra é elástica entre 1,75rem e 6rem, o "N de N" nunca encolhe.
+
+   O motivo de a barra ser elástica só aqui — nos cartões da Home e nas listas
+   valem os 6rem fixos da regra base — é que aqui ela divide a linha com o nome
+   do livro e o "Trocar livro". Com largura fixa, a conta fechava em cima do
+   texto: a 390px o rótulo quebrava em "0 de" / "85" e a linha inteira ganhava
+   uma terceira altura, para poupar 12px de barra.
+
+   A grade também acerta sozinha o piso do grupo. Sendo item flex da linha, seu
+   mínimo automático é o `min-content`, e numa grade isso é 1,75rem + vão +
+   rótulo inteiro — exatamente até onde faz sentido apertar. Passado esse
+   ponto, quem cede é o nome do livro, que sabe quebrar em duas linhas. Em
+   flex a mesma conta dava o teto da barra (6rem), e o grupo virava
+   inegociável. */
 .book-progress-wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(1.75rem, 6rem) max-content;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  /* `flex: 1` para o grupo NÃO disputar a linha com o nome do livro: partindo
+     de zero ele nunca entra na conta da falta de espaço, só ocupa o que sobra
+     depois que o texto e o botão pegam o que precisam. Enquanto o grupo teve
+     base própria, quem faltava eram sempre uns 0,3px — o bastante para "Gn ·
+     Pentateuco" quebrar em duas linhas com a barra a 94px dos 96 dela.
+
+     Como a coluna da barra tem teto, sobra espaço morto dentro do grupo em
+     tela larga; o `justify-content: center` o divide dos dois lados, que é
+     onde o `space-between` da linha punha o grupo antes. */
+  flex: 1;
+}
+
+/* Quem manda na largura é a coluna da grade; os 6rem da regra base virariam
+   uma largura fixa dentro dela. */
+.book-progress-wrap .book-progress {
+  width: auto;
 }
 
 .book-progress {
@@ -2794,10 +2827,15 @@ button.trocar-livro {
 }
 
 .book-progress-label {
+  flex: none;
   font-family: var(--font-ui);
   font-size: 0.8rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
+  /* "0 de 85" é uma informação só e ocupa 41px: quebrar em duas linhas para
+     poupar 12px é o pior negócio possível — a linha inteira cresce 20px de
+     altura. Quem encolhe ao lado é a barra. */
+  white-space: nowrap;
 }
 
 /* `.filters` tinha aqui um `grid-template-columns: 1.4fr 1fr`, do tempo em que
