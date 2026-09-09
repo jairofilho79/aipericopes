@@ -188,6 +188,18 @@ export default function Leitura() {
     () => (selection ? versesInRange(blocks, selection.start, selection.end) : []),
     [blocks, selection],
   )
+  const primeiroCapitulo = useMemo(
+    () => blocks.find((b) => b.kind === 'chapter'),
+    [blocks],
+  )
+  const gruposCorrido = useMemo(
+    () => (prefs.layout === 'corrido' ? groupCorrido(blocks) : []),
+    [prefs.layout, blocks],
+  )
+  const primeiroGrupoComCapitulo = useMemo(
+    () => gruposCorrido.find((g) => g.label !== null),
+    [gruposCorrido],
+  )
   // Só o texto bíblico entra na conta: contexto, resenha e reflexão são
   // leitura de primeira classe, mas o "~N min" é do texto da NAA.
   const minutos = useMemo(() => (p ? readingMinutes(p.texto) : 1), [p])
@@ -833,6 +845,21 @@ export default function Leitura() {
     return `Versículo ${b.chapter}:${b.verse}${marcas ? `, ${marcas}` : ''}`
   }
 
+  const sobrescritoEl = p?.sobrescrito && sobrescritoFalado ? (
+    /*
+     * Sobrescrito do salmo: epígrafe fora da numeração que vem entre o
+     * cabeçalho do capítulo ("Capítulo N.") e o versículo 1, na ordem falada
+     * da narração ("Texto", "Capítulo 102", "Oração do aflito...", versículos).
+     */
+    <p
+      className={falaClass('sobrescrito', 'sobrescrito')}
+      data-fala-id="sobrescrito"
+      data-verse-id="sobrescrito"
+    >
+      <TextoFalado texto={sobrescritoFalado} ativo={falando === 'sobrescrito'} />
+    </p>
+  ) : null
+
   return (
     <article className="leitura" ref={rootRef}>
       <p className="crumb">
@@ -927,30 +954,16 @@ export default function Leitura() {
         <h2 className={tituloClass('', 'cabecalho-texto') || undefined} data-fala-id="cabecalho-texto">
           Texto
         </h2>
-        {p.sobrescrito && (
-          /*
-           * Sobrescrito do salmo: vem ANTES do versículo 1 e fora da numeração,
-           * porque é isso que ele é no hebraico. "Quando ele fugia da presença
-           * de seu filho Absalão" é a diferença entre um lamento genérico e uma
-           * oração datada.
-           */
-          <p
-            className={falaClass('sobrescrito', 'sobrescrito')}
-            data-fala-id="sobrescrito"
-            data-verse-id="sobrescrito"
-          >
-            <TextoFalado texto={sobrescritoFalado!} ativo={falando === 'sobrescrito'} />
-          </p>
-        )}
         <div className="texto-biblico">
           {prefs.layout === 'corrido'
-            ? groupCorrido(blocks).map((g, gi) => (
+            ? gruposCorrido.map((g, gi) => (
                 <div key={g.label ? `c-${g.chapter}` : `orfao-${gi}`} className="corrido-group">
                   {g.label && (
                     <h3 className={tituloClass('cap-label', `cap-${g.chapter}`)} data-fala-id={`cap-${g.chapter}`}>
                       {g.label}
                     </h3>
                   )}
+                  {(g === primeiroGrupoComCapitulo || (!primeiroGrupoComCapitulo && gi === 0)) && sobrescritoEl}
                   <p className="corrido">
                     {g.verses.map((b) => (
                       <Fragment key={b.id}>
@@ -972,31 +985,38 @@ export default function Leitura() {
                   </p>
                 </div>
               ))
-            : blocks.map((b) =>
-                b.kind === 'chapter' ? (
-                  <h3
-                    key={`c-${b.chapter}`}
-                    className={tituloClass('cap-label', `cap-${b.chapter}`)}
-                    data-fala-id={`cap-${b.chapter}`}
-                  >
-                    {b.label}
-                  </h3>
-                ) : (
-                  <button
-                    key={b.id}
-                    type="button"
-                    className={verseClass('verse', b.id)}
-                    data-verse-id={b.id}
-                    aria-pressed={selecionadosIds.has(b.id)}
-                    aria-label={verseAria(b)}
-                    onClick={() => selectVerse(b.id)}
-                  >
-                    {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
-                    <span className="verse-text">
-                      <TextoFalado texto={b.text} ativo={falando === b.id} />
-                    </span>
-                  </button>
-                ),
+            : (
+                <>
+                  {!primeiroCapitulo && sobrescritoEl}
+                  {blocks.map((b) =>
+                    b.kind === 'chapter' ? (
+                      <Fragment key={`c-${b.chapter}`}>
+                        <h3
+                          className={tituloClass('cap-label', `cap-${b.chapter}`)}
+                          data-fala-id={`cap-${b.chapter}`}
+                        >
+                          {b.label}
+                        </h3>
+                        {b === primeiroCapitulo && sobrescritoEl}
+                      </Fragment>
+                    ) : (
+                      <button
+                        key={b.id}
+                        type="button"
+                        className={verseClass('verse', b.id)}
+                        data-verse-id={b.id}
+                        aria-pressed={selecionadosIds.has(b.id)}
+                        aria-label={verseAria(b)}
+                        onClick={() => selectVerse(b.id)}
+                      >
+                        {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
+                        <span className="verse-text">
+                          <TextoFalado texto={b.text} ativo={falando === b.id} />
+                        </span>
+                      </button>
+                    ),
+                  )}
+                </>
               )}
         </div>
       </section>
