@@ -156,6 +156,17 @@ body,
 
 html {
   overflow-x: clip;
+  /* A cor do papel também no html, e não só no body: `background-attachment:
+     fixed` pinta o degradê do body apenas sobre o retângulo da viewport, e no
+     Safari do iOS esse retângulo não cobre a faixa que fica sob a barra do
+     navegador e sob o indicador de início. O que sobrava ali não era cor
+     nossa: era o cinza neutro do navegador (#e3e3e3, medido na captura de um
+     iPhone e de um iPad), que aparecia como uma tarja cinza estranha ao tema.
+
+     Aqui a cor não é `fixed`, então cobre a página inteira, em qualquer
+     altura e em qualquer aparelho. É só o piso: o degradê continua vindo do
+     body por cima. */
+  background-color: var(--bg);
 }
 
 body {

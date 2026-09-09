@@ -18,7 +18,24 @@
       media="(prefers-color-scheme: light)"
     />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!--
+      SEM viewport-fit=cover, de propósito. Ele pede ao iOS para desenhar a
+      página POR BAIXO da interface do sistema, e devolver ao site a
+      responsabilidade de recuar o que não pode ficar escondido — via
+      env(safe-area-inset-*). Só que o inset de baixo mede o indicador de
+      início, não a barra do Safari: num iPhone e num iPad, medida na captura,
+      uma tarja de ~50pt cobria o fim da página, e o que caía ali não dava para
+      alcançar rolando, porque a página se estende além do que se vê.
+
+      Sem ele o iOS diagrama dentro da área segura e nada fica sob a interface.
+      Os env(safe-area-inset-*) espalhados pelo CSS passam a valer 0, que já é
+      o valor deles em qualquer navegador de mesa — nada muda de layout. As
+      faixas do sistema ficam com a cor do papel (o background-color do html).
+
+      Voltar a cobrir a tela toda exige aparelho iOS na mão para medir a
+      compensação da barra; sem isso, o certo é não pedir a área.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#92500a" />
     <meta name="description" content="Estudo bíblico por perícopes. O texto é a Bíblia Livre; o material e a narração são de IA, e isso está dito." />
     <title>aiPericopes</title>
