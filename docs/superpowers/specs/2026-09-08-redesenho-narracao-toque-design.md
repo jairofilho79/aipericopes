@@ -385,8 +385,9 @@ narrado: boolean
 
 Cards de jornada (`.jornada-card`, `Home.tsx:126-151`) e de trilha
 (`.track-card`, `Home.tsx:172-187`) ganham, ao lado do `.cta`
-"Continuar"/"Rever", um botão redondo de 48px, rótulo "Ouvir", ícone
-`IconePlay`, visível só quando `peri.narrado` (ou `t.peri.narrado`) é
+"Continuar"/"Rever", uma faixa retangular (~44×44+, altura do CTA), fundo
+`--cta-ink` (carvão), ícone e borda em `--cta-bg` (âmbar), rótulo "Ouvir",
+ícone `IconePlay`, visível só quando `peri.narrado` (ou `t.peri.narrado`) é
 verdadeiro. Quando não há narração, o botão não aparece — a linha de
 referência (`<p className="ref">`, `Home.tsx:139-141,176-178`) ganha, no
 lugar dele, "· narração ainda não gravada" em `var(--muted)`.
@@ -439,8 +440,9 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
   de `tempoInicialNarracao`.
 
 **Revisto em 09/09 — o "Ouvir" também vive no pager da Leitura.** Cada lado do
-pager do rodapé é UM botão com dois alvos: o título abre em silêncio, o play
-(círculo inseto de 36px no canto da direção) abre com o mesmo `?ouvir=1` da
+pager do rodapé é UM botão com dois alvos: o título abre em silêncio, a faixa
+de play (carvão `--cta-ink`, ícone/borda âmbar `--cta-bg`, altura cheia da
+ponta — split button, não círculo) abre com o mesmo `?ouvir=1` da
 Home. Só aparece quando a vizinha tem `narrado`. Motivo: a escuta morria na
 fronteira da perícope — quem entrou ouvindo virava a página e caía em texto com
 um cartão para procurar e apertar de novo. Play solto FORA do botão lia como

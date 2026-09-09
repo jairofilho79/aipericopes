@@ -160,7 +160,7 @@ function rotuloDoAlvo(p: Pericope, falando: string | null): string {
  * Um lado do pager: para onde ir e — quando existe narração lá — a opção de ir
  * OUVINDO, DENTRO do mesmo botão.
  *
- * Dois links, uma caixa: o título abre em silêncio, o play (círculo inseto)
+ * Dois links, uma caixa: o título abre em silêncio, o play (faixa na ponta)
  * abre com `?ouvir=1` (o mesmo da Home). Separados no DOM porque HTML não
  * aninha `<a>` em `<a>`; juntos no desenho porque play solto ao lado lia como
  * gambiarra.
@@ -182,6 +182,19 @@ function PagerLado({
   /** Perícope concluída: o caminho para a frente vira o botão laranja. */
   primario?: boolean
 }) {
+  const [searchParams] = useSearchParams()
+  // ponytail: carrega `de`/`mock` pra o chevron continuar apontando à jornada
+  const qsVoltar = [
+    searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+    searchParams.has('mock') ? 'mock=1' : '',
+  ]
+    .filter(Boolean)
+    .join('&')
+  const comQs = (base: string) => {
+    if (!qsVoltar) return base
+    return base.includes('?') ? `${base}&${qsVoltar}` : `${base}?${qsVoltar}`
+  }
+
   if (!v) {
     return (
       <button type="button" className="ghost pager-fim" disabled>
@@ -199,7 +212,7 @@ function PagerLado({
       className={`pager-link${proxima ? ' pager-next' : ''}${chrome}`}
       aria-label={ariaNav}
       title={tituloAtalho}
-      to={`/leitura/${v.ordem}`}
+      to={comQs(`/leitura/${v.ordem}`)}
     >
       {rotulo}
     </Link>
@@ -209,7 +222,7 @@ function PagerLado({
   const ouvir = (
     <Link
       className="pager-ouvir"
-      to={`/leitura/${v.ordem}?ouvir=1`}
+      to={comQs(`/leitura/${v.ordem}?ouvir=1`)}
       aria-label={`Ouvir ${v.titulo}`}
       title="Ouvir"
     >
@@ -635,12 +648,26 @@ export default function Leitura() {
   }, [setSearchParams])
 
   const irAnterior = useCallback(() => {
-    if (prev) navigate(`/leitura/${prev.ordem}`)
-  }, [navigate, prev])
+    if (!prev) return
+    const qs = [
+      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.has('mock') ? 'mock=1' : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+    navigate(`/leitura/${prev.ordem}${qs ? `?${qs}` : ''}`)
+  }, [navigate, prev, searchParams])
 
   const irProxima = useCallback(() => {
-    if (next) navigate(`/leitura/${next.ordem}`)
-  }, [navigate, next])
+    if (!next) return
+    const qs = [
+      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.has('mock') ? 'mock=1' : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+    navigate(`/leitura/${next.ordem}${qs ? `?${qs}` : ''}`)
+  }, [navigate, next, searchParams])
 
   useSwipeNav(rootRef, { onPrev: irAnterior, onNext: irProxima, enabled: p !== null })
   useKeyboardNav({ onPrev: irAnterior, onNext: irProxima, enabled: p !== null })

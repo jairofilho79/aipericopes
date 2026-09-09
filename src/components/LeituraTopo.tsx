@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { useHideOnScroll } from '../lib/use-hide-on-scroll'
 import { usePopover } from '../lib/use-popover'
@@ -53,6 +53,20 @@ function LeituraTopoAa({ open, toggle, rootRef, btnRef, popRef }: AaProps) {
 }
 
 /**
+ * Destino do chevron: quem veio de `/jornada` (`?de=jornada`) volta pra lá;
+ * senão, o livro no Explorar (ou o catálogo, sem perícope).
+ */
+function destinoVoltar(livro: string | null, de: string | null, mock: boolean) {
+  if (de === 'jornada') {
+    return { to: mock ? '/jornada?mock=1' : '/jornada', rotulo: 'Jornada' }
+  }
+  if (livro) {
+    return { to: `/explorar?livro=${encodeURIComponent(livro)}`, rotulo: livro }
+  }
+  return { to: '/explorar', rotulo: 'Explorar' }
+}
+
+/**
  * Topo contextual da Leitura: voltar para o livro, posição no livro e as duas
  * ações de leitura. Substitui o breadcrumb — a linha de referência sob o
  * título já diz onde a pessoa está.
@@ -63,6 +77,7 @@ function LeituraTopoAa({ open, toggle, rootRef, btnRef, popRef }: AaProps) {
  * um único erro no console.
  */
 export default function LeituraTopo({ livro, posicao }: Props) {
+  const [searchParams] = useSearchParams()
   const aa = usePopover()
   // Com o "Aa" aberto o header fica travado. `.top-hidden` não é só um
   // translate: leva `visibility: hidden`, e o popover é filho daqui — rolar
@@ -70,16 +85,17 @@ export default function LeituraTopo({ livro, posicao }: Props) {
   // mover para dentro dele.
   const escondido = useHideOnScroll(!aa.open)
 
-  // Sem perícope na tela não há livro para onde voltar: o destino degrada para
-  // o catálogo, que é o nível de cima de qualquer perícope. O rótulo acompanha
-  // — um `‹` sem nenhum nome ao lado não diz para onde leva.
-  const voltarRotulo = livro ?? 'Explorar'
+  const { to: voltarTo, rotulo: voltarRotulo } = destinoVoltar(
+    livro,
+    searchParams.get('de'),
+    searchParams.has('mock'),
+  )
 
   return (
     <header className={'top leitura-top' + (escondido ? ' top-hidden' : '')}>
       <Link
         className="leitura-top-voltar"
-        to={livro ? `/explorar?livro=${encodeURIComponent(livro)}` : '/explorar'}
+        to={voltarTo}
         // Um chevron isolado não é confiável em leitor de tela.
         aria-label={`Voltar para ${voltarRotulo}`}
       >

@@ -34,20 +34,22 @@ type Estado =
 type ItemReler = CandidatoReler & { titulo: string; ref: string }
 
 /**
- * Ouvir em um toque, ao lado do "Continuar". Só existe quando há narração
- * publicada: o sinal vem de `narrado` no índice (uma vez por deploy), e não de
- * um `HEAD` por card — a Home renderiza a lista inteira de "Vale reler" sem
- * limite superior, e um `HEAD` por linha não escala nem funciona offline.
+ * Ouvir em um toque, DENTRO do "Continuar" — mesma faixa do pager. Só existe
+ * quando há narração publicada: o sinal vem de `narrado` no índice (uma vez
+ * por deploy), e não de um `HEAD` por card — a Home renderiza a lista inteira
+ * de "Vale reler" sem limite superior, e um `HEAD` por linha não escala nem
+ * funciona offline.
  *
  * O `aria-label` carrega o título porque numa lista de cards "Ouvir" sozinho
  * obriga o leitor de tela a adivinhar de qual card é o botão.
  */
-function BotaoOuvir({ peri }: { peri: PericopeIndex }) {
+function BotaoOuvir({ peri, deJornada = false }: { peri: PericopeIndex; deJornada?: boolean }) {
   if (!peri.narrado) return null
+  const qs = deJornada ? '?ouvir=1&de=jornada' : '?ouvir=1'
   return (
     <Link
       className="ouvir-botao"
-      to={`/leitura/${peri.ordem}?ouvir=1`}
+      to={`/leitura/${peri.ordem}${qs}`}
       aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
       title="Ouvir"
     >
@@ -186,14 +188,13 @@ export default function Home() {
                   {refLabel(estado.peri)} · ~{estado.peri.minutos} min
                   <SemNarracao peri={estado.peri} alguemTem={alguemTem} />
                 </p>
-                {/* Invólucro, e não dois filhos soltos: o CTA e o "Ouvir" são
-                    uma linha de ações, e o CSS precisa de uma caixa para
-                    encostá-los um no outro. */}
+                {/* Uma caixa: Continuar + Ouvir (quando há narração) — o mesmo
+                    split do pager; HTML não aninha <a> em <a>. */}
                 <div className="card-acoes">
-                  <Link className="cta" to={`/leitura/${estado.peri.ordem}`}>
+                  <Link className="cta" to={`/leitura/${estado.peri.ordem}?de=jornada`}>
                     Continuar
                   </Link>
-                  <BotaoOuvir peri={estado.peri} />
+                  <BotaoOuvir peri={estado.peri} deJornada />
                 </div>
               </>
             ) : (

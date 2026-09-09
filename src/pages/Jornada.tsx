@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { IconePlay } from '../components/NarracaoPlayer'
 import { loadIndex, refLabel } from '../lib/content'
 import {
   atualizarJornada,
@@ -65,6 +66,22 @@ const NOMES_GRUPO: Record<keyof Catalogo, string> = {
   media: 'Média — um bloco',
   longa: 'Longa — um testamento',
   inteira: 'Inteira',
+}
+
+/** Mesma faixa "Ouvir" da Home — só quando `narrado` no índice. */
+function BotaoOuvir({ peri, qs }: { peri: PericopeIndex; qs: string }) {
+  if (!peri.narrado) return null
+  const sufixo = qs ? `&${qs}` : ''
+  return (
+    <Link
+      className="ouvir-botao"
+      to={`/leitura/${peri.ordem}?ouvir=1${sufixo}`}
+      aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
+      title="Ouvir"
+    >
+      <IconePlay />
+    </Link>
+  )
 }
 
 function GrupoCatalogo({
@@ -294,6 +311,10 @@ function PassoConfirmacao({
 
 export default function Jornada() {
   const { data: session } = authClient.useSession()
+  const [searchParams] = useSearchParams()
+  // ponytail: mock só em DEV — desbloqueia a UI sem login
+  const mock = import.meta.env.DEV && searchParams.has('mock')
+  const liberado = Boolean(session) || mock
   const navigate = useNavigate()
   const [estado, setEstado] = useState<Estado | null>(null)
   const [erro, setErro] = useState('')
@@ -308,6 +329,12 @@ export default function Jornada() {
   const carregar = useCallback(async () => {
     try {
       const all = await loadIndex()
+      // ponytail: mock em memória + import dinâmico — fora do bundle de prod
+      if (mock) {
+        const { estadoMockJornada } = await import('../lib/mock-jornada')
+        setEstado({ indice: all, ...estadoMockJornada(all) })
+        return
+      }
       // Uma varredura só do progresso: tanto a jornada corrente quanto cada
       // item do histórico calculam o progresso final sobre o mesmo Map —
       // mesma economia que Home.tsx já faz. O catálogo e o passo 2 da
@@ -334,22 +361,55 @@ export default function Jornada() {
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Erro')
     }
-  }, [])
+  }, [mock])
 
   useEffect(() => {
-    if (session) void carregar()
-  }, [session, carregar])
+    if (liberado) void carregar()
+  }, [liberado, carregar])
   // Uma jornada criada ou mudada em outro aparelho precisa aparecer aqui sem
   // que o leitor precise navegar para fora e voltar (mesmo padrão de Home e
   // Índice).
   useSyncRefresh(() => {
-    if (session) void carregar()
+    if (liberado) void carregar()
   })
 
   async function aplicar(patch: Partial<Pick<JornadaType, 'contaDesde' | 'concluidaEm' | 'arquivadaEm'>>) {
     if (!estado?.corrente || aplicando) return
     setAplicando(true)
     try {
+      if (mock) {
+        // ponytail: mutação só em memória no mock
+        if (patch.arquivadaEm && estado.progCorrente) {
+          setEstado({
+            ...estado,
+            corrente: null,
+            progCorrente: null,
+            historico: [
+              { jornada: { ...estado.corrente, ...patch }, prog: estado.progCorrente },
+              ...estado.historico,
+            ],
+          })
+        } else if (patch.contaDesde) {
+          const { escopo } = estado.corrente
+          const progressos = new Map(estado.progressos)
+          for (const p of estado.indice) {
+            if (p.livro === escopo) progressos.delete(p.ordem)
+          }
+          const corrente = { ...estado.corrente, ...patch }
+          setEstado({
+            ...estado,
+            corrente,
+            progressos,
+            progCorrente: progressoDaJornada(
+              rotaDaJornada(corrente, estado.indice),
+              progressos,
+              corrente.contaDesde,
+            ),
+          })
+        }
+        setConfirmando(null)
+        return
+      }
       await atualizarJornada(estado.corrente.id, patch)
       setConfirmando(null)
       await carregar()
@@ -382,13 +442,52 @@ export default function Jornada() {
     inicioOrdem: number
     contaDesde: string | null
   }) {
+    if (mock) {
+      // ponytail: cria só em memória e fica na página
+      if (!estado) return
+      const agora = new Date().toISOString()
+      const corrente: JornadaType = {
+        id: `mock-${crypto.randomUUID()}`,
+        nome: input.nome,
+        tipo: input.tipo,
+        escopo: input.escopo,
+        inicioOrdem: input.inicioOrdem,
+        contaDesde: input.contaDesde,
+        criadoEm: agora,
+        atualizadoEm: agora,
+        arquivadaEm: null,
+        concluidaEm: null,
+      }
+      const historico =
+        estado.corrente && estado.progCorrente
+          ? [
+              {
+                jornada: { ...estado.corrente, arquivadaEm: agora, atualizadoEm: agora },
+                prog: estado.progCorrente,
+              },
+              ...estado.historico,
+            ]
+          : estado.historico
+      setEstado({
+        ...estado,
+        corrente,
+        progCorrente: progressoDaJornada(
+          rotaDaJornada(corrente, estado.indice),
+          estado.progressos,
+          corrente.contaDesde,
+        ),
+        historico,
+      })
+      setCriacao(null)
+      return
+    }
     // criarJornada arquiva a corrente anterior (se houver) na mesma
     // transação — o aviso do passo 2 já preparou o leitor para isso.
     await criarJornada(input)
     navigate('/') // a Home já mostra o card da nova jornada
   }
 
-  if (!session) {
+  if (!liberado) {
     return (
       <section className="jornada">
         <h1>Jornada</h1>
@@ -401,6 +500,12 @@ export default function Jornada() {
 
   if (erro) return <p className="muted">{erro}</p>
   if (!estado || !catalogo) return <p className="muted">Carregando…</p>
+
+  const proximaOrdem = estado.progCorrente?.proximaOrdem
+  const periContinuar =
+    proximaOrdem != null ? estado.indice.find((p) => p.ordem === proximaOrdem) : undefined
+  // ponytail: marca a origem pra o chevron da Leitura voltar aqui
+  const qsLeitura = ['de=jornada', mock ? 'mock=1' : ''].filter(Boolean).join('&')
 
   return (
     <section className="jornada">
@@ -417,6 +522,14 @@ export default function Jornada() {
           <span className="book-progress" aria-hidden>
             <span className="book-progress-fill" style={{ width: `${estado.progCorrente.pct}%` }} />
           </span>
+          {periContinuar && (
+            <div className="card-acoes">
+              <Link className="cta" to={`/leitura/${periContinuar.ordem}?${qsLeitura}`}>
+                Continuar
+              </Link>
+              <BotaoOuvir peri={periContinuar} qs={qsLeitura} />
+            </div>
+          )}
           {confirmando ? (
             <p className="jornada-confirmar">
               <span className="muted">

@@ -401,15 +401,21 @@ a {
 }
 
 .leitura-top-voltar {
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   gap: 0.15rem;
   min-height: 46px;
   min-width: 0;
-  padding-inline: 0.15rem;
+  padding-inline: 0.7rem;
   font-family: var(--font-ui);
   font-size: 0.9rem;
   color: var(--muted);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -430,7 +436,7 @@ a {
   display: flex;
   align-items: center;
   justify-self: end;
-  gap: 0.15rem;
+  gap: 0.35rem;
 }
 
 .leitura-top-aa,
@@ -440,17 +446,19 @@ a {
   justify-content: center;
   min-width: 46px;
   min-height: 46px;
-  padding: 0;
+  padding: 0 0.55rem;
   font-family: var(--font-ui);
   font-size: 0.95rem;
   color: var(--muted);
-  background: none;
-  border: 0;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   cursor: pointer;
 }
 
 .leitura-top-aa[aria-expanded='true'] {
   color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 
 @media (max-width: 379.98px) {
@@ -973,22 +981,31 @@ button.ghost {
   font-family: var(--font-ui);
 }
 
-/* Uma caixa, dois alvos: título (silêncio) + play (`?ouvir=1`) DENTRO do
-   padding. A borda e o raio são DO LADO — play solto fora lia como gambiarra. */
+/* Uma caixa, dois alvos: título (silêncio) + pedaço de play (`?ouvir=1`).
+   Fill sólido em cada filho (não gradiente no pai): o gradiente desalinhava a
+   faixa do play e deixava uma “sujeira” laranja na ponta oposta.
+   --play-bg = cor do texto; --play-fg = fundo do botão (ícone = recorte). */
 .pager-lado {
+  --play-bg: var(--accent);
+  --play-fg: var(--paper);
   display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  align-items: stretch;
+  gap: 0;
   width: 100%;
   min-height: 2.75rem;
-  padding: 0.25rem;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: transparent;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .pager-lado .pager-link {
   flex: 1 1 auto;
+  /* Não `width: 100%` do `.pager-link` solto — senão o fill do primário
+     pinta sob o play. */
+  width: auto;
   min-width: 0;
   border: none;
   border-radius: 0;
@@ -996,37 +1013,35 @@ button.ghost {
   color: var(--accent);
   font-family: var(--font-ui);
   font-weight: 600;
-  /* O padding externo é do `.pager-lado`; aqui só o vão interno do texto. */
-  padding: 0.4rem 0.65rem;
+  padding: 0.55rem 0.85rem;
   min-height: 0;
-  height: 100%;
+  height: auto;
 }
 
-/* Círculo inseto — o mesmo gesto da Home, só que dentro da caixa de seguir. */
 .pager-ouvir {
   flex: none;
+  align-self: stretch;
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 999px;
-  background: var(--cta-bg);
-  color: var(--cta-ink);
+  width: 2.75rem;
+  /* Altura = a do lado (stretch); sem min próprio que sobressaia do botão. */
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--play-bg);
+  color: var(--play-fg);
   text-decoration: none;
 }
 
 .pager-lado-primario {
-  background: var(--cta-bg);
+  --play-bg: var(--cta-ink);
+  --play-fg: var(--cta-bg);
   border-color: transparent;
+  background: transparent;
 }
 
 .pager-lado-primario .pager-link {
-  color: var(--cta-ink);
-}
-
-/* No CTA laranja o círculo precisa de contraste: tinta sobre o fundo. */
-.pager-lado-primario .pager-ouvir {
-  background: color-mix(in srgb, var(--cta-ink) 16%, var(--cta-bg));
+  background: var(--cta-bg);
   color: var(--cta-ink);
 }
 
@@ -2992,32 +3007,64 @@ button.trocar-livro {
 }
 
 /* ── Ouvir a partir da Home ──────────────────────────────────────────────
-   O CTA "Continuar"/"Rever" e o botão redondo "Ouvir" são uma linha de ações
-   só. Este bloco vive AQUI, e não junto do `.track-card`, porque tanto
-   `.track-card .cta` quanto `.jornada-card .cta` (a regra logo acima) mandam
-   o CTA a `width: 100%` com a mesma especificidade — dentro da linha ele
-   precisa ceder o lugar do botão, e quem decide isso é a ordem do arquivo. */
+   Mesmo split do pager: "Continuar"/"Rever" + faixa de play DENTRO de uma
+   caixa. Este bloco vive AQUI, e não junto do `.track-card`, porque tanto
+   `.track-card .cta` quanto `.jornada-card .cta` (acima) mandam o CTA a
+   `width: 100%` — dentro da linha ele precisa ceder o lugar do play. */
 .card-acoes {
+  --play-bg: var(--cta-ink);
+  --play-fg: var(--cta-bg);
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: 10px;
+  background: var(--cta-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.card-acoes:has(.ouvir-botao) {
+  /* Um fill só: âmbar | carvão. Empilhar dois backgrounds vazava no raio. */
+  background: linear-gradient(
+    to right,
+    var(--cta-bg) calc(100% - 2.75rem),
+    var(--play-bg) calc(100% - 2.75rem)
+  );
 }
 
 .card-acoes .cta {
   flex: 1 1 auto;
   width: auto;
+  min-width: 0;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--cta-ink);
 }
 
-/* 48px, redondo, o mesmo par de tokens do play da doca: é o mesmo gesto. */
+.card-acoes:not(:has(.ouvir-botao)) .cta {
+  background: var(--cta-bg);
+}
+
+.card-acoes:has(.ouvir-botao) .cta {
+  border-radius: 0;
+}
+
+/* Consome o par do pai; fallback CTA se `.ouvir-botao` aparecer solto. */
 .ouvir-botao {
   flex: none;
-  display: inline-grid;
+  align-self: stretch;
+  display: grid;
   place-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 999px;
-  background: var(--cta-bg);
-  color: var(--cta-ink);
+  width: 2.75rem;
+  min-height: 2.75rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--play-fg, var(--cta-bg));
+  text-decoration: none;
 }
 
 /* Onde o botão estaria, o motivo de ele não estar — dentro da linha de

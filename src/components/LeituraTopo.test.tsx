@@ -7,12 +7,15 @@ import { installLocalStorageMock } from '../lib/testing/storage-mock'
 
 installLocalStorageMock()
 
+let mockSearch = ''
+
 vi.mock('react-router-dom', () => ({
   Link: ({ to, children, ...resto }: { to: string; children: unknown }) => (
     <a href={to} {...resto}>
       {children as never}
     </a>
   ),
+  useSearchParams: () => [new URLSearchParams(mockSearch), vi.fn()],
 }))
 
 import LeituraTopo from './LeituraTopo'
@@ -23,6 +26,7 @@ const rafOriginal = window.requestAnimationFrame
 const cafOriginal = window.cancelAnimationFrame
 
 beforeEach(() => {
+  mockSearch = ''
   localStorage.clear()
   // O `window` é o mesmo para todos os testes do arquivo: sem zerar aqui, o
   // topo montaria já com o `scrollY` que o teste anterior deixou, e uma
@@ -74,6 +78,20 @@ describe('LeituraTopo — a saída da Leitura', () => {
     montar('Gênesis')
     expect(voltar().getAttribute('href')).toBe('/explorar?livro=G%C3%AAnesis')
     expect(voltar().textContent).toContain('Gênesis')
+  })
+
+  it('com ?de=jornada, o chevron volta para /jornada', () => {
+    mockSearch = 'de=jornada'
+    montar('Gênesis')
+    expect(voltar().getAttribute('href')).toBe('/jornada')
+    expect(voltar().textContent).toContain('Jornada')
+    expect(voltar().getAttribute('aria-label')).toBe('Voltar para Jornada')
+  })
+
+  it('com ?de=jornada&mock=1, preserva o mock no destino', () => {
+    mockSearch = 'de=jornada&mock=1'
+    montar('Jonas')
+    expect(voltar().getAttribute('href')).toBe('/jornada?mock=1')
   })
 
   // O header do App não renderiza em /leitura/*: nos estados de carga e de
