@@ -156,17 +156,17 @@ concluída a perícope, o caminho para a frente parecia não existir. E, com o
 pager logo abaixo repetindo "próxima", eram dois links para o mesmo lugar com
 pesos trocados — o discreto era o botão, o vistoso era o "aviso".
 
-Agora o estado e a ação se separam: "Concluída ✓" volta a ser recibo (texto na
-cor de acento, sem caixa) e o "próxima" do pager passa a `.cta` enquanto a
-perícope está concluída. Um lugar só para ir adiante, e ele é laranja.
+Agora o estado e a ação se separam: "Concluída ✓" é um botão secundário (ghost)
+que DESMARCA no toque de volta, ao lado de uma estrela só-ícone para "marcar
+para reler", e o "lida N×" fica logo abaixo. O "próxima" do pager passa a `.cta`
+enquanto a perícope está concluída. Ao marcar como concluída, a página rola até
+o pager — senão, em celular, o caminho para a frente ficava abaixo da dobra.
 
 O "Marcar como concluída" também passa a ocupar a linha inteira em qualquer
 largura (antes só no celular): de largura natural ele ficava do tamanho de meia
 linha, encarando o vão do "próxima" ao lado, e dois retângulos lado a lado se
 leem como duas opções do mesmo par — que não é o caso, um fecha a leitura e o
-outro vira a página. Os controles secundários (desmarcar, marcar para reler,
-"lida 1×") deixam de disputar a mesma linha: `.actions` virou grid de uma
-coluna, um por linha, centrados.
+outro vira a página.
 
 ### 9. Safe areas iOS
 

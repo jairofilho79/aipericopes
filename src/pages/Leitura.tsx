@@ -240,6 +240,7 @@ export default function Leitura() {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const rootRef = useRef<HTMLElement>(null)
+  const pagerRef = useRef<HTMLElement>(null)
   const notaRef = useRef<HTMLTextAreaElement>(null)
   const ordem = Number(ordemParam)
   const verseParam = searchParams.get('v')
@@ -800,6 +801,13 @@ export default function Leitura() {
     doneRef.current = true
     setStatus('concluido')
     setProg((await getProgresso(ordem)) ?? null)
+    // O "próxima" do pager vira o CTA laranja agora — sem rolar, em celular ele
+    // fica abaixo da dobra e a pessoa conclui sem achar por onde continuar.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        pagerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      })
+    })
   }
 
   async function desmarcar() {
@@ -1351,31 +1359,37 @@ export default function Leitura() {
 
           <div className="actions">
             {status !== 'concluido' ? (
-              <button type="button" className="cta" onClick={markDone}>
+              <button type="button" className="cta" onClick={() => void markDone()}>
                 Marcar como concluída
               </button>
             ) : (
               <>
-                {/* Só o selo do que aconteceu. O caminho para a frente é o
-                    "próxima" do pager, que ao concluir fica laranja: antes
-                    havia aqui um cartão que EMBRULHAVA selo e próxima num
-                    link só, e uma caixa clara com um ✓ dentro se lê como aviso,
-                    não como botão — dava para concluir a perícope e não achar
-                    por onde continuar. */}
-                <p className="badge">Concluída ✓</p>
-                {/* Sem confirmação: é UMA perícope, e remarcar é um toque. O
-                    "próxima" laranja continua sendo a ação primária. */}
-                <button type="button" className="linkish desmarcar" onClick={() => void desmarcar()}>
-                  Desmarcar como concluída
-                </button>
-                <button
-                  type="button"
-                  className="linkish reler"
-                  aria-pressed={prog?.paraReler ?? false}
-                  onClick={() => void alternarReler()}
-                >
-                  {prog?.paraReler ? '★ Marcada para reler' : '☆ Marcar para reler'}
-                </button>
+                {/* Uma linha: "Concluída ✓" é o próprio desmarcar (toque de
+                    volta), estrela é só ícone. "Desmarcar como…" e "Marcar
+                    para reler" em texto puro empilhado comiam a dobra e
+                    pareciam links, não botões. */}
+                <div className="actions-linha">
+                  <button
+                    type="button"
+                    className="ghost actions-concluir"
+                    aria-pressed="true"
+                    aria-label="Desmarcar como concluída"
+                    title="Desmarcar como concluída"
+                    onClick={() => void desmarcar()}
+                  >
+                    Concluída ✓
+                  </button>
+                  <button
+                    type="button"
+                    className="ghost actions-reler"
+                    aria-pressed={prog?.paraReler ?? false}
+                    aria-label={prog?.paraReler ? 'Desmarcar para reler' : 'Marcar para reler'}
+                    title={prog?.paraReler ? 'Desmarcar para reler' : 'Marcar para reler'}
+                    onClick={() => void alternarReler()}
+                  >
+                    {prog?.paraReler ? '★' : '☆'}
+                  </button>
+                </div>
                 {prog && prog.historico.length > 0 && (
                   <p className="historico-leitura">
                     {prog.historico.length === 1 ? 'lida 1×' : `lida ${prog.historico.length}×`} ·{' '}
@@ -1390,7 +1404,7 @@ export default function Leitura() {
               </>
             )}
           </div>
-          <nav className="pager" aria-label="Navegação entre perícopes">
+          <nav ref={pagerRef} className="pager" aria-label="Navegação entre perícopes">
             <PagerLado
               v={prev}
               proxima={false}

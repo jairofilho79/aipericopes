@@ -2444,44 +2444,49 @@ button.linkish {
   min-height: 2.75rem;
 }
 
-/* Fecho da perícope: separado das anotações por um fio sutil. Uma coisa por
-   linha, centrada — em `flex-wrap` o selo "Concluída ✓", o "Desmarcar", o
-   "Marcar para reler" e o "lida 1×" caíam na mesma linha e viravam uma barra
-   de quatro itens de peso e função diferentes. */
+/* Fecho da perícope: separado das anotações por um fio sutil. */
 .actions {
   display: grid;
-  justify-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
   border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
 }
 
-/* Largura cheia em qualquer tela: "Marcar como concluída" fecha a leitura e
-   não faz par com nada. Com largura natural ele ficava do tamanho de meia
-   linha, com o vão do "próxima" ao lado — e dois retângulos lado a lado se
-   leem como um par de opções, o que eles não são. */
+/* Largura cheia: "Marcar como concluída" fecha a leitura e não faz par com
+   nada. De largura natural ele encarava o vão do "próxima" ao lado. */
 .actions .cta {
   width: 100%;
 }
 
-/* Sem margem própria: o espaçamento é do `gap` do `.actions`. */
-.desmarcar {
-  display: block;
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--muted);
+/* Concluída: uma linha — toggle + estrela — e o "lida N×" logo abaixo.
+   Empilhar desmarcar/reler em texto puro comia a dobra e parecia link. */
+.actions-linha {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
 }
 
-.reler {
-  display: block;
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--muted);
+.actions-concluir {
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
 }
 
-.reler[aria-pressed='true'] {
+.actions-reler {
+  flex: none;
+  width: 2.75rem;
+  padding-inline: 0;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.actions-reler[aria-pressed='true'] {
   color: var(--accent);
+  border-color: var(--focus-line);
+  background: var(--focus-bg);
 }
 
 .historico-leitura {
@@ -2489,16 +2494,6 @@ button.linkish {
   font-size: 0.8rem;
   color: var(--muted);
   text-align: center;
-}
-
-/* Estado, não botão: preenchido e de canto arredondado num rodapé onde tudo o
-   mais é botão de verdade, o selo era só mais um retângulo apertável. Sem
-   caixa, ele é o recibo do que acabou de acontecer. */
-.badge {
-  font-family: var(--font-ui);
-  color: var(--accent);
-  margin: 0;
-  font-weight: 600;
 }
 
 .filters {
