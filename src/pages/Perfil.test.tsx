@@ -51,7 +51,11 @@ function textos(seletor: string): string[] {
 }
 
 function temas(): HTMLButtonElement[] {
-  return [...container.querySelectorAll<HTMLButtonElement>('[aria-label="Tema"] button')]
+  return [
+    ...container.querySelectorAll<HTMLButtonElement>(
+      '[role="group"][aria-labelledby="perfil-tema"] button',
+    ),
+  ]
 }
 
 describe('Perfil — tema', () => {
@@ -84,10 +88,29 @@ describe('Perfil — tema', () => {
 describe('Perfil — conteúdo', () => {
   // O popover só mostrava tipografia vindo da Leitura. A página não tem de
   // onde vir: é um endereço, e mostra sempre.
-  it('a tipografia aparece sem depender de rota', () => {
+  // Cada ajuste tem de dizer na tela o que configura, num nível só de rótulo:
+  // é o que separa uma página de ajustes de um paredão de botões.
+  it('a tipografia aparece sem depender de rota, com um rótulo por ajuste', () => {
     montar()
-    expect(container.querySelector('[aria-label="Tamanho do texto"]')).not.toBeNull()
-    expect(textos('.perfil-secao')).toEqual(['Tema', 'Leitura'])
+    expect(textos('.pref-grupo .eyebrow')).toEqual([
+      'Tema',
+      'Tamanho do texto',
+      'Fonte',
+      'Disposição dos versículos',
+      'Espaço entre linhas',
+      'Largura do texto',
+    ])
+  })
+
+  // Rótulo visível E nome acessível são o mesmo texto: `aria-labelledby`
+  // apontando para o <p>, não um `aria-label` paralelo que pode divergir dele.
+  it('o nome de cada grupo sai do rótulo que está na tela', () => {
+    montar()
+    const nomes = [...container.querySelectorAll('.pref-grupo')].map((g) => {
+      const id = g.getAttribute('aria-labelledby')
+      return id ? (container.querySelector(`#${id}`)?.textContent?.trim() ?? '') : ''
+    })
+    expect(nomes).toEqual(textos('.pref-grupo .eyebrow'))
   })
 
   it('Ajustes aparece deslogado — a tela funciona sem conta', () => {

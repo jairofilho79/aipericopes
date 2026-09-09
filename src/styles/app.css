@@ -349,7 +349,7 @@ a {
 }
 
 .tab-rotulo {
-  /* mesma receita de .perfil-secao: uma só escala de caixa alta no app. */
+  /* mesma receita do .eyebrow: uma só escala de caixa alta no app. */
   font-family: var(--font-ui);
   font-size: 0.72rem;
   font-weight: 700;
@@ -3098,22 +3098,42 @@ fieldset.jornada-campo {
   max-height: calc(100dvh - 5rem);
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* Mais que os 0.55rem do .readmenu-pop: aqui cada filho é um grupo rotulado,
+     e o vão entre grupos tem de ser maior que o vão de 0.3rem que gruda o
+     rótulo na fileira dele — senão nada mostra o que pertence a quê. */
+  gap: 0.9rem;
 }
 
-.perfil-secao {
+/* ── Um ajuste, um grupo ─────────────────────────────────────────────────
+   Rótulo colado na fileira que ele nomeia (gap pequeno, aqui dentro) e ar
+   entre um ajuste e o seguinte (margem, aqui fora). Sem isso as fileiras de
+   44px encostavam umas nas outras: seis linhas de botão sem dono, que é o que
+   dava a sensação de bagunça na /perfil. */
+.pref-grupo {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+  margin-top: 1.5rem;
+}
+
+/* O rótulo já vem do .eyebrow, que carrega margem própria para quando é
+   cabeçalho de seção no fluxo da página; dentro do grupo quem manda é o gap. */
+.pref-grupo .eyebrow {
   margin: 0;
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
 }
 
+/* No popover a separação é o `gap` do container, não a margem: em grid a
+   margem SOMA ao gap, e o primeiro grupo ganharia um vão morto no topo. */
+.pop-tipografia .pref-grupo {
+  margin-top: 0;
+}
+
+/* Respiro maior que o do último grupo: aqui a página troca de assunto — sai
+   configuração, entram os destinos (Ajustes, Sobre, conta). */
 .perfil-sep {
   height: 1px;
   background: var(--line);
-  margin: 0.15rem 0;
+  margin: 1.75rem 0 0.5rem;
 }
 
 .perfil-item {

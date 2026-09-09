@@ -52,25 +52,32 @@ export default function Perfil() {
     <section className="ajustes">
       <h1>Perfil</h1>
 
-      <p className="perfil-secao">Tema</p>
-      <div className="readmenu-row" role="group" aria-label="Tema">
-        {TEMAS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            className={`read-tool${pref === t.id ? ' active' : ''}`}
-            aria-pressed={pref === t.id}
-            onClick={() => {
-              setThemePref(t.id)
-              setPref(t.id)
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
+      {/* Um grupo rotulado por ajuste, o mesmo formato que o LeituraPrefs usa
+          logo abaixo — e sem um "Leitura" por cima dos cinco dele. Dois níveis
+          de rótulo para seis fileiras era hierarquia inventada: tema também é
+          leitura, e a página inteira é ajuste de leitura. */}
+      <div className="pref-grupo" role="group" aria-labelledby="perfil-tema">
+        <p className="eyebrow" id="perfil-tema">
+          Tema
+        </p>
+        <div className="readmenu-row">
+          {TEMAS.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className={`read-tool${pref === t.id ? ' active' : ''}`}
+              aria-pressed={pref === t.id}
+              onClick={() => {
+                setThemePref(t.id)
+                setPref(t.id)
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <p className="perfil-secao">Leitura</p>
       <LeituraPrefs />
 
       <div className="perfil-sep" role="separator" />
