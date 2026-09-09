@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { tokens, type SecaoAlvos } from '../lib/alinhar-narracao'
-import NarracaoPlayer, { type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
+import NarracaoPlayer, { IconePlay, type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
 import { secaoDoChip } from '../lib/narracao-controles'
 import LeituraTopo from '../components/LeituraTopo'
 import SectionChips from '../components/SectionChips'
@@ -54,9 +54,10 @@ import { getContextoAberto, setContextoAberto } from '../lib/contexto-collapse'
 import { inserirNoCursor, substituirTrecho } from '../lib/ditado'
 import type { Anotacao, DestaqueCor, Pericope, Progresso, ProgressoStatus } from '../lib/types'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
+import { testamentLabel, testamentOf } from '../lib/testament'
 
 type NotesTab = 'anotacoes' | 'topicos' | 'conversar'
-type Vizinha = { ordem: number; titulo: string }
+type Vizinha = { ordem: number; titulo: string; narrado: boolean }
 
 /**
  * Quebra em palavras só a unidade em fala — o resto da página fica com o nó de
@@ -155,6 +156,64 @@ function rotuloDoAlvo(p: Pericope, falando: string | null): string {
   return refLabel(p)
 }
 
+/**
+ * Um lado do pager: para onde ir e — quando existe narração lá — a opção de ir
+ * OUVINDO.
+ *
+ * O play existe porque a escuta morria na fronteira da perícope: quem entrou
+ * pelo "Ouvir" da Home passava a sessão inteira ouvindo e, ao virar a página,
+ * só encontrava texto e um player para procurar e apertar de novo. É o mesmo
+ * par (link + botão redondo) e o mesmo `?ouvir=1` do card da Home, com as
+ * classes dela, porque é o mesmo gesto.
+ *
+ * Sem vizinha o lado NÃO desaparece: fica o motivo, desabilitado. O vão vazio
+ * ao lado do "próxima" parecia botão que não carregou — e, pior, fazia par com
+ * o CTA laranja de cima, como se os dois fossem uma dupla.
+ */
+function PagerLado({
+  v,
+  proxima,
+  fim,
+  primario = false,
+}: {
+  v: Vizinha | null
+  proxima: boolean
+  /** Aviso de ponta: "Primeira do Velho Testamento". */
+  fim: string
+  /** Perícope concluída: o caminho para a frente vira o botão laranja. */
+  primario?: boolean
+}) {
+  if (!v) {
+    return (
+      <button type="button" className="ghost pager-fim" disabled>
+        {fim}
+      </button>
+    )
+  }
+  return (
+    <div className={`pager-lado ${proxima ? 'pager-lado-proxima' : 'pager-lado-anterior'}`}>
+      <Link
+        className={`pager-link ${primario ? 'cta' : 'ghost'}${proxima ? ' pager-next' : ''}`}
+        aria-label={`${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`}
+        title={`Atalho: ${proxima ? '→' : '←'}`}
+        to={`/leitura/${v.ordem}`}
+      >
+        {proxima ? `${v.titulo} →` : `← ${v.titulo}`}
+      </Link>
+      {v.narrado && (
+        <Link
+          className="ouvir-botao"
+          to={`/leitura/${v.ordem}?ouvir=1`}
+          aria-label={`Ouvir ${v.titulo}`}
+          title="Ouvir"
+        >
+          <IconePlay />
+        </Link>
+      )}
+    </div>
+  )
+}
+
 export default function Leitura() {
   const { ordem: ordemParam } = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -203,10 +262,18 @@ export default function Leitura() {
   // Checkpoint de narração restaurado: o player posiciona o áudio aqui e o
   // play do usuário retoma do ponto salvo.
   const [tempoInicialNarracao, setTempoInicialNarracao] = useState<number | null>(null)
-  // O checkpoint desta perícope já foi lido do IndexedDB (com ou sem resultado).
-  // O autoplay do `?ouvir=1` espera por isto: soltá-lo antes faria o áudio
-  // começar do zero e saltar para o ponto salvo um instante depois.
-  const [posicaoResolvida, setPosicaoResolvida] = useState(false)
+  // De QUAL perícope o checkpoint já foi lido do IndexedDB (com ou sem
+  // resultado). O autoplay do `?ouvir=1` espera por isto: soltá-lo antes faria
+  // o áudio começar do zero e saltar para o ponto salvo um instante depois.
+  //
+  // A ordem, e não um booleano: o `?ouvir=1` agora também chega do pager, ou
+  // seja, de uma perícope para outra sem desmontar a página. Nesse caminho o
+  // render seguinte ao clique já vê `ouvir=1` com o booleano ainda VERDADEIRO
+  // da perícope anterior (quem o zera é o efeito de carga, que só roda depois)
+  // — e o autoplay saía no áudio velho, gastando a única tentativa e limpando
+  // a URL antes de o novo áudio existir. Comparar com `ordem` fecha essa
+  // janela sem depender de ordem de efeitos.
+  const [posicaoResolvida, setPosicaoResolvida] = useState<number | null>(null)
   // Espelhos para handlers que não podem renascer a cada render.
   const tocandoRef = useRef(false)
   // A rolagem automática da restauração dispara o observer de seções — a
@@ -303,7 +370,7 @@ export default function Leitura() {
       vAplicado.current = null
       // Checkpoint e controle de narração também são por perícope.
       setTempoInicialNarracao(null)
-      setPosicaoResolvida(false)
+      setPosicaoResolvida(null)
       setNarracaoUsada(false)
       try {
         const all = await loadIndex()
@@ -319,7 +386,7 @@ export default function Leitura() {
         const vizinha = (o: number | null): Vizinha | null => {
           if (o == null) return null
           const v = all.find((x) => x.ordem === o)
-          return v ? { ordem: v.ordem, titulo: v.titulo_pericope_pt } : null
+          return v ? { ordem: v.ordem, titulo: v.titulo_pericope_pt, narrado: v.narrado } : null
         }
         setPrev(vizinha(anteriorNoTestamento(all, ordem)))
         setNext(vizinha(proximaNoTestamento(all, ordem)))
@@ -371,7 +438,7 @@ export default function Leitura() {
     if (!p || p.ordem !== ordem) return
     if (verseParam && /^\d+:\d+$/.test(verseParam)) {
       // `?v=` manda na rolagem e não há checkpoint a esperar aqui.
-      setPosicaoResolvida(true)
+      setPosicaoResolvida(ordem)
       return
     }
     let vivo = true
@@ -381,7 +448,7 @@ export default function Leitura() {
       // Nos dois setters juntos: o React comita o tempo inicial e a liberação
       // do autoplay no mesmo render, então o player nunca vê um sem o outro.
       if (pos?.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
-      setPosicaoResolvida(true)
+      setPosicaoResolvida(ordem)
       if (!pos) {
         window.scrollTo(0, 0)
         return
@@ -976,7 +1043,7 @@ export default function Leitura() {
           usada={narracaoUsada}
           alvoRotulo={rotuloDoAlvo(p, falando)}
           minutos={minutos}
-          tocarAoCarregar={querOuvir && posicaoResolvida}
+          tocarAoCarregar={querOuvir && posicaoResolvida === ordem}
           onTentouTocar={limparOuvir}
         />
 
@@ -1268,18 +1335,15 @@ export default function Leitura() {
               </button>
             ) : (
               <>
-                {next ? (
-                  <Link className="done-card" to={`/leitura/${next.ordem}`}>
-                    <span className="badge">Concluída ✓</span>
-                    <span className="done-next">
-                      Próxima: <strong>{next.titulo}</strong> →
-                    </span>
-                  </Link>
-                ) : (
-                  <p className="badge">Concluída ✓</p>
-                )}
+                {/* Só o selo do que aconteceu. O caminho para a frente é o
+                    "próxima" do pager, que ao concluir fica laranja: antes
+                    havia aqui um cartão que EMBRULHAVA selo e próxima num
+                    link só, e uma caixa clara com um ✓ dentro se lê como aviso,
+                    não como botão — dava para concluir a perícope e não achar
+                    por onde continuar. */}
+                <p className="badge">Concluída ✓</p>
                 {/* Sem confirmação: é UMA perícope, e remarcar é um toque. O
-                    cartão "Próxima →" continua sendo a ação primária. */}
+                    "próxima" laranja continua sendo a ação primária. */}
                 <button type="button" className="linkish desmarcar" onClick={() => void desmarcar()}>
                   Desmarcar como concluída
                 </button>
@@ -1306,26 +1370,17 @@ export default function Leitura() {
             )}
           </div>
           <nav className="pager" aria-label="Navegação entre perícopes">
-            {prev ? (
-              <Link
-                className="ghost pager-link"
-                aria-label={`Anterior: ${prev.titulo}`}
-                title="Atalho: ←"
-                to={`/leitura/${prev.ordem}`}
-              >
-                ← {prev.titulo}
-              </Link>
-            ) : null}
-            {next ? (
-              <Link
-                className="ghost pager-link pager-next"
-                aria-label={`Próxima: ${next.titulo}`}
-                title="Atalho: →"
-                to={`/leitura/${next.ordem}`}
-              >
-                {next.titulo} →
-              </Link>
-            ) : null}
+            <PagerLado
+              v={prev}
+              proxima={false}
+              fim={`Primeira do ${testamentLabel(testamentOf(p))}`}
+            />
+            <PagerLado
+              v={next}
+              proxima
+              fim={`Última do ${testamentLabel(testamentOf(p))}`}
+              primario={status === 'concluido'}
+            />
           </nav>
         </section>
 

@@ -438,6 +438,25 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
   decide *se* toca, nunca *onde* — a posição continua vindo exclusivamente
   de `tempoInicialNarracao`.
 
+**Revisto em 09/09 — o "Ouvir" também vive no pager da Leitura.** Cada lado do
+pager do rodapé ganha, ao lado do link da vizinha, o mesmo botão redondo com o
+mesmo `?ouvir=1` (44px em vez de 48px: aqui são dois num rodapé de navegação,
+não um fazendo par com o CTA da tela). Só aparece quando a vizinha tem
+`narrado`, igual à Home. Motivo: a escuta morria na fronteira da perícope —
+quem entrou ouvindo virava a página e caía em texto com um cartão para procurar
+e apertar de novo. No lado "próxima" o play fica à esquerda do link
+(`order: -1`), senão a seta "→" aponta para ele em vez de apontar para fora.
+
+Isso expôs uma corrida que a Home nunca alcançou, porque de lá o `?ouvir=1`
+sempre chegava numa MONTAGEM da Leitura: navegando de perícope para perícope a
+página não desmonta, e no render seguinte ao clique o `posicaoResolvida`
+(booleano) ainda era o `true` da perícope anterior — o autoplay saía no áudio
+velho, gastava a única tentativa (`autoTentado`) e limpava a URL antes de o novo
+áudio existir. O resultado era a doca aparecer parada no checkpoint da vizinha.
+`posicaoResolvida` passa a guardar a ORDEM cujo checkpoint foi lido, e o gatilho
+é `querOuvir && posicaoResolvida === ordem`; a janela fecha sem depender de
+ordem de efeitos.
+
 ## Acessibilidade
 
 - Doca: `role="region"` com `aria-label="Narração"`, mesmo padrão de landmark

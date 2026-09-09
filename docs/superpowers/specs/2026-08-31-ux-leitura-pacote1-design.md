@@ -131,6 +131,13 @@ sentido no texto bíblico versificado.
 - Rodapé (seção de ações): "← Anterior" e "Próxima →" com os títulos das
   perícopes vizinhas. Botão ausente quando não há vizinha.
 
+**Revisto em 09/09 — o lado sem vizinha não fica vazio.** Na ponta do
+testamento o lado virava um vão do tamanho de um botão ao lado do outro botão,
+que se lê como botão que não carregou. Agora fica um botão desabilitado dizendo
+por quê: "Primeira do Velho Testamento", "Última do Novo Testamento" (tracejado
+e `--muted`, `disabled`, fora do foco). Cada lado ganhou também um play redondo
+para a vizinha que tem narração — ver a revisão de 09/09 na spec de narração.
+
 ### 8. Concluir → card "Próxima"
 
 - Ao tocar em "Marcar como concluída": grava o progresso (como hoje),
@@ -141,6 +148,25 @@ sentido no texto bíblico versificado.
 - Perícope aberta já concluída mostra o mesmo card (estado atual mostra
   badge "Concluída" + link "Próxima →" separados — unificam no card).
 - Título da próxima vem de `getPericope(nextOrdem)` no carregamento.
+
+**Revogada em 09/09 — o card sai, o "próxima" do pager fica laranja.** O card
+unificava selo e navegação numa caixa clara de canto arredondado com um ✓
+dentro, e caixa clara com aviso dentro é o desenho de um aviso, não de um botão:
+concluída a perícope, o caminho para a frente parecia não existir. E, com o
+pager logo abaixo repetindo "próxima", eram dois links para o mesmo lugar com
+pesos trocados — o discreto era o botão, o vistoso era o "aviso".
+
+Agora o estado e a ação se separam: "Concluída ✓" volta a ser recibo (texto na
+cor de acento, sem caixa) e o "próxima" do pager passa a `.cta` enquanto a
+perícope está concluída. Um lugar só para ir adiante, e ele é laranja.
+
+O "Marcar como concluída" também passa a ocupar a linha inteira em qualquer
+largura (antes só no celular): de largura natural ele ficava do tamanho de meia
+linha, encarando o vão do "próxima" ao lado, e dois retângulos lado a lado se
+leem como duas opções do mesmo par — que não é o caso, um fecha a leitura e o
+outro vira a página. Os controles secundários (desmarcar, marcar para reler,
+"lida 1×") deixam de disputar a mesma linha: `.actions` virou grid de uma
+coluna, um por linha, centrados.
 
 ### 9. Safe areas iOS
 

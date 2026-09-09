@@ -973,6 +973,36 @@ button.ghost {
   font-family: var(--font-ui);
 }
 
+/* O lado é link + play: quem vira a página ouvindo continua ouvindo. */
+.pager-lado {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pager-lado .pager-link {
+  /* `min-width: 0` porque o título é texto longo dentro de um item flex: sem
+     isso ele se recusa a encolher e empurra o play para fora da coluna. */
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* 44px: o play da Home é 48px porque lá ele faz par com o CTA da tela; aqui
+   são dois, num rodapé de navegação, e 48px viravam o que mais pesa na linha. */
+.pager-lado .ouvir-botao {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+/* Cada play na borda EXTERNA da sua metade (no lado "anterior" isso quer dizer
+   antes do link, na ordem visual, não no DOM). Encostados no link, os dois
+   caíam lado a lado no meio da linha quando os dois títulos eram compridos —
+   duas bolinhas idênticas grudadas, e nenhuma pista de qual pertence a qual
+   lado. */
+.pager-lado-anterior .ouvir-botao {
+  order: -1;
+}
+
 .pager-link {
   display: flex;
   align-items: center;
@@ -986,21 +1016,33 @@ button.ghost {
   text-align: end;
 }
 
+/* Ponta do testamento: o lado continua ocupado, dizendo por quê. Tracejado e
+   `--muted` para ninguém tentar apertar; `disabled` já tira do foco. */
+.pager-fim,
+button.pager-fim {
+  width: 100%;
+  min-height: 2.75rem;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  border-style: dashed;
+  cursor: default;
+}
+
 @media (min-width: 640px) {
   .pager {
     grid-template-columns: 1fr 1fr;
   }
 
-  .pager-link {
+  /* Largura natural, cada lado encostado no seu canto: em tela larga um link
+     esticado até o meio da coluna é caixa vazia com três palavras num canto. */
+  .pager-lado .pager-link {
+    flex: 0 1 auto;
     width: auto;
-    justify-self: start;
   }
 
-  /* fixo na 2ª coluna: sem "anterior" (primeira perícope) ele não pula
-     para a esquerda. */
-  .pager-next {
-    grid-column: 2;
-    justify-self: end;
+  .pager-lado-proxima {
+    justify-content: flex-end;
   }
 }
 
@@ -2368,34 +2410,38 @@ button.linkish {
   min-height: 2.75rem;
 }
 
-/* Fecho da perícope: separado das anotações por um fio sutil; o CTA ocupa a
-   linha inteira no celular e tem largura natural em telas maiores. */
+/* Fecho da perícope: separado das anotações por um fio sutil. Uma coisa por
+   linha, centrada — em `flex-wrap` o selo "Concluída ✓", o "Desmarcar", o
+   "Marcar para reler" e o "lida 1×" caíam na mesma linha e viravam uma barra
+   de quatro itens de peso e função diferentes. */
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
   border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
 }
 
-@media (max-width: 639.98px) {
-  .actions .cta {
-    width: 100%;
-  }
+/* Largura cheia em qualquer tela: "Marcar como concluída" fecha a leitura e
+   não faz par com nada. Com largura natural ele ficava do tamanho de meia
+   linha, com o vão do "próxima" ao lado — e dois retângulos lado a lado se
+   leem como um par de opções, o que eles não são. */
+.actions .cta {
+  width: 100%;
 }
 
+/* Sem margem própria: o espaçamento é do `gap` do `.actions`. */
 .desmarcar {
   display: block;
-  margin: 0.75rem auto 0;
+  margin: 0;
   font-size: 0.875rem;
   color: var(--muted);
 }
 
 .reler {
   display: block;
-  margin: 0.5rem auto 0;
+  margin: 0;
   font-size: 0.875rem;
   color: var(--muted);
 }
@@ -2405,42 +2451,20 @@ button.linkish {
 }
 
 .historico-leitura {
-  margin: 0.5rem auto 0;
+  margin: 0;
   font-size: 0.8rem;
   color: var(--muted);
   text-align: center;
 }
 
+/* Estado, não botão: preenchido e de canto arredondado num rodapé onde tudo o
+   mais é botão de verdade, o selo era só mais um retângulo apertável. Sem
+   caixa, ele é o recibo do que acabou de acontecer. */
 .badge {
   font-family: var(--font-ui);
-  background: var(--accent-soft);
   color: var(--accent);
-  padding: 0.4rem 0.8rem;
-  border-radius: 10px;
   margin: 0;
   font-weight: 600;
-}
-
-.done-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--focus-line);
-  border-radius: var(--radius);
-  background: var(--focus-bg);
-  color: var(--ink);
-  text-decoration: none;
-  font-family: var(--font-ui);
-}
-
-.done-card .badge {
-  margin: 0;
-}
-
-.done-next {
-  font-size: 0.95rem;
 }
 
 .filters {
