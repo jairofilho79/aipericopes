@@ -65,7 +65,7 @@ describe('loadIndex', () => {
       {
         ordem: 0, livro: 'Gênesis', abbrev: 'Gn',
         capitulo_inicio: 1, versiculo_inicio: 1, capitulo_fim: 2, versiculo_fim: 3,
-        titulo_pericope_pt: 'A criação', minutos: 5,
+        titulo_pericope_pt: 'A criação', minutos: 5, narrado: false,
         seq: 0,
       },
     ]
@@ -193,6 +193,7 @@ describe('listPericopes com q', () => {
         versiculo_fim: 16,
         titulo_pericope_pt: 'P1',
         minutos: 1,
+        narrado: false,
         seq: 0,
       },
     ]

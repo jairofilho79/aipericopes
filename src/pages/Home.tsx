@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { IconePlay } from '../components/NarracaoPlayer'
 import { SkeletonHome } from '../components/Skeleton'
 import { loadIndex, refLabel } from '../lib/content'
 import { atualizarJornada, getJornadaCorrente, listAllPosicoes, listAllProgresso } from '../lib/user-db'
@@ -31,6 +32,35 @@ type Estado =
 
 // CandidatoReler não traz título nem referência — só o índice tem isso.
 type ItemReler = CandidatoReler & { titulo: string; ref: string }
+
+/**
+ * Ouvir em um toque, ao lado do "Continuar". Só existe quando há narração
+ * publicada: o sinal vem de `narrado` no índice (uma vez por deploy), e não de
+ * um `HEAD` por card — a Home renderiza a lista inteira de "Vale reler" sem
+ * limite superior, e um `HEAD` por linha não escala nem funciona offline.
+ *
+ * O `aria-label` carrega o título porque numa lista de cards "Ouvir" sozinho
+ * obriga o leitor de tela a adivinhar de qual card é o botão.
+ */
+function BotaoOuvir({ peri }: { peri: PericopeIndex }) {
+  if (!peri.narrado) return null
+  return (
+    <Link
+      className="ouvir-botao"
+      to={`/leitura/${peri.ordem}?ouvir=1`}
+      aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
+      title="Ouvir"
+    >
+      <IconePlay />
+    </Link>
+  )
+}
+
+/** Onde o botão estaria, o motivo de ele não estar. */
+function SemNarracao({ peri }: { peri: PericopeIndex }) {
+  if (peri.narrado) return null
+  return <span className="ref-sem-narracao"> · narração ainda não gravada</span>
+}
 
 export default function Home() {
   const [estado, setEstado] = useState<Estado | null>(null)
@@ -138,10 +168,17 @@ export default function Home() {
               <>
                 <p className="ref">
                   {refLabel(estado.peri)} · ~{estado.peri.minutos} min
+                  <SemNarracao peri={estado.peri} />
                 </p>
-                <Link className="cta" to={`/leitura/${estado.peri.ordem}`}>
-                  Continuar
-                </Link>
+                {/* Invólucro, e não dois filhos soltos: o CTA e o "Ouvir" são
+                    uma linha de ações, e o CSS precisa de uma caixa para
+                    encostá-los um no outro. */}
+                <div className="card-acoes">
+                  <Link className="cta" to={`/leitura/${estado.peri.ordem}`}>
+                    Continuar
+                  </Link>
+                  <BotaoOuvir peri={estado.peri} />
+                </div>
               </>
             ) : (
               <Link className="cta" to="/jornada">
@@ -175,14 +212,18 @@ export default function Home() {
                 <h2>{t.peri.titulo_pericope_pt}</h2>
                 <p className="ref">
                   {refLabel(t.peri)} · ~{t.peri.minutos} min
+                  <SemNarracao peri={t.peri} />
                 </p>
                 <p className="track-progress">
                   {t.prog.concluidas} de {t.prog.total}
                   {t.prog.proximaOrdem === null ? ' · concluído' : ''}
                 </p>
-                <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
-                  {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
-                </Link>
+                <div className="card-acoes">
+                  <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
+                    {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
+                  </Link>
+                  <BotaoOuvir peri={t.peri} />
+                </div>
               </article>
             ))}
           </div>

@@ -994,8 +994,8 @@ button.ghost {
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 0.35rem 0.55rem;
-  min-height: 2.25rem;
-  min-width: 2.25rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
   cursor: pointer;
 }
 
@@ -1076,7 +1076,7 @@ button.ghost {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   padding: 0.2rem 0.3rem;
   border: 0;
   border-radius: 999px;
@@ -1108,46 +1108,6 @@ button.ghost {
 .section-chip.active {
   background: var(--cta-bg);
   color: var(--cta-ink);
-}
-
-/* Linha do header de leitura: os chips + (quando a narração já começou) o
-   botão compacto de pausa. O grid de quatro colunas segue intacto dentro do
-   flex; o botão entra à direita sem quebrar nada. */
-.section-chips-linha {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.section-chips-linha .section-chips-row {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Pausar/continuar a narração sem rolar de volta ao player: um botão redondo
-   na altura do pill dos chips. */
-.narracao-mini {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.55rem;
-  height: 2.55rem;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--paper) 70%, transparent);
-  color: var(--accent);
-  cursor: pointer;
-}
-
-.narracao-mini:hover {
-  color: var(--ink);
-}
-
-.narracao-mini:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
 }
 
 /* Progresso da perícope: um filete rente à borda de baixo da barra sticky.
@@ -1229,7 +1189,7 @@ button.ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   padding: 0.1rem 0;
   border: none;
   background: transparent;
@@ -1327,30 +1287,192 @@ button.ghost {
   border-color: var(--focus-line);
 }
 
-/* player de narração: cartão no papel, controles do app (o <audio> fica
-   escondido). Mobile-first: rótulo e tempo em cima, barra no meio, transporte
-   embaixo — a barra ganha a largura inteira, que é onde o dedo precisa dela. */
-.narracao {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    'rotulo tempo'
-    'barra barra'
-    'controles controles';
+/* ── Narração: o cartão, os três estados e a doca ────────────────────────
+   Antes do primeiro play, o convite (ou o motivo da ausência) mora no corpo
+   do artigo, logo abaixo dos chips. Depois, a doca fixa no rodapé assume o
+   lugar dele e o cartão sai do DOM.
+
+   `--doca-h` é a altura da doca somada À MÃO: nada a mede em JS. É a soma das
+   três linhas dela (estado + área de toque da barra + controles), do padding
+   de cima e de baixo, da borda superior e da faixa de segurança do aparelho.
+   Duas coisas dependem desse número — a folga no fim do artigo e o piso da
+   `.verse-actions` — e as duas são da `.leitura`, que é onde ele precisa
+   estar visível. Mexeu em qualquer altura da doca, mexa aqui também. */
+.leitura {
+  --doca-h: calc(
+    0.35rem + 1.3rem + 2.75rem + 3.75rem + 0.35rem + 1px + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+/* Com a doca no ar, o fim do artigo (as perguntas de reflexão) terminaria
+   debaixo dela. O 1.35rem repete o padding-bottom que a `.leitura` já tem,
+   para o respiro do fim do texto não desaparecer junto. */
+.leitura.narracao-ativa {
+  padding-bottom: calc(var(--doca-h) + 1.35rem);
+}
+
+/* A barra de ações do versículo também é `position: fixed; bottom: 0`, e é
+   IRMÃ da doca dentro da `.leitura`: selecionar um versículo com a narração
+   tocando punha as duas no mesmo rodapé, uma por cima da outra. Aqui ela
+   sobe para o teto da doca. O padding de baixo volta ao valor seco porque a
+   faixa de segurança do aparelho já está contada dentro de `--doca-h` — quem
+   encosta na borda agora é a doca, não ela. */
+.leitura:has(.narracao-doca) .verse-actions {
+  bottom: var(--doca-h);
+  padding-bottom: 0.7rem;
+}
+
+/* O cartão e o esqueleto que o antecede têm de ter a MESMA altura, senão a
+   resposta do HEAD reflui o artigo — que é exatamente o que o esqueleto existe
+   para evitar. A altura não pode vir do conteúdo: a linha secundária do cartão
+   quebra em duas linhas no celular e cabe em uma no desktop, e o botão de 56px
+   é mais alto que uma linha só. Este piso é o da versão mais alta das duas, e
+   vale para os dois — medido, não estimado. */
+.ouvir-cartao,
+.ouvir-skeleton {
+  min-height: 5.75rem;
+}
+
+/* Cartão pré-play: um <button> só (ícone + título + linha secundária), e não
+   três elementos soltos — um alvo de toque, um ponto de foco, um rótulo. */
+.ouvir-cartao {
+  display: flex;
   align-items: center;
-  column-gap: 0.6rem;
-  row-gap: 0.15rem;
-  margin: -0.3rem 0 0.9rem;
-  padding: 0.55rem 0.8rem 0.5rem;
+  gap: 0.85rem;
+  width: 100%;
+  margin: -0.3rem 0 1.1rem;
+  padding: 0.85rem 0.9rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper);
+  color: inherit;
+  font-family: var(--font-ui);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ouvir-cartao:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ouvir-cartao-play {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+.ouvir-cartao-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.ouvir-cartao-titulo {
+  font-family: var(--font-display);
+  font-size: 1.3125rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ouvir-cartao-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Estado 1 (verificando): a silhueta do cartão final, e não uma linha fina —
+   o esqueleto existe justamente para a resposta do HEAD não refluir o
+   artigo. O padding e a borda são os mesmos do cartão; o círculo de 3.5rem no
+   lugar do botão é o que fecha a altura, exatamente como lá. */
+.ouvir-skeleton {
+  display: flex;
+  align-items: center;
+  margin: -0.3rem 0 1.1rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.ouvir-skeleton .skeleton {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+}
+
+/* Estados 2 e 3 (ainda não gravada / falhou ao carregar): a mesma linha em
+   `--muted`, sem ícone de alarme. A ausência de narração não é falha do
+   leitor nem do app — é fato do catálogo enquanto ele não está todo narrado. */
+.narracao-indisponivel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: -0.3rem 0 1.1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.narracao-retentar {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.narracao-doca {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  /* acima do .top (5), da .section-chips (4) e da .verse-actions (8): é o
+     controle da ação central do app, não pode ficar atrás de nada. */
+  z-index: 9;
+  display: grid;
+  padding: 0.35rem max(1.05rem, env(safe-area-inset-right, 0px))
+    calc(0.35rem + env(safe-area-inset-bottom, 0px))
+    max(1.05rem, env(safe-area-inset-left, 0px));
+  border-top: 1px solid var(--line);
+  /* 94%, e não os 82% da .section-chips: opaco o bastante para o texto que
+     rola nunca aparecer borrado por baixo — o mesmo vazamento que a barra de
+     chips já custou uma correção. */
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(6px);
   font-family: var(--font-ui);
 }
 
-.narracao-rotulo {
-  grid-area: rotulo;
-  font-size: 0.72rem;
+.narracao-doca-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.3rem;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+/* A mesma máscara da .streak-chama, na mesma cor: `--flame` é luz, e é ela
+   que diz "isto está vivo, é o app falando agora". */
+.narracao-doca-chama {
+  flex: none;
+  width: 0.72rem;
+  height: 0.9rem;
+  background: var(--flame);
+  -webkit-mask: var(--chama-svg) center / contain no-repeat;
+  mask: var(--chama-svg) center / contain no-repeat;
+}
+
+.narracao-doca-rotulo {
+  flex: none;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1358,20 +1480,124 @@ button.ghost {
   white-space: nowrap;
 }
 
-.narracao-controles {
-  grid-area: controles;
+/* O alvo em fala é o único texto elástico da linha: ele encurta com
+   reticências para o relógio nunca ser empurrado fora da tela. */
+.narracao-doca-alvo {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.narracao-doca-tempo {
+  flex: none;
+  display: inline-flex;
+  gap: 0.3em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.narracao-doca-tempo-sep {
+  opacity: 0.6;
+}
+
+/* A barra: trilho de 4px pintado até --pct (que o componente atualiza) e
+   polegar de 16px. A ALTURA DO INPUT é a área de toque — 2.75rem, o mínimo do
+   app — e o trilho desenhado dentro dela continua fino; é isso que deixa
+   arrastar com o dedo sem mirar em quatro pixels. */
+.narracao-doca-barra {
+  --pct: 0%;
+  --trilho: linear-gradient(to right, var(--accent) var(--pct), var(--line) var(--pct));
+  width: 100%;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.narracao-doca-barra:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.narracao-doca-barra::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--trilho);
+}
+
+.narracao-doca-barra::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--trilho);
+}
+
+/* -6px é o que centra um polegar de 16px num trilho de 4px. */
+.narracao-doca-barra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s ease;
+}
+
+.narracao-doca-barra::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s ease;
+}
+
+.narracao-doca-barra:hover::-webkit-slider-thumb,
+.narracao-doca-barra:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+
+.narracao-doca-barra:hover::-moz-range-thumb,
+.narracao-doca-barra:active::-moz-range-thumb {
+  transform: scale(1.25);
+}
+
+.narracao-doca-barra:focus-visible {
+  outline: none;
+}
+
+.narracao-doca-barra:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.narracao-doca-barra:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.narracao-doca-controles {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  min-height: 3.75rem;
 }
 
-.narracao-btn {
+.narracao-doca-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
   padding: 0;
   border: 1px solid transparent;
   border-radius: 999px;
@@ -1381,164 +1607,54 @@ button.ghost {
   cursor: pointer;
 }
 
-.narracao-btn:hover {
+.narracao-doca-btn:hover {
   background: color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
-.narracao-btn:focus-visible {
+.narracao-doca-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.narracao-btn:disabled {
+.narracao-doca-btn:disabled {
   opacity: 0.45;
   cursor: default;
 }
 
-.narracao-salto {
+/* Ação secundária: 48px. */
+.narracao-doca-salto {
+  width: 3rem;
+  height: 3rem;
   color: var(--muted);
 }
 
-/* o play é o controle principal: cheio, na cor de destaque, maior que os outros */
-.narracao-play {
-  width: 2.75rem;
-  height: 2.75rem;
+/* O play é o botão mais tocado do app: 60px cheios, em qualquer largura —
+   sem o encolhimento em tela larga que o player antigo fazia. Depois do
+   `.narracao-doca-btn:hover`, que tem a mesma especificidade. */
+.narracao-doca-play {
+  width: 3.75rem;
+  height: 3.75rem;
   margin: 0 0.4rem;
   background: var(--cta-bg);
   border-color: var(--cta-bg);
   color: var(--cta-ink);
 }
 
-.narracao-play:hover {
+.narracao-doca-play:hover {
   background: color-mix(in srgb, var(--accent) 88%, var(--ink));
 }
 
-.narracao-tempo {
-  grid-area: tempo;
-  display: inline-flex;
-  gap: 0.3em;
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.narracao-tempo-sep {
-  opacity: 0.6;
-}
-
-/* a barra: trilho fino pintado até --pct (que o componente atualiza), polegar
-   redondo. A altura do input é o alvo de toque; o trilho desenhado é menor. */
-.narracao-barra {
-  grid-area: barra;
-  --pct: 0%;
-  --trilho: linear-gradient(to right, var(--accent) var(--pct), var(--line) var(--pct));
-  width: 100%;
-  height: 2.25rem;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-.narracao-barra:disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
-.narracao-barra::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--trilho);
-}
-
-.narracao-barra::-moz-range-track {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--trilho);
-}
-
-.narracao-barra::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  margin-top: -5px;
-  border: 2px solid var(--paper);
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
-  transition: transform 0.15s ease;
-}
-
-.narracao-barra::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--paper);
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
-  transition: transform 0.15s ease;
-}
-
-.narracao-barra:hover::-webkit-slider-thumb,
-.narracao-barra:active::-webkit-slider-thumb {
-  transform: scale(1.25);
-}
-
-.narracao-barra:hover::-moz-range-thumb,
-.narracao-barra:active::-moz-range-thumb {
-  transform: scale(1.25);
-}
-
-.narracao-barra:focus-visible {
-  outline: none;
-}
-
-.narracao-barra:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.narracao-barra:focus-visible::-moz-range-thumb {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.narracao-erro {
-  grid-column: 1 / -1;
+/* O áudio pode quebrar depois de já ter tocado, e aí o mesmo aviso aparece
+   DENTRO da doca — onde ele não é um bloco do artigo e não leva a margem
+   negativa que o posiciona lá. */
+.narracao-doca .narracao-indisponivel {
   margin: 0.15rem 0 0;
-  font-size: 0.78rem;
-  color: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .narracao-barra::-webkit-slider-thumb,
-  .narracao-barra::-moz-range-thumb {
+  .narracao-doca-barra::-webkit-slider-thumb,
+  .narracao-doca-barra::-moz-range-thumb {
     transition: none;
-  }
-}
-
-/* desktop: tudo numa linha só, a barra ocupando o que sobrar */
-@media (min-width: 40rem) {
-  .narracao {
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-areas: 'rotulo controles barra tempo';
-    column-gap: 0.75rem;
-    padding: 0.4rem 0.9rem 0.4rem 0.8rem;
-  }
-
-  .narracao-controles {
-    justify-content: flex-start;
-    gap: 0.2rem;
-  }
-
-  .narracao-play {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin: 0 0.15rem;
   }
 }
 
@@ -2048,10 +2164,16 @@ button.ghost {
   margin-left: auto;
 }
 
-.note-form .ditar-botao {
-  width: 2.5rem;
-  min-height: 2.5rem;
-  height: 2.5rem;
+/* Dois contextos, um desenho: o rodapé do formulário de anotação e o campo de
+   referência do Explorar. `.note-form` continua no seletor porque é dele que
+   vem a especificidade necessária para escapar de `.note-form button` (o
+   estilo do "Salvar"); `.campo-ref` entra ao lado porque, sem ele, o
+   microfone do Explorar sairia sem largura, sem círculo e sem borda. */
+.note-form .ditar-botao,
+.campo-ref .ditar-botao {
+  width: 2.75rem;
+  min-height: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   display: inline-grid;
   place-items: center;
@@ -2061,13 +2183,15 @@ button.ghost {
   color: var(--accent);
 }
 
-.note-form .ditar-botao:disabled {
+.note-form .ditar-botao:disabled,
+.campo-ref .ditar-botao:disabled {
   color: var(--muted);
   cursor: default;
   opacity: 0.7;
 }
 
-.note-form .ditar-botao.gravando {
+.note-form .ditar-botao.gravando,
+.campo-ref .ditar-botao.gravando {
   background: var(--rec);
   border-color: var(--rec);
   color: #fff;
@@ -2135,21 +2259,27 @@ button.ghost {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .note-form .ditar-botao.gravando {
+  .note-form .ditar-botao.gravando,
+  .campo-ref .ditar-botao.gravando {
     animation: none;
     /* sem o pulso, o anel parado ainda diz "aberto". */
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--rec) 35%, transparent);
   }
 }
 
-.linkish {
+/* `button.linkish`, e não `.linkish`: dois botões-link moram dentro do
+   `<form class="note-form">` ("Remover vínculo", "Cancelar"), e lá
+   `.note-form button` (0,1,1) vence uma classe sozinha (0,1,0) — com o
+   seletor simples esses dois ficavam nos 40px do formulário em vez dos 44px
+   do alvo de toque. Todo `.linkish` do app é um `<button>`. */
+button.linkish {
   background: none;
   border: none;
   color: var(--accent);
   font: inherit;
   cursor: pointer;
   padding: 0;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
 }
 
 /* Fecho da perícope: separado das anotações por um fio sutil; o CTA ocupa a
@@ -2231,6 +2361,76 @@ button.ghost {
   display: grid;
   gap: 0.6rem;
   margin: 1rem 0 1.25rem;
+}
+
+/* ── Explorar: o campo único de referência ───────────────────────────────
+   A borda, o fundo e o raio são DO CAMPO, não do `<input>`: `.filters input`
+   desenha os três, e mantê-los lá deixaria duas caixas desenhadas uma dentro
+   da outra, com o microfone fora da de dentro. */
+.campo-ref {
+  display: flex;
+  align-items: center;
+  height: 3.375rem;
+  padding-inline: 0.25rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+/* O anel de foco é do campo inteiro, e não só do input: sem borda própria, um
+   anel no input apareceria descolado do desenho que o leitor vê. */
+.campo-ref:focus-within {
+  border-color: var(--focus-line);
+  box-shadow: 0 0 0 3px var(--focus-bg);
+}
+
+.campo-ref input[type='search'] {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.campo-ref input[type='search']:focus-visible {
+  outline: none;
+}
+
+.campo-ref-filete {
+  flex: none;
+  width: 1px;
+  height: 1.75rem;
+  margin: 0 0.4rem;
+  background: var(--line);
+}
+
+/* `.ditar` foi desenhada para o rodapé do formulário de anotação, onde
+   `flex: 1 1 auto; margin-left: auto` empurra o microfone para a direita.
+   Aqui isso comeria a largura do input, que é quem tem de crescer. */
+.campo-ref .ditar {
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+.ref-dica {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.ref-exemplo {
+  color: var(--accent);
+}
+
+/* O destino dos avisos do ditado fica sempre no DOM (uma região `status`
+   criada junto com o texto não é anunciada), e vazio na maior parte do tempo.
+   Sem isto ele abriria um vão permanente entre a dica e os chips. */
+.filters .muted:empty {
+  display: none;
 }
 
 .peri-list {
@@ -2369,59 +2569,16 @@ button.ghost {
   color: var(--accent);
 }
 
-.trocar-livro {
+/* `button.trocar-livro`, e não `.trocar-livro`: o botão é sempre
+   `class="ghost trocar-livro"`, e `button.ghost` (0,1,1) vence uma classe
+   sozinha (0,1,0) — com o seletor simples o `min-height` daqui nunca se
+   aplicava e o botão ficava nos 40px do `.ghost`. Medido no navegador. */
+button.trocar-livro {
   flex-shrink: 0;
   font-family: var(--font-ui);
   font-size: 0.85rem;
   padding: 0.4rem 0.7rem;
-  min-height: 2.25rem;
-}
-
-.ref-form {
-  display: grid;
-  gap: 0.6rem;
-  margin: 0.85rem 0 1rem;
-}
-
-.ref-form label {
-  display: grid;
-  gap: 0.3rem;
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.ref-form input {
-  width: 100%;
-  font: inherit;
-  padding: 0.75rem 0.85rem;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  color: var(--ink);
   min-height: 2.75rem;
-}
-
-.ref-form input:disabled {
-  opacity: 0.5;
-}
-
-.ref-form button {
-  justify-self: start;
-  font-family: var(--font-ui);
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: none;
-  border-radius: 10px;
-  padding: 0.55rem 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  min-height: 2.5rem;
-}
-
-.ref-form button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }
 
 .peri-count {
@@ -2497,13 +2654,6 @@ button.ghost {
   color: inherit;
 }
 
-@media (min-width: 640px) {
-  .ref-form {
-    grid-template-columns: 1fr 1fr auto;
-    align-items: end;
-  }
-}
-
 .peri-list.compact li a {
   padding: 0.55rem 0;
 }
@@ -2564,11 +2714,10 @@ button.ghost {
   font-variant-numeric: tabular-nums;
 }
 
+/* `.filters` tinha aqui um `grid-template-columns: 1.4fr 1fr`, do tempo em que
+   havia dois controles lado a lado. Com um filho só — o campo de referência —
+   a segunda coluna virava vão morto à direita dele no desktop. */
 @media (min-width: 640px) {
-  .filters {
-    grid-template-columns: 1.4fr 1fr;
-  }
-
   .shell {
     padding-inline: 1.25rem;
   }
@@ -2658,6 +2807,42 @@ button.ghost {
 .jornada-card .cta {
   width: 100%;
   min-height: 2.75rem;
+}
+
+/* ── Ouvir a partir da Home ──────────────────────────────────────────────
+   O CTA "Continuar"/"Rever" e o botão redondo "Ouvir" são uma linha de ações
+   só. Este bloco vive AQUI, e não junto do `.track-card`, porque tanto
+   `.track-card .cta` quanto `.jornada-card .cta` (a regra logo acima) mandam
+   o CTA a `width: 100%` com a mesma especificidade — dentro da linha ele
+   precisa ceder o lugar do botão, e quem decide isso é a ordem do arquivo. */
+.card-acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.card-acoes .cta {
+  flex: 1 1 auto;
+  width: auto;
+}
+
+/* 48px, redondo, o mesmo par de tokens do play da doca: é o mesmo gesto. */
+.ouvir-botao {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+/* Onde o botão estaria, o motivo de ele não estar — dentro da linha de
+   referência, que já é `--muted`; aqui só para não herdar a cor do `<strong>`
+   ou de um pai mais escuro caso a linha mude de casa. */
+.ref-sem-narracao {
+  color: var(--muted);
 }
 
 /* "Comece uma jornada" / "Entre para criar jornadas", abaixo das trilhas
@@ -3020,12 +3205,19 @@ fieldset.jornada-campo {
   margin: 0;
 }
 
+/* Flexbox, e não grid de colunas fixas: a coluna de abreviação é um filho a
+   mais que só `CatalogoLivros` renderiza. Faltando ele — na linha de registro,
+   que não tem abreviação —, o flex fecha o vão e nome+barra deslocam para a
+   esquerda, que é o certo: não há nada para alinhar contra, e as duas listas
+   nunca aparecem juntas na tela. */
 .livro-row {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   width: 100%;
-  padding: 0.65rem 0;
+  /* Folgado o bastante para as duas linhas de texto respirarem, apertado o
+     bastante para o `min-height` ser quem decide os 56px. */
+  padding: 0.45rem 0;
   border: 0;
   border-bottom: 1px solid var(--line);
   background: none;
@@ -3033,7 +3225,7 @@ fieldset.jornada-campo {
   font: inherit;
   text-align: left;
   cursor: pointer;
-  min-height: 2.75rem;
+  min-height: 3.5rem;
 }
 
 .livro-row:focus-visible {
@@ -3041,17 +3233,56 @@ fieldset.jornada-campo {
   outline-offset: -2px;
 }
 
-.livro-nome {
-  flex: 1;
+/* Papel novo: primeiro filho da linha, numa coluna fixa de 42px, na fonte de
+   exibição — não é mais o texto miúdo que acompanhava o nome. */
+.livro-abbrev {
+  flex: 0 0 2.625rem;
+  width: 2.625rem;
   font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--muted);
+}
+
+/* Nome e linha secundária empilhados. `min-width: 0` é o que deixa os dois
+   truncarem em vez de empurrarem a barra fora da tela em 375px. */
+.livro-info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.1rem;
   min-width: 0;
 }
 
-.livro-abbrev {
+.livro-nome {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A frase de contagem, que saiu de ao lado da barra e virou linha de texto de
+   verdade — lida por leitor de tela, ao contrário da barra. */
+.livro-sub {
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.78125rem;
+  line-height: 1.3;
   color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 58×4px SÓ AQUI: a regra base de `.book-progress` (6rem de largura) veste
+   também os cabeçalhos de livro e de registro aberto (`.book-progress-wrap`)
+   e os cartões da Home, e encolhê-la lá seria dano colateral. */
+.livro-row .book-progress {
+  flex: none;
+  width: 58px;
 }
 
 /* Livro sem nada no recorte ativo continua no lugar dele: apagado, não some.
@@ -3099,7 +3330,7 @@ fieldset.jornada-campo {
   background: var(--bg);
   color: var(--muted);
   cursor: pointer;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
 }
 
 .chip-filtro.active {

@@ -1,31 +1,43 @@
 // @vitest-environment happy-dom
 import { act } from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import LivroAberto from './LivroAberto'
 import { bookByAbbrev } from '../lib/bible-books'
 import type { FiltroLeitura } from '../lib/content'
+import type { ItemPericope } from '../lib/item-pericope'
 
-/**
- * Atribuir `input.value` direto não aciona o setter nativo que o React usa
- * para detectar mudança, então o onChange sintético não roda e o estado não
- * muda — um teste feito assim passa sem testar nada. Chamar o setter do
- * prototype e disparar 'input' é o que faz o React ver a digitação.
- */
-function digitar(input: HTMLInputElement, valor: string) {
-  const setter = Object.getOwnPropertyDescriptor(
-    window.HTMLInputElement.prototype,
-    'value',
-  )?.set
-  if (!setter) throw new Error('setter nativo de value indisponível')
-  setter.call(input, valor)
-  input.dispatchEvent(new Event('input', { bubbles: true }))
-}
+const ITENS: ItemPericope[] = [
+  { ordem: 1, titulo: 'A criação', ref: 'Gn 1:1-2:3' },
+  { ordem: 2, titulo: 'O jardim', ref: 'Gn 2:4-25' },
+]
 
 let container: HTMLDivElement
 let root: Root
 
+function montar(filtro: FiltroLeitura, itens: ItemPericope[] = ITENS) {
+  const gn = bookByAbbrev('Gn')
+  if (!gn) throw new Error('Gênesis não encontrado')
+  act(() => {
+    root.render(
+      // `ListaPericopes` monta <Link>: sem router, o render lança.
+      <MemoryRouter>
+        <LivroAberto
+          livro={gn}
+          prog={{ livro: 'Gênesis', total: 50, concluidas: 12, pct: 24 }}
+          itens={itens}
+          concluidas={new Set([1])}
+          filtro={filtro}
+          onTrocar={() => {}}
+        />
+      </MemoryRouter>,
+    )
+  })
+}
+
 beforeEach(() => {
+  ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
   container = document.createElement('div')
   document.body.appendChild(container)
   root = createRoot(container)
@@ -39,66 +51,28 @@ afterEach(() => {
 })
 
 describe('LivroAberto', () => {
-  it('zera campos quando o livro muda (sem key do consumidor)', () => {
-    const gn = bookByAbbrev('Gn')
-    const jo = bookByAbbrev('Jo')
-    if (!gn || !jo) throw new Error('Livros não encontrados')
+  it('não tem formulário de capítulo/versículo — o campo do topo resolve referência', () => {
+    montar('todos')
+    expect(container.querySelector('.ref-form')).toBeNull()
+    expect(container.querySelectorAll('input')).toHaveLength(0)
+    // O que sobra é a mesma forma de RegistroAberto: cabeçalho e lista.
+    expect(container.querySelector('.selected-book-name')?.textContent).toBe('Gênesis')
+    expect(container.querySelectorAll('.peri-list li')).toHaveLength(2)
+  })
 
-    // Renderizar com Gênesis
-    act(() => {
-      root.render(
-        <LivroAberto
-          livro={gn}
-          prog={undefined}
-          itens={[]}
-          concluidas={new Set()}
-          filtro={'todos' as FiltroLeitura}
-          cap={null}
-          onCap={() => {}}
-          onTrocar={() => {}}
-          onIrParaVersiculo={() => {}}
-        />
-      )
-    })
+  it('a barra do cabeçalho é do livro inteiro e mantém o rótulo "N de M"', () => {
+    // Com um recorte que deixa uma perícope só, a barra continua em 24% —
+    // e o rótulo ao lado dela não virou a linha secundária do catálogo.
+    montar('lidos', [ITENS[0]])
+    const fill = container.querySelector('.book-progress-fill') as HTMLElement
+    expect(fill.style.width).toBe('24%')
+    expect(container.querySelector('.book-progress-label')?.textContent).toBe('12 de 50')
+  })
 
-    // Encontrar inputs de capítulo e versículo
-    const inputs = container.querySelectorAll('input[inputMode="numeric"]')
-    const inputCap = inputs[0] as HTMLInputElement
-    const inputVer = inputs[1] as HTMLInputElement
-    if (!inputCap || !inputVer) throw new Error('Inputs não encontrados')
-
-    // Digitar um capítulo válido
-    act(() => {
-      digitar(inputCap, '3')
-    })
-
-    // Prova de que o estado mudou: versículo deve estar habilitado agora
-    expect(inputVer.disabled).toBe(false)
-
-    // Re-renderizar com João (mesmo componente, livro diferente)
-    act(() => {
-      root.render(
-        <LivroAberto
-          livro={jo}
-          prog={undefined}
-          itens={[]}
-          concluidas={new Set()}
-          filtro={'todos' as FiltroLeitura}
-          cap={null}
-          onCap={() => {}}
-          onTrocar={() => {}}
-          onIrParaVersiculo={() => {}}
-        />
-      )
-    })
-
-    // Verificar que ambos os campos foram zerados
-    const inputsAfter = container.querySelectorAll('input[inputMode="numeric"]')
-    const inputCapAfter = inputsAfter[0] as HTMLInputElement
-    const inputVerAfter = inputsAfter[1] as HTMLInputElement
-    if (!inputCapAfter || !inputVerAfter) throw new Error('Inputs não encontrados após re-render')
-    expect(inputCapAfter.value).toBe('')
-    // Versículo volta a ficar desabilitado — invariante vista pelo outro lado
-    expect(inputVerAfter.disabled).toBe(true)
+  it('a contagem diz "em Gênesis" sem recorte e "no recorte" com ele', () => {
+    montar('todos')
+    expect(container.querySelector('.peri-count')?.textContent).toBe('2 perícopes em Gênesis')
+    montar('nao-lidos', [ITENS[0]])
+    expect(container.querySelector('.peri-count')?.textContent).toBe('1 perícope no recorte')
   })
 })

@@ -6,6 +6,7 @@ import CatalogoRegistros from '../components/CatalogoRegistros'
 import LivroAberto from '../components/LivroAberto'
 import RegistroAberto from '../components/RegistroAberto'
 import ListaPericopes from '../components/ListaPericopes'
+import DitarBotao from '../components/DitarBotao'
 // `itemDeIndice`, `itemDeHit` e `ItemPericope` NÃO moram no arquivo do
 // componente: exportar função pura ao lado de um componente dispara
 // `react(only-export-components)` e quebra o fast refresh. Moram em
@@ -27,6 +28,7 @@ import {
   type FiltroLeitura,
 } from '../lib/content'
 import { parseConsulta } from '../lib/consulta'
+import { normalizarDitadoRef } from '../lib/ditado-referencia'
 import {
   contagemPorRegistro,
   loadRegistros,
@@ -85,8 +87,6 @@ export default function Explorar() {
   // esse espaço faria o livro reaparecer sem o leitor ter escolhido nada.
   const livro: BibleBook | undefined =
     !consulta.termo && livroParam ? bookByName(livroParam) : undefined
-  const capParam = Number(params.get('cap'))
-  const cap = livro && Number.isInteger(capParam) && capParam >= 1 ? capParam : null
 
   const [registros, setRegistros] = useState<Registro[]>([])
   // Mesma disciplina do `livro` acima, um degrau abaixo na hierarquia: uma
@@ -108,6 +108,10 @@ export default function Explorar() {
   const [status, setStatus] = useState(new Map<number, ProgressoStatus>())
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState('')
+  // Canal de aviso do ditado (`onAviso` é obrigatória em DitarBotao):
+  // permissão negada, sem microfone, cota esgotada. Sem um destino na tela,
+  // a falha do microfone ficaria só no console.
+  const [aviso, setAviso] = useState('')
 
   const aceita = useMemo(() => filtroDeOrdens(status, filtro), [status, filtro])
   const concluidas = useMemo(
@@ -189,7 +193,6 @@ export default function Explorar() {
       // (`?q=amor&livro=João` apagado até vazio não é o mesmo que ter
       // clicado em "João").
       p.delete('livro')
-      p.delete('cap')
       p.delete('registro')
       if (!valor) {
         p.delete('q')
@@ -202,7 +205,6 @@ export default function Explorar() {
   const abrirLivro = (b: BibleBook) => {
     mexerNaUrl((p) => {
       p.set('livro', b.name)
-      p.delete('cap')
       // Simétrico ao setQ: abrir um livro fecha a busca e o registro aberto.
       p.delete('q')
       p.delete('registro')
@@ -210,16 +212,13 @@ export default function Explorar() {
     // Herdado do `selectBook` de Pesquisar.tsx:149 (main) — a lista de
     // catálogo em repouso ocupa ~4,5 telas, e sem isto abrir um livro do fim
     // (ex. Apocalipse) deixa o leitor no fim da lista antiga, sem ver o
-    // cabeçalho do livro nem o formulário de capítulo/versículo.
+    // cabeçalho do livro.
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const fecharLivro = () =>
     mexerNaUrl((p) => {
       p.delete('livro')
-      p.delete('cap')
     }, false)
-  const setCap = (valor: number | null) =>
-    mexerNaUrl((p) => (valor == null ? p.delete('cap') : p.set('cap', String(valor))), false)
 
   const abrirRegistro = (slug: string) => {
     mexerNaUrl((p) => {
@@ -231,7 +230,6 @@ export default function Explorar() {
       // Simétrico a abrirLivro: abrir um registro fecha a busca e o livro.
       p.delete('q')
       p.delete('livro')
-      p.delete('cap')
     }, false)
     // Mesmo motivo de abrirLivro: sem isto, abrir um registro grande a partir
     // do fim da lista de catálogo deixa o leitor sem ver o cabeçalho.
@@ -248,21 +246,6 @@ export default function Explorar() {
       if (v === 'livros') p.delete('eixo')
       else p.set('eixo', 'registros')
       p.delete('registro')
-    }, false)
-
-  /**
-   * Submeter capítulo+versículo no livro aberto tem que FECHAR o livro, não só
-   * setar `q`: o render é `livro ? <LivroAberto/> : …`, então deixar `livro` na
-   * URL manteria o painel do livro na tela e a seção "Referência" nunca
-   * apareceria — o botão não faria nada visível. Sair do livro é aceitável
-   * porque a seção "Livros" logo abaixo do resultado traz ele de volta a um
-   * toque (`parseConsulta` de uma referência devolve `livros: [livro]`).
-   */
-  const irParaReferencia = (abbrev: string, cap: number, ver: number) =>
-    mexerNaUrl((p) => {
-      p.set('q', `${abbrev} ${cap}:${ver}`)
-      p.delete('livro')
-      p.delete('cap')
     }, false)
 
   // ---- Seção Referência ----
@@ -391,7 +374,10 @@ export default function Explorar() {
       return
     }
     let vivo = true
-    void listPericopesByBookChapter(livro.abbrev, cap ?? undefined)
+    // Sem capítulo: o livro aberto mostra a lista inteira (sujeita ao
+    // recorte). O filtro por capítulo saiu junto com o formulário — quem
+    // quer um capítulo digita "Gn 3" no campo do topo.
+    void listPericopesByBookChapter(livro.abbrev)
       .then((r) => {
         if (vivo) setDoLivro(r)
       })
@@ -400,7 +386,7 @@ export default function Explorar() {
     return () => {
       vivo = false
     }
-  }, [livro, cap])
+  }, [livro])
 
   const progresso = useMemo(() => progressoPorLivro(todas, concluidas), [todas, concluidas])
   const contagem = useMemo(() => contagemPorLivro(todas, aceita), [todas, aceita])
@@ -450,13 +436,40 @@ export default function Explorar() {
       <h1 className="sr-only">Explorar</h1>
 
       <div className="filters">
-        <input
-          type="search"
-          placeholder="Buscar livro, título, referência ou trecho…"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          aria-label="Buscar livro, título, referência ou trecho"
-        />
+        <div className="campo-ref">
+          <input
+            type="search"
+            placeholder="Buscar livro, título, referência ou trecho…"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="Buscar livro, título, referência ou trecho"
+            aria-describedby="ref-dica"
+          />
+          <span className="campo-ref-filete" aria-hidden="true" />
+          {/* SUBSTITUI o conteúdo do campo, não anexa como na Leitura: um
+              campo de referência guarda um alvo só, e anexar faria ditar
+              duas vezes produzir "Gênesis 3:15. Salmo 23." — nem referência
+              nem busca útil. `onRevisao` fica de fora de propósito: a
+              revisão por IA foi feita para prosa longa, e pagaria uma
+              chamada de rede por toque de microfone. */}
+          <DitarBotao
+            rotuloOcioso="Ditar referência"
+            onTexto={(trecho) => {
+              setAviso('')
+              setQ(normalizarDitadoRef(trecho))
+            }}
+            onAviso={setAviso}
+          />
+        </div>
+        <p id="ref-dica" className="ref-dica">
+          Ex.: <span className="ref-exemplo">Gn 3:15</span> ·{' '}
+          <span className="ref-exemplo">Salmos 23</span>
+        </p>
+        {/* Vazio no resto do tempo, mas sempre no DOM: uma região `status`
+            criada junto com o texto não é anunciada por leitor de tela. */}
+        <p className="muted" role="status">
+          {aviso}
+        </p>
       </div>
 
       <div className="chips-filtro" role="group" aria-label="Filtrar por leitura">
@@ -482,10 +495,7 @@ export default function Explorar() {
           itens={itensLivro}
           concluidas={concluidas}
           filtro={filtro}
-          cap={cap}
-          onCap={setCap}
           onTrocar={fecharLivro}
-          onIrParaVersiculo={(c, v) => irParaReferencia(livro.abbrev, c, v)}
         />
       ) : registro ? (
         <RegistroAberto

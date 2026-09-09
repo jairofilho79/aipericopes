@@ -1,59 +1,29 @@
-import { useState, type FormEvent } from 'react'
-import { maxChapter, maxVerse, type BibleBook } from '../lib/bible-books'
+import type { BibleBook } from '../lib/bible-books'
 import type { FiltroLeitura, LivroProgresso } from '../lib/content'
 import type { ItemPericope } from '../lib/item-pericope'
 import ListaPericopes from './ListaPericopes'
 
+/** Cabeçalho e lista, a mesma forma de `RegistroAberto`: o formulário de
+ *  capítulo/versículo saiu porque o campo de referência do topo do Explorar
+ *  resolve "Gn 3:15" de qualquer lugar da tela, inclusive com o livro
+ *  aberto — eram duas portas para o mesmo resultado. */
 export default function LivroAberto({
   livro,
   prog,
   itens,
   concluidas,
   filtro,
-  cap,
-  onCap,
   onTrocar,
-  onIrParaVersiculo,
 }: {
   livro: BibleBook
   /** Progresso do livro INTEIRO — não do que sobrou do recorte. */
   prog: LivroProgresso | undefined
   itens: ItemPericope[]
   concluidas: Set<number>
+  /** Só para o `peri-count` dizer "em Gênesis" contra "no recorte". */
   filtro: FiltroLeitura
-  cap: number | null
-  onCap: (cap: number | null) => void
   onTrocar: () => void
-  onIrParaVersiculo: (cap: number, ver: number) => void
 }) {
-  const [campoCap, setCampoCap] = useState('')
-  const [campoVer, setCampoVer] = useState('')
-  // Trocar de livro tem que limpar os campos: "3" digitado para João é um
-  // capítulo válido em Gênesis também, e ficaria no campo validado contra os
-  // limites do livro errado. O padrão de ajustar estado no render (em vez de
-  // um efeito) evita pintar um frame com o valor do livro anterior. Isto vale
-  // mesmo se a página esquecer de passar `key` — a invariante é do componente,
-  // não do consumidor.
-  const [livroAnterior, setLivroAnterior] = useState(livro)
-  if (livro !== livroAnterior) {
-    setLivroAnterior(livro)
-    setCampoCap('')
-    setCampoVer('')
-  }
-
-  const capNum = Number(campoCap)
-  const capOk = Number.isInteger(capNum) && capNum >= 1 && capNum <= maxChapter(livro)
-  const verMax = capOk ? maxVerse(livro, capNum) : 0
-  const verNum = Number(campoVer)
-  const verOk = capOk && Number.isInteger(verNum) && verNum >= 1 && verNum <= verMax
-
-  function aoEnviar(e: FormEvent) {
-    e.preventDefault()
-    if (!capOk) return
-    if (verOk) onIrParaVersiculo(capNum, verNum)
-    else onCap(capNum)
-  }
-
   return (
     <>
       <div className="ref-sticky">
@@ -78,56 +48,11 @@ export default function LivroAberto({
             Trocar livro
           </button>
         </div>
-
-        <form className="ref-form" onSubmit={aoEnviar}>
-          <label>
-            Capítulo
-            <input
-              type="number"
-              inputMode="numeric"
-              min={1}
-              max={maxChapter(livro)}
-              placeholder={`1–${maxChapter(livro)}`}
-              value={campoCap}
-              onChange={(e) => {
-                setCampoCap(e.target.value)
-                setCampoVer('')
-              }}
-            />
-          </label>
-          <label>
-            Versículo
-            <input
-              type="number"
-              inputMode="numeric"
-              min={1}
-              max={verMax || undefined}
-              placeholder={capOk ? `1–${verMax}` : 'Capítulo primeiro'}
-              value={campoVer}
-              disabled={!capOk}
-              onChange={(e) => setCampoVer(e.target.value)}
-            />
-          </label>
-          <button type="submit" disabled={!capOk}>
-            Ir
-          </button>
-        </form>
       </div>
 
       <p className="peri-count">
-        {cap != null
-          ? `${itens.length} perícope${itens.length === 1 ? '' : 's'} no capítulo ${cap}`
-          : `${itens.length} perícope${itens.length === 1 ? '' : 's'}${
-              filtro === 'todos' ? ` em ${livro.name}` : ' no recorte'
-            }`}
-        {cap != null && (
-          <>
-            {' · '}
-            <button type="button" className="linkish" onClick={() => onCap(null)}>
-              Ver todas do livro
-            </button>
-          </>
-        )}
+        {itens.length} perícope{itens.length === 1 ? '' : 's'}
+        {filtro === 'todos' ? ` em ${livro.name}` : ' no recorte'}
       </p>
 
       <ListaPericopes itens={itens} concluidas={concluidas} />

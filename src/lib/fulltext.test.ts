@@ -17,6 +17,7 @@ function peri(ordem: number, livro: string, abbrev: string, texto: string): Peri
     versiculo_fim: 1,
     titulo_pericope_pt: `Título ${ordem}`,
     minutos: 1,
+    narrado: false,
     seq: ordem,
     texto: texto,
     contexto_historico_literario: '',

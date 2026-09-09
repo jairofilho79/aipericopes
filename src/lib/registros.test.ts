@@ -144,6 +144,7 @@ function pi(ordem: number, seq: number, livro: string): PericopeIndex {
     versiculo_fim: 1,
     titulo_pericope_pt: `P${ordem}`,
     minutos: 1,
+    narrado: false,
   }
 }
 

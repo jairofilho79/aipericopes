@@ -32,6 +32,10 @@ type Props = {
    */
   onRevisao?: (original: string, revisado: string) => void
   onAviso: (msg: string) => void
+  /** O rótulo do botão em repouso. O padrão serve ao formulário de anotação;
+   *  o campo de referência do Explorar, onde não existe "anotação", passa o
+   *  seu. Os outros rótulos ("Parar ditado") já são genéricos. */
+  rotuloOcioso?: string
   disabled?: boolean
 }
 
@@ -75,7 +79,13 @@ function temMicrofoneNoNavegador(): boolean {
  * Nos dois casos só com rede — o nativo do Chrome manda o áudio para o
  * Google — e um botão que só dá erro é pior que nenhum.
  */
-export default function DitarBotao({ onTexto, onRevisao, onAviso, disabled }: Props) {
+export default function DitarBotao({
+  onTexto,
+  onRevisao,
+  onAviso,
+  rotuloOcioso = 'Ditar anotação',
+  disabled,
+}: Props) {
   const { data: session } = authClient.useSession()
   const [online, setOnline] = useState(() => navigator.onLine)
   const [fase, setFase] = useState<Fase>({ tipo: 'ocioso' })
@@ -373,7 +383,7 @@ export default function DitarBotao({ onTexto, onRevisao, onAviso, disabled }: Pr
         ? 'Parar ditado'
         : gravando
           ? 'Parar e transcrever'
-          : 'Ditar anotação'
+          : rotuloOcioso
   const lado =
     fase.tipo === 'ouvindo'
       ? fase.parcial

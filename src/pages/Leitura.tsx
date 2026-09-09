@@ -1,11 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { tokens, type SecaoAlvos } from '../lib/alinhar-narracao'
-import NarracaoPlayer, {
-  IconePausa,
-  IconePlay,
-  type NarracaoPlayerHandle,
-} from '../components/NarracaoPlayer'
+import NarracaoPlayer, { type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
 import { secaoDoChip } from '../lib/narracao-controles'
 import LeituraTopo from '../components/LeituraTopo'
 import SectionChips from '../components/SectionChips'
@@ -185,9 +181,41 @@ function TopicsView({ text }: { text: string }) {
   )
 }
 
+/** Cabeçalhos falados do manifesto → os mesmos rótulos dos chips de seção. */
+const ROTULO_DO_CABECALHO: Record<string, string> = {
+  contexto: 'Contexto',
+  texto: 'Texto',
+  resenha: 'Resenha',
+  // "As palavras do trecho" é seção própria no áudio, mas na tela ela fecha a
+  // Resenha — e é a Resenha que o ouvinte vê nos chips.
+  palavras: 'Resenha',
+  reflexoes: 'Reflexões',
+}
+
+/**
+ * O que a doca mostra estar tocando agora. Os ids vêm de `alinhar-narracao.ts`
+ * e de `paragraphize.ts`, e nenhum deles é legível: esta é a tradução para
+ * gente. Nunca devolve vazio — sem alvo alinhado, a referência da perícope já
+ * responde "o que estou ouvindo".
+ */
+function rotuloDoAlvo(p: Pericope, falando: string | null): string {
+  if (!falando) return refLabel(p)
+  if (falando === 'titulo' || falando === 'referencia') return p.titulo_pericope_pt
+  const cabecalho = falando.match(/^cabecalho-(.+)$/)
+  if (cabecalho) return ROTULO_DO_CABECALHO[cabecalho[1]!] ?? refLabel(p)
+  const capitulo = falando.match(/^cap-(\d+)$/)
+  if (capitulo) return `Texto · Capítulo ${capitulo[1]}`
+  const versiculo = falando.match(/^(\d+):(\d+)$/)
+  if (versiculo) return `Texto · ${p.livro} ${versiculo[1]}:${versiculo[2]}`
+  if (falando.startsWith('contexto-')) return 'Contexto'
+  if (falando.startsWith('resenha-') || falando.startsWith('palavra-')) return 'Resenha'
+  if (falando.startsWith('reflexao-')) return 'Reflexões'
+  return refLabel(p)
+}
+
 export default function Leitura() {
   const { ordem: ordemParam } = useParams()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const rootRef = useRef<HTMLElement>(null)
   const notaRef = useRef<HTMLTextAreaElement>(null)
@@ -233,6 +261,10 @@ export default function Leitura() {
   // Checkpoint de narração restaurado: o player posiciona o áudio aqui e o
   // play do usuário retoma do ponto salvo.
   const [tempoInicialNarracao, setTempoInicialNarracao] = useState<number | null>(null)
+  // O checkpoint desta perícope já foi lido do IndexedDB (com ou sem resultado).
+  // O autoplay do `?ouvir=1` espera por isto: soltá-lo antes faria o áudio
+  // começar do zero e saltar para o ponto salvo um instante depois.
+  const [posicaoResolvida, setPosicaoResolvida] = useState(false)
   // Espelhos para handlers que não podem renascer a cada render.
   const tocandoRef = useRef(false)
   // A rolagem automática da restauração dispara o observer de seções — a
@@ -329,6 +361,7 @@ export default function Leitura() {
       vAplicado.current = null
       // Checkpoint e controle de narração também são por perícope.
       setTempoInicialNarracao(null)
+      setPosicaoResolvida(false)
       setNarracaoUsada(false)
       try {
         const all = await loadIndex()
@@ -394,16 +427,23 @@ export default function Leitura() {
   // permite sincronizá-lo.
   useEffect(() => {
     if (!p || p.ordem !== ordem) return
-    if (verseParam && /^\d+:\d+$/.test(verseParam)) return
+    if (verseParam && /^\d+:\d+$/.test(verseParam)) {
+      // `?v=` manda na rolagem e não há checkpoint a esperar aqui.
+      setPosicaoResolvida(true)
+      return
+    }
     let vivo = true
     void (async () => {
       const pos = await getPosicao(ordem)
       if (!vivo) return
+      // Nos dois setters juntos: o React comita o tempo inicial e a liberação
+      // do autoplay no mesmo render, então o player nunca vê um sem o outro.
+      if (pos?.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
+      setPosicaoResolvida(true)
       if (!pos) {
         window.scrollTo(0, 0)
         return
       }
-      if (pos.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
       // Direto nos setters (idempotentes e estáveis) em vez de abrirContexto():
       // a função nasce de novo a cada render e entraria nas dependências.
       if (refNoContexto(pos.ref)) {
@@ -546,6 +586,22 @@ export default function Leitura() {
     },
     [pintarBarra],
   )
+
+  // `?ouvir=1` é o botão "Ouvir" da Home: intenção de UMA vez. Sai da URL na
+  // tentativa (deu certo ou não), senão recarregar a página ou voltar pelo
+  // histórico faria a perícope tocar sozinha de novo. `replace` para o
+  // histórico não ganhar uma entrada por causa disto.
+  const querOuvir = searchParams.get('ouvir') === '1'
+  const limparOuvir = useCallback(() => {
+    setSearchParams(
+      (atuais) => {
+        const proximos = new URLSearchParams(atuais)
+        proximos.delete('ouvir')
+        return proximos
+      },
+      { replace: true },
+    )
+  }, [setSearchParams])
 
   const irAnterior = useCallback(() => {
     if (prev) navigate(`/leitura/${prev.ordem}`)
@@ -900,7 +956,13 @@ export default function Leitura() {
     // e o sticky ficaria preso ao retângulo do artigo.
     <>
       <LeituraTopo livro={p.livro} posicao={posNoLivro} />
-      <article className="leitura" ref={rootRef}>
+      {/* `narracao-ativa` só existe para o CSS reservar, no fim do artigo, a
+          folga da altura da doca: sem ela a doca cobriria as últimas perguntas
+          de reflexão. */}
+      <article
+        className={narracaoUsada ? 'leitura narracao-ativa' : 'leitura'}
+        ref={rootRef}
+      >
         <h1 className={tituloClass('', 'titulo') || undefined} data-fala-id="titulo">
           {p.titulo_pericope_pt}
         </h1>
@@ -923,19 +985,6 @@ export default function Leitura() {
             if (secao) playerRef.current?.irParaSecao(secao)
           }}
           onSecaoAtiva={salvarSecaoAtiva}
-          acao={
-            narracaoUsada ? (
-              <button
-                type="button"
-                className="narracao-mini"
-                aria-label={tocandoNarracao ? 'Pausar narração' : 'Continuar narração'}
-                title={tocandoNarracao ? 'Pausar narração' : 'Continuar narração'}
-                onClick={() => playerRef.current?.alternar()}
-              >
-                {tocandoNarracao ? <IconePausa /> : <IconePlay />}
-              </button>
-            ) : undefined
-          }
           progresso={
             <div
               ref={barraRef}
@@ -948,6 +997,10 @@ export default function Leitura() {
           }
         />
 
+        {/* Este ponto do artigo é a casa do cartão "Ouvir esta perícope" (e
+            dos três estados de indisponibilidade). A doca que o substitui
+            depois do primeiro play é `position: fixed` e sai do fluxo daqui —
+            nenhum ancestral cria bloco contentor, então ela mede a viewport. */}
         <NarracaoPlayer
           ref={playerRef}
           ordem={p.ordem}
@@ -957,6 +1010,11 @@ export default function Leitura() {
           tempoInicial={tempoInicialNarracao}
           onTocando={onTocandoNarracao}
           onProgresso={onProgressoNarracao}
+          usada={narracaoUsada}
+          alvoRotulo={rotuloDoAlvo(p, falando)}
+          minutos={minutos}
+          tocarAoCarregar={querOuvir && posicaoResolvida}
+          onTentouTocar={limparOuvir}
         />
 
         <section className="block block-plain" id="contexto" tabIndex={-1}>

@@ -1,7 +1,7 @@
 import { BIBLE_BOOKS, type BibleBook } from '../lib/bible-books'
 import { testamentLabel } from '../lib/testament'
 import type { FiltroLeitura, LivroProgresso } from '../lib/content'
-import { agruparLivros, rotuloContagem } from '../lib/catalogo'
+import { agruparLivros, fraseContagem } from '../lib/catalogo'
 
 export default function CatalogoLivros({
   livros = BIBLE_BOOKS,
@@ -47,17 +47,23 @@ export default function CatalogoLivros({
                         className={`livro-row${vazio ? ' livro-vazio' : ''}`}
                         onClick={() => onAbrir(b)}
                       >
-                        <span className="livro-nome">{b.name}</span>
+                        {/* Primeiro filho, na coluna fixa da esquerda: é o
+                            único que `CatalogoRegistros` não tem (um
+                            registro não tem abreviação). */}
                         <span className="livro-abbrev">{b.abbrev}</span>
-                        {/* A barra é decoração: quem usa leitor de tela recebe o rótulo. */}
+                        <span className="livro-info">
+                          <span className="livro-nome">{b.name}</span>
+                          <span className="livro-sub">
+                            {fraseContagem(filtro, prog, noRecorte)}
+                          </span>
+                        </span>
+                        {/* A barra é decoração: a contagem já está na linha
+                            secundária, que é texto de verdade. */}
                         <span className="book-progress" aria-hidden>
                           <span
                             className="book-progress-fill"
                             style={{ width: `${prog?.pct ?? 0}%` }}
                           />
-                        </span>
-                        <span className="book-progress-label">
-                          {rotuloContagem(filtro, prog, noRecorte)}
                         </span>
                       </button>
                     </li>

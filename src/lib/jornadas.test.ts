@@ -31,6 +31,7 @@ function peri(ordem: number, livro: string, abbrev: string, cap = 1): PericopeIn
     versiculo_fim: 10,
     titulo_pericope_pt: `${livro} ${cap}`,
     minutos: 3,
+    narrado: false,
     seq: ordem,
   }
 }
@@ -376,6 +377,7 @@ function periTrilha(ordem: number, livro: string, abbrev: string, cap = 1): Peri
     versiculo_fim: 10,
     titulo_pericope_pt: `${livro} ${cap}`,
     minutos: 3,
+    narrado: false,
     seq: ordem,
   }
 }

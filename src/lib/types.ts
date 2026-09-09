@@ -24,6 +24,8 @@ export type PericopeIndex = {
   titulo_pericope_pt: string
   /** Minutos de leitura, pré-calculados pelo gerador de shards. */
   minutos: number
+  /** Se há narração publicada para esta perícope. Fonte: data/audio-cobertura.json. */
+  narrado: boolean
 }
 
 /** Perícope completa: índice + o conteúdo que vem dos shards do livro. */
