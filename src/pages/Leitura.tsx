@@ -158,13 +158,12 @@ function rotuloDoAlvo(p: Pericope, falando: string | null): string {
 
 /**
  * Um lado do pager: para onde ir e — quando existe narração lá — a opção de ir
- * OUVINDO.
+ * OUVINDO, DENTRO do mesmo botão.
  *
- * O play existe porque a escuta morria na fronteira da perícope: quem entrou
- * pelo "Ouvir" da Home passava a sessão inteira ouvindo e, ao virar a página,
- * só encontrava texto e um player para procurar e apertar de novo. É o mesmo
- * par (link + botão redondo) e o mesmo `?ouvir=1` do card da Home, com as
- * classes dela, porque é o mesmo gesto.
+ * Dois links, uma caixa: o título abre em silêncio, o play (círculo inseto)
+ * abre com `?ouvir=1` (o mesmo da Home). Separados no DOM porque HTML não
+ * aninha `<a>` em `<a>`; juntos no desenho porque play solto ao lado lia como
+ * gambiarra.
  *
  * Sem vizinha o lado NÃO desaparece: fica o motivo, desabilitado. O vão vazio
  * ao lado do "próxima" parecia botão que não carregou — e, pior, fazia par com
@@ -190,25 +189,47 @@ function PagerLado({
       </button>
     )
   }
+  const rotulo = proxima ? `${v.titulo} →` : `← ${v.titulo}`
+  const ariaNav = `${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`
+  const tituloAtalho = `Atalho: ${proxima ? '→' : '←'}`
+  // Com narração a borda é do `.pager-lado`; sem, o link carrega ghost/cta.
+  const chrome = v.narrado ? '' : primario ? ' cta' : ' ghost'
+  const linkNav = (
+    <Link
+      className={`pager-link${proxima ? ' pager-next' : ''}${chrome}`}
+      aria-label={ariaNav}
+      title={tituloAtalho}
+      to={`/leitura/${v.ordem}`}
+    >
+      {rotulo}
+    </Link>
+  )
+  if (!v.narrado) return linkNav
+  // Play na borda da direção: antes no "anterior", depois no "próxima".
+  const ouvir = (
+    <Link
+      className="pager-ouvir"
+      to={`/leitura/${v.ordem}?ouvir=1`}
+      aria-label={`Ouvir ${v.titulo}`}
+      title="Ouvir"
+    >
+      <IconePlay />
+    </Link>
+  )
   return (
-    <div className={`pager-lado ${proxima ? 'pager-lado-proxima' : 'pager-lado-anterior'}`}>
-      <Link
-        className={`pager-link ${primario ? 'cta' : 'ghost'}${proxima ? ' pager-next' : ''}`}
-        aria-label={`${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`}
-        title={`Atalho: ${proxima ? '→' : '←'}`}
-        to={`/leitura/${v.ordem}`}
-      >
-        {proxima ? `${v.titulo} →` : `← ${v.titulo}`}
-      </Link>
-      {v.narrado && (
-        <Link
-          className="ouvir-botao"
-          to={`/leitura/${v.ordem}?ouvir=1`}
-          aria-label={`Ouvir ${v.titulo}`}
-          title="Ouvir"
-        >
-          <IconePlay />
-        </Link>
+    <div
+      className={`pager-lado${proxima ? ' pager-lado-proxima' : ''}${primario ? ' pager-lado-primario' : ''}`}
+    >
+      {proxima ? (
+        <>
+          {linkNav}
+          {ouvir}
+        </>
+      ) : (
+        <>
+          {ouvir}
+          {linkNav}
+        </>
       )}
     </div>
   )

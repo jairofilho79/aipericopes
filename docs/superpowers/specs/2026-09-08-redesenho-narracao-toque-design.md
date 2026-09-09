@@ -439,13 +439,13 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
   de `tempoInicialNarracao`.
 
 **Revisto em 09/09 — o "Ouvir" também vive no pager da Leitura.** Cada lado do
-pager do rodapé ganha, ao lado do link da vizinha, o mesmo botão redondo com o
-mesmo `?ouvir=1` (44px em vez de 48px: aqui são dois num rodapé de navegação,
-não um fazendo par com o CTA da tela). Só aparece quando a vizinha tem
-`narrado`, igual à Home. Motivo: a escuta morria na fronteira da perícope —
-quem entrou ouvindo virava a página e caía em texto com um cartão para procurar
-e apertar de novo. No lado "próxima" o play fica à esquerda do link
-(`order: -1`), senão a seta "→" aponta para ele em vez de apontar para fora.
+pager do rodapé é UM botão com dois alvos: o título abre em silêncio, o play
+(círculo inseto de 36px no canto da direção) abre com o mesmo `?ouvir=1` da
+Home. Só aparece quando a vizinha tem `narrado`. Motivo: a escuta morria na
+fronteira da perícope — quem entrou ouvindo virava a página e caía em texto com
+um cartão para procurar e apertar de novo. Play solto FORA do botão lia como
+gambiarra; a borda e o raio passam a ser do `.pager-lado`, e o play fica
+dentro do padding.
 
 Isso expôs uma corrida que a Home nunca alcançou, porque de lá o `?ouvir=1`
 sempre chegava numa MONTAGEM da Leitura: navegando de perícope para perícope a

@@ -973,34 +973,61 @@ button.ghost {
   font-family: var(--font-ui);
 }
 
-/* O lado é link + play: quem vira a página ouvindo continua ouvindo. */
+/* Uma caixa, dois alvos: título (silêncio) + play (`?ouvir=1`) DENTRO do
+   padding. A borda e o raio são DO LADO — play solto fora lia como gambiarra. */
 .pager-lado {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
 }
 
 .pager-lado .pager-link {
-  /* `min-width: 0` porque o título é texto longo dentro de um item flex: sem
-     isso ele se recusa a encolher e empurra o play para fora da coluna. */
   flex: 1 1 auto;
   min-width: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  /* O padding externo é do `.pager-lado`; aqui só o vão interno do texto. */
+  padding: 0.4rem 0.65rem;
+  min-height: 0;
+  height: 100%;
 }
 
-/* 44px: o play da Home é 48px porque lá ele faz par com o CTA da tela; aqui
-   são dois, num rodapé de navegação, e 48px viravam o que mais pesa na linha. */
-.pager-lado .ouvir-botao {
-  width: 2.75rem;
-  height: 2.75rem;
+/* Círculo inseto — o mesmo gesto da Home, só que dentro da caixa de seguir. */
+.pager-ouvir {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  text-decoration: none;
 }
 
-/* Cada play na borda EXTERNA da sua metade (no lado "anterior" isso quer dizer
-   antes do link, na ordem visual, não no DOM). Encostados no link, os dois
-   caíam lado a lado no meio da linha quando os dois títulos eram compridos —
-   duas bolinhas idênticas grudadas, e nenhuma pista de qual pertence a qual
-   lado. */
-.pager-lado-anterior .ouvir-botao {
-  order: -1;
+.pager-lado-primario {
+  background: var(--cta-bg);
+  border-color: transparent;
+}
+
+.pager-lado-primario .pager-link {
+  color: var(--cta-ink);
+}
+
+/* No CTA laranja o círculo precisa de contraste: tinta sobre o fundo. */
+.pager-lado-primario .pager-ouvir {
+  background: color-mix(in srgb, var(--cta-ink) 16%, var(--cta-bg));
+  color: var(--cta-ink);
 }
 
 .pager-link {
@@ -1008,6 +1035,7 @@ button.ghost {
   align-items: center;
   min-height: 2.75rem;
   width: 100%;
+  padding: 0.55rem 1rem;
   text-align: start;
 }
 
@@ -1036,13 +1064,19 @@ button.pager-fim {
 
   /* Largura natural, cada lado encostado no seu canto: em tela larga um link
      esticado até o meio da coluna é caixa vazia com três palavras num canto. */
-  .pager-lado .pager-link {
-    flex: 0 1 auto;
+  .pager-lado {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .pager-lado .pager-link,
+  .pager > .pager-link {
     width: auto;
   }
 
-  .pager-lado-proxima {
-    justify-content: flex-end;
+  .pager-lado-proxima,
+  .pager > .pager-next {
+    justify-self: end;
   }
 }
 
