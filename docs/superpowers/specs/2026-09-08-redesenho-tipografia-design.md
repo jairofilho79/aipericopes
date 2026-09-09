@@ -110,10 +110,11 @@ Tomadas com o dono antes desta spec, não reabertas aqui:
    alta, `letter-spacing: 0.19em`, cor `--accent`.
 7. Botões e chips em EB Garamond peso 600, nunca caixa alta. Só rótulos de
    seção e abas da barra de seções usam caixa alta espaçada.
-8. Capitular: a primeira letra de cada capítulo do texto bíblico vira
-   capitular em Cormorant Garamond, `font-size: 3.5em`, `line-height: 0.8`,
-   `float: left`, peso 500, cor `--accent`. Única licença ornamental do
-   projeto. Tem que cair na primeira LETRA, não no número do versículo.
+8. ~~Capitular na primeira letra de cada capítulo.~~ **Revogada em 09/09 depois
+   de ver rodando**: a letra grande em âmbar rouba a atenção do versículo que
+   ela deveria abrir, e o número do versículo seguinte fica encostado nela. Não
+   há capitular no app; a seção "Capitular" adiante fica como registro do que
+   foi tentado e por quê.
 9. `font-optical-sizing: auto` perde função — nenhuma das duas fontes novas
    tem eixo `opsz`.
 10. Nenhuma cor muda. Nenhum hex é tocado por esta spec.
@@ -512,6 +513,10 @@ colunas, `.section-chips-row`, `app.css:882-891`, e "Reflexão" é o rótulo
 mais longo).
 
 ## Capitular
+
+> **Revogada.** Foi implementada, vista rodando e removida no mesmo dia — ver a
+> decisão 8. O que segue vale como registro: o pseudo-elemento não funciona
+> aqui, e quem tentar de novo cai no mesmo problema do número de versículo.
 
 Ornamento novo, sem equivalente hoje. Alvo: a primeira letra do texto de
 cada capítulo dentro de `.texto-biblico`.

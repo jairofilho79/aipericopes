@@ -88,64 +88,6 @@ function TextoFalado({ texto, ativo }: { texto: string; ativo: boolean }) {
   )
 }
 
-/**
- * Onde a capitular termina: tudo até a primeira LETRA, ela inclusive. Aspas,
- * travessões e colchetes de abertura vão no mesmo span — capitular numa aspa
- * seria um borrão grande em vez de uma inicial.
- *
- * O recorte nunca engole espaço (`\s` fora da classe do prefixo), e é isso que
- * mantém `tokens(resto)` com a MESMA contagem e as mesmas fronteiras de
- * `tokens(texto)`: o token 0 encolhe, não desaparece, então os índices do
- * realce por palavra da narração continuam válidos.
- *
- * `\p{M}*` recolhe os acentos combinantes de um `É` que venha decomposto:
- * levar a letra e deixar o acento para trás renderizaria um acento órfão.
- *
- * `null` quando não há letra alguma (texto vazio, versículo só com pontuação,
- * texto começando por espaço): não há o que ornamentar, e nada explode.
- */
-function fatiarCapitular(texto: string): { inicial: string; resto: string } | null {
-  const m = texto.match(/^[^\p{L}\s]*\p{L}\p{M}*/u)
-  if (!m) return null
-  return { inicial: m[0], resto: texto.slice(m[0].length) }
-}
-
-/**
- * O texto de um versículo, com capitular quando ele abre um capítulo.
- *
- * A capitular é um `<span>` de verdade, e não o `::first-letter` que a spec de
- * tipografia propunha: medido em navegador, o pseudo não gera caixa nenhuma em
- * `.verse-text`, que é inline; e mirado no bloco que a contém, cai no `<sup>`
- * do número do versículo — exatamente o que a decisão 8 proíbe.
- *
- * A inicial sai do texto que vai para `TextoFalado`. O alinhamento da narração
- * é calculado sobre `b.text` (via `secoesNarracao`), não sobre o DOM, então ele
- * não vê diferença; e o `[data-w="0"]` que o player procura continua existindo,
- * só que sem a primeira letra dentro. O que a capitular não recebe é a luz do
- * realce: ela é um float, fora da caixa inline que pinta o fundo de `[data-w]`.
- * Ficar apagada durante os ~400ms da palavra dela é bem mais barato que a
- * alternativa — aparecer e sumir conforme a voz passa, refluindo o parágrafo
- * debaixo de quem está lendo.
- */
-function TextoVersiculo({
-  texto,
-  ativo,
-  capitular,
-}: {
-  texto: string
-  ativo: boolean
-  capitular: boolean
-}) {
-  const corte = capitular ? fatiarCapitular(texto) : null
-  if (!corte) return <TextoFalado texto={texto} ativo={ativo} />
-  return (
-    <>
-      <span className="capitular">{corte.inicial}</span>
-      <TextoFalado texto={corte.resto} ativo={ativo} />
-    </>
-  )
-}
-
 function inlineBold(text: string): ReactNode {
   const parts = text.split(/(\*\*[^*]+\*\*)/g)
   return parts.map((part, i) =>
@@ -1093,7 +1035,7 @@ export default function Leitura() {
                       </h3>
                     )}
                     <p className="corrido">
-                      {g.verses.map((b, vi) => (
+                      {g.verses.map((b) => (
                         <Fragment key={b.id}>
                           <button
                             type="button"
@@ -1105,18 +1047,7 @@ export default function Leitura() {
                           >
                             {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                             <span className="verse-text">
-                              {/* Capitular no 1º versículo do grupo, e só quando
-                                  o grupo tem `cap-label`: o sinal de virada de
-                                  capítulo é o mesmo que desenha o <h3>. Grupo
-                                  órfão (texto sem "Capítulo N") não abre
-                                  capítulo nenhum e fica sem ornamento — como no
-                                  layout de blocos, onde não há `.cap-label`
-                                  antes dele. */}
-                              <TextoVersiculo
-                                texto={b.text}
-                                ativo={falando === b.id}
-                                capitular={vi === 0 && g.label !== null}
-                              />
+                              <TextoFalado texto={b.text} ativo={falando === b.id} />
                             </span>
                           </button>{' '}
                         </Fragment>
@@ -1124,7 +1055,7 @@ export default function Leitura() {
                     </p>
                   </div>
                 ))
-              : blocks.map((b, i) =>
+              : blocks.map((b) =>
                   b.kind === 'chapter' ? (
                     <h3
                       key={`c-${b.chapter}`}
@@ -1145,14 +1076,7 @@ export default function Leitura() {
                     >
                       {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                       <span className="verse-text">
-                        {/* O versículo logo depois do <h3> é o que abre o
-                            capítulo — o mesmo par `.cap-label + .verse` que a
-                            spec de tipografia mirava em CSS. */}
-                        <TextoVersiculo
-                          texto={b.text}
-                          ativo={falando === b.id}
-                          capitular={blocks[i - 1]?.kind === 'chapter'}
-                        />
+                        <TextoFalado texto={b.text} ativo={falando === b.id} />
                       </span>
                     </button>
                   ),

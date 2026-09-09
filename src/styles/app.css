@@ -1892,29 +1892,6 @@ button.ghost {
   font-family: inherit;
 }
 
-/* Capitular — a única licença ornamental do projeto, na primeira LETRA do
-   primeiro versículo de cada capítulo (nunca no número).
-
-   É um <span> de verdade, posto por Leitura.tsx, e não um ::first-letter:
-   medido em Chrome, o pseudo não gera caixa em .verse-text, que é um <span>
-   inline nos dois layouts — o float simplesmente não acontece.
-
-   O float vale nos dois: em "corrido" o bloco que contém é o <p class="corrido">
-   e em "blocos" é o próprio <button class="verse">; nos dois o texto envolve.
-   O padding-top é o que faz a letra assentar na linha de base da segunda
-   linha em vez de flutuar acima dela: com line-height 0.8 a caixa fica mais
-   curta que o glifo e sobe. */
-.capitular {
-  float: left;
-  font-family: var(--font-display);
-  font-size: 3.5em;
-  font-weight: 500;
-  line-height: 0.8;
-  color: var(--accent);
-  padding-top: 0.13em;
-  padding-inline-end: 0.08em;
-}
-
 .corrido-group {
   margin: 0 0 0.9rem;
 }
