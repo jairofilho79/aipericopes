@@ -103,8 +103,9 @@ export default function Sobre() {
       <h2>A cobertura da narração</h2>
       <p className="muted ajustes-credito">
         Nem toda perícope tem áudio ainda — a narração vem sendo publicada aos poucos. Onde
-        ela existe, o tocador aparece no alto da leitura; onde ainda não existe, ele
-        simplesmente não aparece, e o texto continua inteiro. A trilha instrumental que
+        ela existe, o convite para ouvir abre no começo da leitura e os controles ficam
+        ancorados no pé da tela enquanto a voz toca; onde ainda não existe, uma linha diz
+        isso e o texto continua inteiro. A trilha instrumental que
         acompanha a leitura ainda não foi publicada; quando for, ganha um bloco aqui.
       </p>
 
