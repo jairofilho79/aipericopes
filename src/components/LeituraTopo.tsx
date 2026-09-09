@@ -6,19 +6,23 @@ import { IconePessoa } from './icones-nav'
 import LeituraPrefs from './LeituraPrefs'
 
 type Props = {
-  livro: string
+  /** Livro da perícope; null quando não há perícope na tela (carga, erro). */
+  livro: string | null
   /** Posição da perícope dentro do livro; null quando não é calculável. */
   posicao: { n: number; m: number } | null
 }
+
+type AaProps = ReturnType<typeof usePopover>
 
 /**
  * O "Aa" da Leitura: um toque abre a tipografia em popover, sem sair da
  * página. É o mesmo `usePopover()` que servia o PerfilMenu — a infraestrutura
  * mudou de dono, não morreu (foco preso, Escape, clique fora).
+ *
+ * O estado do popover não mora aqui, e sim no `LeituraTopo`: quem precisa
+ * saber que ele está aberto é o auto-ocultar do header.
  */
-function LeituraTopoAa() {
-  const { open, toggle, rootRef, btnRef, popRef } = usePopover()
-
+function LeituraTopoAa({ open, toggle, rootRef, btnRef, popRef }: AaProps) {
   return (
     <span className="leitura-top-aa-wrap" ref={rootRef}>
       <button
@@ -59,18 +63,27 @@ function LeituraTopoAa() {
  * um único erro no console.
  */
 export default function LeituraTopo({ livro, posicao }: Props) {
-  // Sempre habilitado: este componente só monta dentro da Leitura.
-  const escondido = useHideOnScroll(true)
+  const aa = usePopover()
+  // Com o "Aa" aberto o header fica travado. `.top-hidden` não é só um
+  // translate: leva `visibility: hidden`, e o popover é filho daqui — rolar
+  // levaria embora o painel junto com o foco que o `usePopover` acabou de
+  // mover para dentro dele.
+  const escondido = useHideOnScroll(!aa.open)
+
+  // Sem perícope na tela não há livro para onde voltar: o destino degrada para
+  // o catálogo, que é o nível de cima de qualquer perícope. O rótulo acompanha
+  // — um `‹` sem nenhum nome ao lado não diz para onde leva.
+  const voltarRotulo = livro ?? 'Explorar'
 
   return (
     <header className={'top leitura-top' + (escondido ? ' top-hidden' : '')}>
       <Link
         className="leitura-top-voltar"
-        to={`/explorar?livro=${encodeURIComponent(livro)}`}
+        to={livro ? `/explorar?livro=${encodeURIComponent(livro)}` : '/explorar'}
         // Um chevron isolado não é confiável em leitor de tela.
-        aria-label={`Voltar para ${livro}`}
+        aria-label={`Voltar para ${voltarRotulo}`}
       >
-        <span aria-hidden>‹</span> {livro}
+        <span aria-hidden>‹</span> {voltarRotulo}
       </Link>
 
       {/* Montado mesmo sem posição: o grid é `1fr auto 1fr` e um centro
@@ -81,7 +94,7 @@ export default function LeituraTopo({ livro, posicao }: Props) {
       {/* As duas ações são UMA zona do grid, não duas: soltas, a segunda
           cairia na linha de baixo. */}
       <div className="leitura-top-acoes">
-        <LeituraTopoAa />
+        <LeituraTopoAa {...aa} />
         <Link className="leitura-top-perfil" to="/perfil" aria-label="Perfil">
           <IconePessoa />
         </Link>

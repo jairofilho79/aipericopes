@@ -898,8 +898,29 @@ export default function Leitura() {
     window.setTimeout(() => setCopied(false), 1600)
   }
 
-  if (err) return <p className="muted">{err}</p>
-  if (!p) return <SkeletonLeitura />
+  // As duas saídas antecipadas montam o topo também. O header do App não
+  // renderiza em /leitura/*, então sem ele um link velho (`/leitura/999999`) ou
+  // uma falha de rede na primeira carga deixariam a página sem saída nenhuma
+  // além do botão voltar do navegador — que num PWA standalone nem aparece.
+  // Sem perícope na tela o topo não afirma livro nem posição: `p` pode ainda
+  // guardar a perícope ANTERIOR (a carga não a limpa ao trocar de `ordem`), e
+  // "1 de 45" de uma perícope que não está sendo lida é pior que nada.
+  // O esqueleto não pede offset: `.top` é sticky e segue ocupando lugar no
+  // fluxo, então o conteúdo continua começando embaixo dele.
+  if (err)
+    return (
+      <>
+        <LeituraTopo livro={null} posicao={null} />
+        <p className="muted">{err}</p>
+      </>
+    )
+  if (!p)
+    return (
+      <>
+        <LeituraTopo livro={null} posicao={null} />
+        <SkeletonLeitura />
+      </>
+    )
 
   const selecionadosIds = new Set(selecionados.map((v) => v.id))
   // Cor "atual" da seleção para os swatches (aria-pressed): só quando TODOS os

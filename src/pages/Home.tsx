@@ -56,9 +56,17 @@ function BotaoOuvir({ peri }: { peri: PericopeIndex }) {
   )
 }
 
-/** Onde o botão estaria, o motivo de ele não estar. */
-function SemNarracao({ peri }: { peri: PericopeIndex }) {
-  if (peri.narrado) return null
+/**
+ * Onde o botão estaria, o motivo de ele não estar — mas só quando a frase
+ * informa alguma coisa. Ela só vale por CONTRASTE ("as outras têm, esta não"):
+ * com o catálogo inteiro sem narração (o caso de hoje, `audio-cobertura.json`
+ * vazio) ela sairia nas 2.823 perícopes e viraria um mural de negativas, e
+ * ainda contradiria a Leitura, que descobre o áudio por `HEAD` e pode oferecer
+ * "Ouvir esta perícope" na mesma perícope. Por isso, enquanto ninguém tem, a
+ * ausência é silenciosa: não é bug, é a frase não tendo nada a dizer.
+ */
+function SemNarracao({ peri, alguemTem }: { peri: PericopeIndex; alguemTem: boolean }) {
+  if (peri.narrado || !alguemTem) return null
   return <span className="ref-sem-narracao"> · narração ainda não gravada</span>
 }
 
@@ -67,6 +75,10 @@ export default function Home() {
   const [err, setErr] = useState('')
   const [streak, setStreak] = useState<Streak>({ atual: 0, recorde: 0 })
   const [candidatos, setCandidatos] = useState<ItemReler[]>([])
+  // Booleano, e não o índice inteiro em estado: a varredura acontece uma vez
+  // por carga, junto do resto, e nada aqui volta a recalcular quando a lista
+  // de "Vale reler" abre.
+  const [alguemTem, setAlguemTem] = useState(false)
   const [todos, setTodos] = useState(false)
   const { data: session } = authClient.useSession()
 
@@ -76,6 +88,10 @@ export default function Home() {
   const carregar = useCallback(async () => {
     try {
       const all = await loadIndex()
+      // Uma passada no índice que a Home já tem em mãos, para saber se a frase
+      // "narração ainda não gravada" tem contra o que contrastar (ver
+      // SemNarracao).
+      setAlguemTem(all.some((p) => p.narrado))
       // UMA varredura do progresso e das posições, viradas em Map: a Home
       // antiga chamava doneSet() dentro do laço dos testamentos (quatro
       // varreduras completas por render). O mesmo vale para as posições.
@@ -168,7 +184,7 @@ export default function Home() {
               <>
                 <p className="ref">
                   {refLabel(estado.peri)} · ~{estado.peri.minutos} min
-                  <SemNarracao peri={estado.peri} />
+                  <SemNarracao peri={estado.peri} alguemTem={alguemTem} />
                 </p>
                 {/* Invólucro, e não dois filhos soltos: o CTA e o "Ouvir" são
                     uma linha de ações, e o CSS precisa de uma caixa para
@@ -212,7 +228,7 @@ export default function Home() {
                 <h2>{t.peri.titulo_pericope_pt}</h2>
                 <p className="ref">
                   {refLabel(t.peri)} · ~{t.peri.minutos} min
-                  <SemNarracao peri={t.peri} />
+                  <SemNarracao peri={t.peri} alguemTem={alguemTem} />
                 </p>
                 <p className="track-progress">
                   {t.prog.concluidas} de {t.prog.total}

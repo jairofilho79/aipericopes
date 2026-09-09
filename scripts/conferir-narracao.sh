@@ -7,7 +7,7 @@
 # a API. O `wrangler` não lista objetos do R2 — HEAD na API é o único
 # inventário confiável.
 #
-# Numa passada completa e íntegra, grava também data/audio-cobertura.json — a
+# Numa passada completa, grava também data/audio-cobertura.json — a
 # lista das `ordem` cuja narração está confirmada no R2. Ver gravar_cobertura()
 # abaixo para o formato; ele exige a MESMA rede e o MESMO corpus local que a
 # conferência, porque é subproduto dela, não um passo separado que alguém
@@ -49,11 +49,15 @@ tam_remoto() {  # tam_remoto <chave>
 # na mão. Uma ordem só entra quando os DOIS objetos dela (m4a e manifest)
 # batem — meio par publicado não toca.
 #
-# Só grava numa passada completa, íntegra e da voz corrente. Uma esteira
-# parcial conhece um pedaço da lista; uma conferência que morreu no meio (rede
-# fora, API caída) veria tudo como ausente; outro prefixo é outro acervo. Os
-# três gravariam "não está publicado" sobre narração que está, e a Home
-# esconderia o botão Ouvir do catálogo inteiro até a próxima passada boa.
+# Só grava numa passada completa e da voz corrente. Uma esteira parcial
+# conhece um pedaço da lista; outro prefixo é outro acervo. Os dois gravariam
+# "não está publicado" sobre narração que está, e a Home esconderia o botão
+# Ouvir do catálogo inteiro até a próxima passada boa.
+#
+# Divergência NÃO impede a gravação: a lista tem só os pares que bateram, e é
+# no lote meio publicado que o catálogo mais precisa saber o que já existe.
+# Uma conferência que morre no meio (rede fora, API caída) nunca chega aqui —
+# quem grava é a última linha do script.
 gravar_cobertura() {
   if [[ -n "$LISTA_ARG" ]]; then
     echo "esteira parcial:                data/audio-cobertura.json intocado"
@@ -99,7 +103,12 @@ done < "$LISTA"
 echo "objetos conferidos e idênticos: $ok"
 echo "ausentes no R2:                 $ausente"
 echo "com tamanho divergente:         $divergente"
+# A cobertura é gravada ANTES do veredito, e de propósito: a lista de
+# confirmadas é o que a passada de fato viu par a par, e vale mesmo quando
+# alguma outra perícope diverge. Gravar só na passada 100% limpa deixaria o
+# catálogo sem sinal de narração justamente quando há o que consertar — que é
+# o caso para o qual este script existe.
+gravar_cobertura
 [[ $ausente -eq 0 && $divergente -eq 0 ]] \
   || { echo "PROBLEMAS em $ORIGEM/divergencias.txt"; exit 1 }
 echo "PUBLICAÇÃO ÍNTEGRA"
-gravar_cobertura

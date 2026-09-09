@@ -64,10 +64,41 @@ describe('NarracaoPlayer — disponibilidade', () => {
     vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>(() => {})))
     await montar()
     const esqueleto = container.querySelector('.ouvir-skeleton')
-    expect(esqueleto?.getAttribute('role')).toBe('status')
+    // O `role` mora no invólucro estável, não no esqueleto que passa.
+    expect(esqueleto?.parentElement?.getAttribute('role')).toBe('status')
     expect(esqueleto?.querySelector('.sr-only')?.textContent).toBe(
       'Verificando narração desta perícope…',
     )
+  })
+
+  /**
+   * A regra que este teste trava é a IDENTIDADE do nó: uma região aria-live
+   * criada no mesmo update da mensagem não é anunciada, porque o leitor de
+   * tela só relata mudança de conteúdo em região que já estava no DOM. Não
+   * basta existir um `role="status"` com o texto certo no fim — tem de ser o
+   * mesmo elemento que já estava lá enquanto o HEAD voava.
+   */
+  it('a região viva precede a mensagem: mesmo nó antes e depois do HEAD', async () => {
+    let responder!: (r: Response) => void
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        () =>
+          new Promise<Response>((res) => {
+            responder = res
+          }),
+      ),
+    )
+    await montar()
+    const regioes = container.querySelectorAll('[role="status"]')
+    expect(regioes).toHaveLength(1)
+    const regiao = regioes[0]!
+    expect(regiao.textContent).not.toContain('ainda não foi gravada')
+
+    await act(async () => responder({ ok: false } as Response))
+
+    expect(container.querySelector('[role="status"]')).toBe(regiao)
+    expect(regiao.textContent).toBe('A narração desta perícope ainda não foi gravada.')
   })
 
   it('HEAD 404 diz que a narração ainda não foi gravada, sem botão', async () => {
@@ -75,7 +106,7 @@ describe('NarracaoPlayer — disponibilidade', () => {
     await montar()
     const aviso = container.querySelector('.narracao-indisponivel')
     expect(aviso?.textContent).toBe('A narração desta perícope ainda não foi gravada.')
-    expect(aviso?.getAttribute('role')).toBe('status')
+    expect(aviso?.parentElement?.getAttribute('role')).toBe('status')
     expect(container.querySelector('.narracao-retentar')).toBeNull()
     expect(container.querySelector('.ouvir-cartao')).toBeNull()
   })
@@ -85,6 +116,7 @@ describe('NarracaoPlayer — disponibilidade', () => {
     await montar()
     const aviso = container.querySelector('.narracao-indisponivel')
     expect(aviso?.textContent).toContain('Não foi possível carregar a narração desta perícope.')
+    expect(aviso?.closest('[role="status"]')).not.toBeNull()
     const heads = () => fetchMock.mock.calls.filter(([, init]) => init?.method === 'HEAD').length
     expect(heads()).toBe(1)
     const retentar = container.querySelector<HTMLButtonElement>('.narracao-retentar')

@@ -353,8 +353,10 @@ export default function NarracaoPlayer({
   // montada pausada — some só na troca de perícope, que zera `usada`.
   const naDoca = usada && src !== null
 
+  // Sem `role="status"` próprio: quem anuncia é a região estável que o
+  // envolve nos dois lugares onde ele aparece (o slot pré-play e a doca).
   const falha = (
-    <div className="narracao-indisponivel" role="status">
+    <div className="narracao-indisponivel">
       <span>Não foi possível carregar a narração desta perícope.</span>
       <button
         type="button"
@@ -420,42 +422,57 @@ export default function NarracaoPlayer({
 
       {/* Antes do primeiro play, este ponto do artigo (logo depois dos chips)
           é a casa do convite — e, quando não há áudio, do motivo. Depois do
-          primeiro play a doca assume, fixa no rodapé. */}
-      {!naDoca &&
-        (disponibilidade === 'verificando' ? (
-          // Do tamanho do cartão final, para a resposta do HEAD não refluir o
-          // artigo. Decoração para quem vê, anúncio para quem não vê — o mesmo
-          // princípio do esqueleto da página inteira.
-          <div className="ouvir-skeleton" role="status">
-            <span className="sr-only">Verificando narração desta perícope…</span>
-            <span className="skeleton" />
-          </div>
-        ) : disponibilidade === 'ausente' ? (
-          <p className="narracao-indisponivel" role="status">
-            A narração desta perícope ainda não foi gravada.
-          </p>
-        ) : disponibilidade === 'falhou' ? (
-          falha
-        ) : (
-          // Um <button> só, e não ícone + título + linha soltos: um alvo de
-          // toque, um ponto de foco, um rótulo que já diz a duração.
-          <button
-            type="button"
-            className="ouvir-cartao"
-            aria-label={`Ouvir esta perícope, ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`}
-            onClick={alternar}
-          >
-            <span className="ouvir-cartao-play" aria-hidden>
-              <IconePlay />
-            </span>
-            <span className="ouvir-cartao-texto" aria-hidden>
-              <span className="ouvir-cartao-titulo">Ouvir esta perícope</span>
-              <span className="ouvir-cartao-sub">
-                {minutos} min · voz sintetizada, lida sobre o texto
+          primeiro play a doca assume, fixa no rodapé.
+
+          A região viva é ESTE invólucro, montado junto com o componente e
+          nunca substituído: leitor de tela só relata mudança de conteúdo em
+          região que já existia no DOM, e um `role="status"` que nasce já
+          contendo a mensagem não é anunciado — a mesma razão escrita no aviso
+          do ditado (Explorar) e no `.nav-conta-erro` (Perfil). Por isso o
+          esqueleto, a linha de indisponível e o cartão trocam DENTRO dele, em
+          vez de cada um trazer o seu `role`.
+
+          Sem classe de propósito: sem borda, padding nem display próprio, as
+          margens dos filhos atravessam o invólucro e a altura casada de
+          `.ouvir-skeleton` e `.ouvir-cartao` (o piso que impede a resposta do
+          HEAD de refluir o artigo) continua sendo a que o fluxo enxerga. */}
+      <div role="status">
+        {!naDoca &&
+          (disponibilidade === 'verificando' ? (
+            // Do tamanho do cartão final, para a resposta do HEAD não refluir o
+            // artigo. Decoração para quem vê, anúncio para quem não vê — o mesmo
+            // princípio do esqueleto da página inteira.
+            <div className="ouvir-skeleton">
+              <span className="sr-only">Verificando narração desta perícope…</span>
+              <span className="skeleton" />
+            </div>
+          ) : disponibilidade === 'ausente' ? (
+            <p className="narracao-indisponivel">
+              A narração desta perícope ainda não foi gravada.
+            </p>
+          ) : disponibilidade === 'falhou' ? (
+            falha
+          ) : (
+            // Um <button> só, e não ícone + título + linha soltos: um alvo de
+            // toque, um ponto de foco, um rótulo que já diz a duração.
+            <button
+              type="button"
+              className="ouvir-cartao"
+              aria-label={`Ouvir esta perícope, ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`}
+              onClick={alternar}
+            >
+              <span className="ouvir-cartao-play" aria-hidden>
+                <IconePlay />
               </span>
-            </span>
-          </button>
-        ))}
+              <span className="ouvir-cartao-texto" aria-hidden>
+                <span className="ouvir-cartao-titulo">Ouvir esta perícope</span>
+                <span className="ouvir-cartao-sub">
+                  {minutos} min · voz sintetizada, lida sobre o texto
+                </span>
+              </span>
+            </button>
+          ))}
+      </div>
 
       {naDoca && (
         // `narracao` ao lado de `narracao-doca` não é estilo: é o marcador que
@@ -528,8 +545,12 @@ export default function NarracaoPlayer({
           </div>
 
           {/* O áudio pode quebrar depois de já ter tocado: o mesmo aviso do
-              estado pré-play serve aqui, com o mesmo botão que refaz o HEAD. */}
-          {erro && falha}
+              estado pré-play serve aqui, com o mesmo botão que refaz o HEAD.
+              O invólucro vazio espera montado pela mesma razão da região lá de
+              cima — a doca nasce antes da falha, mas o aviso não pode nascer
+              junto da região que o anuncia. Vazio ele não abre linha no grid
+              da doca (que não tem `gap`), então `--doca-h` segue valendo. */}
+          <div role="status">{erro && falha}</div>
         </div>
       )}
     </>

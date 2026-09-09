@@ -3141,7 +3141,9 @@ fieldset.jornada-campo {
 .perfil-item {
   display: flex;
   align-items: center;
-  min-height: 2.5rem;
+  /* 44px: deixou de ser item de popover e virou a linha principal de uma
+     página inteira, onde o piso de toque do app vale. */
+  min-height: 2.75rem;
   padding-inline: 0.55rem;
   font-family: var(--font-ui);
   font-size: 0.85rem;
