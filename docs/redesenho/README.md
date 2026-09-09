@@ -15,7 +15,8 @@ sistema:
   Garamond (títulos) e EB Garamond (corpo e interface). O app deixa de ter
   sem-serifa na interface.
 - **Marca.** A ilustração escolhida pelo dono — Bíblia, candeia e circuito —
-  entra em três níveis de leitura, porque a íntegra não sobrevive a 32 px.
+  entra em dois enquadramentos, o ícone e a marca plena, ambos sem o texto
+  desenhado, que passa a ser tipografado.
 - **Navegação.** A nav principal desce para uma barra inferior de quatro abas;
   o popover Perfil vira página.
 - **Narração.** Ganha uma doca fixa no rodapé, botões que respeitam 44 px, e
@@ -40,16 +41,22 @@ sistema:
 
 ## Material de marca
 
-`marca/` guarda os fontes das duas reduções e as provas visuais:
+As entregas de marca são os três SVGs aprovados pelo dono, hoje em
+`public/brand/Marca SVGs/` do worktree principal:
 
-- `simbolo.svg` — a cena reduzida, para 40–96 px;
-- `glifo.svg` / `glifo-noite.svg` — a candeia sozinha, para até 32 px;
-- `ilustracao-em-tamanho-pequeno.png` — a arte original a 64, 32 e 20 px, que
-  é a razão de existirem reduções;
-- `escala-de-reducao.png` — as duas reduções na escala inteira.
+- `marca-icone.svg` e `marca-icone-noite.svg` — a cena recortada, sem o texto
+  desenhado, num quadrado: é o ícone de 16 a 512 px, um arquivo por tema;
+- `marca-completa.svg` — a arte inteira, com o texto ainda desenhado, de onde
+  a marca plena é derivada pelo mesmo recorte.
 
-A arte escolhida pelo dono continua sendo
-`public/brand/modelo/m3-carvao-limpo.svg`, e não foi alterada.
+`marca/` guarda as provas visuais que explicam por que a redução foi estudada:
+
+- `ilustracao-em-tamanho-pequeno.png` — a arte original a 64, 32 e 20 px;
+- `escala-de-reducao.png` — as reduções estudadas na escala inteira.
+
+Os `simbolo.svg`, `glifo.svg` e `glifo-noite.svg` que estão nessa pasta são
+esse estudo, e ficam como registro: o dono preferiu manter a cena inteira no
+ícone, e nenhum deles é fonte de arquivo do app.
 
 ## O que este trabalho deliberadamente não fez
 

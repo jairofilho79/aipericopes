@@ -132,7 +132,8 @@ as reabre.
    (comportamento que o componente já tem).
 3. Campo com 54px de altura, fundo `--paper`, borda `--line`, raio 12px;
    abaixo, uma dica em 14px `--muted` com dois exemplos em `--accent`.
-4. Chips de recorte sobem para 42px, logo abaixo da dica.
+4. Chips de recorte sobem para 42px, logo abaixo da dica. (Fechado em **44px**
+   — o mínimo canônico da spec de toque; ver §3.)
 5. Linha de livro com 56px: abreviação à esquerda em Cormorant Garamond 600
    numa coluna fixa de 42px; nome em 18px; linha secundária em 12,5px
    `--muted` ("N de M perícopes" / "nenhuma lida ainda"); barra de progresso
@@ -152,7 +153,7 @@ as reabre.
 │  [ referência, título ou trecho…    | 🎤 ]   │  ← campo, 54px
 │  Ex.: Gn 3:15 · Salmo 23                     │  ← dica, 14px muted
 ├─────────────────────────────────────────────┤
-│  ( Todos )( Não lidos )( Comecei )( Lidos )  │  ← chips, 42px
+│  ( Todos )( Não lidos )( Comecei )( Lidos )  │  ← chips, 44px
 ├─────────────────────────────────────────────┤
 │   Livros    Registros                        │  ← eixo-tabs (só repouso)
 │   ────────                                   │
@@ -192,6 +193,7 @@ Estrutura nova (`.filters` deixa de ter o `<input>` sozinho):
   Ex.: <span class="ref-exemplo">Gn 3:15</span> ·
   <span class="ref-exemplo">Salmo 23</span>
 </p>
+<p class="muted" role="status">{aviso}</p>
 ```
 
 - `.campo-ref`: `display:flex; align-items:center; height:54px; background:
@@ -210,15 +212,66 @@ Estrutura nova (`.filters` deixa de ter o `<input>` sozinho):
   `<span class="ref-exemplo">` em `color:var(--accent)`.
 - `id="ref-dica"` + `aria-describedby` no input: quem usa leitor de tela ouve
   o formato ao focar o campo, sem precisar navegar até o parágrafo.
+- **`.ditar-botao` não tem regra base nenhuma hoje.** Todo o tamanho e a
+  aparência do microfone vivem sob `.note-form .ditar-botao`
+  (`app.css:1840-1865`, mais a variante de movimento reduzido em
+  `app.css:1927`) — dentro do `.campo-ref`, que não é `.note-form`, o botão
+  sairia sem estilo nenhum: sem largura, sem círculo, sem borda. As regras
+  precisam ser desescopadas (ou `.campo-ref` acrescentado aos seletores),
+  subindo de `2.5rem` para os 44px de área de toque que a §3 fixa.
+- **`.ditar` precisa ser neutralizada dentro do campo.** O wrapper do botão
+  (`app.css:1830-1838`) tem `flex: 1 1 auto; margin-left: auto;
+  justify-content: flex-end` — desenhado para empurrar o microfone à direita
+  do rodapé do formulário de anotação. Dentro do `.campo-ref` isso comeria a
+  largura do `<input>`; `flex` volta a `0 0 auto` e `margin-left` a `0`
+  neste contexto.
+- **Uma regra fica órfã e precisa sair junto**: `@media (min-width: 640px)
+  { .filters { grid-template-columns: 1.4fr 1fr } }` (`app.css:2363-2366`)
+  divide `.filters` em duas colunas. Com o campo único, `.filters` passa a
+  ter um filho só e a segunda coluna vira um vão morto à direita do campo no
+  desktop.
 
-**Onde o texto ditado entra.** `onTexto` do `DitarBotao` é pensado para um
-textarea de anotação — cada frase fechada entra "no cursor" via
-`inserirNoCursor` (`src/lib/ditado.ts:36-52`). Para um campo de referência
-sem seleção nem cursor visível, o mesmo helper serve tal como está: chamar
-`inserirNoCursor(q, q.length, q.length, frase)` (seleção colapsada no fim)
-resolve o espaçamento sem reinventar nada, e mantém o contrato "cada frase
-finalizada é anexada", igual ao textarea de anotação — dizer "Gênesis"
-e depois "três, quinze" numa pausa longa ainda funciona.
+**Onde o texto ditado entra — e por que ele não chega em forma de
+referência.** `onTexto` do `DitarBotao` foi pensado para um textarea de
+anotação: cada frase fechada entra "no cursor" via `inserirNoCursor`
+(`src/lib/ditado.ts:36-52`) e já vem **pontuada** — `pontuarFrase`
+(`src/lib/pontuar-ditado.ts:66`) acrescenta ponto final a toda frase que não
+termine em `.!?…`. Do outro lado, o parser corta o nome do livro e testa o
+resto contra `/^(\d+)(?:[:.,](\d+))?$/` (`src/lib/consulta.ts:98`). Logo,
+ditar "Gênesis três quinze" chega como `"Gênesis 3 15."` (ou com o numeral
+por extenso, conforme o reconhecedor) e **falha o regex**: a consulta degrada
+em silêncio para busca de texto, sem erro na tela, e a seção Referência nunca
+abre. É o defeito que mataria a decisão 2 na prática.
+
+**Decisão: `consulta.ts` fica intacto.** É código testado e compartilhado com
+o campo digitado — afrouxar o regex lá dentro trocaria um defeito de uma tela
+por risco em todas as consultas. Entra um módulo puro novo,
+`src/lib/ditado-referencia.ts`, com uma função `normalizarDitadoRef(frase:
+string): string` que (a) remove pontuação de fecho, (b) junta `"3 15"` em
+`"3:15"` e (c) converte numeral escrito em dígito quando aparecer; mais o par
+`src/lib/ditado-referencia.test.ts`. O Explorar passa o que vem de `onTexto`
+por essa função antes de escrever no campo — a normalização é do consumidor,
+não do parser.
+
+**Neste consumidor, o ditado substitui em vez de anexar.** O texto
+normalizado **substitui** o conteúdo do campo, e não é inserido no cursor:
+anexar faria ditar duas vezes produzir `"Gênesis 3:15. Salmo 23."`, que não é
+referência nenhuma e nem busca de texto útil. Um campo de referência guarda
+um alvo só; o ditado mais recente é esse alvo. A Leitura continua anexando
+via `inserirNoCursor`, com o contrato de hoje ("cada frase finalizada é
+anexada") — nem o textarea de anotação nem `src/lib/ditado.ts` são tocados
+por esta spec.
+
+**`onAviso` precisa de um destino nesta tela.** `onAviso` é prop
+**obrigatória** de `DitarBotao` (`src/components/DitarBotao.tsx:34`) e o
+Explorar não tem canal de aviso nenhum hoje — a Leitura liga o dela ao
+`flashAviso` (`Leitura.tsx:679`, ligação em `Leitura.tsx:1082`), que não
+existe aqui. Decisão: um `<p className="muted" role="status">` abaixo da dica
+do campo recebe os avisos do ditado (permissão negada, sem microfone, cota
+esgotada) e fica vazio no resto do tempo. `role="status"` faz o leitor de
+tela anunciar sem roubar foco — mesmo padrão do texto de estado interno do
+próprio `DitarBotao` (`DitarBotao.tsx:409-415`). Sem esse destino, o aviso
+não teria para onde ir e a falha de microfone ficaria invisível.
 
 **`onRevisao` fica de fora.** A revisão por IA (`revisar-ditado.ts`) foi
 desenhada para prosa longa, onde vírgulas e concordância importam; uma
@@ -237,10 +290,18 @@ transcrever") já são genéricos e não precisam mudar.
 
 ### 3. Os chips de recorte
 
-Sem mudança de comportamento — só `min-height`/`padding` para bater 42px em
+Sem mudança de comportamento — só `min-height`/`padding` para bater 44px em
 vez dos atuais ~36px (`min-height: 2.25rem` em `.chip-filtro`,
-`app.css:2913-2923`, sobe para `2.625rem`). Continuam sempre visíveis (não só
+`app.css:2913-2923`, sobe para `2.75rem`). Continuam sempre visíveis (não só
 no repouso) e continuam valendo para os dois eixos.
+
+**Por que 44px e não os 42px da decisão 4.** 44px é o alvo de toque mínimo
+canônico do app, fixado pela spec irmã
+`2026-09-08-redesenho-narracao-toque-design.md`, que vale para todo botão
+pequeno de toda tela — inclusive `.chip-filtro` e `.trocar-livro`, que estão
+nomeados na tabela de alvos de lá. Onde os dois números aparecerem, o que
+vale é 44px; a decisão 4 arredondava para baixo um valor que a outra spec
+já tinha fechado.
 
 ### 4. O eixo Registros no desenho novo
 
@@ -301,18 +362,32 @@ Layout novo de `.livro-row`, 56px de altura:
 └────────┴──────────────────────────────┴──────────┘
 ```
 
-- Coluna de abreviação: `width:42px; flex-shrink:0; font-family:'Cormorant
-  Garamond Variable', serif; font-weight:600;`. **Fonte nova** — `grep -rn
-  Cormorant src/` não devolve nada hoje; o projeto carrega tipografia via
-  `@fontsource-variable/*` (`package.json`: `dm-sans`, `fraunces`, `literata`,
-  `source-sans-3`, `source-serif-4` — nenhum é Cormorant Garamond). Precisa
-  entrar como dependência nova, no mesmo padrão.
+- Coluna de abreviação: `width:42px; flex-shrink:0; font-family:
+  var(--font-display); font-weight:600;`. **A fonte não é instalada aqui.**
+  Cormorant Garamond entra no projeto pela spec de tipografia
+  (`2026-09-08-redesenho-tipografia-design.md`), que a torna o
+  `--font-display` do app inteiro e cuida da dependência
+  (`@fontsource-variable/cormorant-garamond`) e do import em
+  `src/main.tsx`. Esta spec só consome o token — não cita `package.json`
+  nem `src/main.tsx` entre os arquivos que altera. **Dependência de ordem**:
+  a spec de tipografia precisa ter entrado antes desta, senão
+  `var(--font-display)` ainda resolve para Fraunces e a coluna sai com a
+  fonte velha (sem quebrar nada, só sem o desenho pedido pela decisão 5).
 - Nome do livro/registro: sobe de indefinido (herda ~16px do body) para
   `font-size:1.125rem` (18px), mantém `font-family:var(--font-display)`
   (Fraunces) e `font-weight:600` como já é hoje (`.livro-nome`,
   `app.css:2865-2870`).
 - **A linha secundária substitui o rótulo que hoje fica ao lado da barra**
-  (`.book-progress-label`, hoje à direita, `app.css:2356-2361`). Ela absorve
+  (`.book-progress-label`, hoje à direita, `app.css:2356-2361`) — mas
+  **precisa de classe nova**, não do reaproveitamento dessa.
+  `.book-progress-label` é compartilhada: além das linhas de catálogo
+  (`CatalogoLivros.tsx:59`, `CatalogoRegistros.tsx:48`), ela veste o rótulo
+  "N de M" ao lado da barra nos cabeçalhos de `LivroAberto.tsx:73` e
+  `RegistroAberto.tsx:60`, onde esse rótulo **continua existindo do jeito que
+  está**. Restilizá-la para 12,5px de linha secundária mudaria os dois
+  cabeçalhos por tabela. A linha secundária ganha um seletor próprio (ex.:
+  `.livro-sub`); a classe compartilhada fica intocada e some só do JSX das
+  linhas de catálogo. Ela absorve
   o texto de `rotuloContagem` (`src/lib/catalogo.ts:34-42`), só que como
   frase, não como número solto:
 
@@ -345,8 +420,12 @@ existiam para esse formulário: `cap`, `onCap`, `onIrParaVersiculo`. A
 assinatura fica:
 
 ```ts
-{ livro, prog, itens, concluidas, onTrocar }
+{ livro, prog, itens, concluidas, filtro, onTrocar }
 ```
+
+`filtro` **fica** — não é prop do formulário: é o que o `.peri-count` do
+cabeçalho usa para dizer "em Gênesis" contra "no recorte"
+(`LivroAberto.tsx:117-121`). Só `cap`, `onCap` e `onIrParaVersiculo` saem.
 
 — a mesma forma de `RegistroAberto` (que nunca teve formulário). Depois desta
 mudança os dois componentes ficam estruturalmente simétricos: cabeçalho
@@ -442,6 +521,11 @@ visualmente, não a lógica:
   comportamento; ganha só uma prop opcional (`rotuloOcioso`) com valor
   default igual ao de hoje.
 - Cores — nenhuma muda (decisão 7).
+- **Instalar Cormorant Garamond.** `package.json` e `src/main.tsx` não são
+  tocados aqui: a fonte chega pelo `--font-display` da spec de tipografia
+  (§5), que é pré-requisito desta.
+- `src/lib/consulta.ts` e `src/lib/ditado.ts` — nenhum dos dois muda; a
+  normalização do ditado mora num módulo novo do lado do consumidor (§2).
 - O `role="tabpanel"` que faltaria para o padrão ARIA de tabs ficar completo
   (ver §8) — registrado como gap conhecido, não corrigido aqui.
 - Remover fisicamente `?cap=`/`onCap`/`listPericopesByBookChapter` do
@@ -457,32 +541,52 @@ visualmente, não a lógica:
    aparece; offline, ele desaparece por completo — sem esqueleto, sem espaço
    reservado vazio.
 3. Ditar "Gênesis três quinze" no campo (nativo) preenche o campo por
-   `onTexto`, sem nenhuma chamada de revisão por IA disparada.
-4. Chips de recorte medem 42px de altura e ficam imediatamente abaixo da
+   `onTexto`, sem nenhuma chamada de revisão por IA disparada — e a **seção
+   Referência abre** com Gênesis 3:15, não só o campo preenchido. Campo
+   cheio com a busca degradada para texto é justamente o defeito que a §2
+   fecha.
+4. Ditar duas vezes seguidas deixa no campo só a última referência, não as
+   duas emendadas.
+5. Chips de recorte medem 44px de altura e ficam imediatamente abaixo da
    dica, acima do seletor de eixo.
-5. No repouso, o seletor "Livros | Registros" aparece abaixo dos chips;
+6. Negar a permissão do microfone mostra o aviso **na tela**, no `<p
+   role="status">` abaixo da dica — não só no console e não só dentro do
+   componente. Mesma checagem para "sem microfone" e cota esgotada.
+7. O microfone dentro do `.campo-ref` tem o mesmo desenho de sempre
+   (círculo, borda `--line`, 44px de área de toque) e não espreme o
+   `<input>` — o campo ocupa toda a largura que sobra, em 375px e em
+   desktop.
+8. Em ≥ 640px não sobra vão morto à direita do campo (a regra de duas
+   colunas de `.filters` foi removida).
+9. No repouso, o seletor "Livros | Registros" aparece abaixo dos chips;
    some assim que há busca, livro aberto ou registro aberto.
-6. Trocar para "Registros" troca o catálogo inteiro — nenhum livro
-   permanece visível, nenhum chip novo aparece disputando espaço com os
-   quatro de sempre.
-7. Linha de livro: 56px, abreviação em Cormorant Garamond 600 numa coluna de
-   42px, nome em 18px, linha secundária em 12,5px com a frase certa para o
-   filtro ativo, barra de 58×4px à direita.
-8. Linha de registro: mesma altura e tipografia de nome/linha secundária/
-   barra da linha de livro, **sem** coluna de abreviação — nome e barra
-   ocupam o espaço que sobra.
-9. Um livro/registro zerado pelo recorte ativo continua na lista, apagado
-   (opacidade), nunca some.
-10. Abrir um livro não mostra formulário de capítulo/versículo nenhum —
+10. Trocar para "Registros" troca o catálogo inteiro — nenhum livro
+    permanece visível, nenhum chip novo aparece disputando espaço com os
+    quatro de sempre.
+11. Linha de livro: 56px, abreviação em `var(--font-display)` (Cormorant
+    Garamond, vinda da spec de tipografia) peso 600 numa coluna de 42px,
+    nome em 18px, linha secundária em 12,5px com a frase certa para o
+    filtro ativo, barra de 58×4px à direita.
+12. Linha de registro: mesma altura e tipografia de nome/linha secundária/
+    barra da linha de livro, **sem** coluna de abreviação — nome e barra
+    ocupam o espaço que sobra.
+13. Os cabeçalhos de livro aberto e de registro aberto continuam com o
+    rótulo "N de M" ao lado da barra, do tamanho de hoje — a linha
+    secundária nova não os alcançou.
+14. Um livro/registro zerado pelo recorte ativo continua na lista, apagado
+    (opacidade), nunca some.
+15. Abrir um livro não mostra formulário de capítulo/versículo nenhum —
     só cabeçalho (nome, barra real, "Trocar livro") e a lista inteira do
     livro, sujeita ao recorte.
-11. Com o livro aberto, digitar uma referência no campo do topo (inclusive
+16. Com o livro aberto, digitar uma referência no campo do topo (inclusive
     do mesmo livro) ainda funciona e leva à seção Referência.
-12. Abrir um registro continua mostrando "Ver mais 100" quando há mais de
+17. Abrir um registro continua mostrando "Ver mais 100" quando há mais de
     100 perícopes no recorte, agrupadas por livro.
-13. Índice de busca frio: Referência, Livros e Títulos respondem na hora;
+18. Índice de busca frio: Referência, Livros e Títulos respondem na hora;
     "No texto" mostra "Preparando busca — N de 66 livros…".
-14. Offline sem cache: erro confinado à seção "No texto"; as outras seções
+19. Offline sem cache: erro confinado à seção "No texto"; as outras seções
     seguem respondendo do `index.json` cacheado.
-15. Nenhuma cor (âmbar, `--line`, `--paper`, `--flame`) muda de valor em
+20. Nenhuma cor (âmbar, `--line`, `--paper`, `--flame`) muda de valor em
     lugar nenhum desta tela.
+21. `npm test` (inclui `ditado-referencia.test.ts`), `npx tsc -b`,
+    `npx oxlint` e `npm run build` passam.

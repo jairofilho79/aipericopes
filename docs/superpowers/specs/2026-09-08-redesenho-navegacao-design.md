@@ -620,7 +620,15 @@ Três lugares:
     variante `@media (min-width: 640px)`), `.leitura-top` e filhos,
     `.pop-tipografia`, `.leitura-top-aa-wrap`, `.shell:not(:has(.leitura))`.
   - Renomear: `.perfil-pop` → `.pop-tipografia`, `.perfil-wrap` →
-    `.leitura-top-aa-wrap`.
+    `.leitura-top-aa-wrap`. Inclusive **dentro do comentário** de
+    `.nav-conta-erro` (`app.css:2423-2425`), que explica o `overflow-x`
+    citando `.perfil-pop` duas vezes: é a única ocorrência que não é
+    seletor, e sem ela o `grep` do checklist (item 9) falha mesmo com o
+    trabalho todo feito certo. O comentário também fica semanticamente
+    errado depois da mudança — o `.nav-conta-erro` migra para a página
+    `/perfil`, que não é popover nenhum e não tem contêiner de rolagem
+    recortando filho fora do fluxo; o texto precisa ser reescrito para o
+    novo lar, não só ter a classe trocada.
   - Apagar: `.top nav .perfil-btn`/`.perfil-btn[aria-expanded]`
     (`app.css:2788-2804`), `.crumb` (`app.css:2019-2024`, órfã), `.shell:has(.leitura)
     .top`/`.brand` (`app.css:225-231`, órfãs — `.top` da Leitura não é mais
@@ -690,10 +698,10 @@ o "acima" (esta) antes da outra fixar o "abaixo" (a doca).
 
 - Qualquer mudança de cor (decisão 8) — nenhum token novo, nenhuma
   recoloração.
-- A doca de narração em si (anatomia, três estados de indisponibilidade,
-  velocidade de reprodução) — pertence a
+- A doca de narração em si (anatomia, alvos de toque, três estados de
+  indisponibilidade) — pertence a
   `2026-09-08-redesenho-narracao-toque-design.md`.
-- Os arquivos de marca e os três níveis de redução — pertence a
+- Os arquivos de marca e os dois níveis de enquadramento — pertence a
   `2026-09-08-redesenho-marca-design.md`. Os ícones desta spec (casa,
   bússola, trilha, pessoa) não são a marca do app; são ícones de navegação.
 - O conteúdo interno do Explorar (campo de busca, ditado, eixo

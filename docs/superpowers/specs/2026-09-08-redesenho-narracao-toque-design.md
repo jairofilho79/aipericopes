@@ -12,6 +12,13 @@ Esta spec não mexe em cor, no realce da narração sobre o texto, nem no
 mapeamento manifesto↔tela (`src/lib/alinhar-narracao.ts`), que já funciona e
 está fora de escopo.
 
+**Dependência:** esta spec depende da spec paralela
+`docs/superpowers/specs/2026-09-08-redesenho-tipografia-design.md` para o
+valor de `--font-display`, que lá passa a ser
+`'Cormorant Garamond Variable'` (pacote `@fontsource-variable/cormorant-garamond`,
+importado em `src/main.tsx`). Nenhuma fonte é instalada ou carregada por esta
+spec.
+
 ## O estado de hoje
 
 O player vive dentro do `<article className="leitura">`, entre a
@@ -79,12 +86,17 @@ escopo funcional da narração, mas entram no levantamento porque a decisão 1
 e são as únicas ocorrências de `2.25rem` no arquivo além das já listadas
 acima do player e dos chips.
 
+`.chip-filtro` (`app.css:2922`) e `.trocar-livro` (`app.css:2173`) vão a
+44px. Isso prevalece sobre os `2.625rem` (42px) propostos para `.chip-filtro`
+pela spec irmã `2026-09-08-redesenho-explorar-design.md`: onde os dois números
+aparecerem, o valor que vale é 44px.
+
 A escala final, para toda edição feita por esta spec:
 
 | Papel | Tamanho |
 |---|---|
 | Alvo de toque mínimo (qualquer botão pequeno) | 44px |
-| Ação secundária (voltar/avançar 10s, velocidade) | 48px |
+| Ação secundária (voltar/avançar 10s) | 48px |
 | Botão "Ouvir" (cartão pré-play, Home) | 56px |
 | Play/pausa da doca | 60px |
 
@@ -176,8 +188,8 @@ teclado dão o salto fixo de 10s — ver "Acessibilidade").
 **3. Linha de controles**, centralizada:
 
 ```
-        [«10]      [ ▶/❚❚ ]      [10»]      [1×]
-        48px         60px          48px       48px
+           [«10]      [ ▶/❚❚ ]      [10»]
+           48px         60px         48px
 ```
 
 - Voltar 10s e avançar 10s: 48px, mesmos ícones de hoje (`IconeSalto`,
@@ -187,23 +199,10 @@ teclado dão o salto fixo de 10s — ver "Acessibilidade").
   de tokens que `.narracao-play` já usa, `app.css:1217-1224`, só maior e sem
   o encolhimento que hoje acontece em telas largas — na doca o play é 60px
   em qualquer largura, porque é o botão mais tocado do app).
-- Velocidade: 48px, rótulo textual `1×` (não ícone — é a única forma de o
-  estado atual ficar legível sem abrir nada). Ciclo num único toque, sem
-  menu: `1× → 1,25× → 1,5× → 0,75× → 1×`. Implementação: `audio.playbackRate`
-  e `audio.preservesPitch = true` (evita o efeito "esquilo").
-
-  **Isto reabre, de propósito, uma decisão registrada em código**:
-  `narracao-controles.ts:7` diz que não há controle de velocidade "de
-  propósito: a leitura é momento de descanso, e fora de 1× o realce da
-  palavra perderia o passo". Essa razão não vale mais, e o comentário
-  precisa ser corrigido quando este item for implementado: o realce lê
-  `audio.currentTime` (`NarracaoPlayer.tsx:180`), que é tempo **de faixa**,
-  não tempo de parede. `playbackRate` muda a velocidade real sem mudar a
-  escala em que `indiceEm`/`indiceDaPalavra` operam — `currentTime` continua
-  batendo com `inicio`/`dur`/`palavras[].i` do manifesto em qualquer
-  velocidade. O realce por palavra e por versículo não quebra a 1,25× ou
-  1,5×. Verificar isso no app real antes de fechar o item (critério de
-  aceite abaixo).
+- A doca não tem controle de velocidade. O comentário de
+  `src/lib/narracao-controles.ts:7`, que registra essa ausência como
+  decisão deliberada, continua correto e não deve ser alterado pela
+  implementação desta spec.
 
 ### Quando a doca aparece e some
 
@@ -235,14 +234,15 @@ onde a doca ficaria — no corpo da perícope, no mesmo ponto em que
 
 - Botão play de 56px, círculo cheio em `--cta-bg`, ícone `IconePlay`
   existente.
-- Título "Ouvir esta perícope", Cormorant, 21px. **Cormorant não existe
-  hoje no app** — as famílias atuais são `--font-display` (Fraunces
-  Variable, `app.css:65`) e as três opções de `--read-font` (Source Serif 4,
-  Literata, sans; `index.html:33`). Entra como fonte nova, só para este
-  rótulo: carregar `Cormorant Variable` via Google Fonts (permitido pela
-  allowlist de CDN) e declarar um token dedicado, por exemplo
-  `--font-ouvir: 'Cormorant Variable', Georgia, serif`, para não colidir com
-  os dois já em uso.
+- Título "Ouvir esta perícope", `var(--font-display)`, 21px — o mesmo token
+  de exibição que a spec de tipografia
+  (`2026-09-08-redesenho-tipografia-design.md`) troca de Fraunces Variable
+  (`app.css:65`) para `'Cormorant Garamond Variable'`. Esta spec não cria
+  token novo nem instala fonte nova: o rótulo herda o que o app inteiro já
+  usa nos títulos. Todas as famílias do app vêm de pacotes
+  `@fontsource-variable/*` importados em `src/main.tsx`; `index.html` não
+  tem `<link>` para `fonts.googleapis.com`, e introduzir um seria uma
+  regressão de arquitetura.
 - Linha secundária, `var(--muted)`: "N min · voz sintetizada, lida sobre o
   texto" — `N` vem de `minutos` (`Leitura.tsx:192`, `readingMinutes`).
   "Voz sintetizada" aqui não reintroduz o TTS do navegador (removido na fase
@@ -430,10 +430,8 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
   que outras barras persistentes do app não usam hoje mas deveriam — a doca
   é nova, então nasce correta.
 - Botões de 48/60px: `aria-label` explícito em cada um ("Voltar 10 segundos",
-  "Pausar narração"/"Tocar narração", "Avançar 10 segundos", "Velocidade,
-  1×" — o rótulo de velocidade muda com o valor, então o `aria-label` muda
-  junto, não só o texto visível). Mantém o padrão já usado em
-  `NarracaoPlayer.tsx:337,347,357`.
+  "Pausar narração"/"Tocar narração", "Avançar 10 segundos"). Mantém o
+  padrão já usado em `NarracaoPlayer.tsx:337,347,357`.
 - Barra de posição: `aria-label="Posição na narração"` e `aria-valuetext`
   com "3:24 de 9:07" (já é assim hoje, `NarracaoPlayer.tsx:369-370`) — só a
   altura de toque muda, o contrato de acessibilidade do `<input
@@ -472,25 +470,17 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
 
 ## Riscos
 
-1. **Velocidade e realce.** A análise acima (currentTime é tempo de faixa)
-   indica que o realce sobrevive a `playbackRate != 1`, mas isso precisa ser
-   confirmado no app rodando, não só no papel — é o mesmo princípio desta
-   família de specs ("na dúvida, realce nenhum") aplicado a uma mudança que
-   ainda não foi testada.
-2. **Autoplay da Home.** Ver "risco técnico" acima — Safari pode recusar o
+1. **Autoplay da Home.** Ver "risco técnico" acima — Safari pode recusar o
    `play()` depois da cadeia de `await`. Degradar para o cartão pré-play é
    obrigatório, não opcional.
-3. **`data/audio-cobertura.json` desatualizado.** Se o passo que grava esse
+2. **`data/audio-cobertura.json` desatualizado.** Se o passo que grava esse
    arquivo não rodar depois de um lote de narração, a Home mostra "narração
    ainda não gravada" para perícopes que já têm áudio — falso negativo, não
    falso positivo (nunca promete o que não existe), mas ainda é uma
    regressão de experiência. Precisa entrar no mesmo fluxo que já publica
    (`publicar-narracao.sh` → `conferir-narracao.sh`), não ser um passo à
    parte que alguém esquece.
-4. **Fonte nova (Cormorant).** É a primeira vez que o app carrega uma
-   terceira família de exibição. Verificar peso do arquivo (Variable font)
-   contra o orçamento de carregamento antes de fechar.
-5. **`padding-bottom` da doca.** Esquecer de reservar esse espaço no corpo
+3. **`padding-bottom` da doca.** Esquecer de reservar esse espaço no corpo
    da perícope faz a doca cobrir as últimas perguntas de reflexão — testar
    com uma perícope curta (poucas perguntas) e uma longa.
 
@@ -508,23 +498,19 @@ de mecanismo. Duas superfícies novas precisam continuar respeitando-os:
 5. Arrastar a barra de posição da doca com o dedo, em toque real (não só
    mouse): o alvo de 44px de altura responde sem precisar mirar no trilho
    fino.
-6. Tocar velocidade três vezes seguidas: ciclo `1× → 1,25× → 1,5× →
-   0,75× → 1×`, tom da voz sem distorcer (chipmunk), e o realce por palavra
-   continua acendendo no lugar certo em 1,25× e 1,5×.
-7. Perícope sem narração: aparece a linha "A narração desta perícope ainda
+6. Perícope sem narração: aparece a linha "A narração desta perícope ainda
    não foi gravada.", sem botão, em `--muted`.
-8. Forçar falha de rede no `HEAD` (ou no `<audio>` depois de carregado):
+7. Forçar falha de rede no `HEAD` (ou no `<audio>` depois de carregado):
    aparece "Não foi possível carregar a narração desta perícope." com o
    botão "Tentar de novo", e o botão de fato tenta de novo.
-9. Na Home, um card cuja perícope tem `narrado: true` mostra o botão
+8. Na Home, um card cuja perícope tem `narrado: true` mostra o botão
    redondo "Ouvir"; um card cuja perícope tem `narrado: false` não mostra o
    botão, e a linha de referência diz "narração ainda não gravada".
-10. Tocar "Ouvir" na Home: navega para a Leitura e tenta tocar sozinho. Em
-    pelo menos um navegador que bloqueie autoplay (testar Safari/iOS se
-    houver acesso), confirmar que a queda para o cartão pré-play acontece
-    sem erro visível.
-11. Leitor de tela (VoiceOver ou NVDA): navegar pela doca por Tab anuncia
-    cada botão com seu `aria-label`, incluindo a mudança de rótulo do botão
-    de velocidade; os estados "ainda não gravada" e "falhou" são anunciados
-    ao aparecer.
-12. `npm test`, `npx tsc -b`, `npx oxlint` e `npm run build` passam.
+9. Tocar "Ouvir" na Home: navega para a Leitura e tenta tocar sozinho. Em
+   pelo menos um navegador que bloqueie autoplay (testar Safari/iOS se
+   houver acesso), confirmar que a queda para o cartão pré-play acontece
+   sem erro visível.
+10. Leitor de tela (VoiceOver ou NVDA): navegar pela doca por Tab anuncia
+    cada botão com seu `aria-label`; os estados "ainda não gravada" e
+    "falhou" são anunciados ao aparecer.
+11. `npm test`, `npx tsc -b`, `npx oxlint` e `npm run build` passam.

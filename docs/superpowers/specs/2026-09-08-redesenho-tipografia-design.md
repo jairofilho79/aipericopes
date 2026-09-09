@@ -242,6 +242,26 @@ degraus (1,5 / 1,8 / 1,95) não têm número novo na decisão e ficam como estã
 "o índice padrão continua o mesmo", registrada aqui para não inventar no
 código sem deixar rastro. Mesma cópia espelhada em `index.html:37-38`.
 
+### O teste que quebra junto — `src/lib/reading-prefs.test.ts`
+
+Esta é a única mudança da spec que derruba a suíte:
+`src/lib/reading-prefs.test.ts:65` afirma o valor aplicado de
+`--read-leading` letra por letra, e o valor é o do índice padrão:
+
+```ts
+expect(document.documentElement.style.getPropertyValue('--read-leading')).toBe('1.65')
+```
+
+Com `LEADING_STEPS[1]` indo para `1.72`, `setReadingMeasure('larga')` passa a
+aplicar `1.72` e a asserção **falha**. A correção é trocar a string esperada
+para `'1.72'` — nada mais no arquivo depende do valor (as outras asserções do
+mesmo `it` são sobre `--read-measure` e sobre o índice, não sobre o número da
+entrelinha; `bumpReadingLeading` só testa índices e as travas das pontas, que
+não mudam).
+
+`src/lib/reading-prefs.test.ts` entra, portanto, na lista de arquivos
+alterados desta spec — é o único arquivo de teste tocado.
+
 ## Rampa de título (Cormorant Garamond)
 
 ### h1 de perícope
@@ -639,6 +659,9 @@ Variable', system-ui, sans-serif"`.
 8. Testar `.sobrescrito` (itálico de epígrafe de salmo, ex.: Salmo 3) — vai
    sair em itálico sintético do navegador, igual sai hoje com Source Serif
    4; não é regressão desta spec, mas vale olhar uma vez.
+9. Fora da tela: `npm test` (a asserção de `--read-leading` em
+   `reading-prefs.test.ts` precisa ter sido atualizada para `'1.72'`, senão
+   quebra aqui), `npx tsc -b`, `npx oxlint` e `npm run build` passam.
 
 ## Fora do escopo
 
