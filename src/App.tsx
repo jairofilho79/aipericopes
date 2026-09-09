@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Leitura from './pages/Leitura'
@@ -7,18 +7,19 @@ import Explorar from './pages/Explorar'
 import Entrar from './pages/Entrar'
 import Ajustes from './pages/Ajustes'
 import Sobre from './pages/Sobre'
+import Perfil from './pages/Perfil'
 import { applyReadingPrefs, getReadingPrefs } from './lib/reading-prefs'
 import { getStoredTheme, resolveTheme } from './lib/theme'
 import { initSyncTriggers } from './lib/sync'
-import { useHideOnScroll } from './lib/use-hide-on-scroll'
 import { iniciarPrefetch } from './lib/prefetch-catalogo'
-import PerfilMenu from './components/PerfilMenu'
+import BarraAbas from './components/BarraAbas'
 
 function Shell() {
   const { pathname } = useLocation()
-  const [perfilAberto, setPerfilAberto] = useState(false)
-  // Com o menu aberto o header fica travado: rolar levaria o popover embora.
-  const headerHidden = useHideOnScroll(pathname.startsWith('/leitura/') && !perfilAberto)
+  // Na Leitura quem é o header é o LeituraTopo, que traz o próprio
+  // auto-ocultar. Sem header aqui, a barra de abas some junto — ela vive
+  // dentro dele — e a marca também, como a spec de navegação pede.
+  const naLeitura = pathname.startsWith('/leitura/')
 
   useEffect(() => {
     applyReadingPrefs(getReadingPrefs())
@@ -43,34 +44,25 @@ function Shell() {
 
   return (
     <div className="shell">
-      <header className={`top${headerHidden ? ' top-hidden' : ''}`}>
-        <NavLink to="/" className="brand">
-          {/* favicon.svg e não brand/logo.png: o SVG é a fonte de verdade da
-              marca — os PNGs são rasterizados dele por scripts/gerar-icones.sh,
-              então aqui vale usar o original, que escala sem perda. */}
-          <img
-            className="brand-mark"
-            src={`${import.meta.env.BASE_URL}favicon.svg`}
-            alt=""
-            width={32}
-            height={32}
-          />
-          {/* O wordmark executa a tese sozinho: a máquina é a cor, o texto é a
-              tinta. Um <span> por parte porque só o "ai" recebe o âmbar. */}
-          <span className="brand-wordmark">
-            <span className="brand-ai">ai</span>Pericopes
-          </span>
-        </NavLink>
-        {/* "Hoje" saiu: a marca à esquerda já é o mesmo <NavLink to="/">. */}
-        <nav>
-          <NavLink to="/jornada">Jornada</NavLink>
-          <NavLink to="/explorar">Explorar</NavLink>
-          {/* PerfilMenu absorve Ajustes, Sair e Entrar — a entrada solta de
-              /ajustes que a fase de releitura pôs na nav mudou de lugar para
-              dentro dele, como o comentário dela previa. */}
-          <PerfilMenu onOpenChange={setPerfilAberto} />
-        </nav>
-      </header>
+      {!naLeitura && (
+        <header className="top">
+          <NavLink to="/" className="brand">
+            {/* <span> e não <img>: a marca tem um arquivo por tema, e um
+                background-image trocado no [data-theme] do <html> segue o tema
+                sozinho — inclusive quando o sistema muda com a preferência em
+                "Sistema" —, sem nenhum estado de React no meio. */}
+            <span className="brand-mark" aria-hidden="true" />
+            {/* O wordmark executa a tese sozinho: a máquina é a cor, o texto é a
+                tinta. Um <span> por parte porque só o "ai" recebe o âmbar. */}
+            <span className="brand-wordmark">
+              <span className="brand-ai">ai</span>Pericopes
+            </span>
+          </NavLink>
+          {/* Hoje, Explorar, Jornada, Perfil: barra fixa no rodapé no celular,
+              nav de texto ao lado da marca a partir de 640px. */}
+          <BarraAbas />
+        </header>
+      )}
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -82,6 +74,7 @@ function Shell() {
           <Route path="/entrar" element={<Entrar />} />
           <Route path="/ajustes" element={<Ajustes />} />
           <Route path="/sobre" element={<Sobre />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </main>
     </div>

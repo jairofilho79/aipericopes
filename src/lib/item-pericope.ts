@@ -17,8 +17,8 @@ export function itemDeIndice(p: PericopeIndex): ItemPericope {
 }
 
 /** Segundo construtor de `ItemPericope`, para os hits da busca no texto —
- *  ao lado de `itemDeIndice` em vez de inline na página, mesmo critério de
- *  `src/lib/perfil-secoes.ts` para lógica pura. */
+ *  ao lado de `itemDeIndice` em vez de inline na página, pelo critério de o
+ *  repositório manter toda lógica pura em `src/lib/`. */
 export function itemDeHit(h: FulltextHit, termo: string): ItemPericope {
   return {
     ordem: h.ordem,

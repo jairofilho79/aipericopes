@@ -10,7 +10,7 @@ import ListaPericopes from '../components/ListaPericopes'
 // componente: exportar função pura ao lado de um componente dispara
 // `react(only-export-components)` e quebra o fast refresh. Moram em
 // `src/lib/item-pericope.ts`, seguindo o que o repositório já faz com toda
-// lógica pura (mesmo movimento de `src/lib/perfil-secoes.ts`, commit d9ced2e).
+// lógica pura.
 import { itemDeHit, itemDeIndice, type ItemPericope } from '../lib/item-pericope'
 import { bookByName, type BibleBook } from '../lib/bible-books'
 import {

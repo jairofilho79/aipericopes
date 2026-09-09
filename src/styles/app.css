@@ -62,11 +62,12 @@
   --radius: 12px;
   /* a chama da marca, para máscara CSS: mesma silhueta nos dois temas. */
   --chama-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 24'%3E%3Cpath d='M10 0C10 6 4 7.5 4 14a6 6 0 0 0 12 0c0-3-1.5-5-3-6.5 0 2-1 3-2 3s-1.5-1-1.5-2.5C9.5 5 10 3 10 0z'/%3E%3C/svg%3E");
-  --font-display: 'Fraunces Variable', Georgia, serif;
-  --font-body: 'Source Serif 4 Variable', Georgia, serif;
-  --font-ui: 'DM Sans Variable', system-ui, sans-serif;
-  --read-size: 1.15rem;
-  --read-font: 'Source Serif 4 Variable', Georgia, serif;
+  --font-display: 'Cormorant Garamond Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'EB Garamond Variable', Georgia, 'Times New Roman', serif;
+  --font-ui: 'EB Garamond Variable', Georgia, 'Times New Roman', serif;
+  /* acompanha SIZE_STEPS[2] em reading-prefs.ts — os dois têm de bater. */
+  --read-size: 1.22rem;
+  --read-font: 'EB Garamond Variable', Georgia, 'Times New Roman', serif;
   --measure: 38rem;
   /* shared page wash — keep body + sticky header in sync */
   --page-bg:
@@ -180,6 +181,14 @@ a {
     max(var(--shell-pad), env(safe-area-inset-left, 0px));
 }
 
+/* Fora da Leitura a barra de abas é fixa no rodapé: sem esta folga o fim de
+   uma lista longa termina debaixo dela. 62px é a altura da barra, 1rem é
+   respiro. Na Leitura não há barra de abas — lá vale o piso de 3rem acima, e
+   quem define o valor final é a spec da doca de narração. */
+.shell:not(:has(.leitura)) {
+  padding-bottom: calc(62px + 1rem + env(safe-area-inset-bottom, 0px));
+}
+
 .top {
   display: grid;
   /* Uma coluna só: a marca na linha 1, a nav (grid-column: 1 / -1) na 2. A
@@ -222,14 +231,6 @@ a {
   }
 }
 
-.shell:has(.leitura) .top {
-  padding-block: calc(0.55rem + env(safe-area-inset-top, 0px)) 0.4rem;
-}
-
-.shell:has(.leitura) .brand {
-  font-size: 1.15rem;
-}
-
 .brand {
   display: inline-flex;
   align-items: center;
@@ -242,24 +243,43 @@ a {
   min-width: 0;
 }
 
+/* Fundo e não <img>: a marca tem um arquivo por tema, e trocar a imagem aqui
+   deixa o CSS seguir o [data-theme] sem estado de React acompanhando. */
 .brand-mark {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 32px;
+  height: 32px;
   border-radius: 6px;
   flex-shrink: 0;
   display: block;
+  background-image: url('/brand/marca-icone.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* [data-theme] basta: o script inline de index.html grava o tema RESOLVIDO no
+   <html> antes do primeiro paint, inclusive na preferência "Sistema" (e o
+   listener de App.tsx o reescreve quando o sistema vira). Nunca há um estado
+   em que só o @media (prefers-color-scheme: dark) saberia a resposta. */
+[data-theme='dark'] .brand-mark {
+  background-image: url('/brand/marca-icone-noite.svg');
 }
 
 .brand-wordmark {
   font-family: var(--font-display);
+  font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.008em;
+  /* o nome nunca quebra e nunca sobe para caixa alta. */
+  white-space: nowrap;
+  text-transform: none;
 }
 
 /* "ai" é a única parte da marca que a máquina assina: a cor faz a divisão
    que o nome já faz, sem precisar explicar. */
 .brand-ai {
   color: var(--accent);
+  font-weight: 700;
 }
 
 .top nav {
@@ -287,14 +307,141 @@ a {
   font-weight: 600;
 }
 
+/* ── Barra de abas ───────────────────────────────────────────────────────
+   Um markup só (BarraAbas), dois layouts: barra fixa no rodapé abaixo de
+   640px, nav de texto ao lado da marca a partir daí. Ela vive dentro do
+   <header class="top">, então herda .top nav / .top nav a — os seletores
+   daqui são prefixados para GANHAR desses por especificidade, não por ordem
+   de arquivo. */
+@media (max-width: 639.98px) {
+  .top nav.tab-bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    top: auto;
+    /* mesma stacking context do .top, que já a contém */
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    /* opaco de propósito: um color-mix aqui deixaria o texto da lista
+       atravessar a barra ao rolar, o vazamento que .section-chips já custou
+       uma correção. */
+    background: var(--page-bg);
+    border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .top nav.tab-bar .tab {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    min-height: 62px;
+  }
+}
+
+.top nav .tab {
+  color: var(--muted);
+}
+
+.top nav .tab.active {
+  color: var(--accent);
+}
+
+.tab-rotulo {
+  /* mesma receita de .perfil-secao: uma só escala de caixa alta no app. */
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tab-indicador {
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: transparent;
+}
+
+.tab.active .tab-indicador {
+  background: var(--accent);
+}
+
+/* anel interno: na borda do rodapé um anel externo sai cortado. */
+.tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+/* ── Topo contextual da Leitura ──────────────────────────────────────────
+   É o mesmo elemento .top — sticky, fundo, transição e o auto-ocultar vêm de
+   lá, e SectionChips continua achando `.top` para medir o --top-h dos chips.
+   Só o miolo muda: três zonas, com "N de M" centralizado de verdade
+   independente do tamanho do nome do livro. */
+.top.leitura-top {
+  grid-template-columns: 1fr auto 1fr;
+  row-gap: 0;
+  column-gap: 0.5rem;
+  padding-block: calc(0.55rem + env(safe-area-inset-top, 0px)) 0.4rem;
+}
+
+.leitura-top-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  min-height: 46px;
+  min-width: 0;
+  padding-inline: 0.15rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leitura-top-pos {
+  justify-self: center;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* Quatro filhos para três colunas: soltos, o botão de Perfil cairia na linha
+   de baixo. Este invólucro faz das duas ações UMA célula, encostada na borda
+   direita — que é de onde o popover do "Aa" se pendura. */
+.leitura-top-acoes {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 0.15rem;
+}
+
+.leitura-top-aa,
+.leitura-top-perfil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  min-height: 46px;
+  padding: 0;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.leitura-top-aa[aria-expanded='true'] {
+  color: var(--accent);
+}
+
 @media (max-width: 379.98px) {
   .brand {
     font-size: 1.15rem;
-  }
-
-  .top nav {
-    gap: 0.25rem 0.75rem;
-    font-size: 0.85rem;
   }
 }
 
@@ -311,6 +458,29 @@ a {
     justify-content: flex-end;
     gap: 0.35rem 0.85rem;
   }
+
+  /* A barra de abas volta a ser a nav de texto de sempre: o position: fixed
+     mora só no bloco de celular, então aqui não há o que desfazer além de
+     esconder o que é da barra compacta. */
+  .top nav.tab-bar .tab {
+    gap: 0.35rem;
+  }
+
+  .tab svg {
+    display: none;
+  }
+
+  .tab-rotulo {
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /* a cor do texto já marca o item ativo, como .top nav a.active sempre fez. */
+  .tab-indicador {
+    display: none;
+  }
 }
 
 .main {
@@ -320,18 +490,19 @@ a {
 .eyebrow {
   font-family: var(--font-ui);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.75rem;
+  letter-spacing: 0.19em;
+  font-size: 0.71875rem;
+  font-weight: 600;
   color: var(--accent);
   margin: 1.25rem 0 0.35rem;
 }
 
 h1 {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 300;
+  font-size: clamp(2.375rem, 4vw, 2.5625rem);
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin: 0 0 0.35rem;
   text-wrap: balance;
 }
@@ -346,7 +517,8 @@ h2 {
 .muted {
   color: var(--muted);
   font-family: var(--font-ui);
-  font-size: 0.95rem;
+  font-size: 0.90625rem;
+  line-height: 1.5;
 }
 
 .lead {
@@ -465,8 +637,10 @@ h2 {
   padding: 1.15rem 1.2rem;
 }
 
+.jornada-card h2,
 .track-card h2 {
-  font-size: 1.15rem;
+  font-size: 1.6875rem;
+  font-weight: 500;
   margin: 0.15rem 0 0.35rem;
 }
 
@@ -606,6 +780,7 @@ button.ghost {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-ui);
+  font-weight: 600;
   color: var(--accent);
   background: transparent;
   border: 1px solid var(--line);
@@ -621,6 +796,13 @@ button.ghost {
   background: var(--paper);
   padding: 1rem 1.05rem 1.35rem;
   border-radius: 6px;
+}
+
+.leitura h1 {
+  font-weight: 300;
+  font-size: 2.4375rem;
+  line-height: 1.05;
+  letter-spacing: 0;
 }
 
 .block {
@@ -902,8 +1084,12 @@ button.ghost {
   color: var(--muted);
   font-family: inherit;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.15;
+  /* caixa alta espaçada como as demais abas, mas com menos espaço que um
+     rótulo passivo: cinco rótulos têm de caber na grade de quatro em 375px. */
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -1019,7 +1205,6 @@ button.ghost {
   color: var(--read-ink);
   font-weight: 500;
   font-weight: 450;
-  font-optical-sizing: auto;
   text-shadow: var(--read-shadow);
 }
 
@@ -1091,7 +1276,7 @@ button.ghost {
 .texto-biblico {
   font-family: var(--read-font);
   font-size: var(--read-size);
-  line-height: var(--read-leading, 1.65);
+  line-height: var(--read-leading, 1.72);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -1103,9 +1288,10 @@ button.ghost {
   font-family: var(--font-display);
   font-size: 0.95em;
   font-weight: 600;
+  text-transform: uppercase;
   color: var(--accent);
   margin: 1.1rem 0 0.45rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
 }
 
 .cap-label:first-child {
@@ -1590,6 +1776,29 @@ button.ghost {
   font-family: inherit;
 }
 
+/* Capitular — a única licença ornamental do projeto, na primeira LETRA do
+   primeiro versículo de cada capítulo (nunca no número).
+
+   É um <span> de verdade, posto por Leitura.tsx, e não um ::first-letter:
+   medido em Chrome, o pseudo não gera caixa em .verse-text, que é um <span>
+   inline nos dois layouts — o float simplesmente não acontece.
+
+   O float vale nos dois: em "corrido" o bloco que contém é o <p class="corrido">
+   e em "blocos" é o próprio <button class="verse">; nos dois o texto envolve.
+   O padding-top é o que faz a letra assentar na linha de base da segunda
+   linha em vez de flutuar acima dela: com line-height 0.8 a caixa fica mais
+   curta que o glifo e sobe. */
+.capitular {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 3.5em;
+  font-weight: 500;
+  line-height: 0.8;
+  color: var(--accent);
+  padding-top: 0.13em;
+  padding-inline-end: 0.08em;
+}
+
 .corrido-group {
   margin: 0 0 0.9rem;
 }
@@ -1598,7 +1807,7 @@ button.ghost {
   margin: 0;
   max-width: var(--read-measure, var(--measure));
   font-family: inherit;
-  line-height: var(--read-leading, 1.65);
+  line-height: var(--read-leading, 1.72);
 }
 
 .verse-inline {
@@ -1725,7 +1934,7 @@ button.ghost {
   margin: 0 0 0.85rem;
   font-family: var(--read-font);
   font-size: var(--read-size);
-  line-height: var(--read-leading, 1.65);
+  line-height: var(--read-leading, 1.72);
   max-width: var(--read-measure, var(--measure));
   font-size-adjust: from-font;
 }
@@ -1737,7 +1946,9 @@ button.ghost {
   padding-left: 1.7em;
   font-family: var(--read-font);
   font-size: calc(var(--read-size) * 0.96);
-  line-height: var(--read-leading, 1.65);
+  /* fixo: Reflexões escalam com A−/A+, mas não seguem o controle de
+     espaçamento — a lista precisa de entrelinha mais apertada que a prosa. */
+  line-height: 1.62;
   font-size-adjust: from-font;
 }
 
@@ -2014,13 +2225,6 @@ button.ghost {
 
 .done-next {
   font-size: 0.95rem;
-}
-
-.crumb {
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin: 0.25rem 0 0.75rem;
 }
 
 .filters {
@@ -2420,14 +2624,12 @@ button.ghost {
 /* Mesmo padrão de .verse-actions-aviso: texto simples, sem borda/sombra, cor
    de erro igual à do .entrar-erro.
 
-   Mora dentro do .perfil-pop desde que o "Sair" virou item do menu: é uma
-   linha normal do grid, logo abaixo do botão. Nada de position: absolute
-   aqui — o .perfil-pop tem overflow-y: auto, o que faz o overflow-x computar
-   para auto também, então um filho fora do fluxo seria recortado pelo
-   contêiner de rolagem (ou viraria rolagem escondida) justamente quando a
-   mensagem precisa ser vista. Sem nowrap pelo mesmo motivo: o texto quebra
-   dentro dos 260px em vez de vazar na horizontal. O padding-inline é o do
-   .perfil-item, para o aviso alinhar com o rótulo do "Sair". */
+   Mora na página /perfil, logo abaixo do "Sair": é uma linha normal do fluxo,
+   não um balão. Nada de position: absolute nem de nowrap — a mensagem precisa
+   caber e quebrar na largura da página, e um filho fora do fluxo aqui só
+   arriscaria vazar por cima do item seguinte justamente quando ela precisa
+   ser lida. O padding-inline é o do .perfil-item, para o aviso alinhar com o
+   rótulo do "Sair". */
 .nav-conta-erro {
   padding-inline: 0.55rem;
   color: var(--erro);
@@ -2706,33 +2908,28 @@ fieldset.jornada-campo {
   color: var(--muted);
 }
 
-/* ── Menu Perfil ─────────────────────────────────────────────────────────
-   Reúne tema, tipografia, Ajustes e conta. É o popover mais alto do app:
-   ~520px na Leitura, contra os ~240px do antigo "Aa". Daí as medidas
-   abaixo. */
+/* ── Itens de Perfil ─────────────────────────────────────────────────────
+   Linha, rótulo de seção e separador da página /perfil — nada aqui é de
+   popover. O que restou de popover é o "Aa" da Leitura, logo abaixo: o
+   invólucro que o ancora e a largura mínima que a tipografia exige. */
 
-/* margin-left: auto empurra o gatilho para a borda direita da nav, que é a
-   borda direita do header. Não é estética: o .readmenu-pop abre com
-   `right: 0` e cresce para a esquerda, então quem ancora o popover é a
-   direita do gatilho. Antes quem garantia isso era o `justify-self: end` do
-   .theme-menu; a nav abaixo de 640px é `flex-start`, e sem esta regra um
-   popover de 260px pendurado num gatilho que ficou no meio da linha vazaria
-   pela esquerda da tela. Acima de 640px a nav já é `flex-end` e isto é
-   inócuo. */
-.perfil-wrap {
+/* position: relative é o que ancora o popover no gatilho: o .readmenu-pop
+   abre com `right: 0` e cresce para a esquerda, então quem o segura é a borda
+   direita do "Aa". O .leitura-top-acoes já encosta o botão na borda direita
+   do header, que é de onde um popover de 260px cabe na tela mesmo a 375px. */
+.leitura-top-aa-wrap {
   position: relative;
-  margin-left: auto;
+  display: inline-flex;
 }
 
 /* 260px e não os 230px do .readmenu-pop porque a 230px a linha de fontes
-   (Serif/Literata/Sans) e a de tema (quatro rótulos) quebram em duas linhas.
-   O max-width é o que herdamos do .theme-pop, apagado junto com o ThemeMenu:
-   é ele que segura o popover dentro da tela em 375px (com o margin-left: auto
-   do .perfil-wrap acima, sobra --shell-pad de cada lado). Não apagar.
-   max-height + rolagem porque num aparelho de 568px de altura os ~520px não
-   cabem abaixo do header; overscroll-behavior impede a rolagem de vazar para
-   a página atrás quando chega ao fim. */
-.perfil-pop {
+   (Serif/Literata/Sans) quebra em duas linhas. O max-width é o que herdamos
+   do .theme-pop, apagado junto com o ThemeMenu: é ele que segura o popover
+   dentro da tela em 375px, sobrando --shell-pad de cada lado. Não apagar.
+   max-height + rolagem porque num aparelho de 568px de altura os cinco
+   controles não cabem abaixo do header; overscroll-behavior impede a rolagem
+   de vazar para a página atrás quando chega ao fim. */
+.pop-tipografia {
   min-width: 260px;
   max-width: calc(100vw - 2 * var(--shell-pad));
   max-height: calc(100dvh - 5rem);
@@ -2783,24 +2980,6 @@ fieldset.jornada-campo {
 .perfil-item:disabled {
   cursor: default;
   opacity: 0.6;
-}
-
-/* O gatilho é um <button> no meio de <a>s: sem herdar font e cor ele destoa
-   dos vizinhos da nav. Aberto, acende como o link ativo acende. */
-.top nav .perfil-btn {
-  font: inherit;
-  color: var(--muted);
-  background: none;
-  border: 0;
-  padding-inline: 0.15rem;
-  min-height: 2.5rem;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.top nav .perfil-btn[aria-expanded='true'] {
-  color: var(--accent);
-  font-weight: 600;
 }
 
 /* ===== Explorar: seletor de eixo (Livros | Registros) =====
@@ -2913,6 +3092,7 @@ fieldset.jornada-campo {
 .chip-filtro {
   font-family: var(--font-ui);
   font-size: 0.85rem;
+  font-weight: 600;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -2947,6 +3127,20 @@ fieldset.jornada-campo {
   font-weight: 400;
   letter-spacing: 0;
   opacity: 0.75;
+}
+
+/* A marca plena abrindo a /sobre. O <img> traz width/height 1250×830 nos
+   atributos — que é a reserva de espaço contra salto de layout, não a medida
+   de exibição; sem largura fluida aqui ele estouraria a coluna. O teto de
+   26rem é para a ilustração não virar um painel maior que o texto que ela
+   apresenta. */
+.sobre-marca {
+  display: block;
+  width: 100%;
+  max-width: 26rem;
+  height: auto;
+  margin: 0 0 1.5rem;
+  border-radius: var(--radius);
 }
 
 /* Crédito da tradução: exigência da licença, não decoração — legível, sem gritar. */

@@ -2,8 +2,21 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <!-- Os três coexistem: o par de SVG é o alvo e troca com o esquema do sistema, o .ico é a âncora de quem ignora `media` em rel=icon e o .png é o raster de quem não desenha SVG na aba. -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/brand/marca-icone-noite.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/brand/marca-icone.svg"
+      media="(prefers-color-scheme: light)"
+    />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#92500a" />
@@ -26,15 +39,15 @@
           var prefs = raw ? JSON.parse(raw) : {}
           // DUPLICAÇÃO DELIBERADA de src/lib/reading-prefs.ts: este script roda
           // antes de qualquer bundle. Mudou lá, mude aqui.
-          var steps = [0.95, 1.05, 1.15, 1.28, 1.42, 1.58]
+          var steps = [1.02, 1.12, 1.22, 1.36, 1.5, 1.66]
           var step = typeof prefs.sizeStep === 'number' && prefs.sizeStep >= 0 && prefs.sizeStep < steps.length ? prefs.sizeStep : 2
           var fonts = {
-            serif: "'Source Serif 4 Variable', Georgia, serif",
+            serif: "'EB Garamond Variable', Georgia, 'Times New Roman', serif",
             literata: "'Literata Variable', Georgia, serif",
-            sans: "'Source Sans 3 Variable', 'DM Sans Variable', system-ui, sans-serif",
+            sans: "'Source Sans 3 Variable', system-ui, sans-serif",
           }
           var font = fonts[prefs.font] || fonts.serif
-          var leadings = [1.5, 1.65, 1.8, 1.95]
+          var leadings = [1.5, 1.72, 1.8, 1.95]
           var lstep = typeof prefs.leadingStep === 'number' && prefs.leadingStep >= 0 && prefs.leadingStep < leadings.length ? prefs.leadingStep : 1
           var measures = { estreita: '32rem', media: '38rem', larga: '46rem' }
           var measure = measures[prefs.measure] || measures.media

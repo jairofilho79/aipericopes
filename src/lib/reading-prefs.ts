@@ -15,10 +15,10 @@ export type ReadingPrefs = {
 }
 
 /** rem steps for biblical + prose text */
-export const SIZE_STEPS = [0.95, 1.05, 1.15, 1.28, 1.42, 1.58] as const
+export const SIZE_STEPS = [1.02, 1.12, 1.22, 1.36, 1.5, 1.66] as const
 
 /** entrelinha da prosa de leitura; ESPELHADO no script inline do index.html */
-export const LEADING_STEPS = [1.5, 1.65, 1.8, 1.95] as const
+export const LEADING_STEPS = [1.5, 1.72, 1.8, 1.95] as const
 
 /** largura de medida do conteúdo de leitura; ESPELHADO no index.html */
 export const MEASURE_OPTIONS: { id: ReadingMeasure; label: string; width: string }[] = [
@@ -28,9 +28,9 @@ export const MEASURE_OPTIONS: { id: ReadingMeasure; label: string; width: string
 ]
 
 export const FONT_OPTIONS: { id: ReadingFont; label: string; stack: string }[] = [
-  { id: 'serif', label: 'Serif', stack: "'Source Serif 4 Variable', Georgia, serif" },
+  { id: 'serif', label: 'Serif', stack: "'EB Garamond Variable', Georgia, 'Times New Roman', serif" },
   { id: 'literata', label: 'Literata', stack: "'Literata Variable', Georgia, serif" },
-  { id: 'sans', label: 'Sans', stack: "'Source Sans 3 Variable', 'DM Sans Variable', system-ui, sans-serif" },
+  { id: 'sans', label: 'Sans', stack: "'Source Sans 3 Variable', system-ui, sans-serif" },
 ]
 
 const DEFAULTS: ReadingPrefs = {

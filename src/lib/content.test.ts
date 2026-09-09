@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { anteriorNoTestamento, loadIndex, progressoPorLivro, proximaNoTestamento, aceitaFiltro, contagemPorLivro, filtroDeOrdens, statusPorOrdem, mesmosStatus } from './content'
+import { anteriorNoTestamento, loadIndex, posicaoNoLivro, progressoPorLivro, proximaNoTestamento, aceitaFiltro, contagemPorLivro, filtroDeOrdens, statusPorOrdem, mesmosStatus } from './content'
 import type { Pericope, PericopeIndex, Progresso } from './types'
 
 function respostaJson(body: unknown): Response {
@@ -237,5 +237,45 @@ describe('navegação com ordem não crescente (pós-recorte)', () => {
   it('as pontas continuam sendo pontas', () => {
     expect(anteriorNoTestamento(lista, 1000)).toBeNull()
     expect(proximaNoTestamento(lista, 1002)).toBeNull()
+  })
+})
+
+describe('posicaoNoLivro', () => {
+  // Gênesis com três, Êxodo com uma: o "1 de 1" é livro curto de verdade, não
+  // índice truncado.
+  const LISTA = [pl(1, 'Gênesis'), pl(2, 'Gênesis'), pl(3, 'Gênesis'), pl(4, 'Êxodo')]
+
+  it('conta dentro do livro, não do testamento', () => {
+    expect(posicaoNoLivro(LISTA, 'Gênesis', 2)).toEqual({ n: 2, m: 3 })
+  })
+
+  it('as pontas do livro são 1 de m e m de m', () => {
+    expect(posicaoNoLivro(LISTA, 'Gênesis', 1)).toEqual({ n: 1, m: 3 })
+    expect(posicaoNoLivro(LISTA, 'Gênesis', 3)).toEqual({ n: 3, m: 3 })
+  })
+
+  it('livro de uma perícope só é 1 de 1 — não é erro', () => {
+    expect(posicaoNoLivro(LISTA, 'Êxodo', 4)).toEqual({ n: 1, m: 1 })
+  })
+
+  it('ordem inexistente é null', () => {
+    expect(posicaoNoLivro(LISTA, 'Gênesis', 99)).toBeNull()
+  })
+
+  it('livro inexistente é null', () => {
+    expect(posicaoNoLivro(LISTA, 'Rute', 1)).toBeNull()
+  })
+
+  it('ordem que existe em outro livro é null', () => {
+    expect(posicaoNoLivro(LISTA, 'Êxodo', 2)).toBeNull()
+  })
+
+  // Mesmo contrato que a navegação: posição no array é a ordem de leitura.
+  // Ordenar por `ordem` mandaria a 3000 para o fim e diria "3 de 3" para a
+  // segunda perícope do livro.
+  it('segue a posição no array, não o valor de ordem', () => {
+    const foraDeOrdem = [pl(1000, 'Gênesis'), pl(3000, 'Gênesis'), pl(1001, 'Gênesis')]
+    expect(posicaoNoLivro(foraDeOrdem, 'Gênesis', 3000)).toEqual({ n: 2, m: 3 })
+    expect(posicaoNoLivro(foraDeOrdem, 'Gênesis', 1001)).toEqual({ n: 3, m: 3 })
   })
 })

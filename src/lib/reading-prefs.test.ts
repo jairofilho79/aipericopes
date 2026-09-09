@@ -62,7 +62,7 @@ describe('reading-prefs espaçamento e medida', () => {
     setReadingMeasure('larga')
     expect(getReadingPrefs().measure).toBe('larga')
     expect(document.documentElement.style.getPropertyValue('--read-measure')).toBe('46rem')
-    expect(document.documentElement.style.getPropertyValue('--read-leading')).toBe('1.65')
+    expect(document.documentElement.style.getPropertyValue('--read-leading')).toBe('1.72')
 
     localStorage.setItem('pericopes-reading', JSON.stringify({ measure: 'gigante', leadingStep: 9 }))
     expect(getReadingPrefs()).toMatchObject({ measure: 'media', leadingStep: 1 })
