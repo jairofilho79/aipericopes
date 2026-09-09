@@ -55,7 +55,7 @@ import { inserirNoCursor, substituirTrecho } from '../lib/ditado'
 import type { Anotacao, DestaqueCor, Pericope, Progresso, ProgressoStatus } from '../lib/types'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 
-type NotesTab = 'anotacoes' | 'topicos'
+type NotesTab = 'anotacoes' | 'topicos' | 'conversar'
 type Vizinha = { ordem: number; titulo: string }
 
 /**
@@ -1128,11 +1128,12 @@ export default function Leitura() {
         </section>
 
         <section className="block notes" id="notas">
-          <div className="notes-tabs" role="tablist" aria-label="Anotações e tópicos">
+          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos e conversa">
             {(
               [
                 ['anotacoes', 'Anotações'],
                 ['topicos', 'Tópicos'],
+                ['conversar', 'Conversar'],
               ] as const
             ).map(([id, label]) => (
               <button
@@ -1238,23 +1239,27 @@ export default function Leitura() {
               <p className="muted">Ainda não gerado.</p>
             ))}
 
-          {/* A porta para a IA era a terceira aba deste bloco, chamada
-              "Contexto" — o mesmo nome da seção histórico-literária lá em cima,
-              significando outra coisa, e as duas na tela ao mesmo tempo. Num app
-              chamado aiPericopes ela não mora no porão.
+          {/* A porta para a IA é aba, não rodapé de "Anotações": solta ali
+              embaixo ela aparecia debaixo dos dois painéis, sem pertencer a
+              nenhum, e o prompt comprido empurrava a lista de notas.
 
-              Mora AQUI e não no topo porque conversar é o que se faz depois de
-              ler: no alto competiria com a leitura. */}
-          <div className="conversar-bloco">
-            <p className="muted">
-              Leve este trecho para uma conversa com IA: o texto abaixo já vem pronto para
-              colar.
-            </p>
-            <pre className="contexto-ia-text">{promptConversa(p)}</pre>
-            <button type="button" className="ghost copy-btn" onClick={copyContexto}>
-              {copied ? 'Copiado' : 'Copiar'}
-            </button>
-          </div>
+              O que a tirou de aba antes era o NOME: chamava-se "Contexto", igual
+              à seção histórico-literária lá em cima, significando outra coisa, e
+              as duas na tela ao mesmo tempo. Com "Conversar" o problema não
+              existe. Continua sendo a última das três porque conversar é o que
+              se faz depois de ler. */}
+          {tab === 'conversar' && (
+            <div className="conversar-bloco">
+              <p className="muted">
+                Leve este trecho para uma conversa com IA: o texto abaixo já vem pronto para
+                colar.
+              </p>
+              <pre className="contexto-ia-text">{promptConversa(p)}</pre>
+              <button type="button" className="ghost copy-btn" onClick={copyContexto}>
+                {copied ? 'Copiado' : 'Copiar'}
+              </button>
+            </div>
+          )}
 
           <div className="actions">
             {status !== 'concluido' ? (

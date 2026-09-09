@@ -124,8 +124,11 @@ aba** do bloco de notas, chamada **"Contexto"** — que colide com a seção
 colar numa IA em outro lugar.
 
 - Renomear para **"Conversar"**. Mata a colisão.
-- Sair das abas e virar ação âmbar explícita junto de "Marcar como concluída",
-  que é o momento em que o leitor decide o que fazer a seguir.
+- ~~Sair das abas e virar ação âmbar explícita junto de "Marcar como
+  concluída".~~ **Revisto em 09/09**: fora das abas o bloco ficava debaixo dos
+  dois painéis, sem pertencer a nenhum, e o prompt comprido empurrava a lista de
+  notas para baixo. Volta a ser a terceira aba — o defeito era o nome
+  "Contexto", não o fato de ser aba, e o nome já foi resolvido.
 
 **2. A chama assume onde já era a metáfora.**
 

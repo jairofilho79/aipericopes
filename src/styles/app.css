@@ -879,13 +879,14 @@ button.ghost {
   font-weight: 700;
 }
 
+/* Painel de aba, como o formulário de anotação: sem filete nem recuo próprios
+   — o de cima é o `border-bottom` de `.notes-tabs`, e um segundo tão perto
+   pareceria erro de layout. */
 .conversar-bloco {
   display: grid;
   gap: 0.5rem;
   justify-items: start;
-  margin: 1.25rem 0 0;
-  padding-top: 1.25rem;
-  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  margin: 0;
 }
 
 .copy-btn {
