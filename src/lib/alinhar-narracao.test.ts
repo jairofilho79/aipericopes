@@ -337,3 +337,81 @@ describe('alinhar — a narração normalizou o que a tela mostra cru', () => {
     expect(r[2]!.palavras).toHaveLength(2)
   })
 })
+
+describe('alinhar — sobrescrito do salmo fundido com "Capítulo N."', () => {
+  // Forma real (Salmos 102, produção): "Capítulo N." e a epígrafe do salmo
+  // saem como UM SÓ evento de fala, antes do versículo 1. Se a tela não
+  // oferece um alvo para a epígrafe, o fluxo do manifesto traz tokens que a
+  // tela não tem contrapartida — e a seção inteira cai.
+  const manifesto = (): Manifesto => ({
+    ordem: 1,
+    dur_total: 10,
+    unidades: [
+      {
+        i: 0,
+        secao: 'texto',
+        texto: 'Texto Bíblico.',
+        inicio: 0,
+        dur: 1,
+        palavras: [{ t: 'Texto', i: 0, d: 0.5 }, { t: 'Bíblico.', i: 0.5, d: 0.5 }],
+      },
+      {
+        i: 1,
+        secao: 'texto',
+        texto: 'Capítulo 102. Oração do aflito, diante do Senhor.',
+        inicio: 2,
+        dur: 3,
+        palavras: [
+          { t: 'Capítulo', i: 2, d: 0.4 },
+          { t: '102.', i: 2.4, d: 0.4 },
+          { t: 'Oração', i: 2.8, d: 0.3 },
+          { t: 'do', i: 3.1, d: 0.2 },
+          { t: 'aflito,', i: 3.3, d: 0.4 },
+          { t: 'diante', i: 3.7, d: 0.3 },
+          { t: 'do', i: 4.0, d: 0.2 },
+          { t: 'Senhor.', i: 4.2, d: 0.5 },
+        ],
+      },
+      {
+        i: 2,
+        secao: 'texto',
+        texto: 'Ó Senhor, ouve minha oração.',
+        inicio: 5,
+        dur: 2,
+        palavras: [
+          { t: 'Ó', i: 5, d: 0.4 },
+          { t: 'Senhor,', i: 5.4, d: 0.4 },
+          { t: 'ouve', i: 5.8, d: 0.4 },
+          { t: 'minha', i: 6.2, d: 0.4 },
+          { t: 'oração.', i: 6.6, d: 0.4 },
+        ],
+      },
+    ],
+  })
+
+  it('sem alvo para o sobrescrito, a seção "texto" inteira cai', () => {
+    const r = alinhar(manifesto(), [
+      { secao: 'texto', alvos: [{ id: 'texto-1:1', texto: 'Ó SENHOR, ouve minha oração.' }] },
+    ])
+    expect(r.map((a) => a.id)).toEqual(['cabecalho-texto'])
+  })
+
+  it('com o sobrescrito como 1º alvo, a seção alinha inteira: cap-N entra antes dele', () => {
+    const r = alinhar(manifesto(), [
+      {
+        secao: 'texto',
+        alvos: [
+          { id: 'sobrescrito', texto: 'Oração do aflito, diante do SENHOR.' }, // maiúsculo na tela
+          { id: 'texto-1:1', texto: 'Ó SENHOR, ouve minha oração.' },
+        ],
+      },
+    ])
+    expect(r.map((a) => a.id)).toEqual(['cabecalho-texto', 'cap-102', 'sobrescrito', 'texto-1:1'])
+    const sobrescrito = r.find((a) => a.id === 'sobrescrito')!
+    expect(sobrescrito.palavras).toHaveLength(6)
+    const verso = r.find((a) => a.id === 'texto-1:1')!
+    expect(verso.palavras).toHaveLength(5)
+    // contíguo: nenhum vão de silêncio some sem realce entre os dois.
+    expect(sobrescrito.fim).toBe(verso.inicio)
+  })
+})
