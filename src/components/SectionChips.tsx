@@ -24,13 +24,11 @@ type Props = {
   /** A seção em leitura MUDOU (nunca dispara pela inicial): é o evento de
    * checkpoint da posição de leitura. DEVE ser referência estável por ordem. */
   onSecaoAtiva?: (id: string) => void
-  /** Controle compacto ao lado dos chips (pausa da narração no header). */
-  acao?: ReactNode
   /** Filete rente à borda de baixo da barra (progresso da perícope). */
   progresso?: ReactNode
 }
 
-export default function SectionChips({ ordem, onIr, onSecaoAtiva, acao, progresso }: Props) {
+export default function SectionChips({ ordem, onIr, onSecaoAtiva, progresso }: Props) {
   const [ativo, setAtivo] = useState<string>(SECTIONS[0].id)
   // Fora do estado: o observer dispara em rajada durante uma rolagem e o
   // callback só interessa quando a seção de fato troca.
@@ -114,31 +112,23 @@ export default function SectionChips({ ordem, onIr, onSecaoAtiva, acao, progress
 
   return (
     <nav className="section-chips" aria-label="Seções da perícope">
-      {/* A linha é flex: os chips continuam um controle segmentado de largura
-          cheia, e a `acao` (quando existe) entra como um botão compacto à
-          direita sem quebrar o grid de quatro colunas. */}
-      <div className="section-chips-linha">
-        {/* Controle segmentado: os quatro chips dividem a largura em partes
-            iguais, então nunca há rolagem lateral nem chip cortado — e não há
-            mais faixa para trazer o chip ativo "para dentro". */}
-        <div className="section-chips-row">
-          {SECTIONS.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              // `section-chip-texto`: o único rótulo de duas palavras; no
-              // celular o CSS deixa só ele quebrar em duas linhas.
-              className={`section-chip${s.id === 'texto' ? ' section-chip-texto' : ''}${
-                ativo === s.id ? ' active' : ''
-              }`}
-              aria-current={ativo === s.id ? 'true' : undefined}
-              onClick={() => irPara(s.id)}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-        {acao}
+      {/* Controle segmentado: cada chip tem a largura do seu rótulo e o CSS
+          cuida do que acontece quando eles não cabem — sem rolagem lateral e
+          sem chip cortado. O invólucro de linha que dividia o espaço com o
+          mini-player saiu junto com ele: os chips voltaram a ser a barra
+          inteira, e a pausa mora na doca. */}
+      <div className="section-chips-row">
+        {SECTIONS.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            className={`section-chip${ativo === s.id ? ' active' : ''}`}
+            aria-current={ativo === s.id ? 'true' : undefined}
+            onClick={() => irPara(s.id)}
+          >
+            {s.label}
+          </button>
+        ))}
       </div>
       {progresso}
     </nav>

@@ -18,6 +18,13 @@ import type { Pericope } from '../src/lib/types'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const catalogoPath = join(root, 'data/pericopes.json')
+/**
+ * Quais perícopes têm narração publicada no R2. Escrito por
+ * scripts/conferir-narracao.sh, que é quem sabe — o formato está documentado
+ * lá. Pode não existir: quem clona o repositório sem rodar a conferência gera
+ * shards com `narrado: false` em tudo, e nada quebra.
+ */
+const coberturaPath = join(root, 'data/audio-cobertura.json')
 const outDir = join(root, 'public/data')
 const indexPath = join(outDir, 'index.json')
 const versaoPath = join(outDir, 'versao.json')
@@ -29,10 +36,21 @@ const versaoPath = join(outDir, 'versao.json')
  */
 const fontes = [
   catalogoPath,
+  // A cobertura entra aqui, e não só na leitura do índice, por causa do hash
+  // abaixo: publicar um lote de narração muda `narrado` sem encostar no
+  // catálogo, e sem essa linha a versão dos shards não mudaria — o service
+  // worker continuaria servindo o index.json velho do cache e o botão "Ouvir"
+  // nunca apareceria em quem já tem o app instalado.
+  coberturaPath,
   join(root, 'scripts/shard-catalogo.ts'),
   join(root, 'src/lib/livro-slug.ts'),
   join(root, 'src/lib/reading-time.ts'),
 ]
+
+/** mtime de uma fonte; 0 quando ela é opcional e não existe. */
+function mtimeDaFonte(fonte: string): number {
+  return existsSync(fonte) ? statSync(fonte).mtimeMs : 0
+}
 
 function precisaGerar(): boolean {
   if (process.argv.includes('--force')) return true
@@ -41,10 +59,17 @@ function precisaGerar(): boolean {
     // index.json é escrito por último: o mtime dele é a marca de "geração
     // completa", não de "geração começada".
     const saida = statSync(indexPath).mtimeMs
-    return fontes.some((fonte) => statSync(fonte).mtimeMs > saida)
+    return fontes.some((fonte) => mtimeDaFonte(fonte) > saida)
   } catch {
     return true // saída ausente: gera
   }
+}
+
+/** Ordens com narração publicada. Vazio quando a cobertura nunca foi gerada. */
+function lerCobertura(): Set<number> {
+  if (!existsSync(coberturaPath)) return new Set()
+  const { ordens } = JSON.parse(readFileSync(coberturaPath, 'utf8')) as { ordens: number[] }
+  return new Set(ordens)
 }
 
 /**
@@ -54,7 +79,7 @@ function precisaGerar(): boolean {
  */
 function versaoDosShards(): string {
   const hash = createHash('sha256')
-  for (const fonte of fontes) hash.update(readFileSync(fonte))
+  for (const fonte of fontes) hash.update(existsSync(fonte) ? readFileSync(fonte) : '')
   return hash.digest('hex').slice(0, 8)
 }
 
@@ -64,6 +89,7 @@ function main(): void {
     return
   }
   const catalogo = JSON.parse(readFileSync(catalogoPath, 'utf8')) as Pericope[]
+  const cobertura = lerCobertura()
 
   const porSlug = new Map<string, { livro: string; itens: Pericope[] }>()
   for (const p of catalogo) {
@@ -93,6 +119,9 @@ function main(): void {
     titulo_pericope_pt: p.titulo_pericope_pt,
     // Pré-calculado aqui para a Home não precisar do texto só para dizer "~5 min".
     minutos: readingMinutes(p.texto),
+    // A Home mostra dezenas de cards e não pode fazer um HEAD por linha — nem
+    // offline. O sinal de cobertura viaja no índice.
+    narrado: cobertura.has(p.ordem),
   }))
 
   for (const sub of ['texto', 'estudo']) {

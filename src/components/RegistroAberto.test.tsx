@@ -19,6 +19,7 @@ function peri(ordem: number, seq: number, livro: string, titulo: string): Perico
     versiculo_fim: 5,
     titulo_pericope_pt: titulo,
     minutos: 1,
+    narrado: false,
   }
 }
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { IconePlay } from '../components/NarracaoPlayer'
 import { SkeletonHome } from '../components/Skeleton'
 import { loadIndex, refLabel } from '../lib/content'
 import { atualizarJornada, getJornadaCorrente, listAllPosicoes, listAllProgresso } from '../lib/user-db'
@@ -32,11 +33,54 @@ type Estado =
 // CandidatoReler não traz título nem referência — só o índice tem isso.
 type ItemReler = CandidatoReler & { titulo: string; ref: string }
 
+/**
+ * Ouvir em um toque, DENTRO do "Continuar" — mesma faixa do pager. Só existe
+ * quando há narração publicada: o sinal vem de `narrado` no índice (uma vez
+ * por deploy), e não de um `HEAD` por card — a Home renderiza a lista inteira
+ * de "Vale reler" sem limite superior, e um `HEAD` por linha não escala nem
+ * funciona offline.
+ *
+ * O `aria-label` carrega o título porque numa lista de cards "Ouvir" sozinho
+ * obriga o leitor de tela a adivinhar de qual card é o botão.
+ */
+function BotaoOuvir({ peri, deJornada = false }: { peri: PericopeIndex; deJornada?: boolean }) {
+  if (!peri.narrado) return null
+  const qs = deJornada ? '?ouvir=1&de=jornada' : '?ouvir=1'
+  return (
+    <Link
+      className="ouvir-botao"
+      to={`/leitura/${peri.ordem}${qs}`}
+      aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
+      title="Ouvir"
+    >
+      <IconePlay />
+    </Link>
+  )
+}
+
+/**
+ * Onde o botão estaria, o motivo de ele não estar — mas só quando a frase
+ * informa alguma coisa. Ela só vale por CONTRASTE ("as outras têm, esta não"):
+ * com o catálogo inteiro sem narração (o caso de hoje, `audio-cobertura.json`
+ * vazio) ela sairia nas 2.823 perícopes e viraria um mural de negativas, e
+ * ainda contradiria a Leitura, que descobre o áudio por `HEAD` e pode oferecer
+ * "Ouvir esta perícope" na mesma perícope. Por isso, enquanto ninguém tem, a
+ * ausência é silenciosa: não é bug, é a frase não tendo nada a dizer.
+ */
+function SemNarracao({ peri, alguemTem }: { peri: PericopeIndex; alguemTem: boolean }) {
+  if (peri.narrado || !alguemTem) return null
+  return <span className="ref-sem-narracao"> · narração ainda não gravada</span>
+}
+
 export default function Home() {
   const [estado, setEstado] = useState<Estado | null>(null)
   const [err, setErr] = useState('')
   const [streak, setStreak] = useState<Streak>({ atual: 0, recorde: 0 })
   const [candidatos, setCandidatos] = useState<ItemReler[]>([])
+  // Booleano, e não o índice inteiro em estado: a varredura acontece uma vez
+  // por carga, junto do resto, e nada aqui volta a recalcular quando a lista
+  // de "Vale reler" abre.
+  const [alguemTem, setAlguemTem] = useState(false)
   const [todos, setTodos] = useState(false)
   const { data: session } = authClient.useSession()
 
@@ -46,6 +90,10 @@ export default function Home() {
   const carregar = useCallback(async () => {
     try {
       const all = await loadIndex()
+      // Uma passada no índice que a Home já tem em mãos, para saber se a frase
+      // "narração ainda não gravada" tem contra o que contrastar (ver
+      // SemNarracao).
+      setAlguemTem(all.some((p) => p.narrado))
       // UMA varredura do progresso e das posições, viradas em Map: a Home
       // antiga chamava doneSet() dentro do laço dos testamentos (quatro
       // varreduras completas por render). O mesmo vale para as posições.
@@ -138,10 +186,16 @@ export default function Home() {
               <>
                 <p className="ref">
                   {refLabel(estado.peri)} · ~{estado.peri.minutos} min
+                  <SemNarracao peri={estado.peri} alguemTem={alguemTem} />
                 </p>
-                <Link className="cta" to={`/leitura/${estado.peri.ordem}`}>
-                  Continuar
-                </Link>
+                {/* Uma caixa: Continuar + Ouvir (quando há narração) — o mesmo
+                    split do pager; HTML não aninha <a> em <a>. */}
+                <div className="card-acoes">
+                  <Link className="cta" to={`/leitura/${estado.peri.ordem}?de=jornada`}>
+                    Continuar
+                  </Link>
+                  <BotaoOuvir peri={estado.peri} deJornada />
+                </div>
               </>
             ) : (
               <Link className="cta" to="/jornada">
@@ -175,14 +229,18 @@ export default function Home() {
                 <h2>{t.peri.titulo_pericope_pt}</h2>
                 <p className="ref">
                   {refLabel(t.peri)} · ~{t.peri.minutos} min
+                  <SemNarracao peri={t.peri} alguemTem={alguemTem} />
                 </p>
                 <p className="track-progress">
                   {t.prog.concluidas} de {t.prog.total}
                   {t.prog.proximaOrdem === null ? ' · concluído' : ''}
                 </p>
-                <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
-                  {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
-                </Link>
+                <div className="card-acoes">
+                  <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
+                    {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
+                  </Link>
+                  <BotaoOuvir peri={t.peri} />
+                </div>
               </article>
             ))}
           </div>

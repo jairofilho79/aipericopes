@@ -1,9 +1,9 @@
 import type { FiltroLeitura } from '../lib/content'
 import type { Registro, RegistroProgresso } from '../lib/registros'
-import { rotuloContagem } from '../lib/catalogo'
+import { fraseContagem } from '../lib/catalogo'
 
 /** Lista chata dos 17 registros, no mesmo formato visual de `livro-row` que
- *  `CatalogoLivros` usa por livro: nome, barra de progresso, rótulo. Sem
+ *  `CatalogoLivros` usa por livro: nome, linha secundária, barra. Sem
  *  agrupamento — os registros já chegam na ordem que a tela deve mostrar
  *  (`loadRegistros` ordena por tamanho decrescente). */
 export default function CatalogoRegistros({
@@ -34,19 +34,22 @@ export default function CatalogoRegistros({
               className={`livro-row${vazio ? ' livro-vazio' : ''}`}
               onClick={() => onAbrir(r.slug)}
             >
-              <span className="livro-nome">{r.nome}</span>
+              {/* Sem `livro-abbrev`: um registro não tem abreviação, e uma
+                  coluna vazia só para alinhar com o catálogo de livros não
+                  serve — as duas listas nunca aparecem juntas na tela. */}
+              <span className="livro-info">
+                <span className="livro-nome">{r.nome}</span>
+                <span className="livro-sub">{fraseContagem(filtro, prog, noRecorte)}</span>
+              </span>
               {/* A barra é do registro INTEIRO, nunca do recorte: com "não
                   lidos" ativo uma barra filtrada estaria sempre em zero —
                   mesma invariante que CatalogoLivros documenta por livro.
-                  É decoração: quem usa leitor de tela recebe o rótulo. */}
+                  É decoração: a contagem está na linha secundária. */}
               <span className="book-progress" aria-hidden>
                 <span
                   className="book-progress-fill"
                   style={{ width: `${prog?.pct ?? 0}%` }}
                 />
-              </span>
-              <span className="book-progress-label">
-                {rotuloContagem(filtro, prog, noRecorte)}
               </span>
             </button>
           </li>

@@ -102,6 +102,26 @@ export function anteriorNoTestamento(all: PericopeIndex[], ordem: number): numbe
   return seq[i - 1]
 }
 
+/**
+ * "Esta é a perícope n de m do livro" — n e m contam DENTRO do livro, não do
+ * testamento nem da Bíblia. Posição no array, como as duas funções acima:
+ * `ordem` não é crescente desde o recorte do catálogo, então ordenar por ela
+ * daria a n errado.
+ *
+ * `null` quando a ordem não está no índice ou o livro não existe: quem chama
+ * não mostra nada.
+ */
+export function posicaoNoLivro(
+  all: PericopeIndex[],
+  livro: string,
+  ordem: number,
+): { n: number; m: number } | null {
+  const doLivro = all.filter((p) => p.livro === livro)
+  const i = doLivro.findIndex((p) => p.ordem === ordem)
+  if (i < 0) return null
+  return { n: i + 1, m: doLivro.length }
+}
+
 function matchesBook(p: PericopeIndex, livroOrAbbrev: string): boolean {
   return p.livro === livroOrAbbrev || p.abbrev === livroOrAbbrev
 }

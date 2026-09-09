@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from 'vitest'
-import { agruparLivros, rotuloContagem } from './catalogo'
+import { agruparLivros, fraseContagem } from './catalogo'
 import { BIBLE_BOOKS } from './bible-books'
 
 describe('agruparLivros', () => {
@@ -21,35 +21,40 @@ describe('agruparLivros', () => {
   })
 })
 
-describe('rotuloContagem', () => {
+describe('fraseContagem', () => {
   const prog = { livro: 'Gênesis', total: 77, concluidas: 24, pct: 31 }
 
-  it('"todos" mostra concluídas de total', () => {
-    expect(rotuloContagem('todos', prog, 77)).toBe('24 de 77')
+  it('"todos" fala de leitura, não do recorte', () => {
+    expect(fraseContagem('todos', prog, 77)).toBe('24 de 77 perícopes')
+    expect(fraseContagem('todos', { ...prog, concluidas: 0 }, 77)).toBe('nenhuma lida ainda')
   })
 
-  it('"nao-lidos" diz quanto resta', () => {
-    expect(rotuloContagem('nao-lidos', prog, 53)).toBe('restam 53')
+  it('cada filtro tem a frase do que ele mostra', () => {
+    expect(fraseContagem('nao-lidos', prog, 53)).toBe('restam 53 perícopes')
+    expect(fraseContagem('comecei', prog, 3)).toBe('3 em andamento')
+    expect(fraseContagem('lidos', prog, 24)).toBe('24 lidas')
   })
 
-  it('livro sem nada no recorte mostra 0, e não some', () => {
-    expect(rotuloContagem('nao-lidos', prog, 0)).toBe('0')
-    expect(rotuloContagem('lidos', prog, 0)).toBe('0')
+  it('livro zerado pelo recorte fala em vez de sumir da lista', () => {
+    expect(fraseContagem('nao-lidos', prog, 0)).toBe('concluído')
+    expect(fraseContagem('comecei', prog, 0)).toBe('nada em andamento')
+    expect(fraseContagem('lidos', prog, 0)).toBe('nenhuma lida ainda')
   })
 
-  it('"comecei" e "lidos" mostram só o número', () => {
-    expect(rotuloContagem('comecei', prog, 3)).toBe('3')
-    expect(rotuloContagem('lidos', prog, 24)).toBe('24')
+  it('singular não sai errado', () => {
+    expect(fraseContagem('todos', { total: 1, concluidas: 1 }, 1)).toBe('1 de 1 perícope')
+    expect(fraseContagem('nao-lidos', prog, 1)).toBe('resta 1 perícope')
+    expect(fraseContagem('lidos', prog, 1)).toBe('1 lida')
   })
 
   it('livro ausente do progresso não quebra', () => {
-    expect(rotuloContagem('todos', undefined, 0)).toBe('0 de 0')
+    expect(fraseContagem('todos', undefined, 0)).toBe('nenhuma lida ainda')
   })
 
   it('aceita o formato mínimo de progresso — RegistroProgresso não tem `livro`', () => {
     // Prova em runtime do alargamento de tipo: CatalogoRegistros passa
     // RegistroProgresso (slug/total/concluidas/pct), não LivroProgresso.
     const progRegistro = { slug: 'lamento', total: 40, concluidas: 10, pct: 25 }
-    expect(rotuloContagem('todos', progRegistro, 40)).toBe('10 de 40')
+    expect(fraseContagem('todos', progRegistro, 40)).toBe('10 de 40 perícopes')
   })
 })

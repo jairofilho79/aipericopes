@@ -1,12 +1,9 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { tokens, type SecaoAlvos } from '../lib/alinhar-narracao'
-import NarracaoPlayer, {
-  IconePausa,
-  IconePlay,
-  type NarracaoPlayerHandle,
-} from '../components/NarracaoPlayer'
+import NarracaoPlayer, { IconePlay, type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
 import { secaoDoChip } from '../lib/narracao-controles'
+import LeituraTopo from '../components/LeituraTopo'
 import SectionChips from '../components/SectionChips'
 import { SkeletonLeitura } from '../components/Skeleton'
 import VerseActions from '../components/VerseActions'
@@ -15,12 +12,13 @@ import {
   anteriorNoTestamento,
   getPericope,
   loadIndex,
+  posicaoNoLivro,
   proximaNoTestamento,
   refLabel,
 } from '../lib/content'
 import { paragraphize, alvosDaResenha, MAX_PARAGRAFOS } from '../lib/paragraphize'
-import { textoSobrescrito } from '../lib/sobrescrito'
 import { readingMinutes } from '../lib/reading-time'
+import { textoSobrescrito } from '../lib/sobrescrito'
 import { useWakeLock } from '../lib/use-wake-lock'
 import { groupCorrido, parseTexto, type VerseBlock } from '../lib/parse-texto'
 import {
@@ -52,15 +50,15 @@ import {
 } from '../lib/user-db'
 import { getVerseFocus, setVerseFocus } from '../lib/verse-highlight'
 import { nextSelection, parseVerseRef, rangeLabel, rangeRef, verseRefLabel, versesInRange, type VerseSelection } from '../lib/verse-range'
-import { testamentLabel, testamentOf } from '../lib/testament'
 import { promptConversa } from '../lib/contexto-ia'
 import { getContextoAberto, setContextoAberto } from '../lib/contexto-collapse'
 import { inserirNoCursor, substituirTrecho } from '../lib/ditado'
 import type { Anotacao, DestaqueCor, Pericope, Progresso, ProgressoStatus } from '../lib/types'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
+import { testamentLabel, testamentOf } from '../lib/testament'
 
-type NotesTab = 'anotacoes' | 'topicos'
-type Vizinha = { ordem: number; titulo: string }
+type NotesTab = 'anotacoes' | 'topicos' | 'conversar'
+type Vizinha = { ordem: number; titulo: string; narrado: boolean }
 
 /**
  * Quebra em palavras só a unidade em fala — o resto da página fica com o nó de
@@ -127,17 +125,146 @@ function TopicsView({ text }: { text: string }) {
   )
 }
 
+/** Cabeçalhos falados do manifesto → os mesmos rótulos dos chips de seção. */
+const ROTULO_DO_CABECALHO: Record<string, string> = {
+  contexto: 'Contexto',
+  texto: 'Texto',
+  resenha: 'Resenha',
+  // "As palavras do trecho" é seção própria no áudio, mas na tela ela fecha a
+  // Resenha — e é a Resenha que o ouvinte vê nos chips.
+  palavras: 'Resenha',
+  reflexoes: 'Reflexões',
+}
+
+/**
+ * O que a doca mostra estar tocando agora. Os ids vêm de `alinhar-narracao.ts`
+ * e de `paragraphize.ts`, e nenhum deles é legível: esta é a tradução para
+ * gente. Nunca devolve vazio — sem alvo alinhado, a referência da perícope já
+ * responde "o que estou ouvindo".
+ */
+function rotuloDoAlvo(p: Pericope, falando: string | null): string {
+  if (!falando) return refLabel(p)
+  if (falando === 'titulo' || falando === 'referencia') return p.titulo_pericope_pt
+  const cabecalho = falando.match(/^cabecalho-(.+)$/)
+  if (cabecalho) return ROTULO_DO_CABECALHO[cabecalho[1]!] ?? refLabel(p)
+  const capitulo = falando.match(/^cap-(\d+)$/)
+  if (capitulo) return `Texto · Capítulo ${capitulo[1]}`
+  const versiculo = falando.match(/^(\d+):(\d+)$/)
+  if (versiculo) return `Texto · ${p.livro} ${versiculo[1]}:${versiculo[2]}`
+  if (falando.startsWith('contexto-')) return 'Contexto'
+  if (falando.startsWith('resenha-') || falando.startsWith('palavra-')) return 'Resenha'
+  if (falando.startsWith('reflexao-')) return 'Reflexões'
+  return refLabel(p)
+}
+
+/**
+ * Um lado do pager: para onde ir e — quando existe narração lá — a opção de ir
+ * OUVINDO, DENTRO do mesmo botão.
+ *
+ * Dois links, uma caixa: o título abre em silêncio, o play (faixa na ponta)
+ * abre com `?ouvir=1` (o mesmo da Home). Separados no DOM porque HTML não
+ * aninha `<a>` em `<a>`; juntos no desenho porque play solto ao lado lia como
+ * gambiarra.
+ *
+ * Sem vizinha o lado NÃO desaparece: fica o motivo, desabilitado. O vão vazio
+ * ao lado do "próxima" parecia botão que não carregou — e, pior, fazia par com
+ * o CTA laranja de cima, como se os dois fossem uma dupla.
+ */
+function PagerLado({
+  v,
+  proxima,
+  fim,
+  primario = false,
+}: {
+  v: Vizinha | null
+  proxima: boolean
+  /** Aviso de ponta: "Primeira do Velho Testamento". */
+  fim: string
+  /** Perícope concluída: o caminho para a frente vira o botão laranja. */
+  primario?: boolean
+}) {
+  const [searchParams] = useSearchParams()
+  // ponytail: carrega `de`/`mock` pra o chevron continuar apontando à jornada
+  const qsVoltar = [
+    searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+    searchParams.has('mock') ? 'mock=1' : '',
+  ]
+    .filter(Boolean)
+    .join('&')
+  const comQs = (base: string) => {
+    if (!qsVoltar) return base
+    return base.includes('?') ? `${base}&${qsVoltar}` : `${base}?${qsVoltar}`
+  }
+
+  if (!v) {
+    return (
+      <button type="button" className="ghost pager-fim" disabled>
+        {fim}
+      </button>
+    )
+  }
+  const rotulo = proxima ? `${v.titulo} →` : `← ${v.titulo}`
+  const ariaNav = `${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`
+  const tituloAtalho = `Atalho: ${proxima ? '→' : '←'}`
+  // Com narração a borda é do `.pager-lado`; sem, o link carrega ghost/cta.
+  const chrome = v.narrado ? '' : primario ? ' cta' : ' ghost'
+  const linkNav = (
+    <Link
+      className={`pager-link${proxima ? ' pager-next' : ''}${chrome}`}
+      aria-label={ariaNav}
+      title={tituloAtalho}
+      to={comQs(`/leitura/${v.ordem}`)}
+    >
+      {rotulo}
+    </Link>
+  )
+  if (!v.narrado) return linkNav
+  // Play na borda da direção: antes no "anterior", depois no "próxima".
+  const ouvir = (
+    <Link
+      className="pager-ouvir"
+      to={comQs(`/leitura/${v.ordem}?ouvir=1`)}
+      aria-label={`Ouvir ${v.titulo}`}
+      title="Ouvir"
+    >
+      <IconePlay />
+    </Link>
+  )
+  return (
+    <div
+      className={`pager-lado${proxima ? ' pager-lado-proxima' : ''}${primario ? ' pager-lado-primario' : ''}`}
+    >
+      {proxima ? (
+        <>
+          {linkNav}
+          {ouvir}
+        </>
+      ) : (
+        <>
+          {ouvir}
+          {linkNav}
+        </>
+      )}
+    </div>
+  )
+}
+
 export default function Leitura() {
   const { ordem: ordemParam } = useParams()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const rootRef = useRef<HTMLElement>(null)
+  const pagerRef = useRef<HTMLElement>(null)
   const notaRef = useRef<HTMLTextAreaElement>(null)
   const ordem = Number(ordemParam)
   const verseParam = searchParams.get('v')
   const [p, setP] = useState<Pericope | null>(null)
   const [prev, setPrev] = useState<Vizinha | null>(null)
   const [next, setNext] = useState<Vizinha | null>(null)
+  // "N de M no livro", para o topo contextual. Anda junto com `p`, não com
+  // `ordem`: zerá-lo antes da carga apagaria a posição da perícope que ainda
+  // está na tela enquanto a próxima chega.
+  const [posNoLivro, setPosNoLivro] = useState<{ n: number; m: number } | null>(null)
   const [status, setStatus] = useState<ProgressoStatus>('nao_iniciado')
   const [prog, setProg] = useState<Progresso | null>(null)
   const [notes, setNotes] = useState<Anotacao[]>([])
@@ -171,6 +298,18 @@ export default function Leitura() {
   // Checkpoint de narração restaurado: o player posiciona o áudio aqui e o
   // play do usuário retoma do ponto salvo.
   const [tempoInicialNarracao, setTempoInicialNarracao] = useState<number | null>(null)
+  // De QUAL perícope o checkpoint já foi lido do IndexedDB (com ou sem
+  // resultado). O autoplay do `?ouvir=1` espera por isto: soltá-lo antes faria
+  // o áudio começar do zero e saltar para o ponto salvo um instante depois.
+  //
+  // A ordem, e não um booleano: o `?ouvir=1` agora também chega do pager, ou
+  // seja, de uma perícope para outra sem desmontar a página. Nesse caminho o
+  // render seguinte ao clique já vê `ouvir=1` com o booleano ainda VERDADEIRO
+  // da perícope anterior (quem o zera é o efeito de carga, que só roda depois)
+  // — e o autoplay saía no áudio velho, gastando a única tentativa e limpando
+  // a URL antes de o novo áudio existir. Comparar com `ordem` fecha essa
+  // janela sem depender de ordem de efeitos.
+  const [posicaoResolvida, setPosicaoResolvida] = useState<number | null>(null)
   // Espelhos para handlers que não podem renascer a cada render.
   const tocandoRef = useRef(false)
   // A rolagem automática da restauração dispara o observer de seções — a
@@ -292,6 +431,7 @@ export default function Leitura() {
       vAplicado.current = null
       // Checkpoint e controle de narração também são por perícope.
       setTempoInicialNarracao(null)
+      setPosicaoResolvida(null)
       setNarracaoUsada(false)
       try {
         const all = await loadIndex()
@@ -301,10 +441,13 @@ export default function Leitura() {
           return
         }
         setP(peri)
+        // Mesmo `all` que já serve prev/next: a posição no livro é uma conta
+        // sobre o índice em memória, não um fetch novo.
+        setPosNoLivro(posicaoNoLivro(all, peri.livro, ordem))
         const vizinha = (o: number | null): Vizinha | null => {
           if (o == null) return null
           const v = all.find((x) => x.ordem === o)
-          return v ? { ordem: v.ordem, titulo: v.titulo_pericope_pt } : null
+          return v ? { ordem: v.ordem, titulo: v.titulo_pericope_pt, narrado: v.narrado } : null
         }
         setPrev(vizinha(anteriorNoTestamento(all, ordem)))
         setNext(vizinha(proximaNoTestamento(all, ordem)))
@@ -354,16 +497,23 @@ export default function Leitura() {
   // permite sincronizá-lo.
   useEffect(() => {
     if (!p || p.ordem !== ordem) return
-    if (verseParam && /^\d+:\d+$/.test(verseParam)) return
+    if (verseParam && /^\d+:\d+$/.test(verseParam)) {
+      // `?v=` manda na rolagem e não há checkpoint a esperar aqui.
+      setPosicaoResolvida(ordem)
+      return
+    }
     let vivo = true
     void (async () => {
       const pos = await getPosicao(ordem)
       if (!vivo) return
+      // Nos dois setters juntos: o React comita o tempo inicial e a liberação
+      // do autoplay no mesmo render, então o player nunca vê um sem o outro.
+      if (pos?.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
+      setPosicaoResolvida(ordem)
       if (!pos) {
         window.scrollTo(0, 0)
         return
       }
-      if (pos.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
       // Direto nos setters (idempotentes e estáveis) em vez de abrirContexto():
       // a função nasce de novo a cada render e entraria nas dependências.
       if (refNoContexto(pos.ref)) {
@@ -507,13 +657,43 @@ export default function Leitura() {
     [pintarBarra],
   )
 
+  // `?ouvir=1` é o botão "Ouvir" da Home: intenção de UMA vez. Sai da URL na
+  // tentativa (deu certo ou não), senão recarregar a página ou voltar pelo
+  // histórico faria a perícope tocar sozinha de novo. `replace` para o
+  // histórico não ganhar uma entrada por causa disto.
+  const querOuvir = searchParams.get('ouvir') === '1'
+  const limparOuvir = useCallback(() => {
+    setSearchParams(
+      (atuais) => {
+        const proximos = new URLSearchParams(atuais)
+        proximos.delete('ouvir')
+        return proximos
+      },
+      { replace: true },
+    )
+  }, [setSearchParams])
+
   const irAnterior = useCallback(() => {
-    if (prev) navigate(`/leitura/${prev.ordem}`)
-  }, [navigate, prev])
+    if (!prev) return
+    const qs = [
+      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.has('mock') ? 'mock=1' : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+    navigate(`/leitura/${prev.ordem}${qs ? `?${qs}` : ''}`)
+  }, [navigate, prev, searchParams])
 
   const irProxima = useCallback(() => {
-    if (next) navigate(`/leitura/${next.ordem}`)
-  }, [navigate, next])
+    if (!next) return
+    const qs = [
+      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.has('mock') ? 'mock=1' : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+    navigate(`/leitura/${next.ordem}${qs ? `?${qs}` : ''}`)
+  }, [navigate, next, searchParams])
 
   useSwipeNav(rootRef, { onPrev: irAnterior, onNext: irProxima, enabled: p !== null })
   useKeyboardNav({ onPrev: irAnterior, onNext: irProxima, enabled: p !== null })
@@ -674,6 +854,13 @@ export default function Leitura() {
     doneRef.current = true
     setStatus('concluido')
     setProg((await getProgresso(ordem)) ?? null)
+    // O "próxima" do pager vira o CTA laranja agora — sem rolar, em celular ele
+    // fica abaixo da dobra e a pessoa conclui sem achar por onde continuar.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        pagerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      })
+    })
   }
 
   async function desmarcar() {
@@ -802,8 +989,29 @@ export default function Leitura() {
     window.setTimeout(() => setCopied(false), 1600)
   }
 
-  if (err) return <p className="muted">{err}</p>
-  if (!p) return <SkeletonLeitura />
+  // As duas saídas antecipadas montam o topo também. O header do App não
+  // renderiza em /leitura/*, então sem ele um link velho (`/leitura/999999`) ou
+  // uma falha de rede na primeira carga deixariam a página sem saída nenhuma
+  // além do botão voltar do navegador — que num PWA standalone nem aparece.
+  // Sem perícope na tela o topo não afirma livro nem posição: `p` pode ainda
+  // guardar a perícope ANTERIOR (a carga não a limpa ao trocar de `ordem`), e
+  // "1 de 45" de uma perícope que não está sendo lida é pior que nada.
+  // O esqueleto não pede offset: `.top` é sticky e segue ocupando lugar no
+  // fluxo, então o conteúdo continua começando embaixo dele.
+  if (err)
+    return (
+      <>
+        <LeituraTopo livro={null} posicao={null} />
+        <p className="muted">{err}</p>
+      </>
+    )
+  if (!p)
+    return (
+      <>
+        <LeituraTopo livro={null} posicao={null} />
+        <SkeletonLeitura />
+      </>
+    )
 
   const selecionadosIds = new Set(selecionados.map((v) => v.id))
   // Cor "atual" da seleção para os swatches (aria-pressed): só quando TODOS os
@@ -861,115 +1069,161 @@ export default function Leitura() {
   ) : null
 
   return (
-    <article className="leitura" ref={rootRef}>
-      <p className="crumb">
-        <Link to="/">Hoje</Link> · {testamentLabel(testamentOf(p))} ·{' '}
-        <Link to={`/explorar?livro=${encodeURIComponent(p.livro)}`}>{p.livro}</Link>
-      </p>
-      <h1 className={tituloClass('', 'titulo') || undefined} data-fala-id="titulo">
-        {p.titulo_pericope_pt}
-      </h1>
-      <div className="ref-row">
-        {/* A referência também é falada ("Mateus, capítulo 1, versículos 1 a
-            17.") logo depois do título: acende na sua vez, como o <h1>. */}
-        <p className={tituloClass('ref', 'referencia')} data-fala-id="referencia">
-          {refLabel(p)} · <span className="ref-min">~{minutos} min</span>
-        </p>
-      </div>
+    // Fragmento, e não um filho do <article>: `LeituraTopo` é o `.top` desta
+    // página (o header do App não renderiza em /leitura/*), e ele precisa do
+    // MESMO bloco contentor que o header do App tinha para continuar sendo o
+    // que era. Como irmão do <article>, o pai é `<main className="main">`,
+    // cuja caixa de conteúdo é a mesma de `.shell` — então o full-bleed de
+    // `.top` (`width: 100vw; margin-inline: calc(50% - 50vw)`) cai onde
+    // sempre caiu, e o `position: sticky` vale pela página inteira.
+    //
+    // Dentro do <article> as duas coisas quebrariam: `.leitura` é a coluna de
+    // papel (`max-width: var(--read-measure)`, padding próprio), então o
+    // `calc(50% - 50vw)` mediria a partir de uma caixa estreita e descentrada,
+    // e o sticky ficaria preso ao retângulo do artigo.
+    <>
+      <LeituraTopo livro={p.livro} posicao={posNoLivro} />
+      {/* `narracao-ativa` só existe para o CSS reservar, no fim do artigo, a
+          folga da altura da doca: sem ela a doca cobriria as últimas perguntas
+          de reflexão. */}
+      <article
+        className={narracaoUsada ? 'leitura narracao-ativa' : 'leitura'}
+        ref={rootRef}
+      >
+        <h1 className={tituloClass('', 'titulo') || undefined} data-fala-id="titulo">
+          {p.titulo_pericope_pt}
+        </h1>
+        <div className="ref-row">
+          {/* A referência também é falada ("Mateus, capítulo 1, versículos 1 a
+              17.") logo depois do título: acende na sua vez, como o <h1>. */}
+          <p className={tituloClass('ref', 'referencia')} data-fala-id="referencia">
+            {refLabel(p)} · <span className="ref-min">~{minutos} min</span>
+          </p>
+        </div>
 
-      <SectionChips
-        ordem={p.ordem}
-        onIr={(id) => {
-          if (id === 'contexto') abrirContexto()
-          // O chip rola a tela até a seção; com narração, o áudio vai junto
-          // para o cabeçalho falado dela. O `seeked` que resulta zera a
-          // suspensão de rolagem, então o acompanhamento volta a valer.
-          const secao = secaoDoChip(id)
-          if (secao) playerRef.current?.irParaSecao(secao)
-        }}
-        onSecaoAtiva={salvarSecaoAtiva}
-        acao={
-          narracaoUsada ? (
+        <SectionChips
+          ordem={p.ordem}
+          onIr={(id) => {
+            if (id === 'contexto') abrirContexto()
+            // O chip rola a tela até a seção; com narração, o áudio vai junto
+            // para o cabeçalho falado dela. O `seeked` que resulta zera a
+            // suspensão de rolagem, então o acompanhamento volta a valer.
+            const secao = secaoDoChip(id)
+            if (secao) playerRef.current?.irParaSecao(secao)
+          }}
+          onSecaoAtiva={salvarSecaoAtiva}
+          progresso={
+            <div
+              ref={barraRef}
+              className="leitura-progresso"
+              role="progressbar"
+              aria-label={tocandoNarracao ? 'Progresso da narração' : 'Progresso da perícope'}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            />
+          }
+        />
+
+        {/* Este ponto do artigo é a casa do cartão "Ouvir esta perícope" (e
+            dos três estados de indisponibilidade). A doca que o substitui
+            depois do primeiro play é `position: fixed` e sai do fluxo daqui —
+            nenhum ancestral cria bloco contentor, então ela mede a viewport. */}
+        <NarracaoPlayer
+          ref={playerRef}
+          ordem={p.ordem}
+          secoes={secoesNarracao}
+          onAlvo={setFalando}
+          onSeek={onSeekNarracao}
+          tempoInicial={tempoInicialNarracao}
+          onTocando={onTocandoNarracao}
+          onProgresso={onProgressoNarracao}
+          usada={narracaoUsada}
+          alvoRotulo={rotuloDoAlvo(p, falando)}
+          minutos={minutos}
+          tocarAoCarregar={querOuvir && posicaoResolvida === ordem}
+          onTentouTocar={limparOuvir}
+        />
+
+        <section className="block block-plain" id="contexto" tabIndex={-1}>
+          {/* o realce vai no h2, não no botão: o botão é o controle, o título é o
+              que a narração está lendo. */}
+          <h2 className={tituloClass('collapse-h', 'cabecalho-contexto')} data-fala-id="cabecalho-contexto">
             <button
               type="button"
-              className="narracao-mini"
-              aria-label={tocandoNarracao ? 'Pausar narração' : 'Continuar narração'}
-              title={tocandoNarracao ? 'Pausar narração' : 'Continuar narração'}
-              onClick={() => playerRef.current?.alternar()}
+              className="collapse-btn"
+              aria-expanded={contextoAberto}
+              aria-controls="contexto-corpo"
+              onClick={alternarContexto}
             >
-              {tocandoNarracao ? <IconePausa /> : <IconePlay />}
+              <span className={`collapse-chevron${contextoAberto ? ' open' : ''}`} aria-hidden>
+                ▸
+              </span>
+              Contexto
             </button>
-          ) : undefined
-        }
-        progresso={
-          <div
-            ref={barraRef}
-            className="leitura-progresso"
-            role="progressbar"
-            aria-label={tocandoNarracao ? 'Progresso da narração' : 'Progresso da perícope'}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
-        }
-      />
+          </h2>
+          <div id="contexto-corpo" hidden={!contextoAberto}>
+            {parasContexto.map((para, i) => (
+              <p key={i} className={falaClass('prose', `contexto-${i}`)} data-verse-id={`contexto-${i}`}>
+                <TextoFalado texto={para} ativo={falando === `contexto-${i}`} />
+              </p>
+            ))}
+          </div>
+        </section>
 
-      <NarracaoPlayer
-        ref={playerRef}
-        ordem={p.ordem}
-        secoes={secoesNarracao}
-        onAlvo={setFalando}
-        onSeek={onSeekNarracao}
-        tempoInicial={tempoInicialNarracao}
-        onTocando={onTocandoNarracao}
-        onProgresso={onProgressoNarracao}
-      />
-
-      <section className="block block-plain" id="contexto" tabIndex={-1}>
-        {/* o realce vai no h2, não no botão: o botão é o controle, o título é o
-            que a narração está lendo. */}
-        <h2 className={tituloClass('collapse-h', 'cabecalho-contexto')} data-fala-id="cabecalho-contexto">
-          <button
-            type="button"
-            className="collapse-btn"
-            aria-expanded={contextoAberto}
-            aria-controls="contexto-corpo"
-            onClick={alternarContexto}
-          >
-            <span className={`collapse-chevron${contextoAberto ? ' open' : ''}`} aria-hidden>
-              ▸
-            </span>
-            Contexto
-          </button>
-        </h2>
-        <div id="contexto-corpo" hidden={!contextoAberto}>
-          {parasContexto.map((para, i) => (
-            <p key={i} className={falaClass('prose', `contexto-${i}`)} data-verse-id={`contexto-${i}`}>
-              <TextoFalado texto={para} ativo={falando === `contexto-${i}`} />
-            </p>
-          ))}
-        </div>
-      </section>
-
-      <section className="block block-plain" id="texto" tabIndex={-1}>
-        <h2 className={tituloClass('', 'cabecalho-texto') || undefined} data-fala-id="cabecalho-texto">
-          Texto
-        </h2>
-        <div className="texto-biblico">
-          {prefs.layout === 'corrido'
-            ? gruposCorrido.map((g, gi) => (
-                <div key={g.label ? `c-${g.chapter}` : `orfao-${gi}`} className="corrido-group">
-                  {g.label && (
-                    <h3 className={tituloClass('cap-label', `cap-${g.chapter}`)} data-fala-id={`cap-${g.chapter}`}>
-                      {g.label}
-                    </h3>
-                  )}
-                  {(g === primeiroGrupoComCapitulo || (!primeiroGrupoComCapitulo && gi === 0)) && sobrescritoEl}
-                  <p className="corrido">
-                    {g.verses.map((b) => (
-                      <Fragment key={b.id}>
+        <section className="block block-plain" id="texto" tabIndex={-1}>
+          <h2 className={tituloClass('', 'cabecalho-texto') || undefined} data-fala-id="cabecalho-texto">
+            Texto
+          </h2>
+          <div className="texto-biblico">
+            {prefs.layout === 'corrido'
+              ? gruposCorrido.map((g, gi) => (
+                  <div key={g.label ? `c-${g.chapter}` : `orfao-${gi}`} className="corrido-group">
+                    {g.label && (
+                      <h3 className={tituloClass('cap-label', `cap-${g.chapter}`)} data-fala-id={`cap-${g.chapter}`}>
+                        {g.label}
+                      </h3>
+                    )}
+                    {(g === primeiroGrupoComCapitulo || (!primeiroGrupoComCapitulo && gi === 0)) && sobrescritoEl}
+                    <p className="corrido">
+                      {g.verses.map((b) => (
+                        <Fragment key={b.id}>
+                          <button
+                            type="button"
+                            className={verseClass('verse-inline', b.id)}
+                            data-verse-id={b.id}
+                            aria-pressed={selecionadosIds.has(b.id)}
+                            aria-label={verseAria(b)}
+                            onClick={() => selectVerse(b.id)}
+                          >
+                            {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
+                            <span className="verse-text">
+                              <TextoFalado texto={b.text} ativo={falando === b.id} />
+                            </span>
+                          </button>{' '}
+                        </Fragment>
+                      ))}
+                    </p>
+                  </div>
+                ))
+              : (
+                  <>
+                    {!primeiroCapitulo && sobrescritoEl}
+                    {blocks.map((b) =>
+                      b.kind === 'chapter' ? (
+                        <Fragment key={`c-${b.chapter}`}>
+                          <h3
+                            className={tituloClass('cap-label', `cap-${b.chapter}`)}
+                            data-fala-id={`cap-${b.chapter}`}
+                          >
+                            {b.label}
+                          </h3>
+                          {b === primeiroCapitulo && sobrescritoEl}
+                        </Fragment>
+                      ) : (
                         <button
+                          key={b.id}
                           type="button"
-                          className={verseClass('verse-inline', b.id)}
+                          className={verseClass('verse', b.id)}
                           data-verse-id={b.id}
                           aria-pressed={selecionadosIds.has(b.id)}
                           aria-label={verseAria(b)}
@@ -979,302 +1233,268 @@ export default function Leitura() {
                           <span className="verse-text">
                             <TextoFalado texto={b.text} ativo={falando === b.id} />
                           </span>
-                        </button>{' '}
-                      </Fragment>
-                    ))}
-                  </p>
-                </div>
-              ))
-            : (
-                <>
-                  {!primeiroCapitulo && sobrescritoEl}
-                  {blocks.map((b) =>
-                    b.kind === 'chapter' ? (
-                      <Fragment key={`c-${b.chapter}`}>
-                        <h3
-                          className={tituloClass('cap-label', `cap-${b.chapter}`)}
-                          data-fala-id={`cap-${b.chapter}`}
-                        >
-                          {b.label}
-                        </h3>
-                        {b === primeiroCapitulo && sobrescritoEl}
-                      </Fragment>
-                    ) : (
-                      <button
-                        key={b.id}
-                        type="button"
-                        className={verseClass('verse', b.id)}
-                        data-verse-id={b.id}
-                        aria-pressed={selecionadosIds.has(b.id)}
-                        aria-label={verseAria(b)}
-                        onClick={() => selectVerse(b.id)}
-                      >
-                        {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
-                        <span className="verse-text">
-                          <TextoFalado texto={b.text} ativo={falando === b.id} />
-                        </span>
-                      </button>
-                    ),
-                  )}
-                </>
-              )}
-        </div>
-      </section>
-
-      <section className="block block-plain" id="resenha" tabIndex={-1}>
-        <h2 className={tituloClass('', 'cabecalho-resenha') || undefined} data-fala-id="cabecalho-resenha">
-          Resenha
-        </h2>
-        {resenhaAlvos.prosa.map((alvo) => (
-          <p key={alvo.id} className={falaClass('prose', alvo.id)} data-verse-id={alvo.id}>
-            <TextoFalado texto={alvo.texto} ativo={falando === alvo.id} />
-          </p>
-        ))}
-        {resenhaAlvos.palavras.length > 0 && (
-          <>
-            <h3
-              className={tituloClass('palavras-titulo', 'cabecalho-palavras') || undefined}
-              data-fala-id="cabecalho-palavras"
-            >
-              As palavras do trecho
-            </h3>
-            <ul className="palavras-do-trecho">
-              {resenhaAlvos.palavras.map((alvo) => (
-                <li key={alvo.id} className={falaClass('prose', alvo.id)} data-verse-id={alvo.id}>
-                  <TextoFalado texto={alvo.texto} ativo={falando === alvo.id} />
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
-
-      <section className="block block-plain" id="reflexao" tabIndex={-1}>
-        {/* a section chama-se `reflexao`, mas o manifesto chama a seção de
-            `reflexoes` — o id do alvo segue o manifesto. */}
-        <h2 className={tituloClass('', 'cabecalho-reflexoes') || undefined} data-fala-id="cabecalho-reflexoes">
-          Reflexões
-        </h2>
-        <ol className="perguntas">
-          {p.perguntas_reflexao.map((q, i) => (
-            <li key={i} className={falaClass('', `reflexao-${i}`)} data-verse-id={`reflexao-${i}`}>
-              <TextoFalado texto={q} ativo={falando === `reflexao-${i}`} />
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="block notes" id="notas">
-        <div className="notes-tabs" role="tablist" aria-label="Anotações e tópicos">
-          {(
-            [
-              ['anotacoes', 'Anotações'],
-              ['topicos', 'Tópicos'],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              role="tab"
-              aria-selected={tab === id}
-              className={`notes-tab${tab === id ? ' active' : ''}`}
-              onClick={() => setTab(id)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {tab === 'anotacoes' && (
-          <>
-            <form onSubmit={onSaveNote} className="note-form">
-              {draftRef && (
-                <p className="note-ref-row">
-                  <span className="note-ref-chip">{verseRefLabel(p.abbrev, draftRef)}</span>
-                  <button type="button" className="linkish" onClick={() => setDraftRef(null)}>
-                    Remover vínculo
-                  </button>
-                </p>
-              )}
-              <textarea
-                ref={notaRef}
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                rows={4}
-                placeholder="Escreva pensamentos, orações, aplicações…"
-              />
-              <div className="note-form-actions">
-                <button type="submit">{editingId ? 'Salvar alterações' : 'Salvar anotação'}</button>
-                {editingId && (
-                  <button type="button" className="linkish" onClick={cancelarEdicao}>
-                    Cancelar
-                  </button>
-                )}
-                {/* Último da linha e encostado à direita (margin-left:auto no
-                    CSS): o estado do ditado cresce para a esquerda e o
-                    microfone nunca sai do lugar. */}
-                <DitarBotao onTexto={inserirDitado} onRevisao={aplicarRevisao} onAviso={flashAviso} />
-              </div>
-            </form>
-            <ul className="note-list">
-              {notes.map((n) => (
-                <li key={n.id}>
-                  {n.verseRef && (
-                    <Link
-                      className="note-ref-chip"
-                      to={`/leitura/${ordem}?v=${parseVerseRef(n.verseRef)?.start ?? ''}`}
-                    >
-                      {verseRefLabel(p.abbrev, n.verseRef)}
-                    </Link>
-                  )}
-                  <p>{n.texto}</p>
-                  <div className="note-item-actions">
-                    {confirmarId === n.id ? (
-                      <>
-                        <span className="muted">Apagar mesmo?</span>
-                        <button
-                          type="button"
-                          className="linkish"
-                          onClick={() => void apagarNota(n.id)}
-                        >
-                          Sim
                         </button>
-                        <button
-                          type="button"
-                          className="linkish"
-                          onClick={() => setConfirmarId(null)}
-                        >
-                          Cancelar
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button type="button" className="linkish" onClick={() => editarNota(n)}>
-                          Editar
-                        </button>
-                        <button
-                          type="button"
-                          className="linkish"
-                          onClick={() => setConfirmarId(n.id)}
-                        >
-                          Apagar
-                        </button>
-                      </>
+                      ),
                     )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+                  </>
+                )}
+          </div>
+        </section>
 
-        {tab === 'topicos' &&
-          (p.topicos_pregar ? (
-            <TopicsView text={p.topicos_pregar} />
-          ) : (
-            <p className="muted">Ainda não gerado.</p>
+        <section className="block block-plain" id="resenha" tabIndex={-1}>
+          <h2 className={tituloClass('', 'cabecalho-resenha') || undefined} data-fala-id="cabecalho-resenha">
+            Resenha
+          </h2>
+          {resenhaAlvos.prosa.map((alvo) => (
+            <p key={alvo.id} className={falaClass('prose', alvo.id)} data-verse-id={alvo.id}>
+              <TextoFalado texto={alvo.texto} ativo={falando === alvo.id} />
+            </p>
           ))}
-
-        {/* A porta para a IA era a terceira aba deste bloco, chamada
-            "Contexto" — o mesmo nome da seção histórico-literária lá em cima,
-            significando outra coisa, e as duas na tela ao mesmo tempo. Num app
-            chamado aiPericopes ela não mora no porão.
-
-            Mora AQUI e não no topo porque conversar é o que se faz depois de
-            ler: no alto competiria com a leitura. */}
-        <div className="conversar-bloco">
-          <p className="muted">
-            Leve este trecho para uma conversa com IA: o texto abaixo já vem pronto para
-            colar.
-          </p>
-          <pre className="contexto-ia-text">{promptConversa(p)}</pre>
-          <button type="button" className="ghost copy-btn" onClick={copyContexto}>
-            {copied ? 'Copiado' : 'Copiar'}
-          </button>
-        </div>
-
-        <div className="actions">
-          {status !== 'concluido' ? (
-            <button type="button" className="cta" onClick={markDone}>
-              Marcar como concluída
-            </button>
-          ) : (
+          {resenhaAlvos.palavras.length > 0 && (
             <>
-              {next ? (
-                <Link className="done-card" to={`/leitura/${next.ordem}`}>
-                  <span className="badge">Concluída ✓</span>
-                  <span className="done-next">
-                    Próxima: <strong>{next.titulo}</strong> →
-                  </span>
-                </Link>
-              ) : (
-                <p className="badge">Concluída ✓</p>
-              )}
-              {/* Sem confirmação: é UMA perícope, e remarcar é um toque. O
-                  cartão "Próxima →" continua sendo a ação primária. */}
-              <button type="button" className="linkish desmarcar" onClick={() => void desmarcar()}>
-                Desmarcar como concluída
-              </button>
-              <button
-                type="button"
-                className="linkish reler"
-                aria-pressed={prog?.paraReler ?? false}
-                onClick={() => void alternarReler()}
+              <h3
+                className={tituloClass('palavras-titulo', 'cabecalho-palavras') || undefined}
+                data-fala-id="cabecalho-palavras"
               >
-                {prog?.paraReler ? '★ Marcada para reler' : '☆ Marcar para reler'}
-              </button>
-              {prog && prog.historico.length > 0 && (
-                <p className="historico-leitura">
-                  {prog.historico.length === 1 ? 'lida 1×' : `lida ${prog.historico.length}×`} ·{' '}
-                  {prog.historico
-                    .slice(0, 3)
-                    .map((d) =>
-                      new Date(d).toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' }),
-                    )
-                    .join(' · ')}
-                </p>
-              )}
+                As palavras do trecho
+              </h3>
+              <ul className="palavras-do-trecho">
+                {resenhaAlvos.palavras.map((alvo) => (
+                  <li key={alvo.id} className={falaClass('prose', alvo.id)} data-verse-id={alvo.id}>
+                    <TextoFalado texto={alvo.texto} ativo={falando === alvo.id} />
+                  </li>
+                ))}
+              </ul>
             </>
           )}
-        </div>
-        <nav className="pager" aria-label="Navegação entre perícopes">
-          {prev ? (
-            <Link
-              className="ghost pager-link"
-              aria-label={`Anterior: ${prev.titulo}`}
-              title="Atalho: ←"
-              to={`/leitura/${prev.ordem}`}
-            >
-              ← {prev.titulo}
-            </Link>
-          ) : null}
-          {next ? (
-            <Link
-              className="ghost pager-link pager-next"
-              aria-label={`Próxima: ${next.titulo}`}
-              title="Atalho: →"
-              to={`/leitura/${next.ordem}`}
-            >
-              {next.titulo} →
-            </Link>
-          ) : null}
-        </nav>
-      </section>
+        </section>
 
-      {barOpen && selecionados.length > 0 && (
-        <VerseActions
-          label={rangeLabel(p, selecionados)}
-          temDestaque={selecionados.some((v) => destaques.has(v.id))}
-          corAtual={corAtual}
-          aviso={aviso}
-          onCopiar={() => void copiarSelecao()}
-          onCompartilhar={() => void compartilharSelecao()}
-          onDestacar={(cor) => void destacarSelecao(cor)}
-          onRemoverDestaque={() => void removerDestaqueSelecao()}
-          onAnotar={anotarSelecao}
-          onFechar={fecharBarra}
-        />
-      )}
-    </article>
+        <section className="block block-plain" id="reflexao" tabIndex={-1}>
+          {/* a section chama-se `reflexao`, mas o manifesto chama a seção de
+              `reflexoes` — o id do alvo segue o manifesto. */}
+          <h2 className={tituloClass('', 'cabecalho-reflexoes') || undefined} data-fala-id="cabecalho-reflexoes">
+            Reflexões
+          </h2>
+          <ol className="perguntas">
+            {p.perguntas_reflexao.map((q, i) => (
+              <li key={i} className={falaClass('', `reflexao-${i}`)} data-verse-id={`reflexao-${i}`}>
+                <TextoFalado texto={q} ativo={falando === `reflexao-${i}`} />
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="block notes" id="notas">
+          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos e conversa">
+            {(
+              [
+                ['anotacoes', 'Anotações'],
+                ['topicos', 'Tópicos'],
+                ['conversar', 'Conversar'],
+              ] as const
+            ).map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={tab === id}
+                className={`notes-tab${tab === id ? ' active' : ''}`}
+                onClick={() => setTab(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {tab === 'anotacoes' && (
+            <>
+              <form onSubmit={onSaveNote} className="note-form">
+                {draftRef && (
+                  <p className="note-ref-row">
+                    <span className="note-ref-chip">{verseRefLabel(p.abbrev, draftRef)}</span>
+                    <button type="button" className="linkish" onClick={() => setDraftRef(null)}>
+                      Remover vínculo
+                    </button>
+                  </p>
+                )}
+                <textarea
+                  ref={notaRef}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  rows={4}
+                  placeholder="Escreva pensamentos, orações, aplicações…"
+                />
+                <div className="note-form-actions">
+                  <button type="submit">{editingId ? 'Salvar alterações' : 'Salvar anotação'}</button>
+                  {editingId && (
+                    <button type="button" className="linkish" onClick={cancelarEdicao}>
+                      Cancelar
+                    </button>
+                  )}
+                  {/* Último da linha e encostado à direita (margin-left:auto no
+                      CSS): o estado do ditado cresce para a esquerda e o
+                      microfone nunca sai do lugar. */}
+                  <DitarBotao onTexto={inserirDitado} onRevisao={aplicarRevisao} onAviso={flashAviso} />
+                </div>
+              </form>
+              <ul className="note-list">
+                {notes.map((n) => (
+                  <li key={n.id}>
+                    {n.verseRef && (
+                      <Link
+                        className="note-ref-chip"
+                        to={`/leitura/${ordem}?v=${parseVerseRef(n.verseRef)?.start ?? ''}`}
+                      >
+                        {verseRefLabel(p.abbrev, n.verseRef)}
+                      </Link>
+                    )}
+                    <p>{n.texto}</p>
+                    <div className="note-item-actions">
+                      {confirmarId === n.id ? (
+                        <>
+                          <span className="muted">Apagar mesmo?</span>
+                          <button
+                            type="button"
+                            className="linkish"
+                            onClick={() => void apagarNota(n.id)}
+                          >
+                            Sim
+                          </button>
+                          <button
+                            type="button"
+                            className="linkish"
+                            onClick={() => setConfirmarId(null)}
+                          >
+                            Cancelar
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button type="button" className="linkish" onClick={() => editarNota(n)}>
+                            Editar
+                          </button>
+                          <button
+                            type="button"
+                            className="linkish"
+                            onClick={() => setConfirmarId(n.id)}
+                          >
+                            Apagar
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {tab === 'topicos' &&
+            (p.topicos_pregar ? (
+              <TopicsView text={p.topicos_pregar} />
+            ) : (
+              <p className="muted">Ainda não gerado.</p>
+            ))}
+
+          {/* A porta para a IA é aba, não rodapé de "Anotações": solta ali
+              embaixo ela aparecia debaixo dos dois painéis, sem pertencer a
+              nenhum, e o prompt comprido empurrava a lista de notas.
+
+              O que a tirou de aba antes era o NOME: chamava-se "Contexto", igual
+              à seção histórico-literária lá em cima, significando outra coisa, e
+              as duas na tela ao mesmo tempo. Com "Conversar" o problema não
+              existe. Continua sendo a última das três porque conversar é o que
+              se faz depois de ler. */}
+          {tab === 'conversar' && (
+            <div className="conversar-bloco">
+              <p className="muted">
+                Leve este trecho para uma conversa com IA: o texto abaixo já vem pronto para
+                colar.
+              </p>
+              <pre className="contexto-ia-text">{promptConversa(p)}</pre>
+              <button type="button" className="ghost copy-btn" onClick={copyContexto}>
+                {copied ? 'Copiado' : 'Copiar'}
+              </button>
+            </div>
+          )}
+
+          <div className="actions">
+            {status !== 'concluido' ? (
+              <button type="button" className="cta" onClick={() => void markDone()}>
+                Marcar como concluída
+              </button>
+            ) : (
+              <>
+                {/* Uma linha: "Concluída ✓" é o próprio desmarcar (toque de
+                    volta), estrela é só ícone. "Desmarcar como…" e "Marcar
+                    para reler" em texto puro empilhado comiam a dobra e
+                    pareciam links, não botões. */}
+                <div className="actions-linha">
+                  <button
+                    type="button"
+                    className="ghost actions-concluir"
+                    aria-pressed="true"
+                    aria-label="Desmarcar como concluída"
+                    title="Desmarcar como concluída"
+                    onClick={() => void desmarcar()}
+                  >
+                    Concluída ✓
+                  </button>
+                  <button
+                    type="button"
+                    className="ghost actions-reler"
+                    aria-pressed={prog?.paraReler ?? false}
+                    aria-label={prog?.paraReler ? 'Desmarcar para reler' : 'Marcar para reler'}
+                    title={prog?.paraReler ? 'Desmarcar para reler' : 'Marcar para reler'}
+                    onClick={() => void alternarReler()}
+                  >
+                    {prog?.paraReler ? '★' : '☆'}
+                  </button>
+                </div>
+                {prog && prog.historico.length > 0 && (
+                  <p className="historico-leitura">
+                    {prog.historico.length === 1 ? 'lida 1×' : `lida ${prog.historico.length}×`} ·{' '}
+                    {prog.historico
+                      .slice(0, 3)
+                      .map((d) =>
+                        new Date(d).toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' }),
+                      )
+                      .join(' · ')}
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+          <nav ref={pagerRef} className="pager" aria-label="Navegação entre perícopes">
+            <PagerLado
+              v={prev}
+              proxima={false}
+              fim={`Primeira do ${testamentLabel(testamentOf(p))}`}
+            />
+            <PagerLado
+              v={next}
+              proxima
+              fim={`Última do ${testamentLabel(testamentOf(p))}`}
+              primario={status === 'concluido'}
+            />
+          </nav>
+        </section>
+
+        {barOpen && selecionados.length > 0 && (
+          <VerseActions
+            label={rangeLabel(p, selecionados)}
+            temDestaque={selecionados.some((v) => destaques.has(v.id))}
+            corAtual={corAtual}
+            aviso={aviso}
+            onCopiar={() => void copiarSelecao()}
+            onCompartilhar={() => void compartilharSelecao()}
+            onDestacar={(cor) => void destacarSelecao(cor)}
+            onRemoverDestaque={() => void removerDestaqueSelecao()}
+            onAnotar={anotarSelecao}
+            onFechar={fecharBarra}
+          />
+        )}
+      </article>
+    </>
   )
 }

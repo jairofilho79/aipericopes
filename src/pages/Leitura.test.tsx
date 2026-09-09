@@ -37,6 +37,7 @@ const PERICOPE_102: Pericope = {
   capitulo_fim: 102,
   versiculo_fim: 2,
   minutos: 1,
+  narrado: false,
   texto: 'Capítulo 102\n1 Ó SENHOR, ouve minha oração.\n2 Não escondas de mim o teu rosto.',
   sobrescrito: 'Oração do aflito, quando ele se viu desfalecido',
   titulo_pericope_pt: 'Oração do aflito',
@@ -57,6 +58,7 @@ const INDICE: PericopeIndex[] = [
     versiculo_fim: 2,
     titulo_pericope_pt: 'Oração do aflito',
     minutos: 1,
+    narrado: false,
   },
 ]
 
@@ -68,6 +70,7 @@ vi.mock('../lib/content', () => ({
   refLabel: () => 'Salmos 102:1–2',
   testamentOf: () => 'AT',
   testamentLabel: () => 'Antigo Testamento',
+  posicaoNoLivro: () => ({ atual: 1, total: 1 }),
 }))
 
 vi.mock('../lib/user-db', () => ({
@@ -75,16 +78,26 @@ vi.mock('../lib/user-db', () => ({
   listDestaques: async () => [],
   getProgresso: async () => null,
   setProgresso: async () => {},
+  concluirProgresso: async () => {},
+  desmarcarProgresso: async () => {},
+  setParaReler: async () => {},
   useSyncRefresh: () => {},
   saveAnotacao: async () => {},
   deleteAnotacao: async () => {},
   setDestaque: async () => {},
   removeDestaque: async () => {},
+  destaqueId: () => '',
   getVerseFocus: () => null,
   setVerseFocus: () => {},
   getPosicao: async () => null,
-  setPosicao: async () => {},
+  setPosicaoLocal: async () => {},
+  clearPosicao: async () => {},
   enqueuePosicao: async () => {},
+}))
+
+vi.mock('../lib/verse-highlight', () => ({
+  getVerseFocus: () => null,
+  setVerseFocus: () => {},
 }))
 
 vi.mock('../components/NarracaoPlayer', () => ({
@@ -93,8 +106,23 @@ vi.mock('../components/NarracaoPlayer', () => ({
   IconePausa: () => <span>Pausa</span>,
 }))
 
+vi.mock('../components/LeituraTopo', () => ({
+  default: () => <header data-testid="leitura-topo" />,
+}))
+
 vi.mock('../components/SectionChips', () => ({
   default: () => <nav data-testid="section-chips" />,
+}))
+
+vi.mock('../lib/use-reading-prefs', () => ({
+  useReadingPrefs: () => prefsMock,
+}))
+
+vi.mock('../lib/use-swipe-nav', () => ({ useSwipeNav: () => {} }))
+vi.mock('../lib/use-keyboard-nav', () => ({ useKeyboardNav: () => {} }))
+vi.mock('../lib/use-sync-refresh', () => ({ useSyncRefresh: () => {} }))
+vi.mock('../lib/auth-client', () => ({
+  authClient: { useSession: () => ({ data: null }) },
 }))
 
 vi.mock('../components/VerseActions', () => ({

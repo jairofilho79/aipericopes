@@ -57,10 +57,28 @@ describe('CatalogoRegistros', () => {
     const nomes = Array.from(container.querySelectorAll('.livro-nome')).map((el) => el.textContent)
     expect(nomes).toEqual(['Lamento', 'Louvor', 'Lei'])
 
-    const rotulos = Array.from(container.querySelectorAll('.book-progress-label')).map(
-      (el) => el.textContent,
-    )
-    expect(rotulos).toEqual(['1 de 3', '2 de 2', '0 de 1'])
+    const subs = Array.from(container.querySelectorAll('.livro-sub')).map((el) => el.textContent)
+    expect(subs).toEqual(['1 de 3 perícopes', '2 de 2 perícopes', 'nenhuma lida ainda'])
+  })
+
+  it('a linha de registro não tem coluna de abreviação — um registro não tem abrev', () => {
+    act(() => {
+      root.render(
+        <CatalogoRegistros
+          registros={REGISTROS}
+          progresso={progresso()}
+          contagem={new Map([['lamento', 3]])}
+          filtro={'todos' as FiltroLeitura}
+          onAbrir={() => {}}
+        />,
+      )
+    })
+
+    expect(container.querySelector('.livro-abbrev')).toBeNull()
+    // O rótulo ao lado da barra saiu junto: a contagem agora é a linha
+    // secundária. `.book-progress-label` continua nos cabeçalhos de livro e
+    // registro abertos, que esta lista não desenha.
+    expect(container.querySelector('.book-progress-label')).toBeNull()
   })
 
   it('chamar onAbrir passa o slug certo', () => {

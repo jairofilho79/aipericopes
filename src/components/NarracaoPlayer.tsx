@@ -45,8 +45,34 @@ type Props = {
   onTocando?: (tocando: boolean) => void
   /** Fração 0..1 já ouvida, no ritmo do timeupdate (~4×/s). DEVE ser estável. */
   onProgresso?: (fracao: number) => void
+  /**
+   * A narração desta perícope já foi iniciada nesta sessão de leitura. É o que
+   * decide a casa do controle: falso mostra o cartão "Ouvir esta perícope" no
+   * corpo do artigo, verdadeiro sobe a doca fixa no rodapé.
+   */
+  usada: boolean
+  /** O que está em fala, em rótulo humano, para a linha de estado da doca. */
+  alvoRotulo: string
+  /** Minutos de leitura, para a linha secundária do cartão pré-play. */
+  minutos: number
+  /**
+   * `?ouvir=1` vindo da Home: tenta tocar sozinho assim que o áudio estiver
+   * carregado. Decide só SE toca — nunca ONDE, que continua sendo do
+   * checkpoint. A Leitura só liga isto depois de resolver o checkpoint.
+   */
+  tocarAoCarregar?: boolean
+  /** A tentativa de autoplay aconteceu (deu certo ou não). DEVE ser estável. */
+  onTentouTocar?: () => void
   ref?: Ref<NarracaoPlayerHandle>
 }
+
+/**
+ * O que se sabe sobre a existência do áudio desta perícope. Antes havia só
+ * "tem `src`" e "falhou depois de ter `src`", e a ausência apagava o
+ * componente inteiro — o leitor não sabia se era bug, carregamento, ou
+ * narração que nunca vai existir.
+ */
+type Disponibilidade = 'verificando' | 'ausente' | 'ok' | 'falhou'
 
 /** Salto dos botões e das setas: curto o bastante para reouvir um versículo. */
 const SALTO = 10
@@ -62,12 +88,16 @@ const SALTO = 10
 export const ADIANTO_S = 0.15
 
 /**
- * Narração pré-gerada (voz clonada, servida do R2 via /api/audio). Só aparece
- * quando o áudio da perícope existe — um HEAD barato decide. O manifesto,
- * quando existe e casa com a tela, transforma o relógio do áudio em realce
- * do alvo e da palavra em fala — lido a cada quadro enquanto toca, e não no
- * `timeupdate`, que dispara só ~4×/s e deixaria a palavra até 250 ms atrás
- * da voz.
+ * Narração pré-gerada (voz clonada, servida do R2 via /api/audio). Um HEAD
+ * barato decide se existe áudio, e o componente diz o resultado em vez de
+ * desaparecer: cartão "Ouvir esta perícope" quando existe, esqueleto enquanto
+ * verifica, linha explicando quando não existe ou quando falhou. Depois do
+ * primeiro play a doca fixa no rodapé assume o lugar do cartão.
+ *
+ * O manifesto, quando existe e casa com a tela, transforma o relógio do áudio
+ * em realce do alvo e da palavra em fala — lido a cada quadro enquanto toca, e
+ * não no `timeupdate`, que dispara só ~4×/s e deixaria a palavra até 250 ms
+ * atrás da voz.
  *
  * O `<audio>` fica sem `controls`: a UI é do app, para caber no tema e para
  * os chips de seção poderem mandar o áudio para o cabeçalho de cada uma.
@@ -80,6 +110,11 @@ export default function NarracaoPlayer({
   tempoInicial,
   onTocando,
   onProgresso,
+  usada,
+  alvoRotulo,
+  minutos,
+  tocarAoCarregar,
+  onTentouTocar,
   ref,
 }: Props) {
   const [src, setSrc] = useState<string | null>(null)
@@ -89,7 +124,10 @@ export default function NarracaoPlayer({
   const [tocando, setTocando] = useState(false)
   const [tempo, setTempo] = useState(0)
   const [duracao, setDuracao] = useState(Number.NaN)
-  const [erro, setErro] = useState(false)
+  const [disponibilidade, setDisponibilidade] = useState<Disponibilidade>('verificando')
+  // "Tentar de novo" refaz o HEAD: entra nas dependências do efeito de carga.
+  const [tentativa, setTentativa] = useState(0)
+  const erro = disponibilidade === 'falhou'
 
   // Índices da última busca: o relógio anda para frente quase sempre.
   const iAlvo = useRef(0)
@@ -99,6 +137,8 @@ export default function NarracaoPlayer({
   // Uma aplicação por perícope: depois que o usuário mexeu no áudio, o
   // checkpoint antigo não pode voltar a puxar o relógio.
   const tempoInicialAplicado = useRef(false)
+  // Uma tentativa de autoplay por perícope, deu certo ou não.
+  const autoTentado = useRef(false)
 
   const alinhamento = useMemo(
     () => (manifesto ? alinhar(manifesto, secoes) : []),
@@ -114,25 +154,40 @@ export default function NarracaoPlayer({
     setTocando(false)
     setTempo(0)
     setDuracao(Number.NaN)
-    setErro(false)
+    setDisponibilidade('verificando')
     tempoInicialAplicado.current = false
+    autoTentado.current = false
     // Serializado: cobertura de narração é parcial, então buscar o manifesto
     // incondicionalmente seria um GET garantidamente 404 em quase toda
     // perícope aberta. Só vale a pena depois de o HEAD confirmar o áudio.
     fetch(url, { method: 'HEAD', signal: ac.signal })
       .then((r) => {
-        if (!vivo || !r.ok) return
+        if (!vivo) return
+        if (!r.ok) {
+          // 404 é a resposta esperada na maior parte do catálogo enquanto a
+          // narração não cobre as 2.823 perícopes: é fato, não falha.
+          setDisponibilidade('ausente')
+          return
+        }
         setSrc(url)
+        setDisponibilidade('ok')
+        // `carregarManifesto` nunca rejeita (devolve null em qualquer tropeço),
+        // então nada aqui pode cair no catch de rede abaixo: áudio sem
+        // manifesto toca, só não realça.
         return carregarManifesto(ordem, ac.signal).then((m) => {
           if (vivo) setManifesto(m)
         })
       })
-      .catch(() => {})
+      .catch(() => {
+        // Abortar por troca de perícope também cai aqui, e aí `vivo` é falso —
+        // é o que separa "a rede falhou" de "eu saí da página".
+        if (vivo) setDisponibilidade('falhou')
+      })
     return () => {
       vivo = false
       ac.abort()
     }
-  }, [ordem])
+  }, [ordem, tentativa])
 
   // Efeito (e não onLoadedMetadata): o checkpoint chega do IndexedDB depois
   // que o player montou, então `tempoInicial` e a duração podem aparecer em
@@ -146,6 +201,25 @@ export default function NarracaoPlayer({
     a.currentTime = tempoInicial
     setTempo(tempoInicial)
   }, [tempoInicial, duracao])
+
+  // Autoplay do `?ouvir=1`. Espera a duração (e não só o `src`) porque o
+  // efeito acima, declarado antes deste e disparado pela MESMA duração, é
+  // quem posiciona o checkpoint: tocar antes dele começaria do zero e daria
+  // um salto audível para o ponto salvo um instante depois.
+  //
+  // Se o navegador recusar — entre o toque na Home e este `play()` passam a
+  // troca de rota e o HEAD, e a ativação transitória do gesto pode ter
+  // expirado —, a rejeição morre aqui em silêncio: `tocando` fica falso,
+  // `usada` fica falso, e o cartão "Ouvir esta perícope" continua na tela com
+  // o áudio já carregado. Um toque a mais, nenhum erro.
+  useEffect(() => {
+    if (!tocarAoCarregar || autoTentado.current) return
+    const a = audioRef.current
+    if (!a || !Number.isFinite(duracao) || duracao <= 0) return
+    autoTentado.current = true
+    a.play().catch(() => {})
+    onTentouTocar?.()
+  }, [tocarAoCarregar, duracao, onTentouTocar])
 
   const limparPalavra = useCallback(() => {
     spanAtual.current?.classList.remove('word-speaking')
@@ -271,130 +345,219 @@ export default function NarracaoPlayer({
     saltar(e.key === 'ArrowLeft' ? -SALTO : SALTO)
   }
 
-  if (!src) return null
-
   const temDuracao = Number.isFinite(duracao) && duracao > 0
   const pct = temDuracao ? Math.min(100, (tempo / duracao) * 100) : 0
   const tempoTexto = formatarTempo(tempo)
   const duracaoTexto = formatarTempo(duracao)
+  // A doca substitui o cartão pré-play depois do primeiro play, e continua
+  // montada pausada — some só na troca de perícope, que zera `usada`.
+  const naDoca = usada && src !== null
+
+  // Sem `role="status"` próprio: quem anuncia é a região estável que o
+  // envolve nos dois lugares onde ele aparece (o slot pré-play e a doca).
+  const falha = (
+    <div className="narracao-indisponivel">
+      <span>Não foi possível carregar a narração desta perícope.</span>
+      <button
+        type="button"
+        className="narracao-retentar"
+        onClick={() => setTentativa((n) => n + 1)}
+      >
+        Tentar de novo
+      </button>
+    </div>
+  )
 
   return (
-    <div className="narracao" onKeyDown={aoTeclar}>
-      <audio
-        ref={audioRef}
-        preload="metadata"
-        src={src}
-        hidden
-        // Só o mostrador: o realce vem do loop de quadros. Um setState por
-        // quadro seria desperdício para uma barra que muda a olho a cada
-        // segundo.
-        onTimeUpdate={() => {
-          const a = audioRef.current
-          if (!a) return
-          setTempo(a.currentTime)
-          // A barra do header segue o áudio no mesmo ritmo ~4×/s do mostrador.
-          if (Number.isFinite(a.duration) && a.duration > 0) {
-            onProgresso?.(a.currentTime / a.duration)
-          }
-        }}
-        onSeeked={() => {
-          // A tela precisa estar liberada antes de calcular o novo alvo,
-          // senão o realce salta para o lugar certo mas fora da tela.
-          onSeek?.()
-          aoTempo()
-        }}
-        onEnded={() => {
-          setTocando(false)
-          onTocando?.(false)
-          limparPalavra()
-          trocarAlvo(null)
-        }}
-        onPlay={() => {
-          setTocando(true)
-          onTocando?.(true)
-        }}
-        onPause={() => {
-          setTocando(false)
-          onTocando?.(false)
-        }}
-        onLoadedMetadata={() => {
-          const a = audioRef.current
-          if (a) setDuracao(a.duration)
-        }}
-        onDurationChange={() => {
-          const a = audioRef.current
-          if (a) setDuracao(a.duration)
-        }}
-        onError={() => setErro(true)}
-      />
+    <>
+      {src !== null && (
+        <audio
+          ref={audioRef}
+          preload="metadata"
+          src={src}
+          hidden
+          // Só o mostrador: o realce vem do loop de quadros. Um setState por
+          // quadro seria desperdício para uma barra que muda a olho a cada
+          // segundo.
+          onTimeUpdate={() => {
+            const a = audioRef.current
+            if (!a) return
+            setTempo(a.currentTime)
+            // A barra do header segue o áudio no mesmo ritmo ~4×/s do mostrador.
+            if (Number.isFinite(a.duration) && a.duration > 0) {
+              onProgresso?.(a.currentTime / a.duration)
+            }
+          }}
+          onSeeked={() => {
+            // A tela precisa estar liberada antes de calcular o novo alvo,
+            // senão o realce salta para o lugar certo mas fora da tela.
+            onSeek?.()
+            aoTempo()
+          }}
+          onEnded={() => {
+            setTocando(false)
+            onTocando?.(false)
+            limparPalavra()
+            trocarAlvo(null)
+          }}
+          onPlay={() => {
+            setTocando(true)
+            onTocando?.(true)
+          }}
+          onPause={() => {
+            setTocando(false)
+            onTocando?.(false)
+          }}
+          onLoadedMetadata={() => {
+            const a = audioRef.current
+            if (a) setDuracao(a.duration)
+          }}
+          onDurationChange={() => {
+            const a = audioRef.current
+            if (a) setDuracao(a.duration)
+          }}
+          onError={() => setDisponibilidade('falhou')}
+        />
+      )}
 
-      <span className="narracao-rotulo">Narração</span>
+      {/* Antes do primeiro play, este ponto do artigo (logo depois dos chips)
+          é a casa do convite — e, quando não há áudio, do motivo. Depois do
+          primeiro play a doca assume, fixa no rodapé.
 
-      <div className="narracao-controles">
-        <button
-          type="button"
-          className="narracao-btn narracao-salto"
-          aria-label={`Voltar ${SALTO} segundos`}
-          title={`Voltar ${SALTO} s`}
-          disabled={erro}
-          onClick={() => saltar(-SALTO)}
-        >
-          <IconeSalto direcao="tras" />
-        </button>
-        <button
-          type="button"
-          className="narracao-btn narracao-play"
-          aria-label={tocando ? 'Pausar narração' : 'Tocar narração'}
-          title={tocando ? 'Pausar' : 'Tocar'}
-          disabled={erro}
-          onClick={alternar}
-        >
-          {tocando ? <IconePausa /> : <IconePlay />}
-        </button>
-        <button
-          type="button"
-          className="narracao-btn narracao-salto"
-          aria-label={`Avançar ${SALTO} segundos`}
-          title={`Avançar ${SALTO} s`}
-          disabled={erro}
-          onClick={() => saltar(SALTO)}
-        >
-          <IconeSalto direcao="frente" />
-        </button>
+          A região viva é ESTE invólucro, montado junto com o componente e
+          nunca substituído: leitor de tela só relata mudança de conteúdo em
+          região que já existia no DOM, e um `role="status"` que nasce já
+          contendo a mensagem não é anunciado — a mesma razão escrita no aviso
+          do ditado (Explorar) e no `.nav-conta-erro` (Perfil). Por isso o
+          esqueleto, a linha de indisponível e o cartão trocam DENTRO dele, em
+          vez de cada um trazer o seu `role`.
+
+          Sem classe de propósito: sem borda, padding nem display próprio, as
+          margens dos filhos atravessam o invólucro e a altura casada de
+          `.ouvir-skeleton` e `.ouvir-cartao` (o piso que impede a resposta do
+          HEAD de refluir o artigo) continua sendo a que o fluxo enxerga. */}
+      <div role="status">
+        {!naDoca &&
+          (disponibilidade === 'verificando' ? (
+            // Do tamanho do cartão final, para a resposta do HEAD não refluir o
+            // artigo. Decoração para quem vê, anúncio para quem não vê — o mesmo
+            // princípio do esqueleto da página inteira.
+            <div className="ouvir-skeleton">
+              <span className="sr-only">Verificando narração desta perícope…</span>
+              <span className="skeleton" />
+            </div>
+          ) : disponibilidade === 'ausente' ? (
+            <p className="narracao-indisponivel">
+              A narração desta perícope ainda não foi gravada.
+            </p>
+          ) : disponibilidade === 'falhou' ? (
+            falha
+          ) : (
+            // Um <button> só, e não ícone + título + linha soltos: um alvo de
+            // toque, um ponto de foco, um rótulo que já diz a duração.
+            <button
+              type="button"
+              className="ouvir-cartao"
+              aria-label={`Ouvir esta perícope, ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`}
+              onClick={alternar}
+            >
+              <span className="ouvir-cartao-play" aria-hidden>
+                <IconePlay />
+              </span>
+              <span className="ouvir-cartao-texto" aria-hidden>
+                <span className="ouvir-cartao-titulo">Ouvir esta perícope</span>
+                <span className="ouvir-cartao-sub">
+                  {minutos} min · voz sintetizada, lida sobre o texto
+                </span>
+              </span>
+            </button>
+          ))}
       </div>
 
-      <input
-        type="range"
-        className="narracao-barra"
-        aria-label="Posição na narração"
-        aria-valuetext={`${tempoTexto} de ${duracaoTexto}`}
-        min={0}
-        max={temDuracao ? duracao : 0}
-        // Passo fino para o arrasto; as setas não passam por ele (ver aoTeclar).
-        step={0.1}
-        value={temDuracao ? tempo : 0}
-        disabled={!temDuracao || erro}
-        style={{ '--pct': `${pct}%` } as CSSProperties}
-        onInput={(e) => irPara(Number(e.currentTarget.value))}
-      />
+      {naDoca && (
+        // `narracao` ao lado de `narracao-doca` não é estilo: é o marcador que
+        // `isMediaTarget` (use-keyboard-nav) procura para deixar ←/→ com o
+        // salto de ±10 s em vez de trocar de perícope. Só o `narracao-doca`
+        // recebe CSS.
+        <div
+          className="narracao-doca narracao"
+          role="region"
+          aria-label="Narração"
+          onKeyDown={aoTeclar}
+        >
+          <div className="narracao-doca-estado">
+            <span className="narracao-doca-chama" aria-hidden />
+            <span className="narracao-doca-rotulo">Narrando</span>
+            <span className="narracao-doca-alvo">{alvoRotulo}</span>
+            <span className="narracao-doca-tempo" aria-hidden>
+              <span>{tempoTexto}</span>
+              <span className="narracao-doca-tempo-sep">/</span>
+              <span>{duracaoTexto}</span>
+            </span>
+          </div>
 
-      <span className="narracao-tempo" aria-hidden>
-        <span>{tempoTexto}</span>
-        <span className="narracao-tempo-sep">/</span>
-        <span>{duracaoTexto}</span>
-      </span>
+          <input
+            type="range"
+            className="narracao-doca-barra"
+            aria-label="Posição na narração"
+            aria-valuetext={`${tempoTexto} de ${duracaoTexto}`}
+            min={0}
+            max={temDuracao ? duracao : 0}
+            // Passo fino para o arrasto; as setas não passam por ele (ver aoTeclar).
+            step={0.1}
+            value={temDuracao ? tempo : 0}
+            disabled={!temDuracao || erro}
+            style={{ '--pct': `${pct}%` } as CSSProperties}
+            onInput={(e) => irPara(Number(e.currentTarget.value))}
+          />
 
-      {erro && (
-        <p className="narracao-erro" role="status">
-          Não foi possível carregar o áudio da narração.
-        </p>
+          <div className="narracao-doca-controles">
+            <button
+              type="button"
+              className="narracao-doca-btn narracao-doca-salto"
+              aria-label={`Voltar ${SALTO} segundos`}
+              title={`Voltar ${SALTO} s`}
+              disabled={erro}
+              onClick={() => saltar(-SALTO)}
+            >
+              <IconeSalto direcao="tras" />
+            </button>
+            <button
+              type="button"
+              className="narracao-doca-btn narracao-doca-play"
+              aria-label={tocando ? 'Pausar narração' : 'Tocar narração'}
+              title={tocando ? 'Pausar' : 'Tocar'}
+              disabled={erro}
+              onClick={alternar}
+            >
+              {tocando ? <IconePausa /> : <IconePlay />}
+            </button>
+            <button
+              type="button"
+              className="narracao-doca-btn narracao-doca-salto"
+              aria-label={`Avançar ${SALTO} segundos`}
+              title={`Avançar ${SALTO} s`}
+              disabled={erro}
+              onClick={() => saltar(SALTO)}
+            >
+              <IconeSalto direcao="frente" />
+            </button>
+          </div>
+
+          {/* O áudio pode quebrar depois de já ter tocado: o mesmo aviso do
+              estado pré-play serve aqui, com o mesmo botão que refaz o HEAD.
+              O invólucro vazio espera montado pela mesma razão da região lá de
+              cima — a doca nasce antes da falha, mas o aviso não pode nascer
+              junto da região que o anuncia. Vazio ele não abre linha no grid
+              da doca (que não tem `gap`), então `--doca-h` segue valendo. */}
+          <div role="status">{erro && falha}</div>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 
-// Exportados para o controle compacto de narração no header da Leitura usar
-// os mesmos desenhos do player.
+// Exportados para a Home usar o mesmo desenho de play do player.
 export function IconePlay() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden focusable="false">

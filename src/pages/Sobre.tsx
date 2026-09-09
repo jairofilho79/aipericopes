@@ -22,11 +22,15 @@
  * isso funcionar: **a página tem que ser achável.** Item no menu do Perfil e
  * ponteiro nos Ajustes. Quem mexer aqui mantém os dois caminhos abertos.
  *
- * Sem CSS próprio de propósito: reaproveita as classes dos Ajustes.
+ * Reaproveita as classes dos Ajustes; de próprio, só o `.sobre-marca` da
+ * imagem no topo.
  */
 export default function Sobre() {
   return (
     <section className="ajustes">
+      {/* Decorativa: a marca plena não traz texto desenhado, e o nome do produto
+          já está tipografado no header. */}
+      <img className="sobre-marca" src="/brand/marca-plena.svg" alt="" width={1250} height={830} />
       <h1>Sobre</h1>
       <p className="lead">
         De onde vem cada coisa que você lê e ouve aqui: o texto bíblico, o material de estudo
@@ -99,8 +103,9 @@ export default function Sobre() {
       <h2>A cobertura da narração</h2>
       <p className="muted ajustes-credito">
         Nem toda perícope tem áudio ainda — a narração vem sendo publicada aos poucos. Onde
-        ela existe, o tocador aparece no alto da leitura; onde ainda não existe, ele
-        simplesmente não aparece, e o texto continua inteiro. A trilha instrumental que
+        ela existe, o convite para ouvir abre no começo da leitura e os controles ficam
+        ancorados no pé da tela enquanto a voz toca; onde ainda não existe, uma linha diz
+        isso e o texto continua inteiro. A trilha instrumental que
         acompanha a leitura ainda não foi publicada; quando for, ganha um bloco aqui.
       </p>
 
