@@ -8,6 +8,7 @@ import SectionChips from '../components/SectionChips'
 import { SkeletonLeitura } from '../components/Skeleton'
 import VerseActions from '../components/VerseActions'
 import DitarBotao from '../components/DitarBotao'
+import { IconeCompartilhar } from '../components/icones-nav'
 import {
   anteriorNoTestamento,
   getPericope,
@@ -934,6 +935,26 @@ export default function Leitura() {
     await copiarSelecao()
   }
 
+  async function compartilharPericope() {
+    if (!p) return
+    const url = `${window.location.origin}/leitura/${ordem}`
+    const title = p.titulo_pericope_pt || refLabel(p)
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url, text: title })
+        return
+      } catch (e) {
+        if (e instanceof Error && e.name === 'AbortError') return
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      flashAviso('Link copiado ✓')
+    } catch {
+      flashAviso('Não foi possível compartilhar')
+    }
+  }
+
   async function destacarSelecao(cor: DestaqueCor) {
     try {
       const proximos = new Map(destaques)
@@ -1014,14 +1035,14 @@ export default function Leitura() {
   if (err)
     return (
       <>
-        <LeituraTopo livro={null} posicao={null} />
+        <LeituraTopo livro={null} posicao={null} onCompartilhar={() => void compartilharPericope()} />
         <p className="muted">{err}</p>
       </>
     )
   if (!p)
     return (
       <>
-        <LeituraTopo livro={null} posicao={null} />
+        <LeituraTopo livro={null} posicao={null} onCompartilhar={() => void compartilharPericope()} />
         <SkeletonLeitura />
       </>
     )
@@ -1095,7 +1116,11 @@ export default function Leitura() {
     // `calc(50% - 50vw)` mediria a partir de uma caixa estreita e descentrada,
     // e o sticky ficaria preso ao retângulo do artigo.
     <>
-      <LeituraTopo livro={p.livro} posicao={posNoLivro} />
+      <LeituraTopo
+        livro={p.livro}
+        posicao={posNoLivro}
+        onCompartilhar={() => void compartilharPericope()}
+      />
       {/* `narracao-ativa` só existe para o CSS reservar, no fim do artigo, a
           folga da altura da doca: sem ela a doca cobriria as últimas perguntas
           de reflexão. */}
@@ -1462,6 +1487,15 @@ export default function Leitura() {
                     onClick={() => void alternarReler()}
                   >
                     {prog?.paraReler ? '★' : '☆'}
+                  </button>
+                  <button
+                    type="button"
+                    className="ghost actions-compartilhar"
+                    aria-label="Compartilhar perícope"
+                    title="Compartilhar perícope"
+                    onClick={() => void compartilharPericope()}
+                  >
+                    <IconeCompartilhar />
                   </button>
                 </div>
                 {prog && prog.historico.length > 0 && (

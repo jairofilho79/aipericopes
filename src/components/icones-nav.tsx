@@ -52,3 +52,13 @@ export function IconePessoa() {
     </svg>
   )
 }
+
+export function IconeCompartilhar() {
+  return (
+    <svg {...svg}>
+      <path d="M4 12v7.4a1.6 1.6 0 0 0 1.6 1.6h12.8a1.6 1.6 0 0 0 1.6-1.6V12" />
+      <path d="M12 3.5v11.5" />
+      <path d="M7.5 8 12 3.5 16.5 8" />
+    </svg>
+  )
+}

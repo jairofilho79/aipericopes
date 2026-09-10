@@ -2,7 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { useHideOnScroll } from '../lib/use-hide-on-scroll'
 import { usePopover } from '../lib/use-popover'
-import { IconePessoa } from './icones-nav'
+import { IconeCompartilhar, IconePessoa } from './icones-nav'
 import LeituraPrefs from './LeituraPrefs'
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
   livro: string | null
   /** Posição da perícope dentro do livro; null quando não é calculável. */
   posicao: { n: number; m: number } | null
+  onCompartilhar: () => void
 }
 
 type AaProps = ReturnType<typeof usePopover>
@@ -67,7 +68,7 @@ function destinoVoltar(livro: string | null, de: string | null, mock: boolean) {
 }
 
 /**
- * Topo contextual da Leitura: voltar para o livro, posição no livro e as duas
+ * Topo contextual da Leitura: voltar para o livro, posição no livro e as
  * ações de leitura. Substitui o breadcrumb — a linha de referência sob o
  * título já diz onde a pessoa está.
  *
@@ -76,7 +77,7 @@ function destinoVoltar(livro: string | null, de: string | null, mock: boolean) {
  * que é o offset da barra de chips. Trocar a classe desalinha os chips sem
  * um único erro no console.
  */
-export default function LeituraTopo({ livro, posicao }: Props) {
+export default function LeituraTopo({ livro, posicao, onCompartilhar }: Props) {
   const [searchParams] = useSearchParams()
   const aa = usePopover()
   // Com o "Aa" aberto o header fica travado. `.top-hidden` não é só um
@@ -107,10 +108,18 @@ export default function LeituraTopo({ livro, posicao }: Props) {
           posição fica vazio de propósito — "1 de 1" seria invenção. */}
       <span className="leitura-top-pos">{posicao && `${posicao.n} de ${posicao.m}`}</span>
 
-      {/* As duas ações são UMA zona do grid, não duas: soltas, a segunda
-          cairia na linha de baixo. */}
+      {/* As ações são UMA zona do grid: soltas, a segunda cairia na linha
+          de baixo. Ordem: Aa → compartilhar → Perfil. */}
       <div className="leitura-top-acoes">
         <LeituraTopoAa {...aa} />
+        <button
+          type="button"
+          className="leitura-top-compartilhar"
+          aria-label="Compartilhar perícope"
+          onClick={onCompartilhar}
+        >
+          <IconeCompartilhar />
+        </button>
         <Link className="leitura-top-perfil" to="/perfil" aria-label="Perfil">
           <IconePessoa />
         </Link>

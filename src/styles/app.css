@@ -429,8 +429,8 @@ a {
   white-space: nowrap;
 }
 
-/* Quatro filhos para três colunas: soltos, o botão de Perfil cairia na linha
-   de baixo. Este invólucro faz das duas ações UMA célula, encostada na borda
+/* Filhos para três colunas: soltos, os botões da direita cairiam na linha
+   de baixo. Este invólucro faz das ações UMA célula, encostada na borda
    direita — que é de onde o popover do "Aa" se pendura. */
 .leitura-top-acoes {
   display: flex;
@@ -440,6 +440,7 @@ a {
 }
 
 .leitura-top-aa,
+.leitura-top-compartilhar,
 .leitura-top-perfil {
   display: inline-flex;
   align-items: center;
@@ -2489,7 +2490,8 @@ button.linkish {
   min-width: 0;
 }
 
-.actions-reler {
+.actions-reler,
+.actions-compartilhar {
   flex: none;
   width: 2.75rem;
   padding-inline: 0;
@@ -3337,10 +3339,10 @@ fieldset.jornada-campo {
 }
 
 /* O popover cresce para a ESQUERDA a partir do "Aa", que não está na borda da
-   tela: entre ele e a borda há o ícone de Perfil e os dois recuos. Medido a
+   tela: entre ele e a borda há compartilhar + Perfil e os vãos. Medido a
    320px, sobravam 254px e o mínimo de 260px que havia aqui vazava 24px para
    fora da tela, cortando os rótulos. Daí o max-width contar cada termo do
-   caminho — ícone, vão, recuo dos dois lados — em vez de só descontar recuo,
+   caminho — ícones, vão, recuo dos dois lados — em vez de só descontar recuo,
    que era o que deixava passar.
 
    Os 230px do .readmenu-pop bastam: o que não caberia a essa largura era a
@@ -3351,7 +3353,8 @@ fieldset.jornada-campo {
    controles não cabem abaixo do header; overscroll-behavior impede a rolagem
    de vazar para a página atrás quando chega ao fim. */
 .pop-tipografia {
-  max-width: calc(100vw - 46px - 0.15rem - 2 * var(--shell-pad));
+  /* Aa ancorado; à direita: gap + share 46 + gap + perfil 46 + shell pads. */
+  max-width: calc(100vw - 46px - 0.35rem - 46px - 0.35rem - 46px - 2 * var(--shell-pad));
   max-height: calc(100dvh - 5rem);
   overflow-y: auto;
   overscroll-behavior: contain;

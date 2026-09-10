@@ -53,7 +53,11 @@ afterEach(() => {
 })
 
 function montar(livro: string | null, posicao: { n: number; m: number } | null = null) {
-  act(() => root.render(<LeituraTopo livro={livro} posicao={posicao} />))
+  act(() =>
+    root.render(
+      <LeituraTopo livro={livro} posicao={posicao} onCompartilhar={vi.fn()} />,
+    ),
+  )
 }
 
 const header = () => container.querySelector('header') as HTMLElement
@@ -103,6 +107,9 @@ describe('LeituraTopo — a saída da Leitura', () => {
     expect(voltar().textContent).toContain('Explorar')
     expect(voltar().getAttribute('aria-label')).toBe('Voltar para Explorar')
     expect(container.querySelector('.leitura-top-perfil')).not.toBeNull()
+    expect(
+      container.querySelector('[aria-label="Compartilhar perícope"]'),
+    ).not.toBeNull()
   })
 
   it('sem posição, o centro fica vazio em vez de inventar "1 de 1"', () => {
