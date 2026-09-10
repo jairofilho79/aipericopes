@@ -287,6 +287,10 @@ export default function Leitura() {
   // Último valor de `?v=` já rolado até — evita re-centralizar a cada toque
   // em versículo (ver efeito abaixo).
   const vAplicado = useRef<string | null>(null)
+  // Rolagem automática cede à mão do usuário (ver efeito do realce).
+  const cedeuAte = useRef(0)
+  // Checkpoint só na 1ª abertura desta montagem (Continuar). No pager, topo.
+  const checkpointAplicavel = useRef(true)
   // Handle do player: os chips de seção mandam o áudio para o cabeçalho falado.
   const playerRef = useRef<NarracaoPlayerHandle>(null)
   const [falando, setFalando] = useState<string | null>(null)
@@ -491,6 +495,14 @@ export default function Leitura() {
     if (fromQuery) setVerseFocus(ordem, fromQuery)
   }, [ordem, verseParam])
 
+  // Troca de perícope (pager/swipe/atalho): sobe na hora. O realce do título
+  // não puxa o scroll, e o toque no pager suspendia o acompanhamento 10s.
+  useEffect(() => {
+    if (verseParam && /^\d+:\d+$/.test(verseParam)) return
+    cedeuAte.current = 0
+    window.scrollTo(0, 0)
+  }, [ordem, verseParam])
+
   // Prioridade de rolagem ao abrir: ?v= na URL > checkpoint salvo > topo.
   // O checkpoint ancora num ELEMENTO (seção/versículo/alvo de narração), não
   // em pixels: sobrevive a troca de fonte, de layout e de aparelho — é o que
@@ -506,14 +518,17 @@ export default function Leitura() {
     void (async () => {
       const pos = await getPosicao(ordem)
       if (!vivo) return
-      // Nos dois setters juntos: o React comita o tempo inicial e a liberação
-      // do autoplay no mesmo render, então o player nunca vê um sem o outro.
-      if (pos?.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
-      setPosicaoResolvida(ordem)
-      if (!pos) {
-        window.scrollTo(0, 0)
+      // Pager: fica no topo (e narração do zero). Continuar (1ª carga) restaura.
+      if (!pos || !checkpointAplicavel.current) {
+        checkpointAplicavel.current = false
+        setPosicaoResolvida(ordem)
         return
       }
+      checkpointAplicavel.current = false
+      // Nos dois setters juntos: o React comita o tempo inicial e a liberação
+      // do autoplay no mesmo render, então o player nunca vê um sem o outro.
+      if (pos.tipo === 'narracao') setTempoInicialNarracao(pos.tempo)
+      setPosicaoResolvida(ordem)
       // Direto nos setters (idempotentes e estáveis) em vez de abrirContexto():
       // a função nasce de novo a cada render e entraria nas dependências.
       if (refNoContexto(pos.ref)) {
@@ -713,12 +728,6 @@ export default function Leitura() {
     }
   }, [falando, contextoAberto])
 
-  // Rolagem automática cede à mão do usuário: qualquer rolagem que não veio
-  // do scrollIntoView suspende o acompanhamento por 10s. NUNCA escutar
-  // `scroll` aqui — o próprio scrollIntoView o dispara e desligaria o
-  // acompanhamento para sempre no primeiro realce.
-  const cedeuAte = useRef(0)
-
   // A intenção do seek é mais recente que a de uma rolagem anterior: arrastar
   // a barra do player para ouvir um trecho vence a suspensão que uma rolagem
   // manual tenha armado.
@@ -726,6 +735,10 @@ export default function Leitura() {
     cedeuAte.current = 0
   }, [])
 
+  // Rolagem automática cede à mão do usuário: qualquer rolagem que não veio
+  // do scrollIntoView suspende o acompanhamento por 10s. NUNCA escutar
+  // `scroll` aqui — o próprio scrollIntoView o dispara e desligaria o
+  // acompanhamento para sempre no primeiro realce.
   useEffect(() => {
     // Sem exceção para gestos que nascem no player: o `target` de um
     // `touchmove` fica fixado no elemento do `touchstart`, então ignorar o que
