@@ -11,6 +11,7 @@ import {
   patchReiniciarJornada,
   progressoDaJornada,
   reconciliacaoDeConclusao,
+  reconciliarJornadasEmLote,
   rotaCompletaDoEscopo,
   rotaDaJornada,
   tamanhoDoEscopo,
@@ -314,16 +315,13 @@ describe('montarCatalogo', () => {
 describe('avisosCriacao', () => {
   const rotaGenesis = [0, 1]
 
-  it('sem jornada corrente e escopo não totalmente lido: nenhum aviso', () => {
+  it('arquivaAtual é sempre false pois criação não arquiva jornadas existentes', () => {
     expect(avisosCriacao(null, 'continuar', rotaGenesis, new Map())).toEqual({
       arquivaAtual: false,
       escopoJaLido: false,
     })
-  })
-
-  it('com jornada corrente: avisa que ela será arquivada', () => {
     expect(avisosCriacao(jornada({ id: 'c' }), 'continuar', rotaGenesis, new Map())).toEqual({
-      arquivaAtual: true,
+      arquivaAtual: false,
       escopoJaLido: false,
     })
   })
@@ -337,9 +335,6 @@ describe('avisosCriacao', () => {
   })
 
   it('modo Reler com o escopo já todo lido: SEM aviso — Reler sempre começa do zero', () => {
-    // O predicado usa desde=null de propósito (checa a leitura JÁ feita, não
-    // a que a jornada em modo reler vai contar); mas o gate `modo ===
-    // 'continuar'` é o que garante que Reler nunca dispara este aviso.
     const progressos = new Map([concluida(0, DEPOIS), concluida(1, DEPOIS)])
     expect(avisosCriacao(null, 'reler', rotaGenesis, progressos).escopoJaLido).toBe(false)
   })
@@ -349,12 +344,70 @@ describe('avisosCriacao', () => {
     expect(avisosCriacao(null, 'continuar', rotaGenesis, progressos).escopoJaLido).toBe(false)
   })
 
-  it('os dois avisos juntos, quando há jornada corrente E o novo escopo já foi lido', () => {
+  it('com jornada existente e escopo lido: escopoJaLido true e arquivaAtual false', () => {
     const progressos = new Map([concluida(0, DEPOIS), concluida(1, DEPOIS)])
     expect(avisosCriacao(jornada({ id: 'c' }), 'continuar', rotaGenesis, progressos)).toEqual({
-      arquivaAtual: true,
+      arquivaAtual: false,
       escopoJaLido: true,
     })
+  })
+})
+
+describe('reconciliarJornadasEmLote', () => {
+  it('reconcilia conclusões e reaberturas para múltiplas jornadas de forma pura', () => {
+    const jConcluida: Jornada = {
+      id: 'j1',
+      nome: 'J1',
+      tipo: 'livro',
+      escopo: 'Gênesis',
+      inicioOrdem: 0,
+      contaDesde: null,
+      criadoEm: '2026-01-01T00:00:00.000Z',
+      atualizadoEm: '',
+      arquivadaEm: null,
+      concluidaEm: null, // precisa marcar concluida
+    }
+    const jIncompleta: Jornada = {
+      id: 'j2',
+      nome: 'J2',
+      tipo: 'livro',
+      escopo: 'Salmos',
+      inicioOrdem: 2,
+      contaDesde: null,
+      criadoEm: '2026-01-01T00:00:00.000Z',
+      atualizadoEm: '',
+      arquivadaEm: null,
+      concluidaEm: '2026-01-02T00:00:00.000Z', // foi desmarcada, precisa reabrir
+    }
+    const jArquivada: Jornada = {
+      id: 'j3',
+      nome: 'J3',
+      tipo: 'livro',
+      escopo: 'Gênesis',
+      inicioOrdem: 0,
+      contaDesde: null,
+      criadoEm: '2026-01-01T00:00:00.000Z',
+      atualizadoEm: '',
+      arquivadaEm: '2026-01-02T00:00:00.000Z', // arquivada: deve ser ignorada
+      concluidaEm: null,
+    }
+
+    const progressos = new Map<number, Progresso>([
+      concluida(0, DEPOIS),
+      concluida(1, DEPOIS),
+      // Salmos (ordens 2 e 3) não estão concluídos
+    ])
+
+    const patches = reconciliarJornadasEmLote(
+      [jConcluida, jIncompleta, jArquivada],
+      INDICE,
+      progressos,
+      '2026-09-11T00:00:00.000Z',
+    )
+    expect(patches).toEqual([
+      { id: 'j1', patch: { concluidaEm: '2026-09-11T00:00:00.000Z' } },
+      { id: 'j2', patch: { concluidaEm: null } },
+    ])
   })
 })
 

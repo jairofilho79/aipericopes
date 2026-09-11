@@ -117,6 +117,34 @@ export function reconciliacaoDeConclusao(
   return null
 }
 
+export type PatchReconciliacao = {
+  id: string
+  patch: { concluidaEm: string | null }
+}
+
+/**
+ * Reconcilia conclusões e reaberturas para uma lista de jornadas em lote.
+ * Ignora jornadas já arquivadas.
+ */
+export function reconciliarJornadasEmLote(
+  jornadas: Jornada[],
+  indice: PericopeIndex[],
+  progressos: Map<number, Progresso>,
+  agora: string = new Date().toISOString(),
+): PatchReconciliacao[] {
+  const patches: PatchReconciliacao[] = []
+  for (const j of jornadas) {
+    if (j.arquivadaEm !== null) continue
+    const rota = rotaDaJornada(j, indice)
+    const prog = progressoDaJornada(rota, progressos, j.contaDesde)
+    const patch = reconciliacaoDeConclusao(j, prog.proximaOrdem, agora)
+    if (patch) {
+      patches.push({ id: j.id, patch })
+    }
+  }
+  return patches
+}
+
 /**
  * Separa o histórico dentro de `listJornadas()` — Task 7 (tela de gestão).
  *
@@ -269,9 +297,10 @@ export function montarCatalogo(indice: PericopeIndex[]): Catalogo {
 export type ModoJornada = 'continuar' | 'reler'
 
 /**
- * Os dois avisos do passo 2, ANTES do botão de criar — nunca depois do fato:
+ * Avisos do passo 2, ANTES do botão de criar:
  *
- * - `arquivaAtual`: existe uma jornada corrente que será arquivada.
+ * - `arquivaAtual`: sempre false no modelo de multi-jornadas, pois criar uma nova
+ *   jornada não arquiva mais as pré-existentes.
  * - `escopoJaLido`: modo Continuar e a rota (já cortada no início escolhido)
  *   está toda lida — sem o aviso, a jornada nasceria e a reconciliação da
  *   Home a marcaria concluída no mesmo instante, uma jornada natimorta. Só
@@ -280,13 +309,13 @@ export type ModoJornada = 'continuar' | 'reler'
  *   aviso não tem o que dizer.
  */
 export function avisosCriacao(
-  corrente: Jornada | null,
+  _corrente: Jornada | null,
   modo: ModoJornada,
   rota: number[],
   progressos: Map<number, Progresso>,
 ): { arquivaAtual: boolean; escopoJaLido: boolean } {
   return {
-    arquivaAtual: corrente !== null,
+    arquivaAtual: false,
     escopoJaLido: modo === 'continuar' && progressoDaJornada(rota, progressos, null).proximaOrdem === null,
   }
 }
