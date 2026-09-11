@@ -625,15 +625,13 @@ export default function Jornada() {
                     </button>
                   </div>
                 )}
-                <div className="jornada-progresso-row">
-                  <span className="book-progress" aria-hidden>
-                    <span className="book-progress-fill" style={{ width: `${prog.pct}%` }} />
-                  </span>
-                  <span className="track-progress">
-                    {prog.concluidas} de {prog.total}
-                    {prog.proximaOrdem === null ? ' · concluída' : ''}
-                  </span>
-                </div>
+                <span className="book-progress" aria-hidden>
+                  <span className="book-progress-fill" style={{ width: `${prog.pct}%` }} />
+                </span>
+                <p className="track-progress">
+                  {prog.concluidas} de {prog.total}
+                  {prog.proximaOrdem === null ? ' · concluída' : ''}
+                </p>
                 {periAtual && (
                   <div className="card-acoes">
                     <Link className="cta" to={`/leitura/${periAtual.ordem}?${qsLeitura}`}>
