@@ -732,6 +732,11 @@ export async function listJornadas(): Promise<Jornada[]> {
   return todas.sort((a, b) => (a.criadoEm < b.criadoEm ? 1 : a.criadoEm > b.criadoEm ? -1 : 0))
 }
 
+export async function getJornada(id: string): Promise<Jornada | undefined> {
+  const d = await db()
+  return d.get('jornadas', id)
+}
+
 /**
  * Lista todas as jornadas ativas (não arquivadas), ordenadas pela mais recentemente atualizada.
  */

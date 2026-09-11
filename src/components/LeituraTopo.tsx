@@ -11,6 +11,8 @@ type Props = {
   /** Posição da perícope dentro do livro; null quando não é calculável. */
   posicao: { n: number; m: number } | null
   onCompartilhar: () => void
+  /** Nome da jornada quando a leitura ocorre no contexto de uma jornada. */
+  jornadaNome?: string | null
 }
 
 type AaProps = ReturnType<typeof usePopover>
@@ -54,12 +56,19 @@ function LeituraTopoAa({ open, toggle, rootRef, btnRef, popRef }: AaProps) {
 }
 
 /**
- * Destino do chevron: quem veio de `/jornada` (`?de=jornada`) volta pra lá;
+ * Destino do chevron: quem veio de `/jornada` (`?de=jornada` ou `?jornadaId=...`) volta pra lá;
  * senão, o livro no Explorar (ou o catálogo, sem perícope).
  */
-function destinoVoltar(livro: string | null, de: string | null, mock: boolean) {
-  if (de === 'jornada') {
-    return { to: mock ? '/jornada?mock=1' : '/jornada', rotulo: 'Jornada' }
+function destinoVoltar(
+  livro: string | null,
+  de: string | null,
+  jornadaId: string | null,
+  mock: boolean,
+  jornadaNome?: string | null,
+) {
+  if (de === 'jornada' || Boolean(jornadaId)) {
+    const rotulo = jornadaNome ? `Jornada: ${jornadaNome}` : 'Jornada'
+    return { to: mock ? '/jornada?mock=1' : '/jornada', rotulo }
   }
   if (livro) {
     return { to: `/explorar?livro=${encodeURIComponent(livro)}`, rotulo: livro }
@@ -77,7 +86,7 @@ function destinoVoltar(livro: string | null, de: string | null, mock: boolean) {
  * que é o offset da barra de chips. Trocar a classe desalinha os chips sem
  * um único erro no console.
  */
-export default function LeituraTopo({ livro, posicao, onCompartilhar }: Props) {
+export default function LeituraTopo({ livro, posicao, onCompartilhar, jornadaNome }: Props) {
   const [searchParams] = useSearchParams()
   const aa = usePopover()
   // Com o "Aa" aberto o header fica travado. `.top-hidden` não é só um
@@ -89,7 +98,9 @@ export default function LeituraTopo({ livro, posicao, onCompartilhar }: Props) {
   const { to: voltarTo, rotulo: voltarRotulo } = destinoVoltar(
     livro,
     searchParams.get('de'),
+    searchParams.get('jornadaId'),
     searchParams.has('mock'),
+    jornadaNome,
   )
 
   return (

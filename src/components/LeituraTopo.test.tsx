@@ -98,6 +98,18 @@ describe('LeituraTopo — a saída da Leitura', () => {
     expect(voltar().getAttribute('href')).toBe('/jornada?mock=1')
   })
 
+  it('com ?jornadaId e jornadaNome, o chevron exibe "‹ Jornada: [Nome]" e volta para /jornada', () => {
+    mockSearch = 'jornadaId=j1'
+    act(() => {
+      root.render(
+        <LeituraTopo livro="Gênesis" posicao={null} onCompartilhar={vi.fn()} jornadaNome="Evangelhos" />,
+      )
+    })
+    expect(voltar().getAttribute('href')).toBe('/jornada')
+    expect(voltar().textContent).toContain('Jornada: Evangelhos')
+    expect(voltar().getAttribute('aria-label')).toBe('Voltar para Jornada: Evangelhos')
+  })
+
   // O header do App não renderiza em /leitura/*: nos estados de carga e de
   // erro este topo é a ÚNICA navegação da página. Sem link, a única saída
   // seria o botão voltar do navegador — que num PWA standalone não existe.

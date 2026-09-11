@@ -73,7 +73,11 @@ vi.mock('../lib/content', () => ({
   posicaoNoLivro: () => ({ atual: 1, total: 1 }),
 }))
 
+let mockJornada: unknown = undefined
+const getJornada = vi.fn(async () => mockJornada)
+
 vi.mock('../lib/user-db', () => ({
+  getJornada: () => getJornada(),
   listAnotacoes: async () => [],
   listDestaques: async () => [],
   getProgresso: async () => null,
@@ -107,7 +111,9 @@ vi.mock('../components/NarracaoPlayer', () => ({
 }))
 
 vi.mock('../components/LeituraTopo', () => ({
-  default: () => <header data-testid="leitura-topo" />,
+  default: ({ jornadaNome }: { jornadaNome?: string }) => (
+    <header data-testid="leitura-topo" data-jornada-nome={jornadaNome} />
+  ),
 }))
 
 vi.mock('../components/SectionChips', () => ({
@@ -214,5 +220,39 @@ describe('Leitura — ordem visual do sobrescrito e capítulo na UI', () => {
     expect(Boolean(cap102!.compareDocumentPosition(sobrescrito!) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true)
     // sobrescrito precede verso1
     expect(Boolean(sobrescrito!.compareDocumentPosition(verso1!) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true)
+  })
+})
+
+describe('Leitura — contexto de jornada via query param', () => {
+  it('quando jornadaId está presente, carrega a jornada e passa o nome para o LeituraTopo', async () => {
+    mockJornada = {
+      id: 'j1',
+      nome: 'Salmos de Esperança',
+      tipo: 'livro',
+      escopo: 'Salmos',
+      inicioOrdem: 3146,
+      contaDesde: null,
+      criadoEm: '2026-01-01T00:00:00.000Z',
+      atualizadoEm: '2026-01-01T00:00:00.000Z',
+      arquivadaEm: null,
+      concluidaEm: null,
+    }
+
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={['/leitura/3146?jornadaId=j1']}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+
+    const topo = container.querySelector('[data-testid="leitura-topo"]')
+    expect(topo).not.toBeNull()
+    expect(topo?.getAttribute('data-jornada-nome')).toBe('Salmos de Esperança')
   })
 })

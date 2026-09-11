@@ -38,6 +38,7 @@ import {
   desmarcarProgresso,
   destaqueId,
   enqueuePosicao,
+  getJornada,
   getPosicao,
   getProgresso,
   listAnotacoes,
@@ -49,12 +50,13 @@ import {
   setPosicaoLocal,
   setProgresso,
 } from '../lib/user-db'
+import { rotaDaJornada } from '../lib/jornadas'
 import { getVerseFocus, setVerseFocus } from '../lib/verse-highlight'
 import { nextSelection, parseVerseRef, rangeLabel, rangeRef, verseRefLabel, versesInRange, type VerseSelection } from '../lib/verse-range'
 import { promptConversa } from '../lib/contexto-ia'
 import { getContextoAberto, setContextoAberto } from '../lib/contexto-collapse'
 import { inserirNoCursor, substituirTrecho } from '../lib/ditado'
-import type { Anotacao, DestaqueCor, Pericope, Progresso, ProgressoStatus } from '../lib/types'
+import type { Anotacao, DestaqueCor, Jornada, Pericope, Progresso, ProgressoStatus } from '../lib/types'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { testamentLabel, testamentOf } from '../lib/testament'
 
@@ -185,9 +187,10 @@ function PagerLado({
   primario?: boolean
 }) {
   const [searchParams] = useSearchParams()
-  // ponytail: carrega `de`/`mock` pra o chevron continuar apontando à jornada
+  // ponytail: carrega `de`/`jornadaId`/`mock` pra o chevron continuar apontando à jornada
   const qsVoltar = [
     searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+    searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
     searchParams.has('mock') ? 'mock=1' : '',
   ]
     .filter(Boolean)
@@ -259,6 +262,8 @@ export default function Leitura() {
   const notaRef = useRef<HTMLTextAreaElement>(null)
   const ordem = Number(ordemParam)
   const verseParam = searchParams.get('v')
+  const jornadaId = searchParams.get('jornadaId')
+  const [jornadaAtiva, setJornadaAtiva] = useState<Jornada | null>(null)
   const [p, setP] = useState<Pericope | null>(null)
   const [prev, setPrev] = useState<Vizinha | null>(null)
   const [next, setNext] = useState<Vizinha | null>(null)
@@ -454,8 +459,28 @@ export default function Leitura() {
           const v = all.find((x) => x.ordem === o)
           return v ? { ordem: v.ordem, titulo: v.titulo_pericope_pt, narrado: v.narrado } : null
         }
-        setPrev(vizinha(anteriorNoTestamento(all, ordem)))
-        setNext(vizinha(proximaNoTestamento(all, ordem)))
+
+        if (jornadaId) {
+          const j = await getJornada(jornadaId)
+          if (j) {
+            setJornadaAtiva(j)
+            const rota = rotaDaJornada(j, all)
+            const idx = rota.indexOf(ordem)
+            const prevOrdem = idx > 0 ? rota[idx - 1] : null
+            const nextOrdem = idx >= 0 && idx < rota.length - 1 ? rota[idx + 1] : null
+            setPrev(vizinha(prevOrdem))
+            setNext(vizinha(nextOrdem))
+          } else {
+            setJornadaAtiva(null)
+            setPrev(vizinha(anteriorNoTestamento(all, ordem)))
+            setNext(vizinha(proximaNoTestamento(all, ordem)))
+          }
+        } else {
+          setJornadaAtiva(null)
+          setPrev(vizinha(anteriorNoTestamento(all, ordem)))
+          setNext(vizinha(proximaNoTestamento(all, ordem)))
+        }
+
         setCopied(false)
         // Rascunho, edição e confirmação zeram por TROCA DE PERÍCOPE, não por
         // mudança de `?v=`: navegar pelo chip de vínculo de uma anotação é
@@ -480,7 +505,7 @@ export default function Leitura() {
         setErr(e instanceof Error ? e.message : 'Erro')
       }
     })()
-  }, [ordem])
+  }, [ordem, jornadaId])
 
   // Foco do versículo: `?v=` na URL, senão o foco salvo da perícope. Fica
   // separado da carga acima porque muda muito mais vezes que a perícope — e
@@ -693,6 +718,7 @@ export default function Leitura() {
     if (!prev) return
     const qs = [
       searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
       searchParams.has('mock') ? 'mock=1' : '',
     ]
       .filter(Boolean)
@@ -704,6 +730,7 @@ export default function Leitura() {
     if (!next) return
     const qs = [
       searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
+      searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
       searchParams.has('mock') ? 'mock=1' : '',
     ]
       .filter(Boolean)
@@ -1035,14 +1062,24 @@ export default function Leitura() {
   if (err)
     return (
       <>
-        <LeituraTopo livro={null} posicao={null} onCompartilhar={() => void compartilharPericope()} />
+        <LeituraTopo
+          livro={null}
+          posicao={null}
+          onCompartilhar={() => void compartilharPericope()}
+          jornadaNome={jornadaAtiva?.nome}
+        />
         <p className="muted">{err}</p>
       </>
     )
   if (!p)
     return (
       <>
-        <LeituraTopo livro={null} posicao={null} onCompartilhar={() => void compartilharPericope()} />
+        <LeituraTopo
+          livro={null}
+          posicao={null}
+          onCompartilhar={() => void compartilharPericope()}
+          jornadaNome={jornadaAtiva?.nome}
+        />
         <SkeletonLeitura />
       </>
     )
@@ -1120,6 +1157,7 @@ export default function Leitura() {
         livro={p.livro}
         posicao={posNoLivro}
         onCompartilhar={() => void compartilharPericope()}
+        jornadaNome={jornadaAtiva?.nome}
       />
       {/* `narracao-ativa` só existe para o CSS reservar, no fim do artigo, a
           folga da altura da doca: sem ela a doca cobriria as últimas perguntas
@@ -1516,12 +1554,12 @@ export default function Leitura() {
             <PagerLado
               v={prev}
               proxima={false}
-              fim={`Primeira do ${testamentLabel(testamentOf(p))}`}
+              fim={jornadaAtiva ? 'Início da jornada' : `Primeira do ${testamentLabel(testamentOf(p))}`}
             />
             <PagerLado
               v={next}
               proxima
-              fim={`Última do ${testamentLabel(testamentOf(p))}`}
+              fim={jornadaAtiva ? 'Fim da jornada' : `Última do ${testamentLabel(testamentOf(p))}`}
               primario={status === 'concluido'}
             />
           </nav>
