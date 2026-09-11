@@ -2880,6 +2880,7 @@ button.trocar-livro {
 }
 
 .book-progress {
+  display: block;
   width: 6rem;
   height: 4px;
   border-radius: 999px;
@@ -2990,6 +2991,8 @@ button.trocar-livro {
    Reaproveita .track-label/.track-progress/.book-progress/.cta — só o
    invólucro do card e o convite abaixo das trilhas são novos. */
 .jornada-card {
+  display: flex;
+  flex-direction: column;
   background: color-mix(in srgb, var(--paper) 92%, transparent);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -2998,14 +3001,20 @@ button.trocar-livro {
 }
 
 .jornada-card .book-progress {
+  display: block;
   width: 100%;
   height: 6px;
   margin: 0 0 1rem;
+  flex-shrink: 0;
 }
 
 .jornada-card .cta {
   width: 100%;
   min-height: 2.75rem;
+}
+
+.jornada-card .card-acoes {
+  margin-top: auto;
 }
 
 /* ── Carrossel horizontal de multi-jornadas na Home ─────────────────────── */
