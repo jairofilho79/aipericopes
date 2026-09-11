@@ -3,15 +3,19 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { IconePlay } from '../components/NarracaoPlayer'
 import { loadIndex, refLabel } from '../lib/content'
 import {
+  arquivarJornada,
   atualizarJornada,
   criarJornada,
   getJornadaCorrente,
   getPosicaoMaisRecente,
+  listAllPosicoes,
   listAllProgresso,
   listJornadas,
+  listJornadasAtivas,
 } from '../lib/user-db'
 import {
   avisosCriacao,
+  cursorDaJornada,
   historicoDeJornadas,
   montarCatalogo,
   nomePadrao,
@@ -19,6 +23,7 @@ import {
   patchReiniciarJornada,
   progressoDaJornada,
   reconciliacaoDeConclusao,
+  reconciliarJornadasEmLote,
   rotaCompletaDoEscopo,
   rotaDaJornada,
   type Catalogo,
@@ -31,18 +36,22 @@ import type { Jornada as JornadaType, JornadaTipo, PericopeIndex, PosicaoLeitura
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { authClient } from '../lib/auth-client'
 
+export type ItemAtiva = {
+  jornada: JornadaType
+  prog: ProgressoJornada
+  periAtual: PericopeIndex | null
+}
+
 type ItemHistorico = { jornada: JornadaType; prog: ProgressoJornada }
 
 type Estado = {
   indice: PericopeIndex[]
   progressos: Map<number, Progresso>
-  corrente: JornadaType | null
-  progCorrente: ProgressoJornada | null
+  ativas: ItemAtiva[]
   historico: ItemHistorico[]
 }
 
-/** Qual das duas ações pede confirmação inline agora — nunca as duas ao mesmo tempo. */
-type Confirmando = 'reiniciar' | 'encerrar' | null
+type ConfirmacaoAcao = { id: string; acao: 'reiniciar' | 'encerrar' } | null
 
 /**
  * O fluxo de criação, os dois passos do catálogo até a jornada gravada.
@@ -148,7 +157,6 @@ function PassoCatalogo({
 function PassoConfirmacao({
   indice,
   progressos,
-  corrente,
   tipo,
   escopo,
   rotaCompleta,
@@ -159,7 +167,6 @@ function PassoConfirmacao({
 }: {
   indice: PericopeIndex[]
   progressos: Map<number, Progresso>
-  corrente: JornadaType | null
   tipo: JornadaTipo
   escopo: string
   rotaCompleta: number[]
@@ -195,8 +202,8 @@ function PassoConfirmacao({
     [rotaCompleta, inicioOrdem],
   )
   const avisos = useMemo(
-    () => avisosCriacao(corrente, modo, rotaFinal, progressos),
-    [corrente, modo, rotaFinal, progressos],
+    () => avisosCriacao(null, modo, rotaFinal, progressos),
+    [modo, rotaFinal, progressos],
   )
 
   useEffect(() => {
@@ -285,12 +292,6 @@ function PassoConfirmacao({
         </label>
       </fieldset>
 
-      {/* Os dois avisos vêm ANTES do botão — não depois do fato. */}
-      {avisos.arquivaAtual && corrente && (
-        <p className="jornada-aviso">
-          Isto arquiva <em>{corrente.nome}</em>, que fica no histórico.
-        </p>
-      )}
       {avisos.escopoJaLido && (
         <p className="jornada-aviso">
           Você já leu tudo desse escopo; em modo Reler ela começa do zero.
@@ -318,9 +319,19 @@ export default function Jornada() {
   const navigate = useNavigate()
   const [estado, setEstado] = useState<Estado | null>(null)
   const [erro, setErro] = useState('')
-  const [confirmando, setConfirmando] = useState<Confirmando>(null)
+  const [confirmando, setConfirmando] = useState<ConfirmacaoAcao>(null)
+  const [renomeandoId, setRenomeandoId] = useState<string | null>(null)
+  const [novoNome, setNovoNome] = useState('')
   const [aplicando, setAplicando] = useState(false)
-  const [criacao, setCriacao] = useState<Criacao | null>(null)
+  const [criacao, setCriacao] = useState<Criacao | null>(() =>
+    searchParams.get('nova') === '1' ? { passo: 1 } : null,
+  )
+
+  useEffect(() => {
+    if (searchParams.get('nova') === '1') {
+      setCriacao((prev) => (prev === null ? { passo: 1 } : prev))
+    }
+  }, [searchParams])
 
   // Derivado do índice já carregado, não de public/data/index.json de novo —
   // useMemo em vez de outro estado porque é puramente função de `estado`.
@@ -332,32 +343,64 @@ export default function Jornada() {
       // ponytail: mock em memória + import dinâmico — fora do bundle de prod
       if (mock) {
         const { estadoMockJornada } = await import('../lib/mock-jornada')
-        setEstado({ indice: all, ...estadoMockJornada(all) })
+        const mockDados = estadoMockJornada(all)
+        const rota = rotaDaJornada(mockDados.corrente, all)
+        const cursor = cursorDaJornada(rota, mockDados.progressos, new Map(), mockDados.corrente.contaDesde)
+        const periAtual = cursor === null ? null : all.find((p) => p.ordem === cursor) ?? null
+        setEstado({
+          indice: all,
+          progressos: mockDados.progressos,
+          ativas: [
+            {
+              jornada: mockDados.corrente,
+              prog: mockDados.progCorrente,
+              periAtual,
+            },
+          ],
+          historico: mockDados.historico,
+        })
         return
       }
-      // Uma varredura só do progresso: tanto a jornada corrente quanto cada
-      // item do histórico calculam o progresso final sobre o mesmo Map —
-      // mesma economia que Home.tsx já faz. O catálogo e o passo 2 da
-      // criação também reaproveitam este Map em vez de relerem o store.
+
       const progressos = new Map((await listAllProgresso()).map((p) => [p.pericopeOrdem, p]))
-      const [corrente, todas] = await Promise.all([getJornadaCorrente(), listJornadas()])
-      const progCorrente = corrente
-        ? progressoDaJornada(rotaDaJornada(corrente, all), progressos, corrente.contaDesde)
-        : null
-      // Mesma reconciliação de Home.tsx, mesmo padrão: a spec promete que os
-      // dois caminhos de carga (Home e /jornada) reconciliam `concluidaEm`,
-      // idempotente. Sem custo hoje (nada lê o campo para comportamento aqui),
-      // mas é a divergência declarada da spec que vira dívida quando alguém
-      // ler o campo.
-      if (corrente && progCorrente) {
-        const patch = reconciliacaoDeConclusao(corrente, progCorrente.proximaOrdem)
-        if (patch) await atualizarJornada(corrente.id, patch)
+      const posicoesList = typeof listAllPosicoes === 'function' ? await listAllPosicoes() : []
+      const posicoes = new Map(posicoesList.map((p) => [p.pericopeOrdem, p]))
+
+      const ativasDirect = typeof listJornadasAtivas === 'function' ? await listJornadasAtivas() : []
+      const todas = await listJornadas()
+      const corrente = typeof getJornadaCorrente === 'function' ? await getJornadaCorrente() : undefined
+
+      const ativasJornadas =
+        ativasDirect.length > 0
+          ? ativasDirect
+          : todas.filter((j) => j.arquivadaEm === null).length > 0
+            ? todas.filter((j) => j.arquivadaEm === null)
+            : corrente
+              ? [corrente]
+              : []
+
+      const patches = reconciliarJornadasEmLote(ativasJornadas, all, progressos)
+      for (const p of patches) {
+        await atualizarJornada(p.id, p.patch)
       }
+      const patchMap = new Map(patches.map((p) => [p.id, p.patch]))
+
+      const ativas: ItemAtiva[] = ativasJornadas.map((j) => {
+        const patch = patchMap.get(j.id)
+        const jAtualizada = patch ? { ...j, ...patch } : j
+        const rota = rotaDaJornada(jAtualizada, all)
+        const prog = progressoDaJornada(rota, progressos, jAtualizada.contaDesde)
+        const cursor = cursorDaJornada(rota, progressos, posicoes, jAtualizada.contaDesde)
+        const periAtual = cursor === null ? null : all.find((p) => p.ordem === cursor) ?? null
+        return { jornada: jAtualizada, prog, periAtual }
+      })
+
       const historico = historicoDeJornadas(todas).map((j) => ({
         jornada: j,
         prog: progressoDaJornada(rotaDaJornada(j, all), progressos, j.contaDesde),
       }))
-      setEstado({ indice: all, progressos, corrente: corrente ?? null, progCorrente, historico })
+
+      setEstado({ indice: all, progressos, ativas, historico })
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Erro')
     }
@@ -366,51 +409,84 @@ export default function Jornada() {
   useEffect(() => {
     if (liberado) void carregar()
   }, [liberado, carregar])
-  // Uma jornada criada ou mudada em outro aparelho precisa aparecer aqui sem
-  // que o leitor precise navegar para fora e voltar (mesmo padrão de Home e
-  // Índice).
+
   useSyncRefresh(() => {
     if (liberado) void carregar()
   })
 
-  async function aplicar(patch: Partial<Pick<JornadaType, 'contaDesde' | 'concluidaEm' | 'arquivadaEm'>>) {
-    if (!estado?.corrente || aplicando) return
+  async function renomear(id: string, nome: string) {
+    if (aplicando) return
     setAplicando(true)
     try {
       if (mock) {
-        // ponytail: mutação só em memória no mock
-        if (patch.arquivadaEm && estado.progCorrente) {
+        if (estado) {
           setEstado({
             ...estado,
-            corrente: null,
-            progCorrente: null,
-            historico: [
-              { jornada: { ...estado.corrente, ...patch }, prog: estado.progCorrente },
-              ...estado.historico,
-            ],
-          })
-        } else if (patch.contaDesde) {
-          const { escopo } = estado.corrente
-          const progressos = new Map(estado.progressos)
-          for (const p of estado.indice) {
-            if (p.livro === escopo) progressos.delete(p.ordem)
-          }
-          const corrente = { ...estado.corrente, ...patch }
-          setEstado({
-            ...estado,
-            corrente,
-            progressos,
-            progCorrente: progressoDaJornada(
-              rotaDaJornada(corrente, estado.indice),
-              progressos,
-              corrente.contaDesde,
+            ativas: estado.ativas.map((item) =>
+              item.jornada.id === id ? { ...item, jornada: { ...item.jornada, nome } } : item,
             ),
+          })
+        }
+        setRenomeandoId(null)
+        return
+      }
+      await atualizarJornada(id, { nome })
+      setRenomeandoId(null)
+      await carregar()
+    } finally {
+      setAplicando(false)
+    }
+  }
+
+  async function executarAcao(id: string, acao: 'reiniciar' | 'encerrar') {
+    if (aplicando) return
+    setAplicando(true)
+    try {
+      if (mock) {
+        if (!estado) return
+        const agora = new Date().toISOString()
+        if (acao === 'encerrar') {
+          const itemAlvo = estado.ativas.find((item) => item.jornada.id === id)
+          if (itemAlvo) {
+            setEstado({
+              ...estado,
+              ativas: estado.ativas.filter((item) => item.jornada.id !== id),
+              historico: [
+                {
+                  jornada: { ...itemAlvo.jornada, arquivadaEm: agora },
+                  prog: itemAlvo.prog,
+                },
+                ...estado.historico,
+              ],
+            })
+          }
+        } else if (acao === 'reiniciar') {
+          setEstado({
+            ...estado,
+            ativas: estado.ativas.map((item) => {
+              if (item.jornada.id !== id) return item
+              const atualizada = { ...item.jornada, contaDesde: agora, concluidaEm: null }
+              const rota = rotaDaJornada(atualizada, estado.indice)
+              const prog = progressoDaJornada(rota, estado.progressos, atualizada.contaDesde)
+              const cursor = cursorDaJornada(rota, estado.progressos, new Map(), atualizada.contaDesde)
+              const periAtual = cursor === null ? null : estado.indice.find((p) => p.ordem === cursor) ?? null
+              return { jornada: atualizada, prog, periAtual }
+            }),
           })
         }
         setConfirmando(null)
         return
       }
-      await atualizarJornada(estado.corrente.id, patch)
+
+      if (acao === 'reiniciar') {
+        await atualizarJornada(id, patchReiniciarJornada())
+      } else {
+        if (typeof arquivarJornada === 'function') {
+          await arquivarJornada(id)
+        } else {
+          await atualizarJornada(id, patchEncerrarJornada())
+        }
+      }
       setConfirmando(null)
       await carregar()
     } finally {
@@ -443,10 +519,9 @@ export default function Jornada() {
     contaDesde: string | null
   }) {
     if (mock) {
-      // ponytail: cria só em memória e fica na página
       if (!estado) return
       const agora = new Date().toISOString()
-      const corrente: JornadaType = {
+      const nova: JornadaType = {
         id: `mock-${crypto.randomUUID()}`,
         nome: input.nome,
         tipo: input.tipo,
@@ -458,31 +533,17 @@ export default function Jornada() {
         arquivadaEm: null,
         concluidaEm: null,
       }
-      const historico =
-        estado.corrente && estado.progCorrente
-          ? [
-              {
-                jornada: { ...estado.corrente, arquivadaEm: agora, atualizadoEm: agora },
-                prog: estado.progCorrente,
-              },
-              ...estado.historico,
-            ]
-          : estado.historico
+      const rota = rotaDaJornada(nova, estado.indice)
+      const prog = progressoDaJornada(rota, estado.progressos, nova.contaDesde)
+      const cursor = cursorDaJornada(rota, estado.progressos, new Map(), nova.contaDesde)
+      const periAtual = cursor === null ? null : estado.indice.find((p) => p.ordem === cursor) ?? null
       setEstado({
         ...estado,
-        corrente,
-        progCorrente: progressoDaJornada(
-          rotaDaJornada(corrente, estado.indice),
-          estado.progressos,
-          corrente.contaDesde,
-        ),
-        historico,
+        ativas: [{ jornada: nova, prog, periAtual }, ...estado.ativas],
       })
       setCriacao(null)
       return
     }
-    // criarJornada arquiva a corrente anterior (se houver) na mesma
-    // transação — o aviso do passo 2 já preparou o leitor para isso.
     await criarJornada(input)
     navigate('/') // a Home já mostra o card da nova jornada
   }
@@ -501,69 +562,127 @@ export default function Jornada() {
   if (erro) return <p className="muted">{erro}</p>
   if (!estado || !catalogo) return <p className="muted">Carregando…</p>
 
-  const proximaOrdem = estado.progCorrente?.proximaOrdem
-  const periContinuar =
-    proximaOrdem != null ? estado.indice.find((p) => p.ordem === proximaOrdem) : undefined
-  // ponytail: marca a origem pra o chevron da Leitura voltar aqui
-  const qsLeitura = ['de=jornada', mock ? 'mock=1' : ''].filter(Boolean).join('&')
-
   return (
     <section className="jornada">
       <h1>Jornada</h1>
 
-      {estado.corrente && estado.progCorrente ? (
-        <article className="jornada-card">
-          <h2>{estado.corrente.nome}</h2>
-          <p className="track-progress">
-            {estado.progCorrente.concluidas} de {estado.progCorrente.total}
-            {estado.progCorrente.proximaOrdem === null ? ' · concluída' : ''}
-          </p>
-          {/* a barra é decoração: quem lê com leitor de tela recebe o "N de M" no parágrafo acima */}
-          <span className="book-progress" aria-hidden>
-            <span className="book-progress-fill" style={{ width: `${estado.progCorrente.pct}%` }} />
-          </span>
-          {periContinuar && (
-            <div className="card-acoes">
-              <Link className="cta" to={`/leitura/${periContinuar.ordem}?${qsLeitura}`}>
-                Continuar
-              </Link>
-              <BotaoOuvir peri={periContinuar} qs={qsLeitura} />
-            </div>
-          )}
-          {confirmando ? (
-            <p className="jornada-confirmar">
-              <span className="muted">
-                {confirmando === 'reiniciar'
-                  ? 'Reiniciar esta jornada do zero?'
-                  : 'Encerrar esta jornada?'}
-              </span>
-              <button
-                type="button"
-                className="linkish"
-                disabled={aplicando}
-                onClick={() =>
-                  void aplicar(
-                    confirmando === 'reiniciar' ? patchReiniciarJornada() : patchEncerrarJornada(),
-                  )
-                }
-              >
-                Sim
-              </button>
-              <button type="button" className="linkish" onClick={() => setConfirmando(null)}>
-                Cancelar
-              </button>
-            </p>
-          ) : (
-            <p className="jornada-acoes">
-              <button type="button" className="ghost" onClick={() => setConfirmando('reiniciar')}>
-                Reiniciar
-              </button>
-              <button type="button" className="ghost" onClick={() => setConfirmando('encerrar')}>
-                Encerrar
-              </button>
-            </p>
-          )}
-        </article>
+      {estado.ativas.length > 0 ? (
+        <div className="jornadas-ativas">
+          {estado.ativas.map(({ jornada: j, prog, periAtual }) => {
+            const qsLeitura = [
+              `jornadaId=${encodeURIComponent(j.id)}`,
+              'de=jornada',
+              mock ? 'mock=1' : '',
+            ]
+              .filter(Boolean)
+              .join('&')
+            const estaConfirmando = confirmando?.id === j.id
+            const estaRenomeando = renomeandoId === j.id
+
+            return (
+              <article key={j.id} className="jornada-card">
+                {estaRenomeando ? (
+                  <form
+                    className="jornada-form-renomear"
+                    onSubmit={(e) => {
+                      e.preventDefault()
+                      const trimmed = novoNome.trim()
+                      if (trimmed && trimmed !== j.nome) {
+                        void renomear(j.id, trimmed)
+                      } else {
+                        setRenomeandoId(null)
+                      }
+                    }}
+                  >
+                    <input
+                      type="text"
+                      className="jornada-input-nome"
+                      value={novoNome}
+                      onChange={(e) => setNovoNome(e.target.value)}
+                      aria-label="Novo nome da jornada"
+                      autoFocus
+                    />
+                    <button type="submit" className="linkish" disabled={aplicando}>
+                      Salvar
+                    </button>
+                    <button type="button" className="linkish" onClick={() => setRenomeandoId(null)}>
+                      Cancelar
+                    </button>
+                  </form>
+                ) : (
+                  <div className="jornada-titulo-wrap">
+                    <h2>{j.nome}</h2>
+                    <button
+                      type="button"
+                      className="jornada-btn-renomear"
+                      title="Renomear jornada"
+                      aria-label={`Renomear jornada ${j.nome}`}
+                      onClick={() => {
+                        setNovoNome(j.nome)
+                        setRenomeandoId(j.id)
+                      }}
+                    >
+                      Renomear
+                    </button>
+                  </div>
+                )}
+                <p className="track-progress">
+                  {prog.concluidas} de {prog.total}
+                  {prog.proximaOrdem === null ? ' · concluída' : ''}
+                </p>
+                {/* a barra é decoração: quem lê com leitor de tela recebe o "N de M" no parágrafo acima */}
+                <span className="book-progress" aria-hidden>
+                  <span className="book-progress-fill" style={{ width: `${prog.pct}%` }} />
+                </span>
+                {periAtual && (
+                  <div className="card-acoes">
+                    <Link className="cta" to={`/leitura/${periAtual.ordem}?${qsLeitura}`}>
+                      Continuar
+                    </Link>
+                    <BotaoOuvir peri={periAtual} qs={qsLeitura} />
+                  </div>
+                )}
+                {estaConfirmando ? (
+                  <p className="jornada-confirmar">
+                    <span className="muted">
+                      {confirmando.acao === 'reiniciar'
+                        ? 'Reiniciar esta jornada do zero?'
+                        : 'Encerrar esta jornada?'}
+                    </span>
+                    <button
+                      type="button"
+                      className="linkish"
+                      disabled={aplicando}
+                      onClick={() => void executarAcao(j.id, confirmando.acao)}
+                    >
+                      Sim
+                    </button>
+                    <button type="button" className="linkish" onClick={() => setConfirmando(null)}>
+                      Cancelar
+                    </button>
+                  </p>
+                ) : (
+                  <p className="jornada-acoes">
+                    <button
+                      type="button"
+                      className="ghost"
+                      onClick={() => setConfirmando({ id: j.id, acao: 'reiniciar' })}
+                    >
+                      Reiniciar
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost"
+                      onClick={() => setConfirmando({ id: j.id, acao: 'encerrar' })}
+                    >
+                      Encerrar
+                    </button>
+                  </p>
+                )}
+              </article>
+            )
+          })}
+        </div>
       ) : (
         <p className="muted">Nenhuma jornada ainda.</p>
       )}
@@ -571,7 +690,7 @@ export default function Jornada() {
       {criacao === null ? (
         <p className="jornada-convite">
           <button type="button" className="ghost" onClick={() => setCriacao({ passo: 1 })}>
-            {estado.corrente ? 'Nova jornada' : 'Comece uma jornada'}
+            {estado.ativas.length > 0 ? 'Nova jornada' : 'Comece uma jornada'}
           </button>
         </p>
       ) : criacao.passo === 1 ? (
@@ -584,7 +703,6 @@ export default function Jornada() {
         <PassoConfirmacao
           indice={estado.indice}
           progressos={estado.progressos}
-          corrente={estado.corrente}
           tipo={criacao.tipo}
           escopo={criacao.escopo}
           rotaCompleta={criacao.rotaCompleta}

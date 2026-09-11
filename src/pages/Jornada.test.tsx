@@ -51,7 +51,10 @@ vi.mock('../lib/content', () => ({
 
 const getJornadaCorrente = vi.fn<() => Promise<JornadaType | undefined>>()
 const listJornadas = vi.fn<() => Promise<JornadaType[]>>()
+const listJornadasAtivas = vi.fn<() => Promise<JornadaType[]>>()
+const arquivarJornada = vi.fn<(id: string) => Promise<JornadaType | undefined>>()
 const listAllProgresso = vi.fn<() => Promise<Progresso[]>>()
+const listAllPosicoes = vi.fn<() => Promise<PosicaoLeitura[]>>()
 const atualizarJornada = vi.fn<(id: string, patch: Partial<JornadaType>) => Promise<JornadaType>>()
 const criarJornada = vi.fn<
   (input: {
@@ -66,7 +69,10 @@ const getPosicaoMaisRecente = vi.fn<(ordens: number[]) => Promise<PosicaoLeitura
 vi.mock('../lib/user-db', () => ({
   getJornadaCorrente: () => getJornadaCorrente(),
   listJornadas: () => listJornadas(),
+  listJornadasAtivas: () => listJornadasAtivas(),
+  arquivarJornada: (id: string) => arquivarJornada(id),
   listAllProgresso: () => listAllProgresso(),
+  listAllPosicoes: () => listAllPosicoes(),
   atualizarJornada: (id: string, patch: Partial<JornadaType>) => atualizarJornada(id, patch),
   criarJornada: (input: Parameters<typeof criarJornada>[0]) => criarJornada(input),
   getPosicaoMaisRecente: (ordens: number[]) => getPosicaoMaisRecente(ordens),
@@ -93,10 +99,10 @@ function jornada(over: Partial<JornadaType> = {}): JornadaType {
 let root: Root
 let host: HTMLDivElement
 
-function montar() {
+function montar(entry = '/') {
   act(() => {
     root.render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={[entry]}>
         <Jornada />
       </MemoryRouter>,
     )
@@ -123,7 +129,15 @@ beforeEach(() => {
   sessao = { user: { id: 'u1' } }
   getJornadaCorrente.mockReset().mockResolvedValue(undefined)
   listJornadas.mockReset().mockResolvedValue([])
+  listJornadasAtivas.mockReset().mockImplementation(async () => {
+    const c = await getJornadaCorrente()
+    return c ? [c] : []
+  })
+  arquivarJornada.mockReset().mockImplementation(async (id: string) => {
+    return atualizarJornada(id, { arquivadaEm: new Date().toISOString() })
+  })
   listAllProgresso.mockReset().mockResolvedValue([])
+  listAllPosicoes.mockReset().mockResolvedValue([])
   atualizarJornada.mockReset().mockResolvedValue(jornada())
   criarJornada.mockReset().mockResolvedValue(jornada())
   getPosicaoMaisRecente.mockReset().mockResolvedValue(undefined)
@@ -304,7 +318,7 @@ describe('Jornada — passo 2: escopo vazio', () => {
 })
 
 describe('Jornada — avisos do passo 2', () => {
-  it('havendo jornada corrente, avisa que ela será arquivada', async () => {
+  it('havendo jornada ativa anterior, não avisa arquivamento (multi-jornadas)', async () => {
     getJornadaCorrente.mockResolvedValue(jornada({ id: 'c1', nome: 'Minha jornada atual' }))
     montar()
     await assentar()
@@ -313,9 +327,8 @@ describe('Jornada — avisos do passo 2', () => {
       b.textContent?.startsWith('Gênesis'),
     )!
     await act(async () => genesis.click())
-    expect(host.textContent).toContain('Isto arquiva')
-    expect(host.textContent).toContain('Minha jornada atual')
-    expect(host.textContent).toContain('que fica no histórico')
+    expect(host.textContent).not.toContain('Isto arquiva')
+    expect(host.textContent).not.toContain('que fica no histórico')
   })
 
   it('sem jornada corrente, nenhum aviso de arquivamento', async () => {
@@ -470,5 +483,90 @@ describe('Jornada — histórico', () => {
     montar()
     await assentar()
     expect(host.textContent).not.toContain('Anteriores')
+  })
+})
+
+describe('Jornada — multi-jornadas ativas simultâneas', () => {
+  it('renderiza múltiplos cards com links contextuais e ações individuais', async () => {
+    const j1 = jornada({ id: 'j1', nome: 'Gênesis Inicial', escopo: 'Gênesis', inicioOrdem: 0 })
+    const j2 = jornada({ id: 'j2', nome: 'Salmos de Louvor', escopo: 'Salmos', tipo: 'livro', inicioOrdem: 2 })
+    listJornadasAtivas.mockResolvedValue([j1, j2])
+    listJornadas.mockResolvedValue([j1, j2])
+    montar()
+    await assentar()
+
+    expect(host.textContent).toContain('Gênesis Inicial')
+    expect(host.textContent).toContain('Salmos de Louvor')
+
+    const links = [...host.querySelectorAll<HTMLAnchorElement>('a.cta')]
+    const linkJ1 = links.find((a) => a.href.includes('jornadaId=j1'))
+    const linkJ2 = links.find((a) => a.href.includes('jornadaId=j2'))
+    expect(linkJ1).not.toBeUndefined()
+    expect(linkJ2).not.toBeUndefined()
+    expect(linkJ1?.href).toContain('/leitura/0')
+    expect(linkJ2?.href).toContain('/leitura/2')
+
+    // Confirmação de encerramento afeta apenas o card selecionado
+    const botoesEncerrar = [...host.querySelectorAll<HTMLButtonElement>('button')].filter(
+      (b) => b.textContent === 'Encerrar',
+    )
+    expect(botoesEncerrar.length).toBe(2)
+    act(() => botoesEncerrar[0]!.click())
+
+    expect(host.textContent).toContain('Encerrar esta jornada?')
+    const sim = botao('Sim')
+    await act(async () => sim.click())
+
+    expect(atualizarJornada).toHaveBeenCalledWith('j1', expect.objectContaining({
+      arquivadaEm: expect.any(String),
+    }))
+  })
+})
+
+describe('Jornada — renomear jornada inline', () => {
+  it('abre campo de edição, cancela sem salvar e salva com novo nome', async () => {
+    const j1 = jornada({ id: 'j1', nome: 'Nome Original' })
+    listJornadasAtivas.mockResolvedValue([j1])
+    listJornadas.mockResolvedValue([j1])
+    montar()
+    await assentar()
+
+    const btnRenomear = host.querySelector<HTMLButtonElement>('.jornada-btn-renomear')!
+    expect(btnRenomear).not.toBeNull()
+    act(() => btnRenomear.click())
+
+    const input = host.querySelector<HTMLInputElement>('input.jornada-input-nome')!
+    expect(input).not.toBeNull()
+    expect(input.value).toBe('Nome Original')
+
+    // Cancelar fecha sem atualizar
+    act(() => botao('Cancelar').click())
+    expect(host.querySelector('input.jornada-input-nome')).toBeNull()
+    expect(atualizarJornada).not.toHaveBeenCalled()
+
+    // Abrir de novo e submeter alteração
+    act(() => host.querySelector<HTMLButtonElement>('.jornada-btn-renomear')!.click())
+    const input2 = host.querySelector<HTMLInputElement>('input.jornada-input-nome')!
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')!.set!
+    act(() => {
+      setter.call(input2, 'Nome Atualizado')
+      input2.dispatchEvent(new Event('input', { bubbles: true }))
+    })
+
+    const form = host.querySelector('form.jornada-form-renomear')!
+    await act(async () => {
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+    })
+
+    expect(atualizarJornada).toHaveBeenCalledWith('j1', { nome: 'Nome Atualizado' })
+  })
+})
+
+describe('Jornada — abertura direta via ?nova=1', () => {
+  it('quando o query param nova=1 está presente, abre direto no catálogo (passo 1)', async () => {
+    montar('/jornada?nova=1')
+    await assentar()
+    expect(host.textContent).toContain('Escolha um escopo')
+    expect(host.textContent).toContain('Curta — um livro')
   })
 })
