@@ -22,7 +22,6 @@ import {
   patchEncerrarJornada,
   patchReiniciarJornada,
   progressoDaJornada,
-  reconciliacaoDeConclusao,
   reconciliarJornadasEmLote,
   rotaCompletaDoEscopo,
   rotaDaJornada,
