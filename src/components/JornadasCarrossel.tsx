@@ -52,14 +52,15 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
               </div>
               <h2>{jornada.nome}</h2>
 
-              <p className="track-progress">
-                {prog.concluidas} de {prog.total}
-                {prog.proximaOrdem === null ? ' · concluída' : ''}
-              </p>
-
-              <span className="book-progress" aria-hidden>
-                <span className="book-progress-fill" style={{ width: `${prog.pct}%` }} />
-              </span>
+              <div className="jornada-progresso-row">
+                <span className="book-progress" aria-hidden>
+                  <span className="book-progress-fill" style={{ width: `${prog.pct}%` }} />
+                </span>
+                <span className="track-progress">
+                  {prog.concluidas} de {prog.total}
+                  {prog.proximaOrdem === null ? ' · concluída' : ''}
+                </span>
+              </div>
 
               {periAtual ? (
                 <>

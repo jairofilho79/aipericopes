@@ -2998,6 +2998,42 @@ button.trocar-livro {
   border-radius: var(--radius);
   padding: 1.35rem 1.4rem;
   max-width: 28rem;
+  box-sizing: border-box;
+}
+
+.jornada-progresso-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.35rem 0 1rem;
+}
+
+.jornada-progresso-row .book-progress {
+  display: block;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+  margin: 0;
+}
+
+.jornada-progresso-row .book-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--flame);
+}
+
+.jornada-progresso-row .track-progress {
+  flex: none;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+  white-space: nowrap;
 }
 
 .jornada-card .book-progress {
@@ -3006,6 +3042,9 @@ button.trocar-livro {
   height: 6px;
   margin: 0 0 1rem;
   flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
 }
 
 .jornada-card .cta {
@@ -3306,6 +3345,12 @@ button.trocar-livro {
   display: grid;
   gap: 1.25rem;
   margin: 1.5rem 0;
+}
+
+@media (min-width: 640px) {
+  .jornadas-ativas {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
 }
 
 .jornada-titulo-wrap {
