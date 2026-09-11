@@ -1,33 +1,27 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconePlay } from '../components/NarracaoPlayer'
+import { JornadasCarrossel, type CardJornadaItem } from '../components/JornadasCarrossel'
 import { SkeletonHome } from '../components/Skeleton'
 import { loadIndex, refLabel } from '../lib/content'
-import { atualizarJornada, getJornadaCorrente, listAllPosicoes, listAllProgresso } from '../lib/user-db'
+import { atualizarJornada, listAllPosicoes, listAllProgresso, listJornadasAtivas } from '../lib/user-db'
 import {
   cursorDaJornada,
   montarTrilhas,
   progressoDaJornada,
-  reconciliacaoDeConclusao,
+  reconciliarJornadasEmLote,
   rotaDaJornada,
-  type ProgressoJornada,
   type Track,
 } from '../lib/jornadas'
 import { candidatosReler, type CandidatoReler } from '../lib/releitura'
 import { testamentLabel } from '../lib/testament'
-import type { Jornada, PericopeIndex } from '../lib/types'
+import type { PericopeIndex } from '../lib/types'
 import { computeStreak, diasComConclusao, type Streak } from '../lib/streak'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { authClient } from '../lib/auth-client'
 
 type Estado =
-  | {
-      tipo: 'jornada'
-      jornada: Jornada
-      prog: ProgressoJornada
-      cursor: number | null
-      peri: PericopeIndex | undefined
-    }
+  | { tipo: 'jornadas'; itens: CardJornadaItem[] }
   | { tipo: 'trilhas'; tracks: Track[] }
 
 // CandidatoReler não traz título nem referência — só o índice tem isso.
@@ -100,30 +94,20 @@ export default function Home() {
       const progressos = new Map((await listAllProgresso()).map((p) => [p.pericopeOrdem, p]))
       const posicoes = new Map((await listAllPosicoes()).map((p) => [p.pericopeOrdem, p]))
 
-      // getJornadaCorrente (não "ativa"): a jornada concluída continua sendo
-      // a corrente até o leitor arquivá-la abrindo outra — ver o comentário
-      // em user-db.ts. Uma seleção que também excluísse concluidaEm faria a
-      // Home parar de examinar a jornada assim que ela fechasse, e a
-      // reconciliação reversa abaixo nunca rodaria de novo.
-      const corrente = await getJornadaCorrente()
-      if (corrente) {
-        const rota = rotaDaJornada(corrente, all)
-        const prog = progressoDaJornada(rota, progressos, corrente.contaDesde)
-        // Reconciliação nos DOIS sentidos (função pura testada em
-        // jornadas.test.ts): a jornada fecha quando a rota acaba, e REABRE
-        // se uma perícope da rota for desmarcada depois — caso real quando
-        // outra frente do app desfaz uma conclusão de uma jornada já
-        // terminada.
-        const patch = reconciliacaoDeConclusao(corrente, prog.proximaOrdem)
-        if (patch) await atualizarJornada(corrente.id, patch)
-        const cursor = cursorDaJornada(rota, progressos, posicoes, corrente.contaDesde)
-        setEstado({
-          tipo: 'jornada',
-          jornada: corrente,
-          prog,
-          cursor,
-          peri: cursor === null ? undefined : all.find((p) => p.ordem === cursor),
+      const ativas = await listJornadasAtivas()
+      if (ativas.length > 0) {
+        const patches = reconciliarJornadasEmLote(ativas, all, progressos)
+        for (const p of patches) {
+          await atualizarJornada(p.id, p.patch)
+        }
+        const itens: CardJornadaItem[] = ativas.map((j) => {
+          const rota = rotaDaJornada(j, all)
+          const prog = progressoDaJornada(rota, progressos, j.contaDesde)
+          const cursor = cursorDaJornada(rota, progressos, posicoes, j.contaDesde)
+          const periAtual = cursor === null ? null : all.find((p) => p.ordem === cursor) ?? null
+          return { jornada: j, prog, periAtual }
         })
+        setEstado({ tipo: 'jornadas', itens })
       } else {
         setEstado({ tipo: 'trilhas', tracks: montarTrilhas(all, progressos, posicoes) })
       }
@@ -156,7 +140,7 @@ export default function Home() {
 
   return (
     <section className="home">
-      {estado.tipo === 'jornada' ? (
+      {estado.tipo === 'jornadas' ? (
         <>
           <p className="eyebrow">Estudo de hoje</p>
           <h1>Continue de onde parou</h1>
@@ -171,38 +155,12 @@ export default function Home() {
               )}
             </p>
           )}
-          <article className="jornada-card">
-            <p className="track-label">Sua jornada</p>
-            <h2>{estado.jornada.nome}</h2>
-            <p className="track-progress">
-              {estado.prog.concluidas} de {estado.prog.total}
-              {estado.prog.proximaOrdem === null ? ' · concluída' : ''}
-            </p>
-            {/* a barra é decoração: quem lê com leitor de tela recebe o "N de M" no parágrafo acima */}
-            <span className="book-progress" aria-hidden>
-              <span className="book-progress-fill" style={{ width: `${estado.prog.pct}%` }} />
-            </span>
-            {estado.peri ? (
-              <>
-                <p className="ref">
-                  {refLabel(estado.peri)} · ~{estado.peri.minutos} min
-                  <SemNarracao peri={estado.peri} alguemTem={alguemTem} />
-                </p>
-                {/* Uma caixa: Continuar + Ouvir (quando há narração) — o mesmo
-                    split do pager; HTML não aninha <a> em <a>. */}
-                <div className="card-acoes">
-                  <Link className="cta" to={`/leitura/${estado.peri.ordem}?de=jornada`}>
-                    Continuar
-                  </Link>
-                  <BotaoOuvir peri={estado.peri} deJornada />
-                </div>
-              </>
-            ) : (
-              <Link className="cta" to="/jornada">
-                Ver jornada
-              </Link>
-            )}
-          </article>
+          <JornadasCarrossel itens={estado.itens} />
+          <p className="jornada-convite">
+            <Link className="ghost" to="/jornada">
+              Ver todas as jornadas
+            </Link>
+          </p>
         </>
       ) : (
         <>
