@@ -3008,6 +3008,171 @@ button.trocar-livro {
   min-height: 2.75rem;
 }
 
+/* ── Carrossel horizontal de multi-jornadas na Home ─────────────────────── */
+.jornadas-carrossel-wrapper {
+  position: relative;
+  margin: 1.25rem 0 0.5rem;
+  width: 100%;
+}
+
+.jornadas-carrossel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.25rem 0.25rem 0.75rem;
+  margin: 0 -0.25rem;
+}
+
+.jornadas-carrossel::-webkit-scrollbar {
+  display: none;
+}
+
+.jornada-slide {
+  flex: 0 0 calc(100% - 1.5rem);
+  max-width: 24rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+@media (min-width: 640px) {
+  .jornada-slide {
+    flex: 0 0 22rem;
+    max-width: 22rem;
+  }
+}
+
+.jornada-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.jornada-concluida-badge {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.jornada-peri-titulo {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0.25rem 0 1rem;
+}
+
+.jornada-concluida-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.jornada-card-novo {
+  border: 2px dashed var(--line);
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 14rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.jornada-card-novo:hover,
+.jornada-card-novo:focus-within {
+  border-color: var(--focus-line);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+}
+
+.jornada-novo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.jornada-novo-icone {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.jornada-novo-content h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.jornada-novo-content p {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+}
+
+.cta-secundario {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.cta-secundario:hover,
+.cta-secundario:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.jornadas-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0 1rem;
+  padding: 0.25rem 0;
+}
+
+.jornadas-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.jornadas-dot:hover,
+.jornadas-dot:focus-visible {
+  background: var(--muted);
+  outline: 2px solid var(--focus-line);
+  outline-offset: 2px;
+}
+
+.jornadas-dot.ativo {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
 /* ── Ouvir a partir da Home ──────────────────────────────────────────────
    Mesmo split do pager: "Continuar"/"Rever" + faixa de play DENTRO de uma
    caixa. Este bloco vive AQUI, e não junto do `.track-card`, porque tanto
@@ -3125,6 +3290,69 @@ button.trocar-livro {
 .jornada-historico-nome {
   font-family: var(--font-ui);
   color: var(--ink);
+}
+
+/* Hub de Multi-Jornadas (/jornada) */
+.jornadas-ativas {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.jornada-titulo-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.jornada-titulo-wrap h2 {
+  margin: 0;
+}
+
+.jornada-btn-renomear {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.jornada-btn-renomear:hover,
+.jornada-btn-renomear:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.jornada-form-renomear {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.jornada-input-nome {
+  flex: 1 1 auto;
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  min-width: 0;
+}
+
+.jornada-input-nome:focus {
+  border-color: var(--focus-line);
+  outline: none;
 }
 
 /* visível só para leitores de tela */
