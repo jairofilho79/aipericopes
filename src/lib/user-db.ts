@@ -733,43 +733,27 @@ export async function listJornadas(): Promise<Jornada[]> {
 }
 
 /**
- * A jornada corrente — a única não arquivada, concluída ou não — ou
- * undefined. Ver criarJornada para a invariante.
- *
- * Deliberadamente NÃO filtra por concluidaEm: uma jornada concluída segue
- * corrente (e visível na Home, com o rótulo "· concluída") até o leitor
- * arquivá-la abrindo outra. Existiu antes um `getJornadaAtiva()` que também
- * exigia `concluidaEm === null` — sutil e errado, porque tornava a
- * reconciliação reversa da Home (reabrir uma jornada concluída cuja
- * perícope foi desmarcada) inalcançável: assim que a jornada era marcada
- * concluída, essa função parava de devolvê-la, e ninguém a examinava de
- * novo. Duas seleções quase iguais convivendo é como esse bug nasceu — por
- * isso só existe esta.
- *
- * Desempate por `atualizadoEm` (spec): a invariante "no máximo uma corrente"
- * é de escrita (criarJornada/atualizarJornada), mas se o pull trouxer duas
- * não arquivadas de aparelhos diferentes antes de convergirem, a LEITURA
- * resolve pela mais recente por `atualizadoEm` — não por `criadoEm`, que é a
- * ordem de listJornadas() e divergia da spec em silêncio. Isto só resolve o
- * lado da leitura: a perdedora aqui segue sem `arquivadaEm` (arquivar é
- * escrita, decisão de produto fora deste caminho) até `criarJornada` limpar
- * na próxima criação.
+ * Lista todas as jornadas ativas (não arquivadas), ordenadas pela mais recentemente atualizada.
  */
-export async function getJornadaCorrente(): Promise<Jornada | undefined> {
-  const correntes = (await listJornadas()).filter((j) => j.arquivadaEm === null)
-  return correntes.reduce<Jornada | undefined>(
-    (melhor, j) => (!melhor || j.atualizadoEm > melhor.atualizadoEm ? j : melhor),
-    undefined,
-  )
+export async function listJornadasAtivas(): Promise<Jornada[]> {
+  const todas = await listJornadas()
+  return todas
+    .filter((j) => j.arquivadaEm === null)
+    .sort((a, b) => (a.atualizadoEm < b.atualizadoEm ? 1 : a.atualizadoEm > b.atualizadoEm ? -1 : 0))
 }
 
 /**
- * Cria uma jornada e arquiva a corrente anterior NA MESMA TRANSAÇÃO.
- *
- * A atomicidade é a invariante "no máximo uma corrente": duas abas criando
- * ao mesmo tempo não podem produzir duas correntes. Se ainda assim o pull
- * trouxer duas de aparelhos diferentes, quem resolve é a reconciliação da
- * carga (a mais recente por atualizadoEm vence).
+ * A jornada corrente — a ativa mais recente por atualizadoEm — ou undefined.
+ * Mantida para retrocompatibilidade com telas que consom uma única jornada.
+ */
+export async function getJornadaCorrente(): Promise<Jornada | undefined> {
+  const ativas = await listJornadasAtivas()
+  return ativas[0]
+}
+
+/**
+ * Cria uma jornada sem arquivar as existentes, permitindo multi-jornadas simultâneas.
+ * Grava a jornada e o outbox na mesma transação atômica.
  */
 export async function criarJornada(input: {
   nome: string
@@ -799,20 +783,17 @@ export async function criarJornada(input: {
   const store = tx.objectStore('jornadas')
   const outbox = tx.objectStore('outbox')
 
-  for (const j of await store.getAll()) {
-    // Arquiva QUALQUER jornada corrente, concluída ou não — senão uma
-    // concluída ficaria pendurada para sempre (nem arquivada, nem visível,
-    // já que a próxima getJornadaCorrente() teria que escolher entre duas).
-    if (j.arquivadaEm !== null) continue
-    const arquivada: Jornada = { ...j, arquivadaEm: now, atualizadoEm: now }
-    await store.put(arquivada)
-    await outbox.put({ kind: 'jornada', jornada: arquivada, apagadoEm: null } as OutboxItem)
-  }
-
   await store.put(nova)
   await outbox.put({ kind: 'jornada', jornada: nova, apagadoEm: null } as OutboxItem)
   await tx.done
   return nova
+}
+
+/**
+ * Arquiva uma jornada individualmente por ID.
+ */
+export async function arquivarJornada(id: string): Promise<Jornada | undefined> {
+  return atualizarJornada(id, { arquivadaEm: new Date().toISOString() })
 }
 
 export async function atualizarJornada(

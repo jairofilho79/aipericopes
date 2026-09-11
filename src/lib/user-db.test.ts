@@ -7,6 +7,7 @@ import {
   applyRemoteJornadas,
   applyRemotePosicoes,
   applyRemoteProgresso,
+  arquivarJornada,
   atualizarJornada,
   clearAllUserData,
   clearOutbox,
@@ -27,6 +28,7 @@ import {
   listAnotacoes,
   listDestaques,
   listJornadas,
+  listJornadasAtivas,
   listOutbox,
   removeDestaque,
   saveAnotacao,
@@ -585,7 +587,7 @@ describe('jornadas', () => {
     expect(outbox.filter((i) => i.kind === 'jornada')).toHaveLength(1)
   })
 
-  it('criar uma segunda arquiva a primeira — no máximo uma corrente', async () => {
+  it('criar uma segunda jornada NÃO arquiva a primeira — múltiplas jornadas ativas', async () => {
     await clearAllUserData()
     const primeira = await criarJornada({
       nome: 'Salmos', tipo: 'livro', escopo: 'Salmos', inicioOrdem: 2, contaDesde: null,
@@ -593,36 +595,45 @@ describe('jornadas', () => {
     const segunda = await criarJornada({
       nome: 'Mateus', tipo: 'livro', escopo: 'Mateus', inicioOrdem: 4, contaDesde: null,
     })
-    const corrente = await getJornadaCorrente()
-    expect(corrente?.id).toBe(segunda.id)
+    const ativas = await listJornadasAtivas()
+    expect(ativas).toHaveLength(2)
+    expect(ativas.map((j) => j.id)).toContain(primeira.id)
+    expect(ativas.map((j) => j.id)).toContain(segunda.id)
+
     const todas = await listJornadas()
-    expect(todas.find((j) => j.id === primeira.id)?.arquivadaEm).not.toBeNull()
-    // Duas jornadas + duas lápides de arquivamento não: o arquivamento é um
-    // update, então são 3 itens de outbox (criar, arquivar, criar).
+    const arquivadas = todas.filter((j) => j.arquivadaEm !== null)
+    expect(arquivadas).toHaveLength(0)
+
     const outbox = (await listOutbox()).filter((i) => i.kind === 'jornada')
-    expect(outbox).toHaveLength(3)
+    expect(outbox).toHaveLength(2)
   })
 
-  it('criar uma segunda arquiva a primeira mesmo já CONCLUÍDA — não fica pendurada', async () => {
-    // Regressão do bug corrigido no ciclo 1: o laço de arquivamento de
-    // criarJornada pulava jornadas com concluidaEm !== null, então uma
-    // jornada concluída nunca era arquivada ao abrir a próxima — sobrava
-    // pendurada, nem arquivada nem escolhida por getJornadaCorrente() (que
-    // encontraria duas linhas com arquivadaEm === null).
+  it('arquivarJornada arquiva apenas a jornada especificada', async () => {
     await clearAllUserData()
-    const primeira = await criarJornada({
-      nome: 'Salmos', tipo: 'livro', escopo: 'Salmos', inicioOrdem: 2, contaDesde: null,
+    const j1 = await criarJornada({
+      nome: 'Jornada A',
+      tipo: 'livro',
+      escopo: 'Marcos',
+      inicioOrdem: 1600,
+      contaDesde: new Date().toISOString(),
     })
-    await atualizarJornada(primeira.id, { concluidaEm: FUTURE })
-    const segunda = await criarJornada({
-      nome: 'Mateus', tipo: 'livro', escopo: 'Mateus', inicioOrdem: 4, contaDesde: null,
+    const j2 = await criarJornada({
+      nome: 'Jornada B',
+      tipo: 'livro',
+      escopo: 'Lucas',
+      inicioOrdem: 1700,
+      contaDesde: new Date().toISOString(),
     })
-    const corrente = await getJornadaCorrente()
-    expect(corrente?.id).toBe(segunda.id)
+
+    await arquivarJornada(j1.id)
+
+    const ativas = await listJornadasAtivas()
+    expect(ativas).toHaveLength(1)
+    expect(ativas[0].id).toBe(j2.id)
+
     const todas = await listJornadas()
-    const arquivada = todas.find((j) => j.id === primeira.id)
+    const arquivada = todas.find((j) => j.id === j1.id)
     expect(arquivada?.arquivadaEm).not.toBeNull()
-    expect(arquivada?.concluidaEm).not.toBeNull()
   })
 
   it('getJornadaCorrente devolve a concluída enquanto ela não for arquivada', async () => {
