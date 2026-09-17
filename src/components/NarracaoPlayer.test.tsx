@@ -136,6 +136,9 @@ describe('NarracaoPlayer — disponibilidade', () => {
     expect(cartoes[0]!.querySelector('.ouvir-cartao-sub')?.textContent).toBe(
       '5 min · voz sintetizada, lida sobre o texto',
     )
+    const icone = cartoes[0]!.querySelector('.ouvir-cartao-play svg')
+    expect(icone).not.toBeNull()
+    expect(icone?.querySelector('path')?.getAttribute('d')).toContain('M3 14h3')
     expect(container.querySelector('.narracao-doca')).toBeNull()
   })
 })

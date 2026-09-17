@@ -3229,12 +3229,7 @@ button.trocar-livro {
 }
 
 .card-acoes:has(.ouvir-botao) {
-  /* Um fill só: âmbar | carvão. Empilhar dois backgrounds vazava no raio. */
-  background: linear-gradient(
-    to right,
-    var(--cta-bg) calc(100% - 2.75rem),
-    var(--play-bg) calc(100% - 2.75rem)
-  );
+  background: transparent;
 }
 
 .card-acoes .cta {
@@ -3243,31 +3238,71 @@ button.trocar-livro {
   min-width: 0;
   border: none;
   border-radius: 10px;
-  background: transparent;
+  background: var(--cta-bg);
   color: var(--cta-ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: opacity 0.15s ease;
 }
 
-.card-acoes:not(:has(.ouvir-botao)) .cta {
-  background: var(--cta-bg);
+.card-acoes .cta:hover {
+  opacity: 0.92;
 }
 
 .card-acoes:has(.ouvir-botao) .cta {
-  border-radius: 0;
+  border-radius: 10px 0 0 10px;
 }
 
-/* Consome o par do pai; fallback CTA se `.ouvir-botao` aparecer solto. */
+/* Consome o par do pai; fallback CTA se `.ouvir-botao` aparecer solto.
+   Ocupa fatia proporcional e confortável da barra com ícone de fones e "Ouvir". */
 .ouvir-botao {
-  flex: none;
+  flex: 0 0 auto;
   align-self: stretch;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 1.25rem;
+  min-width: 7.25rem;
   min-height: 2.75rem;
   border: none;
-  border-radius: 0;
-  background: transparent;
+  border-radius: 10px;
+  background: var(--play-bg);
   color: var(--play-fg, var(--cta-bg));
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.card-acoes:has(.ouvir-botao) .ouvir-botao {
+  border-radius: 0 10px 10px 0;
+}
+
+.ouvir-botao:hover {
+  filter: brightness(1.1);
+  opacity: 0.92;
+}
+
+.ouvir-botao:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.card-acoes .cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  z-index: 1;
 }
 
 /* Onde o botão estaria, o motivo de ele não estar — dentro da linha de

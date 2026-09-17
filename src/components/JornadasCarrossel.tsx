@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { IconePlay } from './NarracaoPlayer'
-import { IconeBussola, IconeLivroAberto, IconeOlho } from './icones'
+import { IconeBussola, IconeFones, IconeLivroAberto, IconeOlho } from './icones'
 import { refLabel } from '../lib/content'
 import type { Jornada, PericopeIndex } from '../lib/types'
 import type { ProgressoJornada } from '../lib/jornadas'
@@ -82,7 +81,8 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
                         aria-label={`Ouvir ${periAtual.titulo_pericope_pt}`}
                         title="Ouvir"
                       >
-                        <IconePlay />
+                        <IconeFones size={18} />
+                        <span>Ouvir</span>
                       </Link>
                     )}
                   </div>
