@@ -165,4 +165,21 @@ describe('Home — sem jornadas ativas', () => {
     expect(host.textContent).toContain('Comece uma jornada')
     expect(host.querySelector('.jornadas-carrossel')).toBeNull()
   })
+
+  it('exibe botão Começar quando concluidas === 0 e botão Ouvir com fone quando narrado', async () => {
+    INDICE[0]!.narrado = true
+    listJornadasAtivas.mockResolvedValue([])
+    montar()
+    await assentar()
+
+    const links = [...host.querySelectorAll<HTMLAnchorElement>('.card-acoes .cta')]
+    expect(links.length).toBeGreaterThanOrEqual(1)
+    expect(links[0]!.textContent?.trim()).toBe('Começar')
+
+    const ouvir = host.querySelector<HTMLAnchorElement>('.card-acoes .ouvir-botao')
+    expect(ouvir).not.toBeNull()
+    expect(ouvir?.textContent).toContain('Ouvir')
+    expect(ouvir?.querySelector('svg')).not.toBeNull()
+    INDICE[0]!.narrado = false
+  })
 })

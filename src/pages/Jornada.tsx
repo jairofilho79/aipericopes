@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { IconePlay } from '../components/NarracaoPlayer'
+import { IconeFones } from '../components/NarracaoPlayer'
 import { loadIndex, refLabel } from '../lib/content'
 import {
   arquivarJornada,
@@ -87,7 +87,8 @@ function BotaoOuvir({ peri, qs }: { peri: PericopeIndex; qs: string }) {
       aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
       title="Ouvir"
     >
-      <IconePlay />
+      <IconeFones size={18} />
+      <span>Ouvir</span>
     </Link>
   )
 }
@@ -635,7 +636,7 @@ export default function Jornada() {
                 {periAtual && (
                   <div className="card-acoes">
                     <Link className="cta" to={`/leitura/${periAtual.ordem}?${qsLeitura}`}>
-                      Continuar
+                      {prog.concluidas === 0 ? 'Começar' : 'Continuar'}
                     </Link>
                     <BotaoOuvir peri={periAtual} qs={qsLeitura} />
                   </div>

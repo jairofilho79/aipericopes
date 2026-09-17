@@ -99,6 +99,8 @@ describe('JornadasCarrossel', () => {
     // Botão de ouvir
     const linkOuvir = links.find((l) => l.getAttribute('aria-label') === 'Ouvir João Batista prega')
     expect(linkOuvir?.getAttribute('href')).toBe('/leitura/21?ouvir=1&jornadaId=j1')
+    expect(linkOuvir?.textContent).toContain('Ouvir')
+    expect(linkOuvir?.querySelector('svg')).not.toBeNull()
 
     // Card de nova jornada
     const linkNova = links.find((l) => l.getAttribute('href') === '/jornada?nova=1')

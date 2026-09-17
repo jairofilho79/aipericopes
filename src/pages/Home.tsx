@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { IconePlay } from '../components/NarracaoPlayer'
+import { IconeFones } from '../components/NarracaoPlayer'
 import { JornadasCarrossel, type CardJornadaItem } from '../components/JornadasCarrossel'
 import { SkeletonHome } from '../components/Skeleton'
 import { loadIndex, refLabel } from '../lib/content'
@@ -28,7 +28,7 @@ type Estado =
 type ItemReler = CandidatoReler & { titulo: string; ref: string }
 
 /**
- * Ouvir em um toque, DENTRO do "Continuar" — mesma faixa do pager. Só existe
+ * Ouvir em um toque, DENTRO do "Continuar" / "Começar" — mesma faixa do pager. Só existe
  * quando há narração publicada: o sinal vem de `narrado` no índice (uma vez
  * por deploy), e não de um `HEAD` por card — a Home renderiza a lista inteira
  * de "Vale reler" sem limite superior, e um `HEAD` por linha não escala nem
@@ -47,7 +47,8 @@ function BotaoOuvir({ peri, deJornada = false }: { peri: PericopeIndex; deJornad
       aria-label={`Ouvir ${peri.titulo_pericope_pt}`}
       title="Ouvir"
     >
-      <IconePlay />
+      <IconeFones size={18} />
+      <span>Ouvir</span>
     </Link>
   )
 }
@@ -195,7 +196,7 @@ export default function Home() {
                 </p>
                 <div className="card-acoes">
                   <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
-                    {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
+                    {t.prog.proximaOrdem === null ? 'Rever' : t.prog.concluidas === 0 ? 'Começar' : 'Continuar'}
                   </Link>
                   <BotaoOuvir peri={t.peri} />
                 </div>

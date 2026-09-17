@@ -388,6 +388,25 @@ describe('Jornada — logado, com jornada corrente', () => {
     expect(host.textContent).toContain('1 de 2')
     const fill = host.querySelector('.book-progress-fill') as HTMLElement | null
     expect(fill?.style.width).toBe('50%')
+    const cta = host.querySelector<HTMLAnchorElement>('.card-acoes .cta')
+    expect(cta?.textContent?.trim()).toBe('Continuar')
+  })
+
+  it('exibe botão Começar quando concluidas === 0 e botão Ouvir com fone quando narrado', async () => {
+    INDICE[0]!.narrado = true
+    getJornadaCorrente.mockResolvedValue(jornada({ nome: 'Nova jornada' }))
+    listAllProgresso.mockResolvedValue([])
+    montar()
+    await assentar()
+
+    const cta = host.querySelector<HTMLAnchorElement>('.card-acoes .cta')
+    expect(cta?.textContent?.trim()).toBe('Começar')
+
+    const ouvir = host.querySelector<HTMLAnchorElement>('.card-acoes .ouvir-botao')
+    expect(ouvir).not.toBeNull()
+    expect(ouvir?.textContent).toContain('Ouvir')
+    expect(ouvir?.querySelector('svg')).not.toBeNull()
+    INDICE[0]!.narrado = false
   })
 
   it('Reiniciar pede confirmação inline e só então grava o patch', async () => {
