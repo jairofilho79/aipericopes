@@ -1421,7 +1421,7 @@ export default function Leitura() {
                 <div className="note-form-actions">
                   <button type="submit">
                     <IconeCheck size={16} />
-                    {editingId ? 'Salvar alterações' : 'Salvar anotação'}
+                    <span>{editingId ? 'Salvar alterações' : 'Salvar anotação'}</span>
                   </button>
                   {editingId && (
                     <button type="button" className="linkish" onClick={cancelarEdicao}>

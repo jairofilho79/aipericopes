@@ -2277,16 +2277,27 @@ button.pager-fim {
 }
 
 .note-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   justify-self: start;
   font-family: var(--font-ui);
   background: var(--accent-soft);
   color: var(--accent);
   border: none;
   border-radius: 10px;
-  padding: 0.55rem 1rem;
+  padding: 0.65rem 1.45rem;
   font-weight: 600;
   cursor: pointer;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
+  min-width: 12rem;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.note-form button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 16%, var(--accent-soft));
 }
 
 .note-list {
@@ -2467,6 +2478,7 @@ button.linkish {
   cursor: pointer;
   padding: 0;
   min-height: 2.75rem;
+  min-width: auto;
 }
 
 /* Fecho da perícope: separado das anotações por um fio sutil. */
