@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconePlay } from './NarracaoPlayer'
+import { IconeBussola, IconeLivroAberto, IconeOlho } from './icones'
 import { refLabel } from '../lib/content'
 import type { Jornada, PericopeIndex } from '../lib/types'
 import type { ProgressoJornada } from '../lib/jornadas'
@@ -71,6 +72,7 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
                       className="cta"
                       to={`/leitura/${periAtual.ordem}?jornadaId=${jornada.id}`}
                     >
+                      <IconeLivroAberto />
                       {prog.concluidas === 0 ? 'Começar' : 'Continuar'}
                     </Link>
                     {periAtual.narrado && (
@@ -89,6 +91,7 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
                 <div className="jornada-concluida-acoes">
                   <p className="muted">Jornada concluída!</p>
                   <Link className="cta" to="/jornada">
+                    <IconeOlho />
                     Ver jornada
                   </Link>
                 </div>
@@ -104,6 +107,7 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
             <h3>Nova jornada</h3>
             <p className="muted">Inicie outro percurso de leitura na Bíblia.</p>
             <Link className="cta cta-secundario" to="/jornada?nova=1">
+              <IconeBussola />
               Escolher percurso
             </Link>
           </div>

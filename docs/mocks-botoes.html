@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mocks de Ícones nos Botões — aiPericopes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme='light'] {
+      --bg: #f5f1e8;
+      --bg-deep: #ebe3d3;
+      --ink: #1c1914;
+      --read-ink: #12100e;
+      --muted: #5f574a;
+      --accent: #92500a;
+      --accent-soft: #f6e5c8;
+      --flame: #c4780e;
+      --line: #ddd2bd;
+      --paper: #fffdf7;
+      --cta-bg: #d98613;
+      --cta-ink: #1c1914;
+      --erro: #a33b30;
+      --glow-a: #f5e8cf;
+      --glow-b: #f0dfc0;
+      --hl-verde: #cfe9c8;
+      --hl-azul: #cadff2;
+      --hl-rosa: #f4d0dd;
+      --radius: 12px;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'EB Garamond', Georgia, serif;
+      --font-ui: 'EB Garamond', Georgia, serif;
+      --page-bg:
+        radial-gradient(1200px 600px at 10% -10%, var(--glow-a) 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, var(--glow-b) 0%, transparent 50%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg-deep) 35%, transparent), transparent 28rem),
+        var(--bg);
+      color-scheme: light;
+    }
+
+    [data-theme='dark'] {
+      --bg: #16130f;
+      --bg-deep: #0e0c09;
+      --ink: #ece6da;
+      --read-ink: #f5f2eb;
+      --muted: #a89f90;
+      --accent: #f0b357;
+      --accent-soft: #3a2a12;
+      --flame: #ffc46b;
+      --line: #2e2820;
+      --paper: #1e1a15;
+      --cta-bg: var(--accent);
+      --cta-ink: #1a1206;
+      --erro: #e08b80;
+      --glow-a: #2a2113;
+      --glow-b: #241c10;
+      --hl-verde: #24452c;
+      --hl-azul: #1f3c58;
+      --hl-rosa: #4e2437;
+      --page-bg:
+        radial-gradient(1200px 600px at 10% -10%, var(--glow-a) 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, var(--glow-b) 0%, transparent 50%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg-deep) 35%, transparent), transparent 28rem),
+        var(--bg);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--page-bg);
+      background-attachment: fixed;
+      line-height: 1.55;
+      padding: 2rem 1.25rem 5rem;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    header.doc-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .doc-header h1 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+
+    .doc-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+      transition: all 0.2s ease;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent);
+    }
+
+    /* Common Button Styles mapped directly to app.css */
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--cta-bg);
+      color: var(--cta-ink);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.35rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      min-height: 2.75rem;
+      text-decoration: none;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+    }
+    .cta:hover { opacity: 0.92; }
+
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      min-height: 2.5rem;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .ghost:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 6%, transparent);
+    }
+
+    .linkish {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.2rem 0.3rem;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .linkish:hover {
+      text-decoration: underline;
+    }
+
+    /* Ouvir botão do card */
+    .ouvir-botao {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 999px;
+      background: var(--cta-bg);
+      color: var(--cta-ink);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s ease;
+    }
+    .ouvir-botao:hover {
+      transform: scale(1.05);
+    }
+
+    /* Cards e Seções de Comparação */
+    .showcase-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .showcase-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .showcase-desc {
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 640px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mock-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 4px 16px rgb(0 0 0 / 0.03);
+      position: relative;
+    }
+
+    .mock-panel-badge {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+    .badge-before {
+      background: color-mix(in srgb, var(--muted) 15%, transparent);
+      color: var(--muted);
+    }
+    .badge-after {
+      background: color-mix(in srgb, var(--flame) 18%, transparent);
+      color: var(--accent);
+      border: 1px solid color-mix(in srgb, var(--flame) 35%, transparent);
+    }
+
+    .card-sample {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1.15rem;
+      background: var(--paper);
+    }
+    .card-sample h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .card-sample .meta {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+    .card-acoes {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .card-acoes .cta {
+      flex: 1;
+    }
+
+    /* Pager Mock */
+    .pager-lado {
+      --play-bg: var(--accent);
+      --play-fg: var(--paper);
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      width: 100%;
+      min-height: 2.75rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: transparent;
+      overflow: hidden;
+    }
+    .pager-lado-primario {
+      --play-bg: var(--cta-ink);
+      --play-fg: var(--cta-bg);
+      border-color: transparent;
+    }
+    .pager-lado-primario .pager-link {
+      background: var(--cta-bg);
+      color: var(--cta-ink);
+    }
+    .pager-lado .pager-link {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .pager-lado .pager-ouvir {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      background: var(--play-bg);
+      color: var(--play-fg);
+      text-decoration: none;
+    }
+
+    /* Verse Actions Bar Mock */
+    .verse-actions-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      background: var(--paper);
+      display: grid;
+      gap: 0.75rem;
+    }
+    .verse-actions-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .verse-actions-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Notes Tabs Mock */
+    .notes-tabs-mock {
+      display: flex;
+      gap: 0.35rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0.85rem;
+    }
+    .notes-tab-mock {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.45rem 0.75rem;
+      cursor: pointer;
+      margin-bottom: -1px;
+    }
+    .notes-tab-mock.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* End actions mock */
+    .actions-linha-mock {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    /* SVG icon standards */
+    svg.icon {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    svg.icon-fill {
+      fill: currentColor;
+      stroke: none;
+    }
+    svg.icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    .notes-textarea-mock {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 0.65rem;
+      font-family: inherit;
+      resize: none;
+      height: 60px;
+    }
+
+    .note-form-actions-mock {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .note-form-actions-mock button[type="submit"] {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--accent);
+      color: var(--paper);
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 0.9rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .chips-group-mock {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .chip-mock {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--paper);
+    }
+    .chip-mock.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .highlight-card {
+      background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 2rem;
+    }
+    .highlight-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .highlight-card p {
+      color: var(--ink);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="doc-header">
+      <div>
+        <h1>Leitura Geral e Mocks de Ícones nos Botões</h1>
+        <p>Proposta de enriquecimento iconográfico para todos os botões do <strong>aiPericopes</strong>, respeitando a identidade literária, o contraste e a legibilidade.</p>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+        <svg class="icon" viewBox="0 0 24 24" id="themeIcon">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <span id="themeLabel">Alternar Tema (Escuro)</span>
+      </button>
+    </header>
+
+    <!-- SECTION 1: Card de Leitura Principal -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>1. Card Principal da Home & Jornadas (Par Ler vs Ouvir)</span>
+      </h2>
+      <p class="showcase-desc">
+        No design recente, o botão circular de <strong>Ouvir</strong> ganhou o ícone de Play (▷). O CTA de leitura ("Continuar" / "Começar") ficou em texto puro. Adicionando o ícone de <strong>Livro Aberto</strong> (📖), equilibramos o par visual: um convida a <em>ler</em>, o outro a <em>escutar</em>.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div class="card-sample">
+            <span style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:700;">Novo Testamento</span>
+            <h3>A Anunciação a Maria</h3>
+            <p class="meta">Lc 1:26-38 · ~3 min</p>
+            <div class="card-acoes">
+              <button class="cta">Continuar</button>
+              <button class="ouvir-botao" title="Ouvir">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M8 5.5v13l10-6.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--muted);">O botão de texto não tem âncora visual, enquanto o play tem ícone forte.</p>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div class="card-sample">
+            <span style="font-size:0.75rem; text-transform:uppercase; color:var(--flame); font-weight:700;">Novo Testamento</span>
+            <h3>A Anunciação a Maria</h3>
+            <p class="meta">Lc 1:26-38 · ~3 min</p>
+            <div class="card-acoes">
+              <button class="cta">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <span>Continuar</span>
+              </button>
+              <button class="ouvir-botao" title="Ouvir">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M8 5.5v13l10-6.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--accent); font-weight:500;">✓ Par perfeito: Livro Aberto (Ler) + Play Triangular (Ouvir).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Finalização da Perícope -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>2. Conclusão & Ações de Rodapé da Leitura</span>
+      </h2>
+      <p class="showcase-desc">
+        Ao terminar a leitura, o botão primário "Marcar como concluída" ganha o ícone de <strong>Checkmark</strong> (✓). Quando concluída, os botões secundários ficam simétricos e claros (Concluída com check, Estrela de releitura em traço SVG e Compartilhar).
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            <button class="cta" style="width:100%;">Marcar como concluída</button>
+            <div class="actions-linha-mock">
+              <button class="ghost" style="flex:1;">Concluída ✓</button>
+              <button class="ghost" style="width:2.5rem; padding:0;">★</button>
+              <button class="ghost" style="width:2.5rem; padding:0;">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M4 12v7.4a1.6 1.6 0 0 0 1.6 1.6h12.8a1.6 1.6 0 0 0 1.6-1.6V12"></path>
+                  <path d="M12 3.5v11.5"></path>
+                  <path d="M7.5 8 12 3.5 16.5 8"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--muted);">Uso de caracteres tipográficos (✓ e ★ do sistema operacional) que variam de fonte para fonte.</p>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            <button class="cta" style="width:100%;">
+              <svg class="icon" viewBox="0 0 24 24" style="stroke-width:2.2;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Marcar como concluída</span>
+            </button>
+            <div class="actions-linha-mock">
+              <button class="ghost" style="flex:1;">
+                <svg class="icon" viewBox="0 0 24 24" style="stroke-width:2.2;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Concluída</span>
+              </button>
+              <button class="ghost" style="width:2.75rem; padding:0;" title="Marcar para reler">
+                <svg class="icon icon-fill" viewBox="0 0 24 24" style="color:var(--flame);">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </button>
+              <button class="ghost" style="width:2.75rem; padding:0;" title="Compartilhar">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M4 12v7.4a1.6 1.6 0 0 0 1.6 1.6h12.8a1.6 1.6 0 0 0 1.6-1.6V12"></path>
+                  <path d="M12 3.5v11.5"></path>
+                  <path d="M7.5 8 12 3.5 16.5 8"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--accent); font-weight:500;">✓ Vetores SVG nítidos e consistentes em qualquer tela/dispositivo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Pager de Navegação (Anterior / Próxima) -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>3. Pager de Rodapé (Anterior / Próxima com Play)</span>
+      </h2>
+      <p class="showcase-desc">
+        No rodapé da leitura, os links de navegação entre perícopes usavam setas textuais simples ("←" e "→"). Com setas vetoriais SVG perfeitamente alinhadas ao centro óptico da linha, a orientação fica muito mais refinada e nítida.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div class="pager-lado pager-lado-primario">
+            <a class="pager-link" href="#!">
+              <span>A Anunciação do Precursor →</span>
+            </a>
+            <div class="pager-ouvir">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5.5v13l10-6.5z"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div class="pager-lado pager-lado-primario">
+            <a class="pager-link" href="#!">
+              <span style="flex:1;">A Anunciação do Precursor</span>
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <div class="pager-ouvir">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5.5v13l10-6.5z"></path></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Ações de Versículo Selecionado -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>4. Ações de Versículo (Diálogo Contextual de Toque)</span>
+      </h2>
+      <p class="showcase-desc">
+        Ao tocar em um versículo na leitura, abre o menu de ações: <strong>Copiar</strong>, <strong>Compartilhar</strong> e <strong>Anotar</strong>. Os botões eram apenas texto em caixas vazias. Ícones dedicados aumentam a velocidade de toque em dispositivos móveis.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div class="verse-actions-box">
+            <div class="verse-actions-head">
+              <strong>Lc 1:28</strong>
+              <button class="linkish">Fechar</button>
+            </div>
+            <div class="verse-actions-row">
+              <button class="ghost">Copiar</button>
+              <button class="ghost">Compartilhar</button>
+              <button class="ghost">Anotar</button>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-verde); border:1px solid var(--line);"></span>
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-azul); border:1px solid var(--line);"></span>
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-rosa); border:1px solid var(--line);"></span>
+              <button class="linkish" style="margin-left:auto;">Remover</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div class="verse-actions-box">
+            <div class="verse-actions-head">
+              <strong>Lc 1:28</strong>
+              <button class="linkish">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                <span>Fechar</span>
+              </button>
+            </div>
+            <div class="verse-actions-row">
+              <button class="ghost">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copiar</span>
+              </button>
+              <button class="ghost">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M4 12v7.4a1.6 1.6 0 0 0 1.6 1.6h12.8a1.6 1.6 0 0 0 1.6-1.6V12"></path>
+                  <path d="M12 3.5v11.5"></path>
+                  <path d="M7.5 8 12 3.5 16.5 8"></path>
+                </svg>
+                <span>Compartilhar</span>
+              </button>
+              <button class="ghost">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                <span>Anotar</span>
+              </button>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-verde); border:1px solid var(--line);"></span>
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-azul); border:1px solid var(--line);"></span>
+              <span style="width:22px; height:22px; border-radius:50%; background:var(--hl-rosa); border:1px solid var(--line);"></span>
+              <button class="linkish" style="margin-left:auto;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                </svg>
+                <span>Remover</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Hub de Jornadas & Gestão -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>5. Gestão de Jornadas (Ações do Hub `/jornada`)</span>
+      </h2>
+      <p class="showcase-desc">
+        No painel de jornadas, cada jornada possui ações secundárias cruciais: <strong>Ver</strong> (explorar percurso), <strong>Reiniciar</strong> (recomeçar do zero) e <strong>Encerrar</strong> (arquivar). Os ícones tornam as intenções imediatas e evitam confusão entre reiniciar e encerrar.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div class="card-sample">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3>Evangelhos Sinóticos</h3>
+              <button class="linkish">Renomear</button>
+            </div>
+            <p class="meta">14 de 98 perícopes · 14%</p>
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
+              <button class="ghost">Ver</button>
+              <button class="ghost">Reiniciar</button>
+              <button class="ghost">Encerrar</button>
+            </div>
+          </div>
+          <button class="ghost" style="width:100%; margin-top:0.5rem;">+ Nova jornada</button>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div class="card-sample">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3>Evangelhos Sinóticos</h3>
+              <button class="linkish">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                </svg>
+                <span>Renomear</span>
+              </button>
+            </div>
+            <p class="meta">14 de 98 perícopes · 14%</p>
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
+              <button class="ghost">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span>Ver</span>
+              </button>
+              <button class="ghost">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <path d="M3 3v5h5"></path>
+                </svg>
+                <span>Reiniciar</span>
+              </button>
+              <button class="ghost">
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                  <line x1="4" y1="22" x2="4" y2="15"></line>
+                </svg>
+                <span>Encerrar</span>
+              </button>
+            </div>
+          </div>
+          <button class="ghost" style="width:100%; margin-top:0.5rem;">
+            <svg class="icon" viewBox="0 0 24 24">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Nova jornada</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Anotações & Conversa com IA -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>6. Abas & Formulário de Anotações / Conversa IA</span>
+      </h2>
+      <p class="showcase-desc">
+        A seção de estudo abaixo da perícope traz abas essenciais (Anotações, Tópicos, Conversar), formulário de salvar e botão de copiar prompt para IA. Os ícones ajudam a distinguir o propósito de cada aba num relance.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div class="notes-tabs-mock">
+            <button class="notes-tab-mock active">Anotações</button>
+            <button class="notes-tab-mock">Tópicos</button>
+            <button class="notes-tab-mock">Conversar</button>
+          </div>
+          <textarea class="notes-textarea-mock" placeholder="Escreva pensamentos, orações..."></textarea>
+          <div class="note-form-actions-mock">
+            <button type="submit">Salvar anotação</button>
+            <button class="linkish">Cancelar</button>
+          </div>
+          <div style="margin-top:0.75rem;">
+            <button class="ghost">Copiar</button>
+          </div>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div class="notes-tabs-mock">
+            <button class="notes-tab-mock active">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              <span>Anotações</span>
+            </button>
+            <button class="notes-tab-mock">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              <span>Tópicos</span>
+            </button>
+            <button class="notes-tab-mock">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>Conversar</span>
+            </button>
+          </div>
+          <textarea class="notes-textarea-mock" placeholder="Escreva pensamentos, orações..."></textarea>
+          <div class="note-form-actions-mock">
+            <button type="submit">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Salvar anotação</span>
+            </button>
+            <button class="linkish">Cancelar</button>
+          </div>
+          <div style="margin-top:0.75rem;">
+            <button class="ghost">
+              <svg class="icon" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copiar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Explorar, Trocar Livro e Filtros -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>7. Explorar & Catálogo (Trocar Livro / Registro e Filtros)</span>
+      </h2>
+      <p class="showcase-desc">
+        Na tela de catálogo aberto, o botão "Trocar livro" e os filtros de status ganham clareza com símbolos gráficos.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Gênesis</strong>
+            <button class="ghost">Trocar livro</button>
+          </div>
+          <div class="chips-group-mock" style="margin-top:0.8rem;">
+            <span class="chip-mock active">Todas</span>
+            <span class="chip-mock">Não lidas</span>
+            <span class="chip-mock">Lidas</span>
+            <span class="chip-mock">Para reler</span>
+          </div>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Gênesis</strong>
+            <button class="ghost">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <polyline points="16 3 21 3 21 8"></polyline>
+                <line x1="4" y1="14" x2="21" y2="3"></line>
+                <polyline points="8 21 3 21 3 16"></polyline>
+                <line x1="20" y1="10" x2="3" y2="21"></line>
+              </svg>
+              <span>Trocar livro</span>
+            </button>
+          </div>
+          <div class="chips-group-mock" style="margin-top:0.8rem;">
+            <span class="chip-mock active">Todas</span>
+            <span class="chip-mock">○ Não lidas</span>
+            <span class="chip-mock">✓ Lidas</span>
+            <span class="chip-mock">★ Para reler</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Perfil, Configurações e Conta -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">
+        <span>8. Perfil & Ajustes (Navegação de Conta e Sistema)</span>
+      </h2>
+      <p class="showcase-desc">
+        Na página de Perfil, links importantes como "Ajustes", "Sobre" e "Sair / Entrar" deixam de parecer texto plano solto e passam a ter presença de menu profissional.
+      </p>
+
+      <div class="comparison-grid">
+        <!-- Antes -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-before">Como está hoje</span>
+          <div style="display:flex; flex-direction:column; gap:0.6rem;">
+            <a href="#!" class="ghost" style="justify-content:flex-start;">Ajustes</a>
+            <a href="#!" class="ghost" style="justify-content:flex-start;">Sobre</a>
+            <button class="ghost" style="justify-content:flex-start; color:var(--erro);">Sair</button>
+          </div>
+        </div>
+
+        <!-- Depois -->
+        <div class="mock-panel">
+          <span class="mock-panel-badge badge-after">Proposta com Ícone</span>
+          <div style="display:flex; flex-direction:column; gap:0.6rem;">
+            <a href="#!" class="ghost" style="justify-content:flex-start;">
+              <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Ajustes</span>
+            </a>
+            <a href="#!" class="ghost" style="justify-content:flex-start;">
+              <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Sobre</span>
+            </a>
+            <button class="ghost" style="justify-content:flex-start; color:var(--erro);">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Sair</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo dos Benefícios -->
+    <div class="highlight-card">
+      <h4>Diretrizes Técnicas da Proposta</h4>
+      <p>
+        • <strong>100% SVG nativo:</strong> Nenhum pacote externo adicionado ao bundle (peso zero, zero overhead).<br>
+        • <strong>Harmonia cromática:</strong> Todos os ícones herdam <code>currentColor</code>, funcionando perfeitamente em modo Claro e Escuro.<br>
+        • <strong>Espessura ótica consistente:</strong> Traço 1.75–2px (mesmo padrão dos 4 ícones da barra de navegação).<br>
+        • <strong>Acessibilidade preservada:</strong> Ícones marcados com <code>aria-hidden="true"</code> para manter os leitores de tela limpos e objetivos.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const nextTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', nextTheme);
+      document.getElementById('themeLabel').textContent = nextTheme === 'dark' ? 'Alternar Tema (Claro)' : 'Alternar Tema (Escuro)';
+    }
+  </script>
+</body>
+</html>

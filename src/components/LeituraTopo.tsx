@@ -2,7 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { useHideOnScroll } from '../lib/use-hide-on-scroll'
 import { usePopover } from '../lib/use-popover'
-import { IconeCompartilhar, IconePessoa } from './icones-nav'
+import { IconeCompartilhar, IconePessoa, IconeSetaEsquerda } from './icones'
 import LeituraPrefs from './LeituraPrefs'
 
 type Props = {
@@ -111,7 +111,8 @@ export default function LeituraTopo({ livro, posicao, onCompartilhar, jornadaNom
         // Um chevron isolado não é confiável em leitor de tela.
         aria-label={`Voltar para ${voltarRotulo}`}
       >
-        <span aria-hidden>‹</span> {voltarRotulo}
+        <IconeSetaEsquerda size={15} />
+        <span>{voltarRotulo}</span>
       </Link>
 
       {/* Montado mesmo sem posição: o grid é `1fr auto 1fr` e um centro

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconePlay } from '../components/NarracaoPlayer'
+import { IconeEntrar, IconeLivroAberto, IconeTrilha } from '../components/icones'
 import { JornadasCarrossel, type CardJornadaItem } from '../components/JornadasCarrossel'
 import { SkeletonHome } from '../components/Skeleton'
 import { loadIndex, refLabel } from '../lib/content'
@@ -158,6 +159,7 @@ export default function Home() {
           <JornadasCarrossel itens={estado.itens} />
           <p className="jornada-convite">
             <Link className="ghost" to="/jornada">
+              <IconeTrilha />
               Ver todas as jornadas
             </Link>
           </p>
@@ -195,6 +197,7 @@ export default function Home() {
                 </p>
                 <div className="card-acoes">
                   <Link className="cta" to={`/leitura/${t.peri.ordem}`}>
+                    <IconeLivroAberto />
                     {t.prog.proximaOrdem === null ? 'Rever' : 'Continuar'}
                   </Link>
                   <BotaoOuvir peri={t.peri} />
@@ -205,10 +208,12 @@ export default function Home() {
           <p className="jornada-convite">
             {session ? (
               <Link className="ghost" to="/jornada">
+                <IconeTrilha />
                 Comece uma jornada
               </Link>
             ) : (
               <Link className="ghost" to="/entrar">
+                <IconeEntrar />
                 Entre para criar jornadas
               </Link>
             )}

@@ -1,5 +1,12 @@
 import { useEffect, useRef } from 'react'
 import type { DestaqueCor } from '../lib/types'
+import {
+  IconeAnotar,
+  IconeCompartilhar,
+  IconeCopiar,
+  IconeFechar,
+  IconeLixeira,
+} from './icones'
 
 const CORES: { id: DestaqueCor; label: string }[] = [
   { id: 'verde', label: 'Verde' },
@@ -76,17 +83,21 @@ export default function VerseActions({
       <div className="verse-actions-head">
         <strong className="verse-actions-ref">{label}</strong>
         <button type="button" className="linkish" onClick={onFechar}>
+          <IconeFechar size={15} />
           Fechar
         </button>
       </div>
       <div className="verse-actions-row">
         <button type="button" className="ghost" onClick={onCopiar}>
+          <IconeCopiar size={17} />
           Copiar
         </button>
         <button type="button" className="ghost" onClick={onCompartilhar}>
+          <IconeCompartilhar size={17} />
           Compartilhar
         </button>
         <button type="button" className="ghost" onClick={onAnotar}>
+          <IconeAnotar size={17} />
           Anotar
         </button>
       </div>
@@ -103,6 +114,7 @@ export default function VerseActions({
         ))}
         {temDestaque && (
           <button type="button" className="linkish" onClick={onRemoverDestaque}>
+            <IconeLixeira size={15} />
             Remover
           </button>
         )}

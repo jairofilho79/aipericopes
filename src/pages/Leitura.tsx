@@ -8,7 +8,20 @@ import SectionChips from '../components/SectionChips'
 import { SkeletonLeitura } from '../components/Skeleton'
 import VerseActions from '../components/VerseActions'
 import DitarBotao from '../components/DitarBotao'
-import { IconeCompartilhar } from '../components/icones-nav'
+import {
+  IconeAnotar,
+  IconeCheck,
+  IconeCompartilhar,
+  IconeConversar,
+  IconeCopiar,
+  IconeDesvincular,
+  IconeEstrela,
+  IconeLapis,
+  IconeLixeira,
+  IconeSetaDireita,
+  IconeSetaEsquerda,
+  IconeTopicos,
+} from '../components/icones'
 import {
   anteriorNoTestamento,
   getPericope,
@@ -207,7 +220,7 @@ function PagerLado({
       </button>
     )
   }
-  const rotulo = proxima ? `${v.titulo} →` : `← ${v.titulo}`
+  const seta = proxima ? <IconeSetaDireita size={16} /> : <IconeSetaEsquerda size={16} />
   const ariaNav = `${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`
   const tituloAtalho = `Atalho: ${proxima ? '→' : '←'}`
   // Com narração a borda é do `.pager-lado`; sem, o link carrega ghost/cta.
@@ -219,7 +232,9 @@ function PagerLado({
       title={tituloAtalho}
       to={comQs(`/leitura/${v.ordem}`)}
     >
-      {rotulo}
+      {!proxima && seta}
+      <span>{v.titulo}</span>
+      {proxima && seta}
     </Link>
   )
   if (!v.narrado) return linkNav
@@ -1364,11 +1379,11 @@ export default function Leitura() {
           <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos e conversa">
             {(
               [
-                ['anotacoes', 'Anotações'],
-                ['topicos', 'Tópicos'],
-                ['conversar', 'Conversar'],
+                ['anotacoes', 'Anotações', <IconeAnotar key="a" size={16} />],
+                ['topicos', 'Tópicos', <IconeTopicos key="t" size={16} />],
+                ['conversar', 'Conversar', <IconeConversar key="c" size={16} />],
               ] as const
-            ).map(([id, label]) => (
+            ).map(([id, label, icone]) => (
               <button
                 key={id}
                 type="button"
@@ -1377,7 +1392,8 @@ export default function Leitura() {
                 className={`notes-tab${tab === id ? ' active' : ''}`}
                 onClick={() => setTab(id)}
               >
-                {label}
+                {icone}
+                <span>{label}</span>
               </button>
             ))}
           </div>
@@ -1389,6 +1405,7 @@ export default function Leitura() {
                   <p className="note-ref-row">
                     <span className="note-ref-chip">{verseRefLabel(p.abbrev, draftRef)}</span>
                     <button type="button" className="linkish" onClick={() => setDraftRef(null)}>
+                      <IconeDesvincular size={14} />
                       Remover vínculo
                     </button>
                   </p>
@@ -1401,7 +1418,10 @@ export default function Leitura() {
                   placeholder="Escreva pensamentos, orações, aplicações…"
                 />
                 <div className="note-form-actions">
-                  <button type="submit">{editingId ? 'Salvar alterações' : 'Salvar anotação'}</button>
+                  <button type="submit">
+                    <IconeCheck size={16} />
+                    {editingId ? 'Salvar alterações' : 'Salvar anotação'}
+                  </button>
                   {editingId && (
                     <button type="button" className="linkish" onClick={cancelarEdicao}>
                       Cancelar
@@ -1447,6 +1467,7 @@ export default function Leitura() {
                       ) : (
                         <>
                           <button type="button" className="linkish" onClick={() => editarNota(n)}>
+                            <IconeLapis size={14} />
                             Editar
                           </button>
                           <button
@@ -1454,6 +1475,7 @@ export default function Leitura() {
                             className="linkish"
                             onClick={() => setConfirmarId(n.id)}
                           >
+                            <IconeLixeira size={14} />
                             Apagar
                           </button>
                         </>
@@ -1489,6 +1511,7 @@ export default function Leitura() {
               </p>
               <pre className="contexto-ia-text">{promptConversa(p)}</pre>
               <button type="button" className="ghost copy-btn" onClick={copyContexto}>
+                {copied ? <IconeCheck size={16} /> : <IconeCopiar size={16} />}
                 {copied ? 'Copiado' : 'Copiar'}
               </button>
             </div>
@@ -1497,14 +1520,13 @@ export default function Leitura() {
           <div className="actions">
             {status !== 'concluido' ? (
               <button type="button" className="cta" onClick={() => void markDone()}>
+                <IconeCheck size={19} />
                 Marcar como concluída
               </button>
             ) : (
               <>
-                {/* Uma linha: "Concluída ✓" é o próprio desmarcar (toque de
-                    volta), estrela é só ícone. "Desmarcar como…" e "Marcar
-                    para reler" em texto puro empilhado comiam a dobra e
-                    pareciam links, não botões. */}
+                {/* Uma linha: "Concluída" com ícone é o próprio desmarcar (toque de
+                    volta), estrela é só ícone. */}
                 <div className="actions-linha">
                   <button
                     type="button"
@@ -1514,7 +1536,8 @@ export default function Leitura() {
                     title="Desmarcar como concluída"
                     onClick={() => void desmarcar()}
                   >
-                    Concluída ✓
+                    <IconeCheck size={17} />
+                    Concluída
                   </button>
                   <button
                     type="button"
@@ -1524,7 +1547,7 @@ export default function Leitura() {
                     title={prog?.paraReler ? 'Desmarcar para reler' : 'Marcar para reler'}
                     onClick={() => void alternarReler()}
                   >
-                    {prog?.paraReler ? '★' : '☆'}
+                    <IconeEstrela size={18} preenchida={Boolean(prog?.paraReler)} />
                   </button>
                   <button
                     type="button"

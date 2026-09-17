@@ -786,6 +786,7 @@ button.cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   background: var(--cta-bg);
   color: var(--cta-ink);
   border: none;
@@ -802,6 +803,8 @@ button.cta {
 button.ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
   font-family: var(--font-ui);
   font-weight: 600;
   color: var(--accent);
@@ -859,6 +862,9 @@ button.ghost {
 }
 
 .notes-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-ui);
   font-size: 0.88rem;
   font-weight: 600;
@@ -2451,6 +2457,9 @@ button.pager-fim {
    seletor simples esses dois ficavam nos 40px do formulário em vez dos 44px
    do alvo de toque. Todo `.linkish` do app é um `<button>`. */
 button.linkish {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   background: none;
   border: none;
   color: var(--accent);
@@ -3660,6 +3669,7 @@ fieldset.jornada-campo {
 .perfil-item {
   display: flex;
   align-items: center;
+  gap: 0.6rem;
   /* 44px: deixou de ser item de popover e virou a linha principal de uma
      página inteira, onde o piso de toque do app vale. */
   min-height: 2.75rem;
