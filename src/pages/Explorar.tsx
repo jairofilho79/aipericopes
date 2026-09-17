@@ -13,7 +13,7 @@ import DitarBotao from '../components/DitarBotao'
 // `src/lib/item-pericope.ts`, seguindo o que o repositório já faz com toda
 // lógica pura.
 import { itemDeHit, itemDeIndice, type ItemPericope } from '../lib/item-pericope'
-import { bookByName, type BibleBook } from '../lib/bible-books'
+import { BIBLE_BOOKS, bookByName, type BibleBook } from '../lib/bible-books'
 import {
   contagemPorLivro,
   filtroDeOrdens,
@@ -44,9 +44,10 @@ import {
   progressoDoIndice,
   searchTexto,
 } from '../lib/fulltext'
-import { listAllProgresso } from '../lib/user-db'
+import { getJornada, listAllProgresso } from '../lib/user-db'
+import { rotaDaJornada } from '../lib/jornadas'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
-import type { PericopeIndex, ProgressoStatus } from '../lib/types'
+import type { Jornada, PericopeIndex, ProgressoStatus } from '../lib/types'
 
 const FILTROS: { valor: FiltroLeitura; rotulo: string }[] = [
   { valor: 'todos', rotulo: 'Todos' },
@@ -104,6 +105,9 @@ export default function Explorar() {
   const eixoParam = params.get('eixo')
   const eixo: Eixo = eixoParam === 'registros' ? 'registros' : 'livros'
 
+  const jornadaParam = params.get('jornada') ?? ''
+  const [jornadaAtiva, setJornadaAtiva] = useState<Jornada | null>(null)
+
   const [todas, setTodas] = useState<PericopeIndex[]>([])
   const [status, setStatus] = useState(new Map<number, ProgressoStatus>())
   const [carregando, setCarregando] = useState(true)
@@ -113,7 +117,43 @@ export default function Explorar() {
   // a falha do microfone ficaria só no console.
   const [aviso, setAviso] = useState('')
 
-  const aceita = useMemo(() => filtroDeOrdens(status, filtro), [status, filtro])
+  useEffect(() => {
+    if (!jornadaParam) {
+      setJornadaAtiva(null)
+      return
+    }
+    let vivo = true
+    void getJornada(jornadaParam)
+      .then((j) => {
+        if (!vivo) return
+        setJornadaAtiva(j ?? null)
+      })
+      .catch(() => {
+        if (vivo) setJornadaAtiva(null)
+      })
+    return () => {
+      vivo = false
+    }
+  }, [jornadaParam])
+
+  const rotaJornada = useMemo(
+    () => (jornadaAtiva && todas.length > 0 ? rotaDaJornada(jornadaAtiva, todas) : null),
+    [jornadaAtiva, todas],
+  )
+  const ordensJornada = useMemo(
+    () => (rotaJornada ? new Set(rotaJornada) : null),
+    [rotaJornada],
+  )
+  const pericopesJornada = useMemo(
+    () => (ordensJornada ? todas.filter((p) => ordensJornada.has(p.ordem)) : todas),
+    [ordensJornada, todas],
+  )
+
+  const aceita = useMemo(() => {
+    const base = filtroDeOrdens(status, filtro)
+    if (!ordensJornada) return base
+    return (ordem: number) => ordensJornada.has(ordem) && base(ordem)
+  }, [status, filtro, ordensJornada])
   const concluidas = useMemo(
     () => new Set([...status].filter(([, s]) => s === 'concluido').map(([o]) => o)),
     [status],
@@ -172,6 +212,11 @@ export default function Explorar() {
   // lista piscar por causa de uma conclusão feita em outro aparelho.
   useSyncRefresh(() => {
     void carregarProgresso().catch(() => {})
+    if (jornadaParam) {
+      void getJornada(jornadaParam)
+        .then((j) => setJornadaAtiva(j ?? null))
+        .catch(() => {})
+    }
   })
 
   function mexerNaUrl(mudar: (p: URLSearchParams) => void, replace: boolean) {
@@ -179,6 +224,11 @@ export default function Explorar() {
     mudar(proximo)
     setParams(proximo, { replace })
   }
+
+  const limparJornada = () =>
+    mexerNaUrl((p) => {
+      p.delete('jornada')
+    }, false)
 
   // Digitar navega com replace: teclar não pode entulhar o histórico. Mas o
   // `replace` é `!livro && !registro`, não sempre `true`: a primeira tecla
@@ -268,6 +318,11 @@ export default function Explorar() {
     void findPericopeByRef(r.livro.abbrev, r.cap, r.ver ?? 1)
       .then((achado) => {
         if (!vivo) return
+        if (achado && ordensJornada && !ordensJornada.has(achado.ordem)) {
+          setRefHit(null)
+          setRefMiss(`${r.livro.name} ${r.cap}:${r.ver ?? 1} não faz parte desta jornada.`)
+          return
+        }
         setRefHit(achado)
         setRefMiss(achado ? '' : `Nenhuma perícope contém ${r.livro.name} ${r.cap}:${r.ver ?? 1}.`)
       })
@@ -281,7 +336,7 @@ export default function Explorar() {
     return () => {
       vivo = false
     }
-  }, [consulta.ref])
+  }, [consulta.ref, ordensJornada])
 
   // ---- Seção Títulos ----
   const [titulos, setTitulos] = useState<PericopeIndex[]>([])
@@ -388,8 +443,26 @@ export default function Explorar() {
     }
   }, [livro])
 
-  const progresso = useMemo(() => progressoPorLivro(todas, concluidas), [todas, concluidas])
-  const contagem = useMemo(() => contagemPorLivro(todas, aceita), [todas, aceita])
+  const progresso = useMemo(
+    () => progressoPorLivro(pericopesJornada, concluidas),
+    [pericopesJornada, concluidas],
+  )
+  const contagem = useMemo(
+    () => contagemPorLivro(pericopesJornada, aceita),
+    [pericopesJornada, aceita],
+  )
+
+  const livrosCatalogo = useMemo(() => {
+    if (!ordensJornada) return BIBLE_BOOKS
+    const nomes = new Set(pericopesJornada.map((p) => p.livro))
+    return BIBLE_BOOKS.filter((b) => nomes.has(b.name))
+  }, [ordensJornada, pericopesJornada])
+
+  const livrosBusca = useMemo(() => {
+    if (!ordensJornada) return consulta.livros
+    const nomes = new Set(pericopesJornada.map((p) => p.livro))
+    return consulta.livros.filter((b) => nomes.has(b.name))
+  }, [consulta.livros, ordensJornada, pericopesJornada])
 
   const itensTitulos: ItemPericope[] = useMemo(
     () => titulos.filter((p) => aceita(p.ordem)).map(itemDeIndice),
@@ -418,6 +491,10 @@ export default function Explorar() {
     () => contagemPorRegistro(registros, aceita),
     [registros, aceita],
   )
+  const registrosExibidos = useMemo(() => {
+    if (!ordensJornada) return registros
+    return registros.filter((r) => r.ordens.some((o) => ordensJornada.has(o)))
+  }, [registros, ordensJornada])
   // `todas` já está em ordem de leitura (`seq`, não `ordem` — ver
   // `src/lib/types.ts:2`); filtrar por pertencimento preserva essa ordem sem
   // reordenar nada, exatamente como o contrato de `registros.ts` documenta.
@@ -434,6 +511,26 @@ export default function Explorar() {
   return (
     <section className="explorar">
       <h1 className="sr-only">Explorar</h1>
+
+      {jornadaAtiva && (
+        <aside className="banner-jornada-explorar" aria-label="Jornada ativa">
+          <div className="banner-jornada-info">
+            <span className="banner-jornada-tag">Jornada</span>
+            <strong className="banner-jornada-nome">{jornadaAtiva.nome}</strong>
+            <span className="muted">
+              · {rotaJornada ? `${rotaJornada.length} ${rotaJornada.length === 1 ? 'perícope' : 'perícopes'}` : '…'}
+            </span>
+          </div>
+          <button
+            type="button"
+            className="banner-jornada-limpar"
+            onClick={limparJornada}
+            title="Remover filtro de jornada e ver a Bíblia toda"
+          >
+            ✕ Ver Bíblia toda
+          </button>
+        </aside>
+      )}
 
       <div className="filters">
         <div className="campo-ref">
@@ -496,6 +593,7 @@ export default function Explorar() {
           concluidas={concluidas}
           filtro={filtro}
           onTrocar={fecharLivro}
+          jornadaId={jornadaAtiva?.id}
         />
       ) : registro ? (
         <RegistroAberto
@@ -504,6 +602,7 @@ export default function Explorar() {
           itens={itensRegistro}
           concluidas={concluidas}
           onTrocar={fecharRegistro}
+          jornadaId={jornadaAtiva?.id}
         />
       ) : emRepouso ? (
         <>
@@ -526,7 +625,7 @@ export default function Explorar() {
           </div>
           {eixo === 'registros' ? (
             <CatalogoRegistros
-              registros={registros}
+              registros={registrosExibidos}
               progresso={progressoRegistros}
               contagem={contagemRegistros}
               filtro={filtro}
@@ -534,6 +633,7 @@ export default function Explorar() {
             />
           ) : (
             <CatalogoLivros
+              livros={livrosCatalogo}
               progresso={progresso}
               contagem={contagem}
               filtro={filtro}
@@ -564,6 +664,7 @@ export default function Explorar() {
                     },
                   ]}
                   concluidas={concluidas}
+                  jornadaId={jornadaAtiva?.id}
                 />
               )}
             </section>
@@ -573,13 +674,13 @@ export default function Explorar() {
               reordenar. `agruparLivros` monta as seções por TRANSIÇÃO, então
               depende dessa ordem: uma lista reordenada produziria duas seções
               com o mesmo nome. Não ordene isto. */}
-          {consulta.livros.length > 0 && (
+          {livrosBusca.length > 0 && (
             <section className="secao-resultado">
               <h2 className="secao-h">
-                Livros <span className="secao-n">{consulta.livros.length}</span>
+                Livros <span className="secao-n">{livrosBusca.length}</span>
               </h2>
               <CatalogoLivros
-                livros={consulta.livros}
+                livros={livrosBusca}
                 progresso={progresso}
                 contagem={contagem}
                 filtro={filtro}
@@ -598,7 +699,11 @@ export default function Explorar() {
                   {titulos50.truncado ? ' (primeiros)' : ''}
                 </span>
               </h2>
-              <ListaPericopes itens={titulos50.hits} concluidas={concluidas} />
+              <ListaPericopes
+                itens={titulos50.hits}
+                concluidas={concluidas}
+                jornadaId={jornadaAtiva?.id}
+              />
             </section>
           )}
 
@@ -632,7 +737,11 @@ export default function Explorar() {
                   <p className="muted">Nenhum resultado no texto.</p>
                 )}
               </div>
-              <ListaPericopes itens={itensTexto} concluidas={concluidas} />
+              <ListaPericopes
+                itens={itensTexto}
+                concluidas={concluidas}
+                jornadaId={jornadaAtiva?.id}
+              />
             </section>
           )}
 

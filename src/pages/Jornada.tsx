@@ -661,6 +661,16 @@ export default function Jornada() {
                   </p>
                 ) : (
                   <p className="jornada-acoes">
+                    <Link
+                      className="ghost"
+                      to={
+                        j.tipo === 'livro'
+                          ? `/explorar?jornada=${j.id}&livro=${encodeURIComponent(j.escopo)}`
+                          : `/explorar?jornada=${j.id}`
+                      }
+                    >
+                      Ver
+                    </Link>
                     <button
                       type="button"
                       className="ghost"

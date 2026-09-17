@@ -4,18 +4,24 @@ import type { ItemPericope } from '../lib/item-pericope'
 export default function ListaPericopes({
   itens,
   concluidas,
+  jornadaId,
 }: {
   itens: ItemPericope[]
   concluidas: Set<number>
+  jornadaId?: string
 }) {
   return (
     <ul className="peri-list">
       {itens.map((it) => {
         const done = concluidas.has(it.ordem)
+        const params = new URLSearchParams()
+        if (it.verseId) params.set('v', it.verseId)
+        if (jornadaId) params.set('jornadaId', jornadaId)
+        const qs = params.toString()
         return (
           <li key={it.ordem}>
             <Link
-              to={`/leitura/${it.ordem}${it.verseId ? `?v=${it.verseId}` : ''}`}
+              to={`/leitura/${it.ordem}${qs ? `?${qs}` : ''}`}
               className={done ? 'done' : undefined}
             >
               <span className="peri-row">

@@ -111,10 +111,26 @@ export function manifestoValido(v: unknown): v is Manifesto {
  * O `1` é a era NAA; o `2` é a era Bíblia Livre. Enquanto a Sessão 4 não
  * publicar nada em `gam-ash2/`, não há manifesto e o tocador não aparece —
  * que é o comportamento certo.
- *
- * Há teste travando isto. Não volte para `gam-ash1`.
  */
-export const VOZ = 'gam-ash2'
+/** Voz atual preferencial (Algenib V4 - Gemini 3.1 Flash TTS com texto revisado). */
+export const VOZ_V3 = 'algenib-v4'
+
+/** Voz legada V2 (Ash - gpt-audio-mini), preservada como fallback para perícopes ainda não migradas. */
+export const VOZ_V2 = 'gam-ash2'
+
+/** Voz padrão global para o catálogo. */
+export const VOZ = VOZ_V3
+
+/** Perícopes oficiais migradas para a voz V3 (Algenib V3 - Gemini 3.1 Flash TTS). */
+export const PERICOPES_V3: ReadonlySet<number> = new Set([
+  2, // Gn 3:1-24
+  ...Array.from({ length: 20 }, (_, i) => 1600 + i), // Mt 1:1 - 6:15 (1600..1619)
+])
+
+/** Resolve a voz oficial: V3 para perícopes já migradas, V2 como fallback para o acervo restante. */
+export function vozDaPericope(ordem: number): string {
+  return PERICOPES_V3.has(ordem) ? VOZ_V3 : VOZ_V2
+}
 
 /**
  * Busca o manifesto da perícope. Qualquer falha — 404, rede, corpo estranho —
@@ -123,10 +139,11 @@ export const VOZ = 'gam-ash2'
 export async function carregarManifesto(
   ordem: number,
   signal?: AbortSignal,
+  voz: string = vozDaPericope(ordem),
 ): Promise<Manifesto | null> {
   try {
     // `res.ok`, não `status === 200`: o Worker devolve 206 em GET do R2.
-    const res = await fetch(`/api/audio/${VOZ}/${ordem}.json`, { signal })
+    const res = await fetch(`/api/audio/${voz}/${ordem}.json`, { signal })
     if (!res.ok) return null
     if (!(res.headers.get('content-type') ?? '').includes('json')) return null
     const corpo: unknown = await res.json()

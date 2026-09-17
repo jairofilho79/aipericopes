@@ -3943,3 +3943,56 @@ fieldset.jornada-campo {
   background: var(--accent);
   border-radius: 1px;
 }
+
+/* ===== Explorar: banner de jornada ativa ===== */
+.banner-jornada-explorar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1.25rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+}
+
+.banner-jornada-info {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.banner-jornada-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.banner-jornada-nome {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.banner-jornada-limpar {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.banner-jornada-limpar:hover {
+  text-decoration: underline;
+}
+

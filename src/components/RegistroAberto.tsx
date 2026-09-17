@@ -13,6 +13,7 @@ export default function RegistroAberto({
   itens,
   concluidas,
   onTrocar,
+  jornadaId,
 }: {
   registro: Registro
   /** Progresso REAL do registro — nunca obedece ao recorte de leitura. */
@@ -21,6 +22,7 @@ export default function RegistroAberto({
   itens: PericopeIndex[]
   concluidas: Set<number>
   onTrocar: () => void
+  jornadaId?: string
 }) {
   const [visiveis, setVisiveis] = useState(PAGINA)
   // Mesmo padrão de LivroAberto.tsx:36-42 — ajustar estado no render, não
@@ -79,7 +81,11 @@ export default function RegistroAberto({
             <div className="book-group-head">
               <h2>{g.livro}</h2>
             </div>
-            <ListaPericopes itens={g.itens.map(itemDeIndice)} concluidas={concluidas} />
+            <ListaPericopes
+              itens={g.itens.map(itemDeIndice)}
+              concluidas={concluidas}
+              jornadaId={jornadaId}
+            />
           </div>
         ))
       )}

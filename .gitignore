@@ -48,6 +48,9 @@ public/data/registros.json
 
 .superpowers/
 .tts-key.local
+*service-account*.json
+kitchen-auth-*.json
+google-service-account.json
 
 # worktrees criadas pela ferramenta nativa do Claude Code (como .worktrees/)
 .claude/worktrees/
@@ -79,3 +82,6 @@ data/leitura-larga/
 
 # Backups pontuais de data/pericopes.json (14 MB cada), feitos antes de cada lote de edição
 data/pericopes.json.pre-*
+
+# Amostras de áudio locais
+amostras/

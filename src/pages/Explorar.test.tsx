@@ -15,7 +15,26 @@ vi.mock('../lib/auth-client', () => ({
 // `historico` e `paraReler` são OBRIGATÓRIOS em `Progresso` desde o merge da
 // releitura. Sem eles o `npm test` passa (o vitest não checa tipo) e só o
 // `tsc -b` do build quebra — foi exatamente o que aconteceu no commit 14b4f0d.
+const getJornadaMock = vi.fn(async (id: string) => {
+  if (id === 'j-joao') {
+    return {
+      id: 'j-joao',
+      nome: 'Evangelho de João',
+      tipo: 'livro' as const,
+      escopo: 'João',
+      inicioOrdem: 1,
+      contaDesde: null,
+      criadoEm: '2026-09-03T00:00:00.000Z',
+      atualizadoEm: '2026-09-03T00:00:00.000Z',
+      arquivadaEm: null,
+      concluidaEm: null,
+    }
+  }
+  return undefined
+})
+
 vi.mock('../lib/user-db', () => ({
+  getJornada: (id: string) => getJornadaMock(id),
   listAllProgresso: async () => [
     {
       pericopeOrdem: 1,
@@ -209,6 +228,31 @@ describe('Explorar', () => {
     expect(secaoTitulos).toBeDefined()
     expect(secaoTitulos?.querySelectorAll('.peri-list li')).toHaveLength(50)
     expect(secaoTitulos?.querySelector('.secao-h')?.textContent).toContain('(primeiros)')
+  })
+
+  // ---- Jornada no Explorar ----
+
+  it('com ?jornada=... mostra banner da jornada e restringe o catálogo aos livros da jornada', async () => {
+    await montar('/explorar?jornada=j-joao')
+    const banner = host.querySelector('.banner-jornada-explorar')
+    expect(banner).not.toBeNull()
+    expect(banner?.textContent).toContain('Evangelho de João')
+    expect(banner?.textContent).toContain('1 perícope')
+    // Apenas João aparece no catálogo, em vez dos 66 livros
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(1)
+    expect(host.querySelector('.livro-nome')?.textContent).toBe('João')
+  })
+
+  it('o botão no banner da jornada limpa o filtro e restaura todos os livros', async () => {
+    await montar('/explorar?jornada=j-joao')
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(1)
+    const limpar = host.querySelector('.banner-jornada-limpar') as HTMLButtonElement | null
+    expect(limpar).not.toBeNull()
+    await act(async () => {
+      limpar?.click()
+    })
+    expect(host.querySelector('.banner-jornada-explorar')).toBeNull()
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(66)
   })
 
   // ---- Eixo "Registros" ----

@@ -10,7 +10,7 @@ import {
   type Ref,
 } from 'react'
 import { alinhar, type SecaoAlvos } from '../lib/alinhar-narracao'
-import { carregarManifesto, VOZ, type Manifesto } from '../lib/manifesto'
+import { carregarManifesto, vozDaPericope, type Manifesto } from '../lib/manifesto'
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
 
@@ -146,7 +146,6 @@ export default function NarracaoPlayer({
   )
 
   useEffect(() => {
-    const url = `/api/audio/${VOZ}/${ordem}.m4a`
     const ac = new AbortController()
     let vivo = true
     setSrc(null)
@@ -157,6 +156,10 @@ export default function NarracaoPlayer({
     setDisponibilidade('verificando')
     tempoInicialAplicado.current = false
     autoTentado.current = false
+
+    const voz = vozDaPericope(ordem)
+    const url = `/api/audio/${voz}/${ordem}.m4a`
+
     // Serializado: cobertura de narração é parcial, então buscar o manifesto
     // incondicionalmente seria um GET garantidamente 404 em quase toda
     // perícope aberta. Só vale a pena depois de o HEAD confirmar o áudio.
@@ -174,7 +177,7 @@ export default function NarracaoPlayer({
         // `carregarManifesto` nunca rejeita (devolve null em qualquer tropeço),
         // então nada aqui pode cair no catch de rede abaixo: áudio sem
         // manifesto toca, só não realça.
-        return carregarManifesto(ordem, ac.signal).then((m) => {
+        return carregarManifesto(ordem, ac.signal, voz).then((m) => {
           if (vivo) setManifesto(m)
         })
       })
@@ -183,6 +186,7 @@ export default function NarracaoPlayer({
         // é o que separa "a rede falhou" de "eu saí da página".
         if (vivo) setDisponibilidade('falhou')
       })
+
     return () => {
       vivo = false
       ac.abort()

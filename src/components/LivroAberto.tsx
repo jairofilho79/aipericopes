@@ -14,6 +14,7 @@ export default function LivroAberto({
   concluidas,
   filtro,
   onTrocar,
+  jornadaId,
 }: {
   livro: BibleBook
   /** Progresso do livro INTEIRO — não do que sobrou do recorte. */
@@ -23,6 +24,7 @@ export default function LivroAberto({
   /** Só para o `peri-count` dizer "em Gênesis" contra "no recorte". */
   filtro: FiltroLeitura
   onTrocar: () => void
+  jornadaId?: string
 }) {
   return (
     <>
@@ -55,7 +57,7 @@ export default function LivroAberto({
         {filtro === 'todos' ? ` em ${livro.name}` : ' no recorte'}
       </p>
 
-      <ListaPericopes itens={itens} concluidas={concluidas} />
+      <ListaPericopes itens={itens} concluidas={concluidas} jornadaId={jornadaId} />
     </>
   )
 }

@@ -433,6 +433,15 @@ describe('Jornada — logado, com jornada corrente', () => {
     expect(typeof patch.arquivadaEm).toBe('string')
   })
 
+  it('mostra botão Ver apontando para o Explorar com a jornada e livro se aplicável', async () => {
+    getJornadaCorrente.mockResolvedValue(jornada({ id: 'j9', tipo: 'livro', escopo: 'Gênesis' }))
+    montar()
+    await assentar()
+    const verLink = host.querySelector('a.ghost[href="/explorar?jornada=j9&livro=G%C3%AAnesis"]')
+    expect(verLink).not.toBeNull()
+    expect(verLink?.textContent).toBe('Ver')
+  })
+
   it('o convite mostra "Nova jornada" em vez de "Comece uma jornada"', async () => {
     getJornadaCorrente.mockResolvedValue(jornada({ id: 'j9' }))
     montar()
