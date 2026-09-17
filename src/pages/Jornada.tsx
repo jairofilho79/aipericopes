@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { IconeFones, IconeLivroAberto } from '../components/icones'
+import {
+  IconeBandeira,
+  IconeFones,
+  IconeLapis,
+  IconeLivroAberto,
+  IconeMais,
+  IconeOlho,
+  IconeReiniciar,
+} from '../components/icones'
 import { loadIndex, refLabel } from '../lib/content'
 import {
   arquivarJornada,
@@ -300,7 +308,8 @@ function PassoConfirmacao({
 
       <p className="jornada-acoes">
         <button type="button" className="cta" disabled={criando} onClick={() => void criar()}>
-          Criar jornada
+          <IconeMais size={18} />
+          <span>Criar jornada</span>
         </button>
         <button type="button" className="linkish" onClick={onCancelar}>
           Cancelar
@@ -622,7 +631,8 @@ export default function Jornada() {
                         setRenomeandoId(j.id)
                       }}
                     >
-                      Renomear
+                      <IconeLapis size={14} />
+                      <span>Renomear</span>
                     </button>
                   </div>
                 )}
@@ -671,21 +681,24 @@ export default function Jornada() {
                           : `/explorar?jornada=${j.id}`
                       }
                     >
-                      Ver
+                      <IconeOlho size={16} />
+                      <span>Ver</span>
                     </Link>
                     <button
                       type="button"
                       className="ghost"
                       onClick={() => setConfirmando({ id: j.id, acao: 'reiniciar' })}
                     >
-                      Reiniciar
+                      <IconeReiniciar size={16} />
+                      <span>Reiniciar</span>
                     </button>
                     <button
                       type="button"
                       className="ghost"
                       onClick={() => setConfirmando({ id: j.id, acao: 'encerrar' })}
                     >
-                      Encerrar
+                      <IconeBandeira size={16} />
+                      <span>Encerrar</span>
                     </button>
                   </p>
                 )}
@@ -700,7 +713,8 @@ export default function Jornada() {
       {criacao === null ? (
         <p className="jornada-convite">
           <button type="button" className="ghost" onClick={() => setCriacao({ passo: 1 })}>
-            {estado.ativas.length > 0 ? 'Nova jornada' : 'Comece uma jornada'}
+            <IconeMais size={17} />
+            <span>{estado.ativas.length > 0 ? 'Nova jornada' : 'Comece uma jornada'}</span>
           </button>
         </p>
       ) : criacao.passo === 1 ? (

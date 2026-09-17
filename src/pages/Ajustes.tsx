@@ -4,6 +4,7 @@ import { listLivros, listPericopes, loadIndex, ordensDoTestamento } from '../lib
 import { testamentLabel, type Testament } from '../lib/testament'
 import { countConcluidasNaSequencia, zerarProgresso } from '../lib/user-db'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
+import { IconeReiniciar } from '../components/icones'
 
 type Alvo = { chave: string; rotulo: string; ordens: number[] }
 // `ordens` e `contagem` vêm do MESMO clique — o mesmo `a` e o mesmo `n` que
@@ -136,6 +137,7 @@ export default function Ajustes() {
                 disabled={n === 0}
                 onClick={() => setConfirmando({ ...a, contagem: n })}
               >
+                <IconeReiniciar size={15} />
                 Zerar
               </button>
             </li>
@@ -166,6 +168,7 @@ export default function Ajustes() {
               Cancelar
             </button>
             <button type="button" className="cta" onClick={() => void zerar(confirmando)}>
+              <IconeReiniciar size={16} />
               Zerar
             </button>
           </div>

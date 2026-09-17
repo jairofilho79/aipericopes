@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { tokens, type SecaoAlvos } from '../lib/alinhar-narracao'
-import NarracaoPlayer, { IconePlay, type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
+import NarracaoPlayer, { type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
 import { secaoDoChip } from '../lib/narracao-controles'
 import LeituraTopo from '../components/LeituraTopo'
 import SectionChips from '../components/SectionChips'
@@ -16,6 +16,7 @@ import {
   IconeCopiar,
   IconeDesvincular,
   IconeEstrela,
+  IconeFones,
   IconeLapis,
   IconeLixeira,
   IconeSetaDireita,
@@ -238,7 +239,7 @@ function PagerLado({
     </Link>
   )
   if (!v.narrado) return linkNav
-  // Play na borda da direção: antes no "anterior", depois no "próxima".
+  // Fones na borda da direção: antes no "anterior", depois no "próxima".
   const ouvir = (
     <Link
       className="pager-ouvir"
@@ -246,7 +247,7 @@ function PagerLado({
       aria-label={`Ouvir ${v.titulo}`}
       title="Ouvir"
     >
-      <IconePlay />
+      <IconeFones size={18} />
     </Link>
   )
   return (

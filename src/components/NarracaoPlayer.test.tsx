@@ -138,7 +138,7 @@ describe('NarracaoPlayer — disponibilidade', () => {
     )
     const icone = cartoes[0]!.querySelector('.ouvir-cartao-play svg')
     expect(icone).not.toBeNull()
-    expect(icone?.querySelector('path')?.getAttribute('d')).toContain('M3 14h3')
+    expect(icone?.querySelector('path')?.getAttribute('d')).toContain('M182.248,341.784')
     expect(container.querySelector('.narracao-doca')).toBeNull()
   })
 })

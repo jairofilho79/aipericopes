@@ -7,6 +7,7 @@ import LivroAberto from '../components/LivroAberto'
 import RegistroAberto from '../components/RegistroAberto'
 import ListaPericopes from '../components/ListaPericopes'
 import DitarBotao from '../components/DitarBotao'
+import { IconeFechar } from '../components/icones'
 // `itemDeIndice`, `itemDeHit` e `ItemPericope` NÃO moram no arquivo do
 // componente: exportar função pura ao lado de um componente dispara
 // `react(only-export-components)` e quebra o fast refresh. Moram em
@@ -527,7 +528,8 @@ export default function Explorar() {
             onClick={limparJornada}
             title="Remover filtro de jornada e ver a Bíblia toda"
           >
-            ✕ Ver Bíblia toda
+            <IconeFechar size={14} />
+            <span>Ver Bíblia toda</span>
           </button>
         </aside>
       )}

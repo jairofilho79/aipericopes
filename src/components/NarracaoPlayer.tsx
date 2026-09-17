@@ -13,6 +13,7 @@ import { alinhar, type SecaoAlvos } from '../lib/alinhar-narracao'
 import { carregarManifesto, vozDaPericope, type Manifesto } from '../lib/manifesto'
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
+import { IconeFones } from './icones'
 
 export type NarracaoPlayerHandle = {
   /**
@@ -561,26 +562,8 @@ export default function NarracaoPlayer({
   )
 }
 
-// Exportados para Home e Jornadas usarem os mesmos desenhos do player.
-export function IconeFones({ size = 20, className }: { size?: number; className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      aria-hidden
-      focusable="false"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
-    </svg>
-  )
-}
+// Re-exportado para manter consistência de ícone único em toda a aplicação.
+export { IconeFones }
 
 export function IconePlay() {
   return (

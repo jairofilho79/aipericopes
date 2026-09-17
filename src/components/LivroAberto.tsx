@@ -1,6 +1,7 @@
 import type { BibleBook } from '../lib/bible-books'
 import type { FiltroLeitura, LivroProgresso } from '../lib/content'
 import type { ItemPericope } from '../lib/item-pericope'
+import { IconeTrocar } from './icones'
 import ListaPericopes from './ListaPericopes'
 
 /** Cabeçalho e lista, a mesma forma de `RegistroAberto`: o formulário de
@@ -47,7 +48,8 @@ export default function LivroAberto({
             </span>
           </span>
           <button type="button" className="ghost trocar-livro" onClick={onTrocar}>
-            Trocar livro
+            <IconeTrocar size={16} />
+            <span>Trocar livro</span>
           </button>
         </div>
       </div>

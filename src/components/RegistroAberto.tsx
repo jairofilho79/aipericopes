@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { itemDeIndice } from '../lib/item-pericope'
 import { agruparPorLivro, type Registro, type RegistroProgresso } from '../lib/registros'
 import type { PericopeIndex } from '../lib/types'
+import { IconeTrocar } from './icones'
 import ListaPericopes from './ListaPericopes'
 
 /** Tamanho da página do "Ver mais": fixo, não deriva do total do registro. */
@@ -64,7 +65,8 @@ export default function RegistroAberto({
             </span>
           </span>
           <button type="button" className="ghost trocar-livro" onClick={onTrocar}>
-            Trocar registro
+            <IconeTrocar size={16} />
+            <span>Trocar registro</span>
           </button>
         </div>
       </div>

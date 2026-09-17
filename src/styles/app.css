@@ -3389,6 +3389,9 @@ button.trocar-livro {
 }
 
 .jornada-btn-renomear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   background: transparent;
   border: none;
   color: var(--muted);
@@ -4025,6 +4028,9 @@ fieldset.jornada-campo {
 }
 
 .banner-jornada-limpar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   background: transparent;
   border: none;
   color: var(--accent);

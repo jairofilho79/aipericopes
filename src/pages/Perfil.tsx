@@ -4,6 +4,7 @@ import LeituraPrefs from '../components/LeituraPrefs'
 import { authClient } from '../lib/auth-client'
 import { signOutLocal } from '../lib/sync'
 import { getThemePref, setThemePref, type ThemePref } from '../lib/theme'
+import { IconeEngrenagem, IconeEntrar, IconeInfo, IconeSair } from '../components/icones'
 
 const TEMAS: { id: ThemePref; label: string }[] = [
   { id: 'system', label: 'Sistema' },
@@ -83,6 +84,7 @@ export default function Perfil() {
       <div className="perfil-sep" role="separator" />
 
       <Link className="perfil-item" to="/ajustes">
+        <IconeEngrenagem size={18} />
         Ajustes
       </Link>
 
@@ -92,6 +94,7 @@ export default function Perfil() {
           divulgação, não só um link. Fica ANTES de Entrar/Sair de propósito:
           o teste da página ancora esses dois no último item. */}
       <Link className="perfil-item" to="/sobre">
+        <IconeInfo size={18} />
         Sobre
       </Link>
 
@@ -104,6 +107,7 @@ export default function Perfil() {
             disabled={saindo}
             title={session.user.email}
           >
+            <IconeSair size={18} />
             {saindo ? 'Saindo…' : 'Sair'}
           </button>
           {/* Montado desde antes do erro (mesmo padrão de
@@ -121,6 +125,7 @@ export default function Perfil() {
         </>
       ) : (
         <Link className="perfil-item" to="/entrar">
+          <IconeEntrar size={18} />
           Entrar
         </Link>
       )}

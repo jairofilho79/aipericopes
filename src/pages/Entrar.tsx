@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authClient } from '../lib/auth-client'
 import { syncNow } from '../lib/sync'
+import { IconeEmail, IconeEntrar } from '../components/icones'
 
 type Etapa = 'email' | 'codigo' | 'verificando'
 
@@ -89,6 +90,7 @@ export default function Entrar() {
             />
           </label>
           <button type="submit" className="cta" disabled={enviando}>
+            <IconeEmail size={18} />
             {enviando ? 'Enviando…' : 'Enviar código'}
           </button>
         </form>
@@ -116,6 +118,7 @@ export default function Entrar() {
             />
           </label>
           <button type="submit" className="cta" disabled={codigo.length !== 6}>
+            <IconeEntrar size={18} />
             Entrar
           </button>
           <button type="button" className="linkish" onClick={() => setEtapa('email')}>
