@@ -4553,3 +4553,86 @@ fieldset.jornada-campo {
   margin-top: -1px;
 }
 
+/* ── Tempo Estimado (Leitura & Áudio) ────────────────────────────────────── */
+.tempo-estimado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  vertical-align: baseline;
+}
+
+.tempo-estimado-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tempo-estimado-icone {
+  display: inline-block;
+  opacity: 0.82;
+  flex-shrink: 0;
+}
+
+.tempo-estimado-divisor {
+  opacity: 0.45;
+  user-select: none;
+}
+
+.tempo-estimado-valor {
+  white-space: nowrap;
+}
+
+/* Ajustes no seletor de perícope e cards */
+.seletor-pericope-tempos {
+  display: inline-flex;
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.jornada-confirmacao-resumo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.jornada-confirmacao-total {
+  font-weight: 600;
+}
+
+.jornada-confirmacao-sep {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.jornada-sugestao {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.jornada-sugestao .ref {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.2rem 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.ref-sep {
+  opacity: 0.5;
+  user-select: none;
+}
+
+

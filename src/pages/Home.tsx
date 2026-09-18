@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { IconeEntrar, IconeFones, IconeLivroAberto, IconeTrilha } from '../components/icones'
 import { JornadasCarrossel, type CardJornadaItem } from '../components/JornadasCarrossel'
 import { SkeletonHome } from '../components/Skeleton'
+import { TempoEstimado } from '../components/TempoEstimado'
 import { loadIndex, refLabel } from '../lib/content'
 import { atualizarJornada, listAllPosicoes, listAllProgresso, listJornadasAtivas } from '../lib/user-db'
 import {
@@ -188,7 +189,9 @@ export default function Home() {
                 <p className="track-label">{testamentLabel(t.testament)}</p>
                 <h2>{t.peri.titulo_pericope_pt}</h2>
                 <p className="ref">
-                  {refLabel(t.peri)} · ~{t.peri.minutos} min
+                  <span>{refLabel(t.peri)}</span>
+                  <span className="ref-sep">·</span>
+                  <TempoEstimado leitura={t.peri.minutos} audio={t.peri.audio_minutos} />
                   <SemNarracao peri={t.peri} alguemTem={alguemTem} />
                 </p>
                 <p className="track-progress">

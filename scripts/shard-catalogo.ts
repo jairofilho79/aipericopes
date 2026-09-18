@@ -25,6 +25,7 @@ const catalogoPath = join(root, 'data/pericopes.json')
  * shards com `narrado: false` em tudo, e nada quebra.
  */
 const coberturaPath = join(root, 'data/audio-cobertura.json')
+const duracoesPath = join(root, 'data/audio-duracoes.json')
 const outDir = join(root, 'public/data')
 const indexPath = join(outDir, 'index.json')
 const versaoPath = join(outDir, 'versao.json')
@@ -36,12 +37,8 @@ const versaoPath = join(outDir, 'versao.json')
  */
 const fontes = [
   catalogoPath,
-  // A cobertura entra aqui, e não só na leitura do índice, por causa do hash
-  // abaixo: publicar um lote de narração muda `narrado` sem encostar no
-  // catálogo, e sem essa linha a versão dos shards não mudaria — o service
-  // worker continuaria servindo o index.json velho do cache e o botão "Ouvir"
-  // nunca apareceria em quem já tem o app instalado.
   coberturaPath,
+  duracoesPath,
   join(root, 'scripts/shard-catalogo.ts'),
   join(root, 'src/lib/livro-slug.ts'),
   join(root, 'src/lib/reading-time.ts'),
@@ -72,6 +69,12 @@ function lerCobertura(): Set<number> {
   return new Set(ordens)
 }
 
+/** Duração real em segundos de cada áudio de narração. */
+function lerDuracoes(): Record<number, number> {
+  if (!existsSync(duracoesPath)) return {}
+  return JSON.parse(readFileSync(duracoesPath, 'utf8')) as Record<number, number>
+}
+
 /**
  * Identidade desta geração de shards. Vai para o nome do cache de runtime do
  * service worker, então precisa mudar sempre que o conteúdo dos shards mudar —
@@ -90,6 +93,7 @@ function main(): void {
   }
   const catalogo = JSON.parse(readFileSync(catalogoPath, 'utf8')) as Pericope[]
   const cobertura = lerCobertura()
+  const duracoes = lerDuracoes()
 
   const porSlug = new Map<string, { livro: string; itens: Pericope[] }>()
   for (const p of catalogo) {
@@ -107,22 +111,28 @@ function main(): void {
   // reordena — a navegação anda por posição no array. Emitir na ordem de `ordem`
   // esperando que o consumidor ordene erraria os três caminhos de navegação de
   // uma vez, em silêncio. O campo vai junto para a ordem ser verificável.
-  const indice = catalogo.map((p) => ({
-    ordem: p.ordem,
-    seq: p.seq,
-    livro: p.livro,
-    abbrev: p.abbrev,
-    capitulo_inicio: p.capitulo_inicio,
-    versiculo_inicio: p.versiculo_inicio,
-    capitulo_fim: p.capitulo_fim,
-    versiculo_fim: p.versiculo_fim,
-    titulo_pericope_pt: p.titulo_pericope_pt,
-    // Pré-calculado aqui para a Home não precisar do texto só para dizer "~5 min".
-    minutos: readingMinutes(p.texto),
-    // A Home mostra dezenas de cards e não pode fazer um HEAD por linha — nem
-    // offline. O sinal de cobertura viaja no índice.
-    narrado: cobertura.has(p.ordem),
-  }))
+  const indice = catalogo.map((p) => {
+    const audioSegundos = duracoes[p.ordem] ?? 0
+    const audioMinutos = audioSegundos > 0 ? Math.max(1, Math.round(audioSegundos / 60)) : 0
+    return {
+      ordem: p.ordem,
+      seq: p.seq,
+      livro: p.livro,
+      abbrev: p.abbrev,
+      capitulo_inicio: p.capitulo_inicio,
+      versiculo_inicio: p.versiculo_inicio,
+      capitulo_fim: p.capitulo_fim,
+      versiculo_fim: p.versiculo_fim,
+      titulo_pericope_pt: p.titulo_pericope_pt,
+      // Pré-calculado considerando todo o conteúdo devocional para um leitor casual.
+      minutos: readingMinutes(p),
+      // A Home mostra dezenas de cards e não pode fazer um HEAD por linha — nem
+      // offline. O sinal de cobertura e tempo de áudio viajam no índice.
+      narrado: cobertura.has(p.ordem),
+      audio_segundos: audioSegundos,
+      audio_minutos: audioMinutos,
+    }
+  })
 
   for (const sub of ['texto', 'estudo']) {
     try {

@@ -249,14 +249,40 @@ export function nomePadrao(
   return `${base} a partir de ${refLabel(peri)}`.slice(0, LIMITE_NOME)
 }
 
-/** Tamanho de um escopo do catálogo: contagem de perícopes e a soma de
- * `minutos` já formatada — minutos abaixo de uma hora (um livro breve como
- * Obadias), horas arredondadas dali para cima (um testamento, a Bíblia). */
-export function tamanhoDoEscopo(itens: PericopeIndex[]): { total: number; duracao: string } {
-  const minutos = itens.reduce((soma, p) => soma + p.minutos, 0)
+/** Tamanho de um escopo do catálogo: contagem de perícopes, soma de
+ * minutos de leitura e duração real de escuta, formatadas para o usuário. */
+export function tamanhoDoEscopo(itens: PericopeIndex[]): {
+  total: number
+  duracao: string
+  duracaoLeitura: string
+  duracaoAudio: string
+  minutosLeitura: number
+  minutosAudio: number
+} {
+  const minutosLeitura = itens.reduce((soma, p) => soma + (p.minutos || 0), 0)
+  const audioSegundos = itens.reduce((soma, p) => {
+    if (typeof p.audio_segundos === 'number' && p.audio_segundos > 0) {
+      return soma + p.audio_segundos
+    }
+    if (typeof p.audio_minutos === 'number' && p.audio_minutos > 0) {
+      return soma + p.audio_minutos * 60
+    }
+    return soma
+  }, 0)
+  const minutosAudio = Math.round(audioSegundos / 60)
+
+  const formatar = (m: number) => (m < 60 ? `~${m} min` : `~${Math.round(m / 60)} h`)
+
+  const durLeitura = formatar(minutosLeitura)
+  const durAudio = formatar(minutosAudio)
+
   return {
     total: itens.length,
-    duracao: minutos < 60 ? `~${minutos} min` : `~${Math.round(minutos / 60)} h`,
+    duracao: durLeitura,
+    duracaoLeitura: durLeitura,
+    duracaoAudio: durAudio,
+    minutosLeitura,
+    minutosAudio,
   }
 }
 
@@ -266,6 +292,10 @@ export type ItemCatalogo = {
   nome: string
   total: number
   duracao: string
+  duracaoLeitura: string
+  duracaoAudio: string
+  minutosLeitura: number
+  minutosAudio: number
 }
 
 export type Catalogo = {

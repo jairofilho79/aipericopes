@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { contarPalavras, readingMinutes, WPM } from './reading-time'
+import { contarPalavras, formatarDuracao, readingMinutes, WPM } from './reading-time'
 
 /** Texto sintético com exatamente `n` palavras. */
 function palavras(n: number): string {
@@ -40,4 +40,31 @@ describe('readingMinutes', () => {
   it('texto curto nunca desce de 1 minuto', () => {
     expect(readingMinutes('No princípio, Deus criou os céus e a terra.')).toBe(1)
   })
+
+  it('calcula tempo considerando todas as seções de uma perícope', () => {
+    const peri = {
+      titulo_pericope_pt: 'A criação',
+      contexto_historico_literario: palavras(90),
+      texto: palavras(180),
+      resenha: palavras(90),
+      perguntas_reflexao: [palavras(45), palavras(45)],
+    }
+    // 2 + 90 + 180 + 90 + 90 = 452 palavras -> ~3 minutos a 180 wpm
+    expect(readingMinutes(peri)).toBe(3)
+  })
 })
+
+describe('formatarDuracao', () => {
+  it('formata minutos abaixo de uma hora', () => {
+    expect(formatarDuracao(0)).toBe('~0 min')
+    expect(formatarDuracao(5)).toBe('~5 min')
+    expect(formatarDuracao(59)).toBe('~59 min')
+  })
+
+  it('formata horas a partir de 60 minutos', () => {
+    expect(formatarDuracao(60)).toBe('~1 h')
+    expect(formatarDuracao(90)).toBe('~2 h')
+    expect(formatarDuracao(120)).toBe('~2 h')
+  })
+})
+

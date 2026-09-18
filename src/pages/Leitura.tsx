@@ -8,6 +8,7 @@ import SectionChips from '../components/SectionChips'
 import { SkeletonLeitura } from '../components/Skeleton'
 import VerseActions from '../components/VerseActions'
 import DitarBotao from '../components/DitarBotao'
+import { TempoEstimado } from '../components/TempoEstimado'
 import {
   IconeAnotar,
   IconeCheck,
@@ -371,9 +372,9 @@ export default function Leitura() {
     () => gruposCorrido.find((g) => g.label !== null),
     [gruposCorrido],
   )
-  // Só o texto bíblico entra na conta: contexto, resenha e reflexão são
-  // leitura de primeira classe, mas o "~N min" é do texto da NAA.
-  const minutos = useMemo(() => (p ? readingMinutes(p.texto) : 1), [p])
+  // Minutos de leitura para leitor casual: usa o valor pré-calculado do catálogo
+  // (ou calcula sobre o estudo completo se ainda não houver).
+  const minutos = useMemo(() => (p ? (p.minutos ?? readingMinutes(p)) : 1), [p])
   // Os MESMOS parágrafos que a página mostra (paragraphize com os mesmos
   // limites) alimentam os alvos de alinhamento da narração das seções em
   // prosa.
@@ -1195,7 +1196,9 @@ export default function Leitura() {
           {/* A referência também é falada ("Mateus, capítulo 1, versículos 1 a
               17.") logo depois do título: acende na sua vez, como o <h1>. */}
           <p className={tituloClass('ref', 'referencia')} data-fala-id="referencia">
-            {refLabel(p)} · <span className="ref-min">~{minutos} min</span>
+            <span>{refLabel(p)}</span>
+            <span className="ref-sep">·</span>
+            <TempoEstimado leitura={minutos} audio={p.audio_minutos} />
           </p>
         </div>
 
@@ -1238,6 +1241,8 @@ export default function Leitura() {
           usada={narracaoUsada}
           alvoRotulo={rotuloDoAlvo(p, falando)}
           minutos={minutos}
+          audioMinutos={p.audio_minutos}
+          audioSegundos={p.audio_segundos}
           tocarAoCarregar={querOuvir && posicaoResolvida === ordem}
           onTentouTocar={limparOuvir}
         />

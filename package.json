@@ -17,6 +17,7 @@
     "cf:whoami": "wrangler whoami",
     "cf:tail": "wrangler tail",
     "cf:audio": "wrangler r2 bucket info biblia-pericopes-audio",
+    "audio:duracoes": "tsx scripts/extrair-duracoes-audio.ts",
     "shard": "tsx scripts/shard-catalogo.ts && tsx scripts/montar-trilha.ts && tsx scripts/montar-registros.ts",
     "etl": "tsx scripts/etl-pericopes.ts",
     "conferir-receitas": "tsx scripts/conferir-receitas.ts",

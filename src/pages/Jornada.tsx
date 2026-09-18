@@ -9,7 +9,8 @@ import {
   IconeOlho,
   IconeReiniciar,
 } from '../components/icones'
-import { loadIndex } from '../lib/content'
+import { TempoEstimado } from '../components/TempoEstimado'
+import { loadIndex, refLabel } from '../lib/content'
 import {
   arquivarJornada,
   atualizarJornada,
@@ -27,6 +28,7 @@ import {
   progressoDaJornada,
   reconciliarJornadasEmLote,
   rotaDaJornada,
+  tamanhoDoEscopo,
   type ProgressoJornada,
 } from '../lib/jornadas'
 import type { Jornada as JornadaType, PericopeIndex, Progresso } from '../lib/types'
@@ -268,6 +270,12 @@ export default function Jornada() {
             const estaConfirmando = confirmando?.id === j.id
             const estaRenomeando = renomeandoId === j.id
 
+            const rota = rotaDaJornada(j, estado.indice)
+            const pericopesDaRota = rota
+              .map((o) => estado.indice.find((p) => p.ordem === o))
+              .filter(Boolean) as PericopeIndex[]
+            const tamanhoJornada = tamanhoDoEscopo(pericopesDaRota)
+
             return (
               <article key={j.id} className="jornada-card">
                 {estaRenomeando ? (
@@ -322,7 +330,22 @@ export default function Jornada() {
                 <p className="track-progress">
                   {prog.concluidas} de {prog.total}
                   {prog.proximaOrdem === null ? ' · concluída' : ''}
+                  {' · '}
+                  <TempoEstimado
+                    leitura={tamanhoJornada.duracaoLeitura}
+                    audio={tamanhoJornada.duracaoAudio}
+                  />
                 </p>
+                {periAtual && (
+                  <div className="jornada-sugestao">
+                    <p className="ref">
+                      <span>{refLabel(periAtual)}</span>
+                      <span className="ref-sep">·</span>
+                      <TempoEstimado leitura={periAtual.minutos} audio={periAtual.audio_minutos} />
+                    </p>
+                    <p className="jornada-peri-titulo">{periAtual.titulo_pericope_pt}</p>
+                  </div>
+                )}
                 {periAtual && (
                   <div className="card-acoes">
                     <Link className="cta" to={`/leitura/${periAtual.ordem}?${qsLeitura}`}>

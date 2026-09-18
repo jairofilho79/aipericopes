@@ -54,8 +54,12 @@ type Props = {
   usada: boolean
   /** O que está em fala, em rótulo humano, para a linha de estado da doca. */
   alvoRotulo: string
-  /** Minutos de leitura, para a linha secundária do cartão pré-play. */
+  /** Minutos de leitura da perícope. */
   minutos: number
+  /** Duração real da narração em minutos inteiros (~X min). */
+  audioMinutos?: number
+  /** Duração real da narração em segundos. */
+  audioSegundos?: number
   /**
    * `?ouvir=1` vindo da Home: tenta tocar sozinho assim que o áudio estiver
    * carregado. Decide só SE toca — nunca ONDE, que continua sendo do
@@ -114,6 +118,8 @@ export default function NarracaoPlayer({
   usada,
   alvoRotulo,
   minutos,
+  audioMinutos,
+  audioSegundos,
   tocarAoCarregar,
   onTentouTocar,
   ref,
@@ -464,26 +470,35 @@ export default function NarracaoPlayer({
             </p>
           ) : disponibilidade === 'falhou' ? (
             falha
-          ) : (
-            // Um <button> só, e não ícone + título + linha soltos: um alvo de
-            // toque, um ponto de foco, um rótulo que já diz a duração.
-            <button
-              type="button"
-              className="ouvir-cartao"
-              aria-label={`Ouvir esta perícope, ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`}
-              onClick={alternar}
-            >
-              <span className="ouvir-cartao-play" aria-hidden>
-                <IconeFones size={26} />
-              </span>
-              <span className="ouvir-cartao-texto" aria-hidden>
-                <span className="ouvir-cartao-titulo">Ouvir esta perícope</span>
-                <span className="ouvir-cartao-sub">
-                  {minutos} min · voz sintetizada, lida sobre o texto
+          ) : (() => {
+            const durAudioMin =
+              temDuracao
+                ? Math.max(1, Math.round(duracao / 60))
+                : (audioMinutos ??
+                  (audioSegundos
+                    ? Math.max(1, Math.round(audioSegundos / 60))
+                    : minutos))
+            return (
+              // Um <button> só, e não ícone + título + linha soltos: um alvo de
+              // toque, um ponto de foco, um rótulo que já diz a duração.
+              <button
+                type="button"
+                className="ouvir-cartao"
+                aria-label={`Ouvir esta perícope, ${durAudioMin} ${durAudioMin === 1 ? 'minuto' : 'minutos'}`}
+                onClick={alternar}
+              >
+                <span className="ouvir-cartao-play" aria-hidden>
+                  <IconeFones size={26} />
                 </span>
-              </span>
-            </button>
-          ))}
+                <span className="ouvir-cartao-texto" aria-hidden>
+                  <span className="ouvir-cartao-titulo">Ouvir esta perícope</span>
+                  <span className="ouvir-cartao-sub">
+                    {durAudioMin} min · voz sintetizada, lida sobre o texto
+                  </span>
+                </span>
+              </button>
+            )
+          })())}
       </div>
 
       {naDoca && (

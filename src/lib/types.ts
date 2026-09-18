@@ -22,10 +22,14 @@ export type PericopeIndex = {
   capitulo_fim: number
   versiculo_fim: number
   titulo_pericope_pt: string
-  /** Minutos de leitura, pré-calculados pelo gerador de shards. */
+  /** Minutos de leitura, pré-calculados pelo gerador de shards para leitor casual. */
   minutos: number
   /** Se há narração publicada para esta perícope. Fonte: data/audio-cobertura.json. */
   narrado: boolean
+  /** Duração real da narração em segundos, do manifesto oficial. */
+  audio_segundos?: number
+  /** Duração real da narração em minutos inteiros (~X min). */
+  audio_minutos?: number
 }
 
 /** Perícope completa: índice + o conteúdo que vem dos shards do livro. */

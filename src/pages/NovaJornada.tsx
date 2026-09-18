@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { IconeFechar, IconeMais, IconeSetaEsquerda } from '../components/icones'
+import { TempoEstimado } from '../components/TempoEstimado'
 import { loadIndex, refLabel } from '../lib/content'
 import { criarJornada, listAllProgresso } from '../lib/user-db'
 import {
@@ -8,6 +9,7 @@ import {
   montarCatalogo,
   nomePadrao,
   rotaCompletaDoEscopo,
+  tamanhoDoEscopo,
   type Catalogo,
   type ItemCatalogo,
   type ModoJornada,
@@ -121,7 +123,8 @@ function GrupoCatalogo({
                 >
                   <span className="jornada-escopo-nome">{item.nome}</span>
                   <span className="jornada-escopo-tamanho muted">
-                    {item.total} perícope{item.total === 1 ? '' : 's'} · {item.duracao}
+                    {item.total} perícope{item.total === 1 ? '' : 's'} ·{' '}
+                    <TempoEstimado leitura={item.duracaoLeitura} audio={item.duracaoAudio} />
                   </span>
                 </button>
               </li>
@@ -225,7 +228,9 @@ function SeletorPericope({
                       </span>
                       <span className="seletor-pericope-texto">
                         <strong>{p.titulo_pericope_pt}</strong>
-                        <span className="muted">{refLabel(p)}</span>
+                        <span className="muted">
+                          {refLabel(p)} · <TempoEstimado leitura={p.minutos} audio={p.audio_minutos} />
+                        </span>
                       </span>
                     </button>
                   </li>
@@ -298,6 +303,11 @@ function PassoConfirmacao({
     [rotaCompleta, inicioIdx, fimIdx],
   )
 
+  const tamanhoFinal = useMemo(() => {
+    const selecionadas = pericopesRota.slice(inicioIdx, fimIdx + 1)
+    return tamanhoDoEscopo(selecionadas)
+  }, [pericopesRota, inicioIdx, fimIdx])
+
   const avisos = useMemo(
     () => avisosCriacao(null, modo, rotaFinal, progressos),
     [modo, rotaFinal, progressos],
@@ -353,6 +363,14 @@ function PassoConfirmacao({
         />
       </label>
 
+      <div className="jornada-confirmacao-resumo">
+        <span className="jornada-confirmacao-total">
+          {rotaFinal.length} {rotaFinal.length === 1 ? 'perícope selecionada' : 'perícopes selecionadas'}
+        </span>
+        <span className="jornada-confirmacao-sep">·</span>
+        <TempoEstimado leitura={tamanhoFinal.duracaoLeitura} audio={tamanhoFinal.duracaoAudio} />
+      </div>
+
       {/* ── Começar em ── */}
       <div className="jornada-campo">
         <span className="jornada-campo-legenda">
@@ -368,6 +386,9 @@ function PassoConfirmacao({
             <>
               <strong>{periInicio.titulo_pericope_pt}</strong>
               <span className="muted">{refLabel(periInicio)}</span>
+              <span className="seletor-pericope-tempos">
+                <TempoEstimado leitura={periInicio.minutos} audio={periInicio.audio_minutos} />
+              </span>
             </>
           ) : (
             <span className="muted">Início do escopo</span>
@@ -406,6 +427,9 @@ function PassoConfirmacao({
             <>
               <strong>{construirLabelFim()}</strong>
               {!ehEscopoCompleto && <span className="muted">{periFim.titulo_pericope_pt}</span>}
+              <span className="seletor-pericope-tempos">
+                <TempoEstimado leitura={periFim.minutos} audio={periFim.audio_minutos} />
+              </span>
             </>
           ) : (
             <span className="muted">Fim do escopo</span>

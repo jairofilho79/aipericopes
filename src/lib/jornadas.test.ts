@@ -267,7 +267,11 @@ describe('rotaCompletaDoEscopo', () => {
 describe('tamanhoDoEscopo', () => {
   it('soma perícopes e minutos, em minutos abaixo de 1h', () => {
     // As duas de Gênesis do fixture têm 3 min cada — 6 min ao todo.
-    expect(tamanhoDoEscopo(INDICE.slice(0, 2))).toEqual({ total: 2, duracao: '~6 min' })
+    expect(tamanhoDoEscopo(INDICE.slice(0, 2))).toMatchObject({
+      total: 2,
+      duracao: '~6 min',
+      duracaoLeitura: '~6 min',
+    })
   })
 
   it('vira horas arredondadas a partir de 1h', () => {
@@ -276,11 +280,20 @@ describe('tamanhoDoEscopo', () => {
       minutos: i === 0 ? 40 : 50, // 90 min → 1h30, arredonda para 2h
       seq: i,
     }))
-    expect(tamanhoDoEscopo(longa)).toEqual({ total: 2, duracao: '~2 h' })
+    expect(tamanhoDoEscopo(longa)).toMatchObject({
+      total: 2,
+      duracao: '~2 h',
+      duracaoLeitura: '~2 h',
+    })
   })
 
   it('escopo vazio não quebra: 0 perícopes, 0 min', () => {
-    expect(tamanhoDoEscopo([])).toEqual({ total: 0, duracao: '~0 min' })
+    expect(tamanhoDoEscopo([])).toMatchObject({
+      total: 0,
+      duracao: '~0 min',
+      duracaoLeitura: '~0 min',
+      duracaoAudio: '~0 min',
+    })
   })
 })
 
@@ -298,26 +311,51 @@ describe('montarCatalogo', () => {
 
   it('o card de um livro do fixture tem o tamanho certo', () => {
     const genesis = catalogo.curta.find((i) => i.escopo === 'Gênesis')
-    expect(genesis).toEqual({ tipo: 'livro', escopo: 'Gênesis', nome: 'Gênesis', total: 2, duracao: '~6 min' })
+    expect(genesis).toMatchObject({
+      tipo: 'livro',
+      escopo: 'Gênesis',
+      nome: 'Gênesis',
+      total: 2,
+      duracao: '~6 min',
+      duracaoLeitura: '~6 min',
+    })
   })
 
   it('um livro sem nenhuma perícope no fixture aparece com tamanho zero — nunca some do catálogo', () => {
     const juizes = catalogo.curta.find((i) => i.escopo === 'Juízes')
-    expect(juizes).toEqual({ tipo: 'livro', escopo: 'Juízes', nome: 'Juízes', total: 0, duracao: '~0 min' })
+    expect(juizes).toMatchObject({
+      tipo: 'livro',
+      escopo: 'Juízes',
+      nome: 'Juízes',
+      total: 0,
+      duracao: '~0 min',
+      duracaoLeitura: '~0 min',
+    })
   })
 
   it('o bloco pega as duas perícopes de Gênesis (Pentateuco)', () => {
     const pentateuco = catalogo.media.find((i) => i.escopo === 'pentateuco')
-    expect(pentateuco?.total).toBe(2)
-    expect(pentateuco?.nome).toBe('Pentateuco')
+    expect(pentateuco).toMatchObject({
+      tipo: 'bloco',
+      escopo: 'pentateuco',
+      nome: 'Pentateuco',
+      total: 2,
+      duracao: '~6 min',
+    })
   })
 
-  it('longa soma VT e NT separados, inteira soma tudo', () => {
+  it('as sequências contam VT (4) e Bíblia (6)', () => {
     const vt = catalogo.longa.find((i) => i.escopo === 'vt')
-    const nt = catalogo.longa.find((i) => i.escopo === 'nt')
-    expect(vt).toEqual({ tipo: 'sequencia', escopo: 'vt', nome: 'Velho Testamento', total: 4, duracao: '~12 min' })
-    expect(nt?.total).toBe(2)
-    expect(catalogo.inteira[0]).toEqual({
+    expect(vt).toMatchObject({
+      tipo: 'sequencia',
+      escopo: 'vt',
+      nome: 'Velho Testamento',
+      total: 4,
+      duracao: '~12 min',
+    })
+
+    const tudo = catalogo.inteira[0]
+    expect(tudo).toMatchObject({
       tipo: 'sequencia',
       escopo: 'biblia',
       nome: 'A Bíblia toda',

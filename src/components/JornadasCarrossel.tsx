@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconeBussola, IconeFones, IconeLivroAberto, IconeOlho } from './icones'
+import { TempoEstimado } from './TempoEstimado'
 import { refLabel } from '../lib/content'
 import type { Jornada, PericopeIndex } from '../lib/types'
 import type { ProgressoJornada } from '../lib/jornadas'
@@ -63,7 +64,9 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
               {periAtual ? (
                 <>
                   <p className="ref">
-                    {refLabel(periAtual)} · ~{periAtual.minutos} min
+                    <span>{refLabel(periAtual)}</span>
+                    <span className="ref-sep">·</span>
+                    <TempoEstimado leitura={periAtual.minutos} audio={periAtual.audio_minutos} />
                   </p>
                   <p className="jornada-peri-titulo">{periAtual.titulo_pericope_pt}</p>
                   <div className="card-acoes">
