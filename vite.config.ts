@@ -137,6 +137,8 @@ export default defineConfig(({ command }) => {
           ],
         },
         workbox: {
+          skipWaiting: true,
+          clientsClaim: true,
           globPatterns: ['**/*.{js,css,html,ico,svg,png,woff2}'],
           // O índice entra no precache (é o que a primeira tela espera); os shards
           // não — precachear os 132 arquivos desfaria a mudança inteira.
@@ -146,13 +148,13 @@ export default defineConfig(({ command }) => {
           navigateFallbackDenylist: [/^\/api\//],
           runtimeCaching: [
             {
-              // Conteúdo estático dentro de uma geração do catálogo: uma vez em
-              // cache, nunca precisa de rede. O hash no nome do cache é o que
-              // faz um catálogo novo chegar em quem já tem o app instalado.
+              // Prioriza a rede para conteúdo atualizado (com timeout de 3s para offline)
+              // garantindo sincronia perfeita entre texto e narração do R2.
               urlPattern: /\/data\/(texto|estudo)\/.*\.json$/,
-              handler: 'CacheFirst',
+              handler: 'NetworkFirst',
               options: {
                 cacheName: cacheDosShards,
+                networkTimeoutSeconds: 3,
                 expiration: { maxEntries: 200 },
                 plugins: [
                   {

@@ -1,3 +1,5 @@
+import algenibOrdens from './algenib-ordens.json'
+
 /**
  * Manifesto de sincronização da narração (gerado noutra sessão, servido do R2
  * pelo Worker). `inicio`/`dur` e `palavras[].i`/`.d` são segundos ABSOLUTOS
@@ -121,10 +123,10 @@ export const VOZ_V2 = 'gam-ash2'
 /** Voz padrão global para o catálogo. */
 export const VOZ = VOZ_V3
 
-/** Perícopes oficiais migradas para a voz V3 (Algenib V3 - Gemini 3.1 Flash TTS). */
+/** Perícopes oficiais migradas para a voz V3/V4 (Algenib - Gemini 3.1 Flash TTS). */
 export const PERICOPES_V3: ReadonlySet<number> = new Set([
   2, // Gn 3:1-24
-  ...Array.from({ length: 20 }, (_, i) => 1600 + i), // Mt 1:1 - 6:15 (1600..1619)
+  ...algenibOrdens,
 ])
 
 /** Resolve a voz oficial: V3 para perícopes já migradas, V2 como fallback para o acervo restante. */

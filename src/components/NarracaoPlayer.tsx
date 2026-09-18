@@ -10,7 +10,7 @@ import {
   type Ref,
 } from 'react'
 import { alinhar, type SecaoAlvos } from '../lib/alinhar-narracao'
-import { carregarManifesto, vozDaPericope, type Manifesto } from '../lib/manifesto'
+import { carregarManifesto, vozDaPericope, VOZ_V3, type Manifesto } from '../lib/manifesto'
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
 import { IconeFones } from './icones'
@@ -158,35 +158,42 @@ export default function NarracaoPlayer({
     tempoInicialAplicado.current = false
     autoTentado.current = false
 
-    const voz = vozDaPericope(ordem)
-    const url = `/api/audio/${voz}/${ordem}.m4a`
+    const vozInicial = vozDaPericope(ordem)
 
-    // Serializado: cobertura de narração é parcial, então buscar o manifesto
-    // incondicionalmente seria um GET garantidamente 404 em quase toda
-    // perícope aberta. Só vale a pena depois de o HEAD confirmar o áudio.
-    fetch(url, { method: 'HEAD', signal: ac.signal })
-      .then((r) => {
-        if (!vivo) return
-        if (!r.ok) {
-          // 404 é a resposta esperada na maior parte do catálogo enquanto a
-          // narração não cobre as 2.823 perícopes: é fato, não falha.
-          setDisponibilidade('ausente')
-          return
+    async function resolverAudio() {
+      let voz = vozInicial
+      let url = `/api/audio/${voz}/${ordem}.m4a`
+      let res = await fetch(url, { method: 'HEAD', signal: ac.signal })
+
+      // Se a ordem caiu no fallback legado mas já foi gerada na voz V4, promove automaticamente
+      if (!res.ok && voz !== VOZ_V3) {
+        const urlV3 = `/api/audio/${VOZ_V3}/${ordem}.m4a`
+        try {
+          const resV3 = await fetch(urlV3, { method: 'HEAD', signal: ac.signal })
+          if (resV3.ok) {
+            voz = VOZ_V3
+            url = urlV3
+            res = resV3
+          }
+        } catch {
+          // segue com res original
         }
-        setSrc(url)
-        setDisponibilidade('ok')
-        // `carregarManifesto` nunca rejeita (devolve null em qualquer tropeço),
-        // então nada aqui pode cair no catch de rede abaixo: áudio sem
-        // manifesto toca, só não realça.
-        return carregarManifesto(ordem, ac.signal, voz).then((m) => {
-          if (vivo) setManifesto(m)
-        })
-      })
-      .catch(() => {
-        // Abortar por troca de perícope também cai aqui, e aí `vivo` é falso —
-        // é o que separa "a rede falhou" de "eu saí da página".
-        if (vivo) setDisponibilidade('falhou')
-      })
+      }
+
+      if (!vivo) return
+      if (!res.ok) {
+        setDisponibilidade('ausente')
+        return
+      }
+      setSrc(url)
+      setDisponibilidade('ok')
+      const m = await carregarManifesto(ordem, ac.signal, voz)
+      if (vivo) setManifesto(m)
+    }
+
+    resolverAudio().catch(() => {
+      if (vivo) setDisponibilidade('falhou')
+    })
 
     return () => {
       vivo = false

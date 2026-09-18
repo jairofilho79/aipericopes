@@ -208,5 +208,2756 @@
     "alinhado": true,
     "publicado": true,
     "atualizadoEm": "2026-09-17T20:25:54.564Z"
+  },
+  "1621": {
+    "ordem": 1621,
+    "livro": "Mateus",
+    "ref": "Mt 6:19-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:45:11.155Z"
+  },
+  "1622": {
+    "ordem": 1622,
+    "livro": "Mateus",
+    "ref": "Mt 6:22-24",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:46:43.583Z"
+  },
+  "1623": {
+    "ordem": 1623,
+    "livro": "Mateus",
+    "ref": "Mt 6:25-34",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:48:54.011Z",
+    "erro": "Command failed: npx tsx scripts/gerar-lote.ts --ordem=1623 --forcar"
+  },
+  "1624": {
+    "ordem": 1624,
+    "livro": "Mateus",
+    "ref": "Mt 7:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:55:22.393Z"
+  },
+  "1625": {
+    "ordem": 1625,
+    "livro": "Mateus",
+    "ref": "Mt 7:7-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:57:19.667Z"
+  },
+  "1626": {
+    "ordem": 1626,
+    "livro": "Mateus",
+    "ref": "Mt 7:13-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T01:58:56.087Z"
+  },
+  "1627": {
+    "ordem": 1627,
+    "livro": "Mateus",
+    "ref": "Mt 7:15-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:00:36.802Z"
+  },
+  "1628": {
+    "ordem": 1628,
+    "livro": "Mateus",
+    "ref": "Mt 7:24-27",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:02:11.265Z"
+  },
+  "1629": {
+    "ordem": 1629,
+    "livro": "Mateus",
+    "ref": "Mt 7:28-29",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:03:39.493Z"
+  },
+  "1630": {
+    "ordem": 1630,
+    "livro": "Mateus",
+    "ref": "Mt 8:1-4",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.427Z"
+  },
+  "1631": {
+    "ordem": 1631,
+    "livro": "Mateus",
+    "ref": "Mt 8:5-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1632": {
+    "ordem": 1632,
+    "livro": "Mateus",
+    "ref": "Mt 8:14-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1633": {
+    "ordem": 1633,
+    "livro": "Mateus",
+    "ref": "Mt 8:18-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:25:21.945Z"
+  },
+  "1634": {
+    "ordem": 1634,
+    "livro": "Mateus",
+    "ref": "Mt 8:23-27",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:26:01.286Z"
+  },
+  "1635": {
+    "ordem": 1635,
+    "livro": "Mateus",
+    "ref": "Mt 8:28-34",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:26:39.031Z"
+  },
+  "1636": {
+    "ordem": 1636,
+    "livro": "Mateus",
+    "ref": "Mt 9:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:27:19.747Z"
+  },
+  "1637": {
+    "ordem": 1637,
+    "livro": "Mateus",
+    "ref": "Mt 9:9-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:28:03.354Z"
+  },
+  "1638": {
+    "ordem": 1638,
+    "livro": "Mateus",
+    "ref": "Mt 9:14-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:28:41.710Z"
+  },
+  "1639": {
+    "ordem": 1639,
+    "livro": "Mateus",
+    "ref": "Mt 9:16-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:29:22.268Z"
+  },
+  "1640": {
+    "ordem": 1640,
+    "livro": "Mateus",
+    "ref": "Mt 9:18-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:30:00.352Z"
+  },
+  "1641": {
+    "ordem": 1641,
+    "livro": "Mateus",
+    "ref": "Mt 9:23-26",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:30:35.009Z"
+  },
+  "1642": {
+    "ordem": 1642,
+    "livro": "Mateus",
+    "ref": "Mt 9:27-34",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:31:22.585Z"
+  },
+  "1643": {
+    "ordem": 1643,
+    "livro": "Mateus",
+    "ref": "Mt 9:35-38",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:32:03.652Z"
+  },
+  "1644": {
+    "ordem": 1644,
+    "livro": "Mateus",
+    "ref": "Mt 10:1-4",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:32:35.369Z"
+  },
+  "1645": {
+    "ordem": 1645,
+    "livro": "Mateus",
+    "ref": "Mt 10:5-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:33:32.074Z"
+  },
+  "1646": {
+    "ordem": 1646,
+    "livro": "Mateus",
+    "ref": "Mt 10:16-25",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:34:21.543Z"
+  },
+  "1647": {
+    "ordem": 1647,
+    "livro": "Mateus",
+    "ref": "Mt 10:26-31",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:34:57.859Z"
+  },
+  "1648": {
+    "ordem": 1648,
+    "livro": "Mateus",
+    "ref": "Mt 10:32-33",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:35:31.040Z"
+  },
+  "1649": {
+    "ordem": 1649,
+    "livro": "Mateus",
+    "ref": "Mt 10:34-39",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:36:13.736Z"
+  },
+  "1650": {
+    "ordem": 1650,
+    "livro": "Mateus",
+    "ref": "Mt 10:40-42",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1651": {
+    "ordem": 1651,
+    "livro": "Mateus",
+    "ref": "Mt 11:1-4",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1652": {
+    "ordem": 1652,
+    "livro": "Mateus",
+    "ref": "Mt 11:5-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1653": {
+    "ordem": 1653,
+    "livro": "Mateus",
+    "ref": "Mt 11:20-24",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1654": {
+    "ordem": 1654,
+    "livro": "Mateus",
+    "ref": "Mt 11:25-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1655": {
+    "ordem": 1655,
+    "livro": "Mateus",
+    "ref": "Mt 12:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1656": {
+    "ordem": 1656,
+    "livro": "Mateus",
+    "ref": "Mt 12:15-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1657": {
+    "ordem": 1657,
+    "livro": "Mateus",
+    "ref": "Mt 12:22-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:32.428Z"
+  },
+  "1658": {
+    "ordem": 1658,
+    "livro": "Mateus",
+    "ref": "Mt 12:31-32",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:35.882Z"
+  },
+  "1659": {
+    "ordem": 1659,
+    "livro": "Mateus",
+    "ref": "Mt 12:33-37",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:24:02.215Z"
+  },
+  "1660": {
+    "ordem": 1660,
+    "livro": "Mateus",
+    "ref": "Mt 12:38-42",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:24:59.683Z"
+  },
+  "1661": {
+    "ordem": 1661,
+    "livro": "Mateus",
+    "ref": "Mt 12:43-45",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:36:50.981Z"
+  },
+  "1662": {
+    "ordem": 1662,
+    "livro": "Mateus",
+    "ref": "Mt 12:46-50",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:37:25.257Z"
+  },
+  "1663": {
+    "ordem": 1663,
+    "livro": "Mateus",
+    "ref": "Mt 13:1-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:38:53.527Z"
+  },
+  "1664": {
+    "ordem": 1664,
+    "livro": "Mateus",
+    "ref": "Mt 13:24-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:39:24.403Z"
+  },
+  "1665": {
+    "ordem": 1665,
+    "livro": "Mateus",
+    "ref": "Mt 13:31-32",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:39:55.858Z"
+  },
+  "1666": {
+    "ordem": 1666,
+    "livro": "Mateus",
+    "ref": "Mt 13:33-33",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:40:29.474Z"
+  },
+  "1667": {
+    "ordem": 1667,
+    "livro": "Mateus",
+    "ref": "Mt 13:34-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:41:09.867Z"
+  },
+  "1668": {
+    "ordem": 1668,
+    "livro": "Mateus",
+    "ref": "Mt 13:36-43",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:41:56.870Z"
+  },
+  "1669": {
+    "ordem": 1669,
+    "livro": "Mateus",
+    "ref": "Mt 13:44-46",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:42:30.740Z"
+  },
+  "1670": {
+    "ordem": 1670,
+    "livro": "Mateus",
+    "ref": "Mt 13:47-52",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:20:41.514Z"
+  },
+  "1671": {
+    "ordem": 1671,
+    "livro": "Mateus",
+    "ref": "Mt 13:53-58",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:21:43.703Z"
+  },
+  "1672": {
+    "ordem": 1672,
+    "livro": "Mateus",
+    "ref": "Mt 14:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:23:14.004Z"
+  },
+  "1673": {
+    "ordem": 1673,
+    "livro": "Mateus",
+    "ref": "Mt 14:13-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:24:27.210Z"
+  },
+  "1674": {
+    "ordem": 1674,
+    "livro": "Mateus",
+    "ref": "Mt 14:22-33",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:43:19.460Z"
+  },
+  "1675": {
+    "ordem": 1675,
+    "livro": "Mateus",
+    "ref": "Mt 14:34-36",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:43:43.635Z"
+  },
+  "1676": {
+    "ordem": 1676,
+    "livro": "Mateus",
+    "ref": "Mt 15:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:44:26.706Z"
+  },
+  "1677": {
+    "ordem": 1677,
+    "livro": "Mateus",
+    "ref": "Mt 15:10-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:45:07.562Z"
+  },
+  "1678": {
+    "ordem": 1678,
+    "livro": "Mateus",
+    "ref": "Mt 15:21-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:45:44.979Z"
+  },
+  "1679": {
+    "ordem": 1679,
+    "livro": "Mateus",
+    "ref": "Mt 15:29-39",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:46:28.010Z"
+  },
+  "1680": {
+    "ordem": 1680,
+    "livro": "Mateus",
+    "ref": "Mt 16:1-4",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:47:01.858Z"
+  },
+  "1681": {
+    "ordem": 1681,
+    "livro": "Mateus",
+    "ref": "Mt 16:5-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:47:44.142Z"
+  },
+  "1682": {
+    "ordem": 1682,
+    "livro": "Mateus",
+    "ref": "Mt 16:13-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:48:25.433Z"
+  },
+  "1683": {
+    "ordem": 1683,
+    "livro": "Mateus",
+    "ref": "Mt 16:21-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:49:03.185Z"
+  },
+  "1684": {
+    "ordem": 1684,
+    "livro": "Mateus",
+    "ref": "Mt 16:24-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:49:40.849Z"
+  },
+  "1685": {
+    "ordem": 1685,
+    "livro": "Mateus",
+    "ref": "Mt 17:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:50:43.274Z"
+  },
+  "1686": {
+    "ordem": 1686,
+    "livro": "Mateus",
+    "ref": "Mt 17:14-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:51:12.589Z"
+  },
+  "1687": {
+    "ordem": 1687,
+    "livro": "Mateus",
+    "ref": "Mt 17:19-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:51:51.239Z"
+  },
+  "1688": {
+    "ordem": 1688,
+    "livro": "Mateus",
+    "ref": "Mt 17:22-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:52:32.770Z"
+  },
+  "1689": {
+    "ordem": 1689,
+    "livro": "Mateus",
+    "ref": "Mt 17:24-27",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:53:08.926Z"
+  },
+  "1690": {
+    "ordem": 1690,
+    "livro": "Mateus",
+    "ref": "Mt 18:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:53:38.022Z"
+  },
+  "1691": {
+    "ordem": 1691,
+    "livro": "Mateus",
+    "ref": "Mt 18:6-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:54:22.303Z"
+  },
+  "1692": {
+    "ordem": 1692,
+    "livro": "Mateus",
+    "ref": "Mt 18:10-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:54:47.985Z"
+  },
+  "1693": {
+    "ordem": 1693,
+    "livro": "Mateus",
+    "ref": "Mt 18:15-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:55:26.800Z"
+  },
+  "1694": {
+    "ordem": 1694,
+    "livro": "Mateus",
+    "ref": "Mt 18:21-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:56:17.396Z"
+  },
+  "1695": {
+    "ordem": 1695,
+    "livro": "Mateus",
+    "ref": "Mt 19:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:57:02.701Z"
+  },
+  "1696": {
+    "ordem": 1696,
+    "livro": "Mateus",
+    "ref": "Mt 19:13-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:57:27.404Z"
+  },
+  "1697": {
+    "ordem": 1697,
+    "livro": "Mateus",
+    "ref": "Mt 19:16-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:58:41.514Z"
+  },
+  "1698": {
+    "ordem": 1698,
+    "livro": "Mateus",
+    "ref": "Mt 20:1-16",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T02:59:37.670Z"
+  },
+  "1699": {
+    "ordem": 1699,
+    "livro": "Mateus",
+    "ref": "Mt 20:17-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:00:03.718Z"
+  },
+  "1700": {
+    "ordem": 1700,
+    "livro": "Mateus",
+    "ref": "Mt 20:20-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:00:52.018Z"
+  },
+  "1701": {
+    "ordem": 1701,
+    "livro": "Mateus",
+    "ref": "Mt 20:29-34",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:01:43.987Z"
+  },
+  "1702": {
+    "ordem": 1702,
+    "livro": "Mateus",
+    "ref": "Mt 21:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:02:31.930Z"
+  },
+  "1703": {
+    "ordem": 1703,
+    "livro": "Mateus",
+    "ref": "Mt 21:12-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:03:15.231Z"
+  },
+  "1704": {
+    "ordem": 1704,
+    "livro": "Mateus",
+    "ref": "Mt 21:18-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:03:53.088Z"
+  },
+  "1705": {
+    "ordem": 1705,
+    "livro": "Mateus",
+    "ref": "Mt 21:23-27",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:04:27.358Z"
+  },
+  "1706": {
+    "ordem": 1706,
+    "livro": "Mateus",
+    "ref": "Mt 21:28-32",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:05:08.673Z"
+  },
+  "1707": {
+    "ordem": 1707,
+    "livro": "Mateus",
+    "ref": "Mt 21:33-46",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:05:54.177Z"
+  },
+  "1708": {
+    "ordem": 1708,
+    "livro": "Mateus",
+    "ref": "Mt 22:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:06:48.643Z"
+  },
+  "1709": {
+    "ordem": 1709,
+    "livro": "Mateus",
+    "ref": "Mt 22:15-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:07:26.412Z"
+  },
+  "1710": {
+    "ordem": 1710,
+    "livro": "Mateus",
+    "ref": "Mt 22:23-33",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:07:59.257Z"
+  },
+  "1711": {
+    "ordem": 1711,
+    "livro": "Mateus",
+    "ref": "Mt 22:34-40",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:08:34.152Z"
+  },
+  "1712": {
+    "ordem": 1712,
+    "livro": "Mateus",
+    "ref": "Mt 22:41-46",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:09:09.211Z"
+  },
+  "1713": {
+    "ordem": 1713,
+    "livro": "Mateus",
+    "ref": "Mt 23:1-36",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:11:09.495Z"
+  },
+  "1714": {
+    "ordem": 1714,
+    "livro": "Mateus",
+    "ref": "Mt 23:37-39",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:11:29.428Z"
+  },
+  "1715": {
+    "ordem": 1715,
+    "livro": "Mateus",
+    "ref": "Mt 24:1-2",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:11:59.086Z"
+  },
+  "1716": {
+    "ordem": 1716,
+    "livro": "Mateus",
+    "ref": "Mt 24:3-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:12:33.299Z"
+  },
+  "1717": {
+    "ordem": 1717,
+    "livro": "Mateus",
+    "ref": "Mt 24:9-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:13:16.548Z"
+  },
+  "1718": {
+    "ordem": 1718,
+    "livro": "Mateus",
+    "ref": "Mt 24:15-25",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:14:04.820Z"
+  },
+  "1719": {
+    "ordem": 1719,
+    "livro": "Mateus",
+    "ref": "Mt 24:26-31",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:15:05.204Z"
+  },
+  "1720": {
+    "ordem": 1720,
+    "livro": "Mateus",
+    "ref": "Mt 24:32-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:15:37.635Z"
+  },
+  "1721": {
+    "ordem": 1721,
+    "livro": "Mateus",
+    "ref": "Mt 24:36-51",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:16:28.057Z"
+  },
+  "1722": {
+    "ordem": 1722,
+    "livro": "Mateus",
+    "ref": "Mt 25:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:17:57.611Z"
+  },
+  "1723": {
+    "ordem": 1723,
+    "livro": "Mateus",
+    "ref": "Mt 25:14-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:18:58.698Z"
+  },
+  "1724": {
+    "ordem": 1724,
+    "livro": "Mateus",
+    "ref": "Mt 25:31-46",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:20:02.480Z"
+  },
+  "1725": {
+    "ordem": 1725,
+    "livro": "Mateus",
+    "ref": "Mt 26:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:20:26.367Z"
+  },
+  "1726": {
+    "ordem": 1726,
+    "livro": "Mateus",
+    "ref": "Mt 26:6-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:21:03.050Z"
+  },
+  "1727": {
+    "ordem": 1727,
+    "livro": "Mateus",
+    "ref": "Mt 26:14-16",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:21:36.058Z"
+  },
+  "1728": {
+    "ordem": 1728,
+    "livro": "Mateus",
+    "ref": "Mt 26:17-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:22:06.277Z"
+  },
+  "1729": {
+    "ordem": 1729,
+    "livro": "Mateus",
+    "ref": "Mt 26:20-25",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:22:53.783Z"
+  },
+  "1730": {
+    "ordem": 1730,
+    "livro": "Mateus",
+    "ref": "Mt 26:26-30",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:23:29.558Z"
+  },
+  "1731": {
+    "ordem": 1731,
+    "livro": "Mateus",
+    "ref": "Mt 26:31-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:24:10.167Z"
+  },
+  "1732": {
+    "ordem": 1732,
+    "livro": "Mateus",
+    "ref": "Mt 26:36-46",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:25:21.171Z"
+  },
+  "1733": {
+    "ordem": 1733,
+    "livro": "Mateus",
+    "ref": "Mt 26:47-56",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:26:02.457Z"
+  },
+  "1734": {
+    "ordem": 1734,
+    "livro": "Mateus",
+    "ref": "Mt 26:57-68",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:27:01.206Z"
+  },
+  "1735": {
+    "ordem": 1735,
+    "livro": "Mateus",
+    "ref": "Mt 26:69-75",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:27:44.551Z"
+  },
+  "1736": {
+    "ordem": 1736,
+    "livro": "Mateus",
+    "ref": "Mt 27:1-2",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:28:13.621Z"
+  },
+  "1737": {
+    "ordem": 1737,
+    "livro": "Mateus",
+    "ref": "Mt 27:3-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:29:03.047Z"
+  },
+  "1738": {
+    "ordem": 1738,
+    "livro": "Mateus",
+    "ref": "Mt 27:11-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:29:45.081Z"
+  },
+  "1739": {
+    "ordem": 1739,
+    "livro": "Mateus",
+    "ref": "Mt 27:15-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:30:22.650Z"
+  },
+  "1740": {
+    "ordem": 1740,
+    "livro": "Mateus",
+    "ref": "Mt 27:24-26",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:31:10.206Z"
+  },
+  "1741": {
+    "ordem": 1741,
+    "livro": "Mateus",
+    "ref": "Mt 27:27-31",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:31:47.022Z"
+  },
+  "1742": {
+    "ordem": 1742,
+    "livro": "Mateus",
+    "ref": "Mt 27:32-56",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:33:11.366Z"
+  },
+  "1743": {
+    "ordem": 1743,
+    "livro": "Mateus",
+    "ref": "Mt 27:57-61",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:34:04.566Z"
+  },
+  "1744": {
+    "ordem": 1744,
+    "livro": "Mateus",
+    "ref": "Mt 27:62-66",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:34:53.685Z"
+  },
+  "1745": {
+    "ordem": 1745,
+    "livro": "Mateus",
+    "ref": "Mt 28:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:35:42.313Z"
+  },
+  "1746": {
+    "ordem": 1746,
+    "livro": "Mateus",
+    "ref": "Mt 28:11-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:36:13.508Z"
+  },
+  "1747": {
+    "ordem": 1747,
+    "livro": "Mateus",
+    "ref": "Mt 28:16-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:36:56.858Z"
+  },
+  "3047": {
+    "ordem": 3047,
+    "livro": "Salmos",
+    "ref": "Sl 1:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:33:06.970Z"
+  },
+  "3048": {
+    "ordem": 3048,
+    "livro": "Salmos",
+    "ref": "Sl 2:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:33:54.232Z"
+  },
+  "3049": {
+    "ordem": 3049,
+    "livro": "Salmos",
+    "ref": "Sl 3:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:34:34.588Z"
+  },
+  "3050": {
+    "ordem": 3050,
+    "livro": "Salmos",
+    "ref": "Sl 4:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:35:36.524Z"
+  },
+  "3051": {
+    "ordem": 3051,
+    "livro": "Salmos",
+    "ref": "Sl 5:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:36:57.914Z"
+  },
+  "3052": {
+    "ordem": 3052,
+    "livro": "Salmos",
+    "ref": "Sl 6:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:37:43.242Z"
+  },
+  "3053": {
+    "ordem": 3053,
+    "livro": "Salmos",
+    "ref": "Sl 7:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:38:51.712Z"
+  },
+  "3054": {
+    "ordem": 3054,
+    "livro": "Salmos",
+    "ref": "Sl 8:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:40:15.571Z"
+  },
+  "3055": {
+    "ordem": 3055,
+    "livro": "Salmos",
+    "ref": "Sl 9:1-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:43:14.190Z"
+  },
+  "3056": {
+    "ordem": 3056,
+    "livro": "Salmos",
+    "ref": "Sl 11:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:43:52.295Z"
+  },
+  "3057": {
+    "ordem": 3057,
+    "livro": "Salmos",
+    "ref": "Sl 12:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:44:40.514Z"
+  },
+  "3058": {
+    "ordem": 3058,
+    "livro": "Salmos",
+    "ref": "Sl 13:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:47:45.719Z"
+  },
+  "3059": {
+    "ordem": 3059,
+    "livro": "Salmos",
+    "ref": "Sl 14:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:48:34.106Z"
+  },
+  "3060": {
+    "ordem": 3060,
+    "livro": "Salmos",
+    "ref": "Sl 15:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T14:49:18.281Z"
+  },
+  "3061": {
+    "ordem": 3061,
+    "livro": "Salmos",
+    "ref": "Sl 16:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:11:20.772Z"
+  },
+  "3062": {
+    "ordem": 3062,
+    "livro": "Salmos",
+    "ref": "Sl 17:1-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:20:39.742Z"
+  },
+  "3063": {
+    "ordem": 3063,
+    "livro": "Salmos",
+    "ref": "Sl 18:1-50",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:21:51.634Z"
+  },
+  "3064": {
+    "ordem": 3064,
+    "livro": "Salmos",
+    "ref": "Sl 19:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:20:35.089Z"
+  },
+  "3065": {
+    "ordem": 3065,
+    "livro": "Salmos",
+    "ref": "Sl 20:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:21:45.573Z"
+  },
+  "3066": {
+    "ordem": 3066,
+    "livro": "Salmos",
+    "ref": "Sl 21:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:21:58.466Z"
+  },
+  "3067": {
+    "ordem": 3067,
+    "livro": "Salmos",
+    "ref": "Sl 22:1-31",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:23:01.967Z"
+  },
+  "3068": {
+    "ordem": 3068,
+    "livro": "Salmos",
+    "ref": "Sl 23:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:22:29.776Z"
+  },
+  "3069": {
+    "ordem": 3069,
+    "livro": "Salmos",
+    "ref": "Sl 24:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:22:35.942Z"
+  },
+  "3070": {
+    "ordem": 3070,
+    "livro": "Salmos",
+    "ref": "Sl 25:1-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:24:21.210Z"
+  },
+  "3071": {
+    "ordem": 3071,
+    "livro": "Salmos",
+    "ref": "Sl 26:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:23:21.979Z"
+  },
+  "3072": {
+    "ordem": 3072,
+    "livro": "Salmos",
+    "ref": "Sl 27:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:24:07.318Z"
+  },
+  "3073": {
+    "ordem": 3073,
+    "livro": "Salmos",
+    "ref": "Sl 28:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:24:22.037Z"
+  },
+  "3074": {
+    "ordem": 3074,
+    "livro": "Salmos",
+    "ref": "Sl 29:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:24:39.254Z"
+  },
+  "3075": {
+    "ordem": 3075,
+    "livro": "Salmos",
+    "ref": "Sl 30:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:25:17.401Z"
+  },
+  "3076": {
+    "ordem": 3076,
+    "livro": "Salmos",
+    "ref": "Sl 31:1-24",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:25:39.379Z"
+  },
+  "3077": {
+    "ordem": 3077,
+    "livro": "Salmos",
+    "ref": "Sl 32:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:25:43.239Z"
+  },
+  "3078": {
+    "ordem": 3078,
+    "livro": "Salmos",
+    "ref": "Sl 33:1-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:26:18.053Z"
+  },
+  "3079": {
+    "ordem": 3079,
+    "livro": "Salmos",
+    "ref": "Sl 34:1-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:26:32.556Z"
+  },
+  "3080": {
+    "ordem": 3080,
+    "livro": "Salmos",
+    "ref": "Sl 35:1-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:27:16.696Z"
+  },
+  "3081": {
+    "ordem": 3081,
+    "livro": "Salmos",
+    "ref": "Sl 36:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:30:10.138Z"
+  },
+  "3082": {
+    "ordem": 3082,
+    "livro": "Salmos",
+    "ref": "Sl 37:1-40",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:28:15.663Z"
+  },
+  "3083": {
+    "ordem": 3083,
+    "livro": "Salmos",
+    "ref": "Sl 38:1-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:28:33.469Z"
+  },
+  "3084": {
+    "ordem": 3084,
+    "livro": "Salmos",
+    "ref": "Sl 39:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:28:57.308Z"
+  },
+  "3085": {
+    "ordem": 3085,
+    "livro": "Salmos",
+    "ref": "Sl 40:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:30:10.422Z"
+  },
+  "3086": {
+    "ordem": 3086,
+    "livro": "Salmos",
+    "ref": "Sl 41:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:30:30.888Z"
+  },
+  "3087": {
+    "ordem": 3087,
+    "livro": "Salmos",
+    "ref": "Sl 42:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:31:05.668Z"
+  },
+  "3088": {
+    "ordem": 3088,
+    "livro": "Salmos",
+    "ref": "Sl 44:1-26",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:31:32.126Z"
+  },
+  "3089": {
+    "ordem": 3089,
+    "livro": "Salmos",
+    "ref": "Sl 45:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:33:13.541Z"
+  },
+  "3090": {
+    "ordem": 3090,
+    "livro": "Salmos",
+    "ref": "Sl 46:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:32:03.229Z"
+  },
+  "3091": {
+    "ordem": 3091,
+    "livro": "Salmos",
+    "ref": "Sl 47:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:33:19.098Z"
+  },
+  "3092": {
+    "ordem": 3092,
+    "livro": "Salmos",
+    "ref": "Sl 48:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:33:29.615Z"
+  },
+  "3093": {
+    "ordem": 3093,
+    "livro": "Salmos",
+    "ref": "Sl 49:1-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:35:09.059Z"
+  },
+  "3094": {
+    "ordem": 3094,
+    "livro": "Salmos",
+    "ref": "Sl 50:1-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:34:27.231Z"
+  },
+  "3095": {
+    "ordem": 3095,
+    "livro": "Salmos",
+    "ref": "Sl 51:1-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:34:38.821Z"
+  },
+  "3096": {
+    "ordem": 3096,
+    "livro": "Salmos",
+    "ref": "Sl 52:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:35:33.495Z"
+  },
+  "3097": {
+    "ordem": 3097,
+    "livro": "Salmos",
+    "ref": "Sl 53:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:35:22.597Z"
+  },
+  "3098": {
+    "ordem": 3098,
+    "livro": "Salmos",
+    "ref": "Sl 54:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:36:16.881Z"
+  },
+  "3099": {
+    "ordem": 3099,
+    "livro": "Salmos",
+    "ref": "Sl 55:1-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:36:46.637Z"
+  },
+  "3100": {
+    "ordem": 3100,
+    "livro": "Salmos",
+    "ref": "Sl 56:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:36:42.725Z"
+  },
+  "3101": {
+    "ordem": 3101,
+    "livro": "Salmos",
+    "ref": "Sl 57:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:39:41.723Z"
+  },
+  "3102": {
+    "ordem": 3102,
+    "livro": "Salmos",
+    "ref": "Sl 58:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:37:27.095Z"
+  },
+  "3103": {
+    "ordem": 3103,
+    "livro": "Salmos",
+    "ref": "Sl 59:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:37:36.968Z"
+  },
+  "3104": {
+    "ordem": 3104,
+    "livro": "Salmos",
+    "ref": "Sl 60:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:38:10.772Z"
+  },
+  "3105": {
+    "ordem": 3105,
+    "livro": "Salmos",
+    "ref": "Sl 61:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:38:39.993Z"
+  },
+  "3106": {
+    "ordem": 3106,
+    "livro": "Salmos",
+    "ref": "Sl 62:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:39:24.055Z"
+  },
+  "3107": {
+    "ordem": 3107,
+    "livro": "Salmos",
+    "ref": "Sl 63:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:39:52.437Z"
+  },
+  "3108": {
+    "ordem": 3108,
+    "livro": "Salmos",
+    "ref": "Sl 64:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:40:15.870Z"
+  },
+  "3109": {
+    "ordem": 3109,
+    "livro": "Salmos",
+    "ref": "Sl 65:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:40:37.142Z"
+  },
+  "3110": {
+    "ordem": 3110,
+    "livro": "Salmos",
+    "ref": "Sl 66:1-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:40:53.873Z"
+  },
+  "3111": {
+    "ordem": 3111,
+    "livro": "Salmos",
+    "ref": "Sl 67:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:40:56.931Z"
+  },
+  "3112": {
+    "ordem": 3112,
+    "livro": "Salmos",
+    "ref": "Sl 68:1-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:42:21.144Z"
+  },
+  "3113": {
+    "ordem": 3113,
+    "livro": "Salmos",
+    "ref": "Sl 69:1-36",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:42:47.130Z"
+  },
+  "3114": {
+    "ordem": 3114,
+    "livro": "Salmos",
+    "ref": "Sl 70:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:41:42.834Z"
+  },
+  "3115": {
+    "ordem": 3115,
+    "livro": "Salmos",
+    "ref": "Sl 71:1-24",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:43:51.522Z"
+  },
+  "3116": {
+    "ordem": 3116,
+    "livro": "Salmos",
+    "ref": "Sl 72:1-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:44:23.287Z"
+  },
+  "3117": {
+    "ordem": 3117,
+    "livro": "Salmos",
+    "ref": "Sl 73:1-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:44:26.646Z"
+  },
+  "3118": {
+    "ordem": 3118,
+    "livro": "Salmos",
+    "ref": "Sl 74:1-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:45:40.994Z"
+  },
+  "3119": {
+    "ordem": 3119,
+    "livro": "Salmos",
+    "ref": "Sl 75:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:45:23.404Z"
+  },
+  "3120": {
+    "ordem": 3120,
+    "livro": "Salmos",
+    "ref": "Sl 76:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:48:28.950Z"
+  },
+  "3121": {
+    "ordem": 3121,
+    "livro": "Salmos",
+    "ref": "Sl 77:1-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:46:34.073Z"
+  },
+  "3122": {
+    "ordem": 3122,
+    "livro": "Salmos",
+    "ref": "Sl 78:1-72",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:48:04.630Z"
+  },
+  "3123": {
+    "ordem": 3123,
+    "livro": "Salmos",
+    "ref": "Sl 79:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:48:00.651Z"
+  },
+  "3124": {
+    "ordem": 3124,
+    "livro": "Salmos",
+    "ref": "Sl 80:1-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:49:03.448Z"
+  },
+  "3125": {
+    "ordem": 3125,
+    "livro": "Salmos",
+    "ref": "Sl 81:1-16",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:49:06.676Z"
+  },
+  "3126": {
+    "ordem": 3126,
+    "livro": "Salmos",
+    "ref": "Sl 82:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:49:40.961Z"
+  },
+  "3127": {
+    "ordem": 3127,
+    "livro": "Salmos",
+    "ref": "Sl 83:1-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:50:08.365Z"
+  },
+  "3128": {
+    "ordem": 3128,
+    "livro": "Salmos",
+    "ref": "Sl 84:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:50:20.433Z"
+  },
+  "3129": {
+    "ordem": 3129,
+    "livro": "Salmos",
+    "ref": "Sl 85:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:51:14.408Z"
+  },
+  "3130": {
+    "ordem": 3130,
+    "livro": "Salmos",
+    "ref": "Sl 86:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:51:34.704Z"
+  },
+  "3131": {
+    "ordem": 3131,
+    "livro": "Salmos",
+    "ref": "Sl 87:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:51:19.254Z"
+  },
+  "3132": {
+    "ordem": 3132,
+    "livro": "Salmos",
+    "ref": "Sl 88:1-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:52:13.743Z"
+  },
+  "3133": {
+    "ordem": 3133,
+    "livro": "Salmos",
+    "ref": "Sl 89:1-52",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:53:22.662Z"
+  },
+  "3134": {
+    "ordem": 3134,
+    "livro": "Salmos",
+    "ref": "Sl 90:1-17",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:52:44.101Z"
+  },
+  "3135": {
+    "ordem": 3135,
+    "livro": "Salmos",
+    "ref": "Sl 91:1-16",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:54:14.604Z"
+  },
+  "3136": {
+    "ordem": 3136,
+    "livro": "Salmos",
+    "ref": "Sl 92:1-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:58:17.471Z"
+  },
+  "3137": {
+    "ordem": 3137,
+    "livro": "Salmos",
+    "ref": "Sl 93:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:56:34.683Z"
+  },
+  "3138": {
+    "ordem": 3138,
+    "livro": "Salmos",
+    "ref": "Sl 94:1-23",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:55:43.602Z"
+  },
+  "3139": {
+    "ordem": 3139,
+    "livro": "Salmos",
+    "ref": "Sl 95:1-11",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:57:04.768Z"
+  },
+  "3140": {
+    "ordem": 3140,
+    "livro": "Salmos",
+    "ref": "Sl 96:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:00:09.598Z"
+  },
+  "3141": {
+    "ordem": 3141,
+    "livro": "Salmos",
+    "ref": "Sl 97:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:00:48.172Z"
+  },
+  "3142": {
+    "ordem": 3142,
+    "livro": "Salmos",
+    "ref": "Sl 98:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:59:02.816Z"
+  },
+  "3143": {
+    "ordem": 3143,
+    "livro": "Salmos",
+    "ref": "Sl 99:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T15:59:54.819Z"
+  },
+  "3144": {
+    "ordem": 3144,
+    "livro": "Salmos",
+    "ref": "Sl 100:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:00:30.112Z"
+  },
+  "3145": {
+    "ordem": 3145,
+    "livro": "Salmos",
+    "ref": "Sl 101:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:03:35.135Z"
+  },
+  "3146": {
+    "ordem": 3146,
+    "livro": "Salmos",
+    "ref": "Sl 102:1-28",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:02:04.582Z"
+  },
+  "3147": {
+    "ordem": 3147,
+    "livro": "Salmos",
+    "ref": "Sl 103:1-22",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:02:06.363Z"
+  },
+  "3148": {
+    "ordem": 3148,
+    "livro": "Salmos",
+    "ref": "Sl 104:1-35",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:06:04.828Z"
+  },
+  "3149": {
+    "ordem": 3149,
+    "livro": "Salmos",
+    "ref": "Sl 105:1-45",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:05:16.260Z"
+  },
+  "3150": {
+    "ordem": 3150,
+    "livro": "Salmos",
+    "ref": "Sl 106:1-48",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:05:52.499Z"
+  },
+  "3151": {
+    "ordem": 3151,
+    "livro": "Salmos",
+    "ref": "Sl 107:1-43",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:06:40.908Z"
+  },
+  "3152": {
+    "ordem": 3152,
+    "livro": "Salmos",
+    "ref": "Sl 108:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:07:33.421Z"
+  },
+  "3153": {
+    "ordem": 3153,
+    "livro": "Salmos",
+    "ref": "Sl 109:1-31",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:07:42.467Z"
+  },
+  "3154": {
+    "ordem": 3154,
+    "livro": "Salmos",
+    "ref": "Sl 110:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:07:32.969Z"
+  },
+  "3155": {
+    "ordem": 3155,
+    "livro": "Salmos",
+    "ref": "Sl 111:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:08:15.977Z"
+  },
+  "3156": {
+    "ordem": 3156,
+    "livro": "Salmos",
+    "ref": "Sl 112:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:38:38.800Z"
+  },
+  "3157": {
+    "ordem": 3157,
+    "livro": "Salmos",
+    "ref": "Sl 113:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:39:19.617Z"
+  },
+  "3158": {
+    "ordem": 3158,
+    "livro": "Salmos",
+    "ref": "Sl 114:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:39:57.408Z"
+  },
+  "3159": {
+    "ordem": 3159,
+    "livro": "Salmos",
+    "ref": "Sl 115:1-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:41:14.087Z"
+  },
+  "3160": {
+    "ordem": 3160,
+    "livro": "Salmos",
+    "ref": "Sl 116:1-19",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:42:04.708Z"
+  },
+  "3161": {
+    "ordem": 3161,
+    "livro": "Salmos",
+    "ref": "Sl 117:1-2",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:42:27.169Z"
+  },
+  "3162": {
+    "ordem": 3162,
+    "livro": "Salmos",
+    "ref": "Sl 118:1-29",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:43:41.735Z"
+  },
+  "3163": {
+    "ordem": 3163,
+    "livro": "Salmos",
+    "ref": "Sl 119:1-176",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:47:53.682Z"
+  },
+  "3164": {
+    "ordem": 3164,
+    "livro": "Salmos",
+    "ref": "Sl 120:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:48:14.979Z"
+  },
+  "3165": {
+    "ordem": 3165,
+    "livro": "Salmos",
+    "ref": "Sl 121:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T03:48:36.704Z"
+  },
+  "3166": {
+    "ordem": 3166,
+    "livro": "Salmos",
+    "ref": "Sl 122:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:08:28.481Z"
+  },
+  "3167": {
+    "ordem": 3167,
+    "livro": "Salmos",
+    "ref": "Sl 123:1-4",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:08:06.537Z"
+  },
+  "3168": {
+    "ordem": 3168,
+    "livro": "Salmos",
+    "ref": "Sl 124:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:10:35.198Z"
+  },
+  "3169": {
+    "ordem": 3169,
+    "livro": "Salmos",
+    "ref": "Sl 125:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:09:11.714Z"
+  },
+  "3170": {
+    "ordem": 3170,
+    "livro": "Salmos",
+    "ref": "Sl 126:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:09:24.587Z"
+  },
+  "3171": {
+    "ordem": 3171,
+    "livro": "Salmos",
+    "ref": "Sl 127:1-5",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:10:07.576Z"
+  },
+  "3172": {
+    "ordem": 3172,
+    "livro": "Salmos",
+    "ref": "Sl 128:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:10:18.816Z"
+  },
+  "3173": {
+    "ordem": 3173,
+    "livro": "Salmos",
+    "ref": "Sl 129:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:10:56.097Z"
+  },
+  "3174": {
+    "ordem": 3174,
+    "livro": "Salmos",
+    "ref": "Sl 130:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:11:12.189Z"
+  },
+  "3175": {
+    "ordem": 3175,
+    "livro": "Salmos",
+    "ref": "Sl 131:1-3",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:11:21.269Z"
+  },
+  "3176": {
+    "ordem": 3176,
+    "livro": "Salmos",
+    "ref": "Sl 132:1-18",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:12:00.797Z"
+  },
+  "3177": {
+    "ordem": 3177,
+    "livro": "Salmos",
+    "ref": "Sl 133:1-3",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:11:54.542Z"
+  },
+  "3178": {
+    "ordem": 3178,
+    "livro": "Salmos",
+    "ref": "Sl 134:1-3",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:13:55.912Z"
+  },
+  "3179": {
+    "ordem": 3179,
+    "livro": "Salmos",
+    "ref": "Sl 135:1-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:13:16.576Z"
+  },
+  "3180": {
+    "ordem": 3180,
+    "livro": "Salmos",
+    "ref": "Sl 136:1-26",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:13:27.873Z"
+  },
+  "3181": {
+    "ordem": 3181,
+    "livro": "Salmos",
+    "ref": "Sl 137:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:14:03.134Z"
+  },
+  "3182": {
+    "ordem": 3182,
+    "livro": "Salmos",
+    "ref": "Sl 138:1-8",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:15:13.211Z"
+  },
+  "3183": {
+    "ordem": 3183,
+    "livro": "Salmos",
+    "ref": "Sl 139:1-24",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:16:25.952Z"
+  },
+  "3184": {
+    "ordem": 3184,
+    "livro": "Salmos",
+    "ref": "Sl 140:1-13",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:16:11.072Z"
+  },
+  "3185": {
+    "ordem": 3185,
+    "livro": "Salmos",
+    "ref": "Sl 141:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:15:59.939Z"
+  },
+  "3186": {
+    "ordem": 3186,
+    "livro": "Salmos",
+    "ref": "Sl 142:1-7",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:16:37.246Z"
+  },
+  "3187": {
+    "ordem": 3187,
+    "livro": "Salmos",
+    "ref": "Sl 143:1-12",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:17:00.855Z"
+  },
+  "3188": {
+    "ordem": 3188,
+    "livro": "Salmos",
+    "ref": "Sl 144:1-15",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:17:16.858Z"
+  },
+  "3189": {
+    "ordem": 3189,
+    "livro": "Salmos",
+    "ref": "Sl 145:1-21",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:18:16.415Z"
+  },
+  "3190": {
+    "ordem": 3190,
+    "livro": "Salmos",
+    "ref": "Sl 146:1-10",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:17:47.439Z"
+  },
+  "3191": {
+    "ordem": 3191,
+    "livro": "Salmos",
+    "ref": "Sl 147:1-20",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:18:20.216Z"
+  },
+  "3192": {
+    "ordem": 3192,
+    "livro": "Salmos",
+    "ref": "Sl 148:1-14",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:21:19.453Z"
+  },
+  "3193": {
+    "ordem": 3193,
+    "livro": "Salmos",
+    "ref": "Sl 149:1-9",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:18:50.188Z"
+  },
+  "3194": {
+    "ordem": 3194,
+    "livro": "Salmos",
+    "ref": "Sl 150:1-6",
+    "revisado": true,
+    "narrado": true,
+    "alinhado": true,
+    "publicado": true,
+    "atualizadoEm": "2026-09-18T16:19:13.477Z"
   }
 }

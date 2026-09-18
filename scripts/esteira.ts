@@ -26,11 +26,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createSign } from 'node:crypto'
-import { execSync } from 'node:child_process'
+import { execSync, exec } from 'node:child_process'
+import { promisify } from 'node:util'
 import { validarMaterial, type Material } from './validar-material.ts'
 import { ancorar } from './titulos-ancorados.ts'
 import { blocosDaResenha } from '../src/lib/paragraphize.ts'
+
+const execAsync = promisify(exec)
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const estadoPath = join(root, 'data', 'pipeline-estado.json')
@@ -140,6 +142,32 @@ export function salvarEstado(st: PipelineEstado) {
   writeFileSync(estadoPath, JSON.stringify(st, null, 2), 'utf8')
 }
 
+export function atualizarEstado(
+  ordem: number,
+  updates: Partial<PericopeEstado>,
+  metaDefault?: { livro?: string; ref?: string },
+): PericopeEstado {
+  const st = carregarEstado()
+  const key = ordem.toString()
+  if (!st[key]) {
+    st[key] = {
+      ordem,
+      livro: metaDefault?.livro || 'Mateus',
+      ref: metaDefault?.ref || `ordem ${ordem}`,
+      revisado: false,
+      narrado: false,
+      alinhado: false,
+      publicado: false,
+      atualizadoEm: new Date().toISOString(),
+      ...updates,
+    }
+  } else {
+    Object.assign(st[key], updates, { atualizadoEm: new Date().toISOString() })
+  }
+  salvarEstado(st)
+  return st[key]
+}
+
 // Sincronização do roteiro.jsonl
 export function sincronizarRoteiro(ordem: number, rev: Material, livro: string) {
   if (!existsSync(roteiroPath)) return
@@ -213,30 +241,45 @@ export function sincronizarRoteiro(ordem: number, rev: Material, livro: string) 
 }
 
 // ESTÁGIO 1: REDAÇÃO E CURADORIA
-async function chamarVertexAI(prompt: string, sa: ServiceAccountKey): Promise<string> {
-  const token = await obterTokenVertex(sa)
-  const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-2.5-flash:generateContent`
+async function chamarVertexAI(prompt: string, sa: ServiceAccountKey, retries = 3): Promise<string> {
+  let erroUltimo: any
+  for (let tent = 1; tent <= retries; tent++) {
+    try {
+      const token = await obterTokenVertex(sa)
+      // Usa região São Paulo (southamerica-east1) para latência ultrabaixa (~15ms)
+      const url = `https://southamerica-east1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/southamerica-east1/publishers/google/models/gemini-2.5-flash:generateContent`
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.2,
-      },
-    }),
-  })
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Connection: 'close', // Evita sockets TCP half-open pendurados
+        },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            temperature: 0.2,
+          },
+        }),
+        signal: AbortSignal.timeout(15000), // Falha rápido em 15s em vez de 35s
+      })
 
-  if (!res.ok) throw new Error(`Erro API Vertex AI: ${await res.text()}`)
-  const json = await res.json()
-  const text = json.candidates?.[0]?.content?.parts?.[0]?.text
-  if (!text) throw new Error(`Resposta vazia da Vertex AI: ${JSON.stringify(json)}`)
-  return text
+      if (!res.ok) throw new Error(`Erro API Vertex AI (${res.status}): ${await res.text()}`)
+      const json = await res.json()
+      const text = json.candidates?.[0]?.content?.parts?.[0]?.text
+      if (!text) throw new Error(`Resposta vazia da Vertex AI: ${JSON.stringify(json)}`)
+      return text
+    } catch (err: any) {
+      erroUltimo = err
+      if (tent < retries) {
+        console.warn(`    ⚠️ [Vertex AI SP] Tentativa ${tent} falhou ou timed out (${err.message}). Retentando em 1s...`)
+        await delay(1000)
+      }
+    }
+  }
+  throw erroUltimo
 }
 
 async function auditarNaoAlucinacao(
@@ -286,6 +329,10 @@ async function executarRedacaoECuradoria(ordem: number, sa: ServiceAccountKey): 
 
   let feedbackAnterior = ''
   for (let tentativa = 1; tentativa <= 3; tentativa++) {
+    if (tentativa > 1) {
+      console.log(`  [${hora()}] 🔄 [1/4 Redação] [${ordem}] Tentativa ${tentativa}/3 após ajuste...`)
+    }
+
     const prompt = `Você é um teólogo especialista que ama a Escritura e respeita o tempo do leitor — com a clareza de Carl Sagan, falando com pessoas inteligentes de forma natural, simples e fascinante.
 
 PÚBLICO: pessoas lendo a Bíblia pela segunda vez.
@@ -326,6 +373,7 @@ Retorne APENAS um JSON válido no formato:
       parsed = JSON.parse(raw)
     } catch {
       feedbackAnterior = 'O retorno não foi um JSON válido.'
+      console.log(`  [${hora()}] ⚠️ [1/4 Redação] [${ordem}] Retorno da IA não era JSON válido. Refazendo...`)
       continue
     }
 
@@ -342,6 +390,7 @@ Retorne APENAS um JSON válido no formato:
     const vMec = validarMaterial({ texto: textoBiblico, livro: peri.livro }, material, raw)
     if (vMec.problemas.length > 0) {
       feedbackAnterior = `Falha na validação mecânica: ${vMec.problemas.join('; ')}`
+      console.log(`  [${hora()}] ⚠️ [1/4 Redação] [${ordem}] Curadoria mecânica reprovou: ${vMec.problemas.join('; ')}. Reajustando...`)
       continue
     }
 
@@ -349,6 +398,7 @@ Retorne APENAS um JSON válido no formato:
     const vAncora = ancorar(material.titulo_pericope_pt, textoBiblico)
     if (!vAncora.ancorado) {
       feedbackAnterior = `Título "${material.titulo_pericope_pt}" não está ancorado no texto (precisa conter pelo menos 1 nome próprio ou 2 palavras de conteúdo da passagem).`
+      console.log(`  [${hora()}] ⚠️ [1/4 Redação] [${ordem}] Título não ancorado ("${material.titulo_pericope_pt}"). Reajustando...`)
       continue
     }
 
@@ -356,6 +406,7 @@ Retorne APENAS um JSON válido no formato:
     const vAudit = await auditarNaoAlucinacao(textoBiblico, material, sa)
     if (!vAudit.aprovado) {
       feedbackAnterior = `Alucinação ou invenção detectada pelo auditor: ${vAudit.motivo}`
+      console.log(`  [${hora()}] ⚠️ [1/4 Redação] [${ordem}] Auditoria detectou: ${vAudit.motivo}. Reajustando...`)
       continue
     }
 
@@ -382,31 +433,43 @@ Retorne APENAS um JSON válido no formato:
 }
 
 // ESTÁGIO 2: NARRAÇÃO TTS
-function executarNarracaoTTS(ordem: number) {
-  execSync(`npx tsx scripts/gerar-lote.ts --ordem=${ordem} --forcar`, { stdio: 'pipe' })
+async function executarNarracaoTTS(ordem: number) {
+  await execAsync(`npx tsx scripts/gerar-lote.ts --ordem=${ordem} --forcar`, { maxBuffer: 10 * 1024 * 1024 })
 }
 
 // ESTÁGIO 3: ALINHAMENTO ACÚSTICO MMS_FA
-function executarAlinhamentoMMS(ordem: number) {
+async function executarAlinhamentoMMS(ordem: number) {
   const pythonPath = '/Volumes/SSD 2TB SD/dev/tts-spike/.venv/bin/python'
-  execSync(`"${pythonPath}" scripts/alinhar-corpus.py ${ordem}`, { stdio: 'pipe' })
+  await execAsync(`"${pythonPath}" scripts/alinhar-corpus.py ${ordem}`, { maxBuffer: 10 * 1024 * 1024 })
 }
 
 // ESTÁGIO 4: PUBLICAÇÃO R2 & SHARDS
-function executarPublicacaoR2(ordem: number, prefixo: string = 'algenib-v4') {
-  execSync(`npx tsx scripts/publicar-r2.ts --ordem=${ordem} --prefixo=${prefixo}`, { stdio: 'pipe' })
+async function executarPublicacaoR2(ordem: number, prefixo: string = 'algenib-v4') {
+  await execAsync(`npx tsx scripts/publicar-r2.ts --ordem=${ordem} --prefixo=${prefixo}`, { maxBuffer: 10 * 1024 * 1024 })
 }
 
-// ORQUESTRADOR PRINCIPAL
+function hora(): string {
+  return new Date().toLocaleTimeString('pt-BR', { hour12: false })
+}
+
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+// ORQUESTRADOR PRINCIPAL CONCORRENTE
 async function main() {
   const args = process.argv.slice(2)
   const sa = carregarServiceAccount()
   const estado = carregarEstado()
 
+  const catalogo = JSON.parse(readFileSync(pericopesPath, 'utf8')) as any[]
+  const catalogoPorOrdem = new Map(catalogo.map((p) => [p.ordem, p]))
+
   let ordens: number[] = []
   let limite = 9999
   let prefixo = 'algenib-v4'
   let forcar = args.includes('--forcar')
+  let concorrencia = 2
 
   for (const a of args) {
     if (a.startsWith('--ordem=')) ordens = [parseInt(a.split('=')[1], 10)]
@@ -416,11 +479,12 @@ async function main() {
     }
     if (a.startsWith('--livro=')) {
       const nomeLivro = a.split('=')[1]
-      const catalogo = JSON.parse(readFileSync(pericopesPath, 'utf8')) as any[]
       ordens = catalogo.filter((p) => p.livro.toLowerCase() === nomeLivro.toLowerCase()).map((p) => p.ordem)
     }
     if (a.startsWith('--limite=')) limite = parseInt(a.split('=')[1], 10)
     if (a.startsWith('--prefixo=')) prefixo = a.split('=')[1]
+    if (a.startsWith('--concorrencia=')) concorrencia = Math.max(1, parseInt(a.split('=')[1], 10))
+    if (a.startsWith('--paralelo=')) concorrencia = Math.max(1, parseInt(a.split('=')[1], 10))
   }
 
   if (args.includes('--status')) {
@@ -435,107 +499,306 @@ async function main() {
     return
   }
 
-  console.log('==================================================================')
-  console.log('  ESTEIRA DE PRODUÇÃO AUTOMATIZADA — BÍBLIA PERÍCOPES')
-  console.log(`  Alvo: ${ordens.length} perícopes | Prefixo R2: ${prefixo}`)
-  console.log('==================================================================\n')
+  if (ordens.length > limite) {
+    ordens = ordens.slice(0, limite)
+  }
 
-  let processadas = 0
-
+  // Inicializa estado para todas as ordens do lote
   for (const ordem of ordens) {
-    if (processadas >= limite) break
+    const meta = catalogoPorOrdem.get(ordem)
+    const refFormatada = meta
+      ? `${meta.abbrev} ${meta.capitulo_inicio}:${meta.versiculo_inicio}-${meta.versiculo_fim}`
+      : `ordem ${ordem}`
+
     if (!estado[ordem.toString()]) {
       estado[ordem.toString()] = {
         ordem,
-        livro: '',
-        ref: '',
+        livro: meta?.livro || 'Bíblia',
+        ref: refFormatada,
         revisado: false,
         narrado: false,
         alinhado: false,
         publicado: false,
         atualizadoEm: new Date().toISOString(),
       }
-    }
-    const st = estado[ordem.toString()]!
-
-    if (!forcar && st.publicado) {
-      // Já está concluído
-      continue
-    }
-
-    const periPath = join(root, 'data', 'enriched', `${ordem}.json`)
-    if (!existsSync(periPath)) continue
-    const peri = JSON.parse(readFileSync(periPath, 'utf8'))
-    st.livro = peri.livro
-    st.ref = `${peri.abbrev} (ordem ${ordem})`
-
-    console.log(`\n▶️ [${ordem}] Processando ${peri.livro} (ordem ${ordem})...`)
-
-    try {
-      // 1. Redação & Curadoria
-      if (forcar || !st.revisado) {
-        process.stdout.write('  ✍️  [1/4] Redação & Curadoria (Anti-Alucinação)... ')
-        const mat = await executarRedacaoECuradoria(ordem, sa)
-        st.revisado = true
-        st.atualizadoEm = new Date().toISOString()
-        salvarEstado(estado)
-        console.log(`OK ("${mat.titulo_pericope_pt}")`)
-      }
-
-      // 2. Narração TTS
-      if (forcar || !st.narrado) {
-        process.stdout.write('  🎙️  [2/4] Narração TTS (Algenib v3)... ')
-        executarNarracaoTTS(ordem)
-        st.narrado = true
-        st.atualizadoEm = new Date().toISOString()
-        salvarEstado(estado)
-        console.log('OK')
-      }
-
-      // 3. Alinhamento Acústico MMS_FA
-      if (forcar || !st.alinhado) {
-        process.stdout.write('  ⏱️  [3/4] Alinhamento Palavra por Palavra (MMS_FA)... ')
-        executarAlinhamentoMMS(ordem)
-        st.alinhado = true
-        st.atualizadoEm = new Date().toISOString()
-        salvarEstado(estado)
-        console.log('OK')
-      }
-
-      // 4. Publicação R2 & Shards
-      if (forcar || !st.publicado) {
-        process.stdout.write('  ☁️  [4/4] Publicação Cloudflare R2... ')
-        executarPublicacaoR2(ordem, prefixo)
-        st.publicado = true
-        st.atualizadoEm = new Date().toISOString()
-        salvarEstado(estado)
-        console.log('OK')
-      }
-
-      processadas++
-      console.log(`✨ [${peri.livro} ${ordem}] ✅ PUBLICADO E DISPONÍVEL NO AR! https://aipericopes.com/leitura/${ordem}`)
-    } catch (err: any) {
-      console.error(`\n❌ [${ordem}] ERRO NA ESTEIRA: ${err.message}`)
-      st.erro = err.message
-      salvarEstado(estado)
+    } else {
+      estado[ordem.toString()].ref = refFormatada
+      if (meta?.livro) estado[ordem.toString()].livro = meta.livro
     }
   }
+  salvarEstado(estado)
 
-  // Ao final do lote, regenera shards do catálogo
+  const semRedacao = args.includes('--sem-redacao') || args.includes('--somente-audio')
+
+  console.log('==================================================================')
+  console.log('  ESTEIRA DE PRODUÇÃO CONCORRENTE — BÍBLIA PERÍCOPES')
+  console.log(`  Alvo: ${ordens.length} perícopes | Prefixo R2: ${prefixo} | Concorrência: ${concorrencia}x`)
+  console.log(
+    semRedacao
+      ? `  Modo: SOMENTE ÁUDIO (${concorrencia} workers simultâneos de TTS, MMS e R2)`
+      : `  4 Filas Operando Simultaneamente (${concorrencia}x por estágio)`,
+  )
+  console.log('==================================================================\n')
+
+  let worker1Ativo = !semRedacao
+  let worker2Ativo = true
+  let worker3Ativo = true
+  let worker4Ativo = true
+
+  let ttsEmExecucao = concorrencia
+  let mmsEmExecucao = concorrencia
+  let r2EmExecucao = concorrencia
+
+  const emRedacao = new Set<number>()
+  const emTTS = new Set<number>()
+  const emAlinhamento = new Set<number>()
+  const emPublicacao = new Set<number>()
+
+  const falhasTTS = new Map<number, number>()
+  const falhasMMS = new Map<number, number>()
+  const falhasR2 = new Map<number, number>()
+  const MAX_FALHAS = 2
+
+  let totalPublicadas = 0
+
+  // WORKER 1: REDAÇÃO & CURADORIA (Gemini 2.5 Flash + Auditoria Anti-Alucinação)
+  async function workerRedacao() {
+    if (semRedacao) {
+      console.log(`[${hora()}] 🤖 Fila de Redação delegada ao Subagente (--somente-audio).`)
+      worker1Ativo = false
+      return
+    }
+
+    while (true) {
+      const estadoAtual = carregarEstado()
+      const pendente = ordens.find((o) => {
+        const st = estadoAtual[o.toString()]
+        return (!st?.revisado || forcar) && !emRedacao.has(o)
+      })
+      if (!pendente) break
+
+      emRedacao.add(pendente)
+      const st = estadoAtual[pendente.toString()]
+      const meta = catalogoPorOrdem.get(pendente)
+      const ref = st?.ref || `ordem ${pendente}`
+
+      const t0 = Date.now()
+      console.log(`[${hora()}] ✍️  [1/4 Redação] [${pendente}] INICIANDO... (${ref})`)
+
+      try {
+        const mat = await executarRedacaoECuradoria(pendente, sa)
+        const dur = ((Date.now() - t0) / 1000).toFixed(1)
+        atualizarEstado(pendente, { revisado: true, erro: undefined })
+        console.log(`[${hora()}] ✍️  [1/4 Redação] [${pendente}] CONCLUÍDA em ${dur}s ("${mat.titulo_pericope_pt}")`)
+      } catch (err: any) {
+        console.error(`[${hora()}] ❌ [1/4 Redação] [${pendente}] ERRO: ${err.message}`)
+        atualizarEstado(pendente, { erro: err.message })
+      } finally {
+        emRedacao.delete(pendente)
+      }
+      await delay(50)
+    }
+    worker1Ativo = false
+  }
+
+  // WORKER 2: NARRAÇÃO TTS (Gemini 3.1 Flash TTS - Algenib v3 + EBU R128)
+  async function workerTTS(workerId: number) {
+    const rotulo = concorrencia > 1 ? `#W${workerId}` : ''
+    while (
+      worker1Ativo ||
+      ordens.some((o) => {
+        const st = carregarEstado()[o.toString()]
+        const f = falhasTTS.get(o) || 0
+        return st && !st.publicado && f < MAX_FALHAS
+      })
+    ) {
+      const estadoAtual = carregarEstado()
+      const pendente = ordens.find((o) => {
+        const st = estadoAtual[o.toString()]
+        const f = falhasTTS.get(o) || 0
+        return st && st.revisado && (!st.narrado || forcar) && !emTTS.has(o) && f < MAX_FALHAS
+      })
+
+      if (!pendente) {
+        if (!worker1Ativo && !semRedacao) break
+        if (
+          semRedacao &&
+          ordens.every((o) => estadoAtual[o.toString()]?.publicado || (falhasTTS.get(o) || 0) >= MAX_FALHAS)
+        )
+          break
+        await delay(500)
+        continue
+      }
+
+      emTTS.add(pendente)
+      const t0 = Date.now()
+      console.log(`[${hora()}] 🎙️  [2/4 Narração ${rotulo}] [${pendente}] INICIANDO síntese TTS Algenib v3...`)
+
+      try {
+        await executarNarracaoTTS(pendente)
+        const dur = ((Date.now() - t0) / 1000).toFixed(1)
+        atualizarEstado(pendente, { narrado: true, erro: undefined })
+        console.log(`[${hora()}] 🎙️  [2/4 Narração ${rotulo}] [${pendente}] CONCLUÍDA em ${dur}s`)
+      } catch (err: any) {
+        const f = (falhasTTS.get(pendente) || 0) + 1
+        falhasTTS.set(pendente, f)
+        console.error(
+          `[${hora()}] ❌ [2/4 Narração ${rotulo}] [${pendente}] ERRO (tentativa ${f}/${MAX_FALHAS}): ${err.message}`,
+        )
+        atualizarEstado(pendente, { erro: err.message })
+        if (f >= MAX_FALHAS) {
+          console.error(
+            `[${hora()}] ⚠️  [2/4 Narração ${rotulo}] [${pendente}] Pulando após ${f} falhas para não bloquear a fila.`,
+          )
+        }
+      } finally {
+        emTTS.delete(pendente)
+      }
+      await delay(100)
+    }
+    ttsEmExecucao--
+    if (ttsEmExecucao === 0) worker2Ativo = false
+  }
+
+  // WORKER 3: ALINHAMENTO ACÚSTICO MMS_FA (Torchaudio palavra por palavra)
+  async function workerMMS(workerId: number) {
+    const rotulo = concorrencia > 1 ? `#W${workerId}` : ''
+    while (
+      worker2Ativo ||
+      ordens.some((o) => {
+        const st = carregarEstado()[o.toString()]
+        const f = falhasMMS.get(o) || 0
+        return st && st.narrado && (!st.alinhado || forcar) && !emAlinhamento.has(o) && f < MAX_FALHAS
+      })
+    ) {
+      const estadoAtual = carregarEstado()
+      const pendente = ordens.find((o) => {
+        const st = estadoAtual[o.toString()]
+        const f = falhasMMS.get(o) || 0
+        return st && st.narrado && (!st.alinhado || forcar) && !emAlinhamento.has(o) && f < MAX_FALHAS
+      })
+
+      if (!pendente) {
+        await delay(500)
+        continue
+      }
+
+      emAlinhamento.add(pendente)
+      const t0 = Date.now()
+      console.log(`[${hora()}] ⏱️  [3/4 Alinhamento ${rotulo}] [${pendente}] INICIANDO alinhamento MMS_FA...`)
+
+      try {
+        await executarAlinhamentoMMS(pendente)
+        const dur = ((Date.now() - t0) / 1000).toFixed(1)
+        atualizarEstado(pendente, { alinhado: true, erro: undefined })
+        console.log(`[${hora()}] ⏱️  [3/4 Alinhamento ${rotulo}] [${pendente}] CONCLUÍDO em ${dur}s`)
+      } catch (err: any) {
+        const f = (falhasMMS.get(pendente) || 0) + 1
+        falhasMMS.set(pendente, f)
+        console.error(
+          `[${hora()}] ❌ [3/4 Alinhamento ${rotulo}] [${pendente}] ERRO (tentativa ${f}/${MAX_FALHAS}): ${err.message}`,
+        )
+        atualizarEstado(pendente, { erro: err.message })
+        if (f >= MAX_FALHAS) {
+          console.error(
+            `[${hora()}] ⚠️  [3/4 Alinhamento ${rotulo}] [${pendente}] Pulando após ${f} falhas para não bloquear a fila.`,
+          )
+        }
+      } finally {
+        emAlinhamento.delete(pendente)
+      }
+      await delay(100)
+    }
+    mmsEmExecucao--
+    if (mmsEmExecucao === 0) worker3Ativo = false
+  }
+
+  // WORKER 4: PUBLICAÇÃO R2 & NOTIFICAÇÃO (Upload Cloudflare R2 + Log)
+  async function workerR2(workerId: number) {
+    const rotulo = concorrencia > 1 ? `#W${workerId}` : ''
+    while (
+      worker3Ativo ||
+      ordens.some((o) => {
+        const st = carregarEstado()[o.toString()]
+        const f = falhasR2.get(o) || 0
+        return st && st.alinhado && (!st.publicado || forcar) && !emPublicacao.has(o) && f < MAX_FALHAS
+      })
+    ) {
+      const estadoAtual = carregarEstado()
+      const pendente = ordens.find((o) => {
+        const st = estadoAtual[o.toString()]
+        const f = falhasR2.get(o) || 0
+        return st && st.alinhado && (!st.publicado || forcar) && !emPublicacao.has(o) && f < MAX_FALHAS
+      })
+
+      if (!pendente) {
+        await delay(500)
+        continue
+      }
+
+      emPublicacao.add(pendente)
+      const meta = catalogoPorOrdem.get(pendente)
+      const t0 = Date.now()
+      console.log(`[${hora()}] ☁️  [4/4 Publicação ${rotulo}] [${pendente}] INICIANDO upload R2...`)
+
+      try {
+        await executarPublicacaoR2(pendente, prefixo)
+        const dur = ((Date.now() - t0) / 1000).toFixed(1)
+        atualizarEstado(pendente, { publicado: true, erro: undefined })
+        totalPublicadas++
+        console.log(`[${hora()}] ☁️  [4/4 Publicação ${rotulo}] [${pendente}] CONCLUÍDA em ${dur}s`)
+        console.log(`\n==================================================================`)
+        console.log(`✨ [${meta?.livro || 'Salmos'} ${pendente}] ✅ PUBLICADO E DISPONÍVEL NO AR COM REALCE!`)
+        console.log(`🔗 https://aipericopes.com/leitura/${pendente}`)
+        console.log(`==================================================================\n`)
+      } catch (err: any) {
+        const f = (falhasR2.get(pendente) || 0) + 1
+        falhasR2.set(pendente, f)
+        console.error(
+          `[${hora()}] ❌ [4/4 Publicação ${rotulo}] [${pendente}] ERRO (tentativa ${f}/${MAX_FALHAS}): ${err.message}`,
+        )
+        atualizarEstado(pendente, { erro: err.message })
+        if (f >= MAX_FALHAS) {
+          console.error(
+            `[${hora()}] ⚠️  [4/4 Publicação ${rotulo}] [${pendente}] Pulando após ${f} falhas para não bloquear a fila.`,
+          )
+        }
+      } finally {
+        emPublicacao.delete(pendente)
+      }
+      await delay(100)
+    }
+    r2EmExecucao--
+    if (r2EmExecucao === 0) worker4Ativo = false
+  }
+
+  // Roda workers simultaneamente em paralelo com a concorrência escolhida!
+  const listaWorkers = [
+    workerRedacao(),
+    ...Array.from({ length: concorrencia }, (_, i) => workerTTS(i + 1)),
+    ...Array.from({ length: concorrencia }, (_, i) => workerMMS(i + 1)),
+    ...Array.from({ length: concorrencia }, (_, i) => workerR2(i + 1)),
+  ]
+  await Promise.all(listaWorkers)
+
+  // Ao final do lote, executa o Passo 5 (Sincronização editorial, Cobertura de Áudio e Shards)
   try {
-    process.stdout.write('\n📦 Atualizando shards do catálogo... ')
-    execSync('npx tsx scripts/shard-catalogo.ts --force', { stdio: 'pipe' })
-    console.log('OK')
+    const cmdPasso5 = args.includes('--deploy')
+      ? 'npx tsx scripts/passo-5-publicar-site.ts'
+      : 'npx tsx scripts/passo-5-publicar-site.ts --sem-deploy'
+    execSync(cmdPasso5, { stdio: 'inherit' })
   } catch (err: any) {
-    console.warn('Aviso ao regenerar shards:', err.message)
+    console.warn('Aviso no Passo 5:', err.message)
   }
 
   console.log('\n==================================================================')
-  console.log(`🏁 LOTE CONCLUÍDO: ${processadas} perícopes produzidas e publicadas.`)
+  console.log(`🏁 LOTE CONCLUÍDO: ${totalPublicadas} perícopes produzidas e publicadas.`)
   console.log('==================================================================\n')
 }
 
-main().catch((err) => {
-  console.error('Erro fatal:', err)
-  process.exit(1)
-})
+if (process.argv[1]?.endsWith('esteira.ts')) {
+  main().catch((err) => {
+    console.error('Erro fatal:', err)
+    process.exit(1)
+  })
+}

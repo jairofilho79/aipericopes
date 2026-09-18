@@ -76,7 +76,7 @@ const PROMPTS_V3 = {
   texto: (
     'Use a brisk, expressive and active reading pace throughout the passage. ' +
     'Avoid slow, heavy or liturgical cadences in the narration. ' +
-    'Infuse only the words uttered by God with deliberate weight, quiet power, and solemnity. ' +
+    'Infuse direct divine quotes with deliberate weight and quiet solemnity. ' +
     'Read only the text below, nothing else:\n\n'
   ),
   resenha: 'Explain these insights with energetic momentum, clear, agile, and captivating. Read only the text below, nothing else:\n\n',
@@ -196,22 +196,28 @@ async function sintetizarUnidade(
     const token = await obterTokenAcessoVertexCached()
     const sa = obterServiceAccount()
     const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-3.1-flash-tts-preview:generateContent`
-    const payload = {
-      contents: [{ role: 'user', parts: [{ text: promptSecao + unidade.texto }] }],
-      generationConfig: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: {
-              voiceName: 'Algenib',
-            },
-          },
-        },
-      },
-    }
 
     for (let tentativa = 1; tentativa <= 4; tentativa++) {
       try {
+        const promptAtual =
+          tentativa > 1
+            ? PROMPTS_V3.base + 'Read only the text below, clearly, naturally and briskly, nothing else:\n\n'
+            : promptSecao
+
+        const payload = {
+          contents: [{ role: 'user', parts: [{ text: promptAtual + unidade.texto }] }],
+          generationConfig: {
+            responseModalities: ['AUDIO'],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: {
+                  voiceName: 'Algenib',
+                },
+              },
+            },
+          },
+        }
+
         const res = await fetch(url, {
           method: 'POST',
           headers: {
@@ -229,7 +235,8 @@ async function sintetizarUnidade(
         const json = await res.json()
         const inline = json.candidates?.[0]?.content?.parts?.[0]?.inlineData
         if (!inline?.data) {
-          throw new Error('Resposta do Vertex AI sem áudio inlineData')
+          const motivo = json.promptFeedback?.blockReason || json.candidates?.[0]?.finishReason || 'sem inlineData'
+          throw new Error(`Resposta do Vertex AI sem áudio (${motivo})`)
         }
 
         const buf = Buffer.from(inline.data, 'base64')
@@ -246,22 +253,28 @@ async function sintetizarUnidade(
 
   if (provedor === 'google') {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-tts-preview:generateContent?key=${apiKey}`
-    const payload = {
-      contents: [{ parts: [{ text: promptSecao + unidade.texto }] }],
-      generationConfig: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: {
-              voiceName: 'Algenib',
-            },
-          },
-        },
-      },
-    }
 
     for (let tentativa = 1; tentativa <= 4; tentativa++) {
       try {
+        const promptAtual =
+          tentativa > 1
+            ? PROMPTS_V3.base + 'Read only the text below, clearly, naturally and briskly, nothing else:\n\n'
+            : promptSecao
+
+        const payload = {
+          contents: [{ parts: [{ text: promptAtual + unidade.texto }] }],
+          generationConfig: {
+            responseModalities: ['AUDIO'],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: {
+                  voiceName: 'Algenib',
+                },
+              },
+            },
+          },
+        }
+
         const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -276,7 +289,8 @@ async function sintetizarUnidade(
         const json = await res.json()
         const inline = json.candidates?.[0]?.content?.parts?.[0]?.inlineData
         if (!inline?.data) {
-          throw new Error('Resposta do Google sem áudio inlineData')
+          const motivo = json.promptFeedback?.blockReason || json.candidates?.[0]?.finishReason || 'sem inlineData'
+          throw new Error(`Resposta do Google sem áudio (${motivo})`)
         }
 
         const buf = Buffer.from(inline.data, 'base64')
@@ -394,7 +408,10 @@ async function processarPericope(
 
   const rawBuffers = await poolExecutar(unidades, 6, async (u) => {
     let promptSecao: string
-    if (['Texto Bíblico.', 'Contexto.', 'Resenha.', 'Reflexões.', 'As palavras do trecho.'].includes(u.texto.trim())) {
+    if (
+      ['Texto Bíblico.', 'Contexto.', 'Resenha.', 'Reflexões.', 'As palavras do trecho.'].includes(u.texto.trim()) ||
+      u.texto.trim().startsWith('Capítulo ')
+    ) {
       promptSecao = PROMPTS_V3.base + PROMPTS_V3.cabecalho
     } else {
       promptSecao = PROMPTS_V3.base + (PROMPTS_V3 as any)[u.secao]

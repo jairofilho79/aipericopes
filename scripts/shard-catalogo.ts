@@ -125,7 +125,9 @@ function main(): void {
   }))
 
   for (const sub of ['texto', 'estudo']) {
-    rmSync(join(outDir, sub), { recursive: true, force: true })
+    try {
+      rmSync(join(outDir, sub), { recursive: true, force: true })
+    } catch {}
     mkdirSync(join(outDir, sub), { recursive: true })
   }
 
