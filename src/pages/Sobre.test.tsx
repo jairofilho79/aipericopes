@@ -4,8 +4,10 @@ import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('react-router-dom', () => ({
-  Link: ({ to, children }: { to: string; children: unknown }) => (
-    <a href={to}>{children as never}</a>
+  Link: ({ to, children, ...resto }: { to: string; children: unknown }) => (
+    <a href={to} {...resto}>
+      {children as never}
+    </a>
   ),
 }))
 
@@ -79,3 +81,13 @@ describe('Sobre — a regra da cor', () => {
     expect(texto()).toMatch(/Escritura|texto bíblico/i)
   })
 })
+
+describe('Sobre — navegação', () => {
+  it('exibe botão de voltar apontando para /perfil', () => {
+    const voltar = container.querySelector<HTMLAnchorElement>('.botao-voltar')
+    expect(voltar).not.toBeNull()
+    expect(voltar?.getAttribute('href')).toBe('/perfil')
+    expect(voltar?.getAttribute('aria-label')).toBe('Voltar para o Perfil')
+  })
+})
+

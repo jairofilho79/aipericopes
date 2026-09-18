@@ -25,13 +25,18 @@
  * Reaproveita as classes dos Ajustes; de próprio, só o `.sobre-marca` da
  * imagem no topo.
  */
+import BotaoVoltar from '../components/BotaoVoltar'
+
 export default function Sobre() {
   return (
     <section className="ajustes">
+      <div className="subpagina-topo">
+        <BotaoVoltar />
+        <h1>Sobre</h1>
+      </div>
       {/* Decorativa: a marca plena não traz texto desenhado, e o nome do produto
           já está tipografado no header. */}
       <img className="sobre-marca" src="/brand/marca-plena.svg" alt="" width={1250} height={830} />
-      <h1>Sobre</h1>
       <p className="lead">
         De onde vem cada coisa que você lê e ouve aqui: o texto bíblico, o material de estudo
         e a voz que narra.

@@ -3943,6 +3943,78 @@ fieldset.jornada-campo {
   opacity: 0.6;
 }
 
+/* ── Topo e Botão Voltar das Subpáginas do Perfil ─────────────────────────── */
+.subpagina-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subpagina-topo h1 {
+  margin: 0;
+}
+
+.botao-voltar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
+  margin-left: -0.35rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease, opacity 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.botao-voltar:hover,
+.botao-voltar:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  border-color: var(--line);
+  outline: none;
+}
+
+.botao-voltar:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Adaptação iOS: área de toque HIG (mín 44px) e feedback suave de escala/opacidade */
+.botao-voltar--ios {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+}
+
+.botao-voltar--ios:active {
+  opacity: 0.4;
+  transform: scale(0.93);
+}
+
+/* Adaptação Android: área de toque Material (mín 48px) e feedback com realce circular de fundo */
+.botao-voltar--android {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+}
+
+.botao-voltar--android:active {
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
 /* ===== Explorar: seletor de eixo (Livros | Registros) =====
    Mesma linguagem visual de `.notes-tabs`/`.notes-tab` (Leitura, notas —
    sublinhado em --accent), mas como regra própria: lá a margem superior

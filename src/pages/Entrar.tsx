@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { authClient } from '../lib/auth-client'
 import { syncNow } from '../lib/sync'
 import { IconeEmail, IconeEntrar } from '../components/icones'
+import BotaoVoltar from '../components/BotaoVoltar'
 
 type Etapa = 'email' | 'codigo' | 'verificando'
 
@@ -71,7 +72,10 @@ export default function Entrar() {
 
   return (
     <section className="entrar">
-      <h1>Entrar</h1>
+      <div className="subpagina-topo">
+        <BotaoVoltar />
+        <h1>Entrar</h1>
+      </div>
       {etapa === 'email' && (
         <form className="entrar-form" onSubmit={onPedirCodigo}>
           <p className="lead">

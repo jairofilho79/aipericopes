@@ -17,6 +17,14 @@ vi.mock('../lib/use-reading-prefs', () => ({
   }),
 }))
 
+vi.mock('react-router-dom', () => ({
+  Link: ({ to, children, ...resto }: { to: string; children: unknown }) => (
+    <a href={to} {...resto}>
+      {children as never}
+    </a>
+  ),
+}))
+
 import Tema from './Tema'
 
 let container: HTMLDivElement
@@ -111,5 +119,15 @@ describe('Tema — tipografia', () => {
       return id ? (container.querySelector(`#${id}`)?.textContent?.trim() ?? '') : ''
     })
     expect(nomes).toEqual(textos('.pref-grupo .eyebrow'))
+  })
+})
+
+describe('Tema — navegação', () => {
+  it('exibe botão de voltar apontando para /perfil', () => {
+    montar()
+    const voltar = container.querySelector<HTMLAnchorElement>('.botao-voltar')
+    expect(voltar).not.toBeNull()
+    expect(voltar?.getAttribute('href')).toBe('/perfil')
+    expect(voltar?.getAttribute('aria-label')).toBe('Voltar para o Perfil')
   })
 })

@@ -2,6 +2,8 @@
 // Traço fino (strokeWidth: 1.75 - 1.85), cantos arredondados, viewBox 24x24.
 // Cores sempre herdadas de `currentColor` para respeitar temas Claro e Escuro sem CSS extra.
 
+import { detectarPlataforma, type Plataforma } from '../lib/plataforma'
+
 export type IconeProps = {
   size?: number
   className?: string
@@ -242,6 +244,14 @@ export function IconeTrocar({ size = 16, className }: IconeProps) {
 
 // ── Navegação & Direção ──────────────────────────────────────────────────
 
+export function IconeChevronEsquerdo({ size = 20, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} strokeWidth={2.2} width={size} height={size} className={className}>
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  )
+}
+
 export function IconeSetaEsquerda({ size = 16, className }: IconeProps) {
   return (
     <svg {...baseSvg} strokeWidth={2} width={size} height={size} className={className}>
@@ -249,6 +259,18 @@ export function IconeSetaEsquerda({ size = 16, className }: IconeProps) {
       <polyline points="12 19 5 12 12 5" />
     </svg>
   )
+}
+
+export function IconeVoltar({
+  plataforma,
+  size = 20,
+  className,
+}: IconeProps & { plataforma?: Plataforma }) {
+  const p = plataforma ?? detectarPlataforma()
+  if (p === 'ios') {
+    return <IconeChevronEsquerdo size={size} className={className} />
+  }
+  return <IconeSetaEsquerda size={size} className={className} />
 }
 
 export function IconeSetaDireita({ size = 16, className }: IconeProps) {

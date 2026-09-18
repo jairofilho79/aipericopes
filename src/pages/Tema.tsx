@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import LeituraPrefs from '../components/LeituraPrefs'
+import BotaoVoltar from '../components/BotaoVoltar'
 import { getThemePref, setThemePref, type ThemePref } from '../lib/theme'
 
 const TEMAS: { id: ThemePref; label: string }[] = [
@@ -22,7 +23,10 @@ export default function Tema() {
 
   return (
     <section className="ajustes">
-      <h1>Tema</h1>
+      <div className="subpagina-topo">
+        <BotaoVoltar />
+        <h1>Tema</h1>
+      </div>
 
       <div className="pref-grupo" role="group" aria-labelledby="tema-aparencia">
         <p className="eyebrow" id="tema-aparencia">

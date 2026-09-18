@@ -5,6 +5,7 @@ import { testamentLabel, type Testament } from '../lib/testament'
 import { countConcluidasNaSequencia, zerarProgresso } from '../lib/user-db'
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { IconeReiniciar } from '../components/icones'
+import BotaoVoltar from '../components/BotaoVoltar'
 
 type Alvo = { chave: string; rotulo: string; ordens: number[] }
 // `ordens` e `contagem` vêm do MESMO clique — o mesmo `a` e o mesmo `n` que
@@ -101,7 +102,10 @@ export default function Ajustes() {
 
   return (
     <section className="ajustes">
-      <h1>Ajustes</h1>
+      <div className="subpagina-topo">
+        <BotaoVoltar />
+        <h1>Ajustes</h1>
+      </div>
       <h2>Progresso de leitura</h2>
       <p className="lead">
         Zerar tira o ✓ e faz as barras por livro voltarem a zero. Seu streak e seu recorde
