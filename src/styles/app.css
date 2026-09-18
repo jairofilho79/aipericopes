@@ -817,6 +817,7 @@ button.ghost {
 }
 
 .leitura {
+  width: 100%;
   max-width: var(--read-measure, var(--measure));
   /* Centrada, e não encostada à esquerda do `.shell`: a doca de narração é
      `position: fixed` e se centraliza na viewport, então a coluna precisa
@@ -826,6 +827,7 @@ button.ghost {
   background: var(--paper);
   padding: 1rem 1.05rem 1.35rem;
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .leitura h1 {
@@ -859,6 +861,12 @@ button.ghost {
   gap: 0.15rem;
   margin: -0.25rem 0 0.9rem;
   border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.notes-tabs::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .notes-tab {
@@ -876,6 +884,8 @@ button.ghost {
   padding: 0.45rem 0.7rem;
   min-height: 2.5rem;
   cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .notes-tab.active {
@@ -1004,8 +1014,9 @@ button.ghost {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: transparent;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
+  position: relative;
 }
 
 .pager-lado .pager-link {
@@ -1025,6 +1036,51 @@ button.ghost {
   height: auto;
 }
 
+.pager-lado:not(.pager-lado-proxima) .pager-ouvir {
+  border-radius: 9px 0 0 9px;
+}
+
+.pager-lado:not(.pager-lado-proxima) .pager-link {
+  border-radius: 0 9px 9px 0;
+  padding-left: 1.5rem;
+}
+
+.pager-lado-proxima .pager-ouvir {
+  border-radius: 0 9px 9px 0;
+}
+
+.pager-lado-proxima .pager-link {
+  border-radius: 9px 0 0 9px;
+  padding-right: 1.5rem;
+}
+
+/* Marcador (bookmark ribbon B2.3) montado na costura entre texto e áudio */
+.pager-ribbon {
+  position: absolute;
+  top: -1px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.875rem;
+  background: var(--play-bg);
+  color: var(--play-fg);
+  border-radius: 0 0 0.75rem 0.75rem;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.22);
+  pointer-events: none;
+}
+
+.pager-lado:not(.pager-lado-proxima) .pager-ribbon {
+  left: 2.75rem;
+  transform: translateX(-50%);
+}
+
+.pager-lado-proxima .pager-ribbon {
+  right: 2.75rem;
+  transform: translateX(50%);
+}
+
 .pager-ouvir {
   flex: none;
   align-self: stretch;
@@ -1034,7 +1090,6 @@ button.ghost {
   /* Altura = a do lado (stretch); sem min próprio que sobressaia do botão. */
   min-height: 0;
   border: none;
-  border-radius: 0;
   background: var(--play-bg);
   color: var(--play-fg);
   text-decoration: none;

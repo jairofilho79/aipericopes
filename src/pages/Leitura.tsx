@@ -221,7 +221,7 @@ function PagerLado({
       </button>
     )
   }
-  const seta = proxima ? <IconeSetaDireita size={16} /> : <IconeSetaEsquerda size={16} />
+  const seta = proxima ? <IconeSetaDireita size={14} /> : <IconeSetaEsquerda size={14} />
   const ariaNav = `${proxima ? 'Próxima' : 'Anterior'}: ${v.titulo}`
   const tituloAtalho = `Atalho: ${proxima ? '→' : '←'}`
   // Com narração a borda é do `.pager-lado`; sem, o link carrega ghost/cta.
@@ -233,9 +233,9 @@ function PagerLado({
       title={tituloAtalho}
       to={comQs(`/leitura/${v.ordem}`)}
     >
-      {!proxima && seta}
+      {!proxima && !v.narrado && seta}
       <span>{v.titulo}</span>
-      {proxima && seta}
+      {proxima && !v.narrado && seta}
     </Link>
   )
   if (!v.narrado) return linkNav
@@ -257,11 +257,17 @@ function PagerLado({
       {proxima ? (
         <>
           {linkNav}
+          <span className="pager-ribbon" aria-hidden="true">
+            {seta}
+          </span>
           {ouvir}
         </>
       ) : (
         <>
           {ouvir}
+          <span className="pager-ribbon" aria-hidden="true">
+            {seta}
+          </span>
           {linkNav}
         </>
       )}
