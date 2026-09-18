@@ -1197,7 +1197,9 @@ export default function Leitura() {
               17.") logo depois do título: acende na sua vez, como o <h1>. */}
           <p className={tituloClass('ref', 'referencia')} data-fala-id="referencia">
             <span>{refLabel(p)}</span>
-            <span className="ref-sep">·</span>
+            <span className="ref-sep" aria-hidden="true">
+              ·
+            </span>
             <TempoEstimado leitura={minutos} audio={p.audio_minutos} />
           </p>
         </div>

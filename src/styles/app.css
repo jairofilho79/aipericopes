@@ -536,7 +536,17 @@ h2 {
   margin: 0 0 0.65rem;
 }
 
-.ref,
+.ref {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.90625rem;
+  line-height: 1.5;
+}
+
 .muted {
   color: var(--muted);
   font-family: var(--font-ui);
@@ -4621,17 +4631,12 @@ fieldset.jornada-campo {
 }
 
 .jornada-sugestao .ref {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.35rem;
   margin: 0 0 0.2rem 0;
   font-size: 0.82rem;
-  color: var(--muted);
 }
 
 .ref-sep {
-  opacity: 0.5;
+  opacity: 0.45;
   user-select: none;
 }
 

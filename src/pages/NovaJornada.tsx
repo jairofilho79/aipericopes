@@ -228,8 +228,12 @@ function SeletorPericope({
                       </span>
                       <span className="seletor-pericope-texto">
                         <strong>{p.titulo_pericope_pt}</strong>
-                        <span className="muted">
-                          {refLabel(p)} · <TempoEstimado leitura={p.minutos} audio={p.audio_minutos} />
+                        <span className="muted ref">
+                          <span>{refLabel(p)}</span>
+                          <span className="ref-sep" aria-hidden="true">
+                            ·
+                          </span>
+                          <TempoEstimado leitura={p.minutos} audio={p.audio_minutos} />
                         </span>
                       </span>
                     </button>

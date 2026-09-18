@@ -65,7 +65,14 @@ function BotaoOuvir({ peri, deJornada = false }: { peri: PericopeIndex; deJornad
  */
 function SemNarracao({ peri, alguemTem }: { peri: PericopeIndex; alguemTem: boolean }) {
   if (peri.narrado || !alguemTem) return null
-  return <span className="ref-sem-narracao"> · narração ainda não gravada</span>
+  return (
+    <>
+      <span className="ref-sep" aria-hidden="true">
+        ·
+      </span>
+      <span className="ref-sem-narracao">narração ainda não gravada</span>
+    </>
+  )
 }
 
 export default function Home() {
@@ -190,7 +197,9 @@ export default function Home() {
                 <h2>{t.peri.titulo_pericope_pt}</h2>
                 <p className="ref">
                   <span>{refLabel(t.peri)}</span>
-                  <span className="ref-sep">·</span>
+                  <span className="ref-sep" aria-hidden="true">
+                    ·
+                  </span>
                   <TempoEstimado leitura={t.peri.minutos} audio={t.peri.audio_minutos} />
                   <SemNarracao peri={t.peri} alguemTem={alguemTem} />
                 </p>

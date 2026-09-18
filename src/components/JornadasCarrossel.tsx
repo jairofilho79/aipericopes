@@ -65,7 +65,9 @@ export function JornadasCarrossel({ itens }: { itens: CardJornadaItem[] }) {
                 <>
                   <p className="ref">
                     <span>{refLabel(periAtual)}</span>
-                    <span className="ref-sep">·</span>
+                    <span className="ref-sep" aria-hidden="true">
+                      ·
+                    </span>
                     <TempoEstimado leitura={periAtual.minutos} audio={periAtual.audio_minutos} />
                   </p>
                   <p className="jornada-peri-titulo">{periAtual.titulo_pericope_pt}</p>
