@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 're
 import Home from './pages/Home'
 import Leitura from './pages/Leitura'
 import Jornada from './pages/Jornada'
+import NovaJornada from './pages/NovaJornada'
 import Explorar from './pages/Explorar'
 import Entrar from './pages/Entrar'
 import Ajustes from './pages/Ajustes'
 import Sobre from './pages/Sobre'
 import Perfil from './pages/Perfil'
+import Tema from './pages/Tema'
 import { applyReadingPrefs, getReadingPrefs } from './lib/reading-prefs'
 import { getStoredTheme, resolveTheme } from './lib/theme'
 import { initSyncTriggers } from './lib/sync'
@@ -67,12 +69,14 @@ function Shell() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/leitura/:ordem" element={<Leitura />} />
+          <Route path="/jornada/nova" element={<NovaJornada />} />
           <Route path="/jornada" element={<Jornada />} />
           <Route path="/explorar" element={<Explorar />} />
           <Route path="/indice" element={<Navigate to="/explorar" replace />} />
           <Route path="/pesquisar" element={<Navigate to="/explorar" replace />} />
           <Route path="/entrar" element={<Entrar />} />
           <Route path="/ajustes" element={<Ajustes />} />
+          <Route path="/tema" element={<Tema />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/perfil" element={<Perfil />} />
         </Routes>

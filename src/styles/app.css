@@ -3633,6 +3633,146 @@ fieldset.jornada-campo {
   color: var(--ink);
 }
 
+/* Rótulo de texto simples (não <legend>) para os seletores de perícope */
+.jornada-campo-legenda {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Seletor de perícope (Começar em / Terminar em) ─────────────────────── */
+/* Botão que mostra o valor atual e abre o painel dropdown */
+.seletor-pericope-botao {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.seletor-pericope-botao--aberto {
+  border-color: var(--focus-line);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.seletor-pericope-botao strong {
+  flex: 1 1 auto;
+}
+
+.seletor-chevron {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* Painel da lista de perícopes */
+.seletor-pericope {
+  border: 1px solid var(--focus-line);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: var(--paper);
+  margin-bottom: 0.25rem;
+}
+
+.seletor-pericope-label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 0.6rem 0.8rem 0.2rem;
+  margin: 0;
+}
+
+.seletor-pericope-lista {
+  max-height: 60dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Agrupamento por livro */
+.seletor-pericope-livro {
+  padding: 0.25rem 0;
+}
+
+.seletor-pericope-livro-nome {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  padding: 0.5rem 0.8rem 0.2rem;
+}
+
+.seletor-pericope-livro ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada perícope da lista */
+.seletor-pericope-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.seletor-pericope-item:hover,
+.seletor-pericope-item:focus-visible {
+  background: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  outline: none;
+}
+
+.seletor-pericope-item--ativa {
+  background: color-mix(in srgb, var(--accent) 15%, var(--paper));
+  font-weight: 600;
+}
+
+.seletor-pericope-check {
+  flex: 0 0 1.2rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+.seletor-pericope-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.seletor-pericope-texto strong {
+  font-weight: 600;
+}
+
+.seletor-pericope-texto .muted {
+  font-size: 0.8rem;
+}
+
 .ajustes-livro {
   display: flex;
   align-items: center;
@@ -4112,5 +4252,232 @@ fieldset.jornada-campo {
 
 .banner-jornada-limpar:hover {
   text-decoration: underline;
+}
+
+/* ── Nova Jornada (/jornada/nova) ────────────────────────────────────────── */
+
+.nova-jornada {
+  padding-bottom: 3rem;
+}
+
+/* Cabeçalho com "← Jornadas" + título */
+.nova-jornada-topo {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.nova-jornada-topo h1 {
+  margin: 0;
+}
+
+.nova-jornada-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nova-jornada-voltar:hover,
+.nova-jornada-voltar:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+/* ── Seção colapsável do catálogo ────────────────────────────────────────── */
+
+.jornada-grupo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0;
+  cursor: pointer;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.jornada-grupo-header h3 {
+  /* Herda o estilo existente de .jornada-grupo h3 */
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.jornada-grupo-chevron {
+  font-size: 0.65rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* Espaçamento entre seções colapsáveis */
+.jornada-grupo--curta + .jornada-grupo--media,
+.jornada-grupo--media + .jornada-grupo--longa,
+.jornada-grupo--longa + .jornada-grupo--inteira {
+  margin-top: 1.25rem;
+}
+
+/* ── "Ver mais" ──────────────────────────────────────────────────────────── */
+
+.jornada-ver-mais {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  font-family: var(--font-ui);
+}
+
+/* ── Variantes visuais dos cards de escopo ───────────────────────────────── */
+/* Abordagem B: card maior + font mais grossa + brilho progressivo           */
+
+/* Curta — leve, sem adorno, compacta */
+.jornada-escopo--curta {
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.8rem;
+}
+
+/* Média — levemente mais sólida */
+.jornada-escopo--media {
+  font-weight: 500;
+  font-size: 0.97rem;
+  padding: 0.72rem 0.9rem;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+/* Longa — peso visível, borda levemente aquecida */
+.jornada-escopo--longa {
+  font-weight: 600;
+  font-size: 1.04rem;
+  padding: 0.82rem 1rem;
+  border-color: color-mix(in srgb, var(--flame) 28%, var(--line));
+  box-shadow: 0 2px 7px color-mix(in srgb, var(--flame) 10%, transparent);
+}
+
+/* Inteira — grandiosa: borda âmbar, fundo aquecido, brilho máximo */
+.jornada-escopo--inteira {
+  font-weight: 700;
+  font-size: 1.13rem;
+  padding: 0.95rem 1.1rem;
+  border-color: color-mix(in srgb, var(--flame) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--paper));
+  box-shadow:
+    0 3px 12px color-mix(in srgb, var(--flame) 16%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--flame) 18%, transparent);
+}
+
+/* Hover/focus — realce universal independente da variante */
+.jornada-escopo:hover,
+.jornada-escopo:focus-visible {
+  border-color: var(--focus-line);
+  background: var(--focus-bg);
+  outline: none;
+}
+
+/* ── Tooltip de Ajuda (?) ────────────────────────────────────────────────── */
+
+.tooltip-ajuda {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+.tooltip-btn {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.tooltip-btn:hover,
+.tooltip-btn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+
+.tooltip-balao {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--ink) 14%, transparent);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  width: 17rem;
+  z-index: 20;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.tooltip-fechar {
+  flex-shrink: 0;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+
+.tooltip-fechar:hover {
+  color: var(--ink);
+}
+
+/* Seta do balão */
+.tooltip-balao::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--line);
+}
+
+.tooltip-balao::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--paper);
+  z-index: 1;
+  margin-top: -1px;
 }
 

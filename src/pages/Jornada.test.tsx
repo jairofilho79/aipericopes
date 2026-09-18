@@ -163,218 +163,24 @@ describe('Jornada — sem sessão', () => {
 })
 
 describe('Jornada — logado, sem jornada corrente', () => {
-  it('mostra "nenhuma jornada ainda" e o botão abre o catálogo (passo 1)', async () => {
+  it('mostra "nenhuma jornada ainda" e link para /jornada/nova', async () => {
     montar()
     await assentar()
     expect(host.textContent).toContain('Nenhuma jornada ainda')
-    expect(botao('Comece uma jornada')).not.toBeUndefined()
-    act(() => botao('Comece uma jornada').click())
-    expect(host.textContent).toContain('Escolha um escopo')
-    // Os quatro degraus da escada, cada um com pelo menos um item do fixture.
-    expect(host.textContent).toContain('Curta — um livro')
-    expect(host.textContent).toContain('Média — um bloco')
-    expect(host.textContent).toContain('Longa — um testamento')
-    expect(host.textContent).toContain('Inteira')
-    expect(host.textContent).toContain('Gênesis')
-    expect(host.textContent).toContain('Pentateuco')
-    expect(host.textContent).toContain('Velho Testamento')
-    expect(host.textContent).toContain('A Bíblia toda')
+    // "Comece uma jornada" agora é um <a> que navega para /jornada/nova
+    const link = host.querySelector<HTMLAnchorElement>('a[href="/jornada/nova"]')
+    expect(link).not.toBeNull()
+    expect(link?.textContent).toContain('Comece uma jornada')
   })
 })
 
 describe('Jornada — passo 1: catálogo', () => {
-  it('cada card mostra a contagem e a duração calculadas do índice', async () => {
+  it('o link "Comece uma jornada" aponta para /jornada/nova', async () => {
     montar()
     await assentar()
-    act(() => botao('Comece uma jornada').click())
-    // Gênesis: 2 perícopes de 3 min = 6 min (abaixo de 1h, mostra minutos).
-    expect(host.textContent).toContain('2 perícopes · ~6 min')
-  })
-
-  it('Cancelar no passo 1 volta para o convite', async () => {
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    act(() => botao('Cancelar').click())
-    expect(host.textContent).not.toContain('Escolha um escopo')
-    expect(botao('Comece uma jornada')).not.toBeUndefined()
-  })
-})
-
-describe('Jornada — passo 2: confirmação', () => {
-  async function irAoPasso2() {
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    const genesis = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Gênesis'),
-    )!
-    await act(async () => genesis.click())
-  }
-
-  it('nome pré-preenchido com nomePadrao, modo padrão Continuar, sem checkpoint', async () => {
-    await irAoPasso2()
-    expect(host.textContent).toContain('Confirme sua jornada')
-    const nomeInput = host.querySelector('input[type="text"]') as HTMLInputElement
-    expect(nomeInput.value).toBe('Gênesis')
-    // Sem checkpoint dentro do escopo (mock resolve undefined): só "Do início".
-    expect(host.textContent).toContain('Do início')
-    expect(host.textContent).not.toContain('De onde parei')
-    const continuar = [...host.querySelectorAll('input[type="radio"]')].find(
-      (r) => (r.nextSibling?.textContent ?? r.parentElement?.textContent)?.includes('Continuar'),
-    ) as HTMLInputElement
-    expect(continuar.checked).toBe(true)
-  })
-
-  it('Criar jornada chama criarJornada com o início padrão e contaDesde null', async () => {
-    await irAoPasso2()
-    await act(async () => botao('Criar jornada').click())
-    expect(criarJornada).toHaveBeenCalledTimes(1)
-    expect(criarJornada.mock.calls[0][0]).toEqual({
-      nome: 'Gênesis',
-      tipo: 'livro',
-      escopo: 'Gênesis',
-      inicioOrdem: 0,
-      contaDesde: null,
-    })
-  })
-
-  it('nome editado à mão é o que vai para criarJornada', async () => {
-    await irAoPasso2()
-    const nomeInput = host.querySelector('input[type="text"]') as HTMLInputElement
-    // O setter nativo, não a atribuição direta: React troca o setter de
-    // `.value` da instância para rastrear mudanças, e uma atribuição comum
-    // atualiza o valor visível E o rastreador ao mesmo tempo — o evento
-    // "input" que vem a seguir não vê diferença nenhuma e o onChange nunca
-    // dispara. O setter nativo do protótipo contorna o rastreador do React.
-    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')!.set!
-    act(() => {
-      setter.call(nomeInput, 'Minha releitura de Gênesis')
-      nomeInput.dispatchEvent(new Event('input', { bubbles: true }))
-    })
-    await act(async () => botao('Criar jornada').click())
-    expect(criarJornada.mock.calls[0][0].nome).toBe('Minha releitura de Gênesis')
-  })
-
-  it('modo Reler manda contaDesde como ISO, não null', async () => {
-    await irAoPasso2()
-    const reler = [...host.querySelectorAll('input[type="radio"]')].find(
-      (r) => r.parentElement?.textContent === 'Reler',
-    ) as HTMLInputElement
-    act(() => reler.click())
-    await act(async () => botao('Criar jornada').click())
-    const patch = criarJornada.mock.calls[0][0]
-    expect(patch.contaDesde).not.toBeNull()
-    expect(typeof patch.contaDesde).toBe('string')
-  })
-
-  it('Cancelar no passo 2 volta ao convite, sem gravar nada', async () => {
-    await irAoPasso2()
-    act(() => botao('Cancelar').click())
-    expect(host.textContent).not.toContain('Confirme sua jornada')
-    expect(criarJornada).not.toHaveBeenCalled()
-  })
-
-  it('"de onde parei" só aparece quando há checkpoint no escopo, e escolhê-la muda o início', async () => {
-    // Checkpoint na 2ª perícope de Gênesis (ordem 1) — dentro da rota.
-    getPosicaoMaisRecente.mockResolvedValue({
-      pericopeOrdem: 1,
-      tipo: 'versiculo',
-      ref: '1:1',
-      tempo: null,
-      atualizadoEm: '2026-02-01T00:00:00.000Z',
-    })
-    await irAoPasso2()
-    expect(host.textContent).toContain('De onde parei — Gênesis 2:1–2:10')
-
-    const deOndeParei = [...host.querySelectorAll('input[type="radio"]')].find((r) =>
-      r.parentElement?.textContent?.startsWith('De onde parei'),
-    ) as HTMLInputElement
-    act(() => deOndeParei.click())
-    await act(async () => botao('Criar jornada').click())
-    expect(criarJornada.mock.calls[0][0].inicioOrdem).toBe(1)
-  })
-})
-
-describe('Jornada — passo 2: escopo vazio', () => {
-  it('escopo sem nenhuma perícope (livro do catálogo sem itens): inicioOrdem vai 0, nunca undefined', async () => {
-    // "Juízes" não está no fixture INDICE — like montarCatalogo mantém todo
-    // livro de BIBLE_BOOKS mesmo com zero perícopes (jornadas.test.ts), o
-    // card é clicável e rotaCompleta fica []. Sem o `?? 0` em inicioOrdem,
-    // isto grava `inicioOrdem: undefined`, o Worker reprova e sync.ts
-    // abandona o lote inteiro do outbox.
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    const juizes = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Juízes'),
-    )!
-    await act(async () => juizes.click())
-    expect(host.textContent).toContain('Confirme sua jornada')
-    await act(async () => botao('Criar jornada').click())
-    expect(criarJornada).toHaveBeenCalledTimes(1)
-    expect(criarJornada.mock.calls[0][0].inicioOrdem).toBe(0)
-  })
-})
-
-describe('Jornada — avisos do passo 2', () => {
-  it('havendo jornada ativa anterior, não avisa arquivamento (multi-jornadas)', async () => {
-    getJornadaCorrente.mockResolvedValue(jornada({ id: 'c1', nome: 'Minha jornada atual' }))
-    montar()
-    await assentar()
-    act(() => botao('Nova jornada').click())
-    const genesis = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Gênesis'),
-    )!
-    await act(async () => genesis.click())
-    expect(host.textContent).not.toContain('Isto arquiva')
-    expect(host.textContent).not.toContain('que fica no histórico')
-  })
-
-  it('sem jornada corrente, nenhum aviso de arquivamento', async () => {
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    const genesis = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Gênesis'),
-    )!
-    await act(async () => genesis.click())
-    expect(host.textContent).not.toContain('Isto arquiva')
-  })
-
-  it('modo Continuar com o escopo já todo lido: avisa, e o aviso some ao trocar para Reler', async () => {
-    listAllProgresso.mockResolvedValue([
-      { pericopeOrdem: 0, status: 'concluido', historico: ['2026-02-01T00:00:00.000Z'], paraReler: false, atualizadoEm: '2026-02-01T00:00:00.000Z' },
-      { pericopeOrdem: 1, status: 'concluido', historico: ['2026-02-01T00:00:00.000Z'], paraReler: false, atualizadoEm: '2026-02-01T00:00:00.000Z' },
-    ])
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    const genesis = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Gênesis'),
-    )!
-    await act(async () => genesis.click())
-    expect(host.textContent).toContain('Você já leu tudo desse escopo')
-
-    const reler = [...host.querySelectorAll('input[type="radio"]')].find(
-      (r) => r.parentElement?.textContent === 'Reler',
-    ) as HTMLInputElement
-    act(() => reler.click())
-    expect(host.textContent).not.toContain('Você já leu tudo desse escopo')
-  })
-
-  it('escopo parcialmente lido: sem aviso', async () => {
-    listAllProgresso.mockResolvedValue([
-      { pericopeOrdem: 0, status: 'concluido', historico: ['2026-02-01T00:00:00.000Z'], paraReler: false, atualizadoEm: '2026-02-01T00:00:00.000Z' },
-    ])
-    montar()
-    await assentar()
-    act(() => botao('Comece uma jornada').click())
-    const genesis = [...host.querySelectorAll<HTMLButtonElement>('button.jornada-escopo')].find((b) =>
-      b.textContent?.startsWith('Gênesis'),
-    )!
-    await act(async () => genesis.click())
-    expect(host.textContent).not.toContain('Você já leu tudo desse escopo')
+    // Catálogo foi movido para /jornada/nova — a /jornada só mostra o link
+    const link = host.querySelector<HTMLAnchorElement>('a[href="/jornada/nova"]')
+    expect(link).not.toBeNull()
   })
 })
 
@@ -461,11 +267,14 @@ describe('Jornada — logado, com jornada corrente', () => {
     expect(verLink?.textContent).toBe('Ver')
   })
 
-  it('o convite mostra "Nova jornada" em vez de "Comece uma jornada"', async () => {
+  it('o convite mostra "Nova jornada" como link para /jornada/nova', async () => {
     getJornadaCorrente.mockResolvedValue(jornada({ id: 'j9' }))
     montar()
     await assentar()
-    expect(botao('Nova jornada')).not.toBeUndefined()
+    // "Nova jornada" agora é um <a> que navega para /jornada/nova
+    const link = host.querySelector<HTMLAnchorElement>('a[href="/jornada/nova"]')
+    expect(link).not.toBeNull()
+    expect(link?.textContent).toContain('Nova jornada')
   })
 
   it('a carga de /jornada também reconcilia concluidaEm, igual a Home.tsx (Correção 5)', async () => {
@@ -587,14 +396,5 @@ describe('Jornada — renomear jornada inline', () => {
     })
 
     expect(atualizarJornada).toHaveBeenCalledWith('j1', { nome: 'Nome Atualizado' })
-  })
-})
-
-describe('Jornada — abertura direta via ?nova=1', () => {
-  it('quando o query param nova=1 está presente, abre direto no catálogo (passo 1)', async () => {
-    montar('/jornada?nova=1')
-    await assentar()
-    expect(host.textContent).toContain('Escolha um escopo')
-    expect(host.textContent).toContain('Curta — um livro')
   })
 })
