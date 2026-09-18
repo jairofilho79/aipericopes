@@ -144,6 +144,12 @@ export type Jornada = {
   /** Ordem da 1ª perícope da jornada dentro da rota do escopo. */
   inicioOrdem: number
   /**
+   * Ordem da ÚLTIMA perícope da jornada (inclusive). Opcional: `undefined`
+   * significa \"até o fim do escopo\". Permite criar um recorte menor que o
+   * escopo inteiro — ex.: Gênesis 1–11 dentro do livro de Gênesis.
+   */
+  fimOrdem?: number
+  /**
    * Âncora da atribuição.
    * `null` → "continuar": qualquer conclusão no escopo conta, de qualquer época.
    * ISO    → "reler": só conclusões a partir dali contam, e o cursor volta ao início.

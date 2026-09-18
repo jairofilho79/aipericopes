@@ -31,7 +31,14 @@ export function rotaDaJornada(j: Jornada, indice: PericopeIndex[]): number[] {
   const i = seq.indexOf(j.inicioOrdem)
   // -1 só ocorre se o catálogo mudou debaixo de uma jornada antiga. Degrada
   // para o escopo inteiro — nunca para uma jornada vazia.
-  return seq.slice(i < 0 ? 0 : i)
+  const rotaInicio = seq.slice(i < 0 ? 0 : i)
+  // Corte de fim: se fimOrdem está definido, inclui até aquela ordem
+  // (inclusive). -1 degrada para a rota inteira — catálogo mudado.
+  if (j.fimOrdem !== undefined) {
+    const f = rotaInicio.indexOf(j.fimOrdem)
+    return f < 0 ? rotaInicio : rotaInicio.slice(0, f + 1)
+  }
+  return rotaInicio
 }
 
 export type ProgressoJornada = {

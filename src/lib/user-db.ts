@@ -765,6 +765,7 @@ export async function criarJornada(input: {
   tipo: JornadaTipo
   escopo: string
   inicioOrdem: number
+  fimOrdem?: number
   contaDesde: string | null
 }): Promise<Jornada> {
   const now = new Date().toISOString()
@@ -776,6 +777,7 @@ export async function criarJornada(input: {
     tipo: input.tipo,
     escopo: input.escopo,
     inicioOrdem: input.inicioOrdem,
+    fimOrdem: input.fimOrdem,
     contaDesde: input.contaDesde,
     criadoEm: now,
     atualizadoEm: now,

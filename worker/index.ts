@@ -151,6 +151,7 @@ type LinhaJornada = {
   tipo: string
   escopo: string
   inicioOrdem: number
+  fimOrdem: number | null
   contaDesde: string | null
   criadoEm: string
   atualizadoEm: string
@@ -180,7 +181,7 @@ const SELECT_POSICOES = `SELECT pericope_ordem AS pericopeOrdem, tipo, ref, temp
           server_em AS serverEm
    FROM posicao_leitura WHERE user_id = ?1`
 const SELECT_JORNADAS = `SELECT id, nome, tipo, escopo,
-          inicio_ordem AS inicioOrdem, conta_desde AS contaDesde,
+          inicio_ordem AS inicioOrdem, fim_ordem AS fimOrdem, conta_desde AS contaDesde,
           criado_em AS criadoEm, atualizado_em AS atualizadoEm,
           arquivada_em AS arquivadaEm, concluida_em AS concluidaEm,
           apagado_em AS apagadoEm,
@@ -385,19 +386,20 @@ app.post('/api/sync', async (c) => {
     ),
     ...parsed.jornadas.map((j) =>
       c.env.DB.prepare(
-        `INSERT INTO jornada (user_id, id, nome, tipo, escopo, inicio_ordem, conta_desde,
+        `INSERT INTO jornada (user_id, id, nome, tipo, escopo, inicio_ordem, fim_ordem, conta_desde,
                               criado_em, atualizado_em, arquivada_em, concluida_em,
                               apagado_em, server_em)
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14)
          ON CONFLICT(user_id, id) DO UPDATE SET
            nome = excluded.nome, tipo = excluded.tipo, escopo = excluded.escopo,
-           inicio_ordem = excluded.inicio_ordem, conta_desde = excluded.conta_desde,
+           inicio_ordem = excluded.inicio_ordem, fim_ordem = excluded.fim_ordem,
+           conta_desde = excluded.conta_desde,
            atualizado_em = excluded.atualizado_em, arquivada_em = excluded.arquivada_em,
            concluida_em = excluded.concluida_em, apagado_em = excluded.apagado_em,
            server_em = excluded.server_em
          WHERE excluded.atualizado_em > jornada.atualizado_em`,
       ).bind(
-        userId, j.id, j.nome, j.tipo, j.escopo, j.inicioOrdem, j.contaDesde,
+        userId, j.id, j.nome, j.tipo, j.escopo, j.inicioOrdem, j.fimOrdem ?? null, j.contaDesde,
         j.criadoEm, j.atualizadoEm, j.arquivadaEm, j.concluidaEm, j.apagadoEm, serverEm,
       ),
     ),

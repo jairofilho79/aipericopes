@@ -41,6 +41,7 @@ export type PushJornada = {
   tipo: 'sequencia' | 'bloco' | 'livro'
   escopo: string
   inicioOrdem: number
+  fimOrdem?: number | null
   contaDesde: string | null
   criadoEm: string
   atualizadoEm: string
@@ -267,6 +268,8 @@ function validJornada(v: unknown): v is PushJornada {
     j.escopo.length > 0 &&
     j.escopo.length <= MAX_ESCOPO &&
     isOrdem(j.inicioOrdem) &&
+    // fimOrdem é opcional: ausente, null ou inteiro >= 0 são todos válidos.
+    (j.fimOrdem === undefined || j.fimOrdem === null || isOrdem(j.fimOrdem)) &&
     isIsoOuNulo(j.contaDesde) &&
     isIso(j.criadoEm) &&
     isIso(j.atualizadoEm) &&
