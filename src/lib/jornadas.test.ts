@@ -137,12 +137,27 @@ describe('cursorDaJornada', () => {
     { pericopeOrdem: ordem, tipo: 'versiculo', ref: '1:1', tempo: null, atualizadoEm: quando },
   ]
 
-  it('prefere o checkpoint mais recente à primeira não concluída', () => {
-    // Retoma a perícope longa deixada no meio — é a heurística que a Home
-    // já usava antes das jornadas.
+  it('prefere o checkpoint da proximaOrdem à primeira não concluída sem checkpoint', () => {
+    // O leitor parou no meio da perícope 1 (a próxima não-lida) — o cursor
+    // deve voltar para ela, não para a seguinte.
+    const progressos = new Map([concluida(0, DEPOIS)])
+    const posicoes = new Map([posicao(1, DEPOIS)])
+    expect(cursorDaJornada([0, 1, 2, 3], progressos, posicoes, null)).toBe(1)
+  })
+
+  it('ignora checkpoint de perícope que vem DEPOIS da proximaOrdem na rota (bug do Explorar)', () => {
+    // O leitor está na perícope 1 (próxima não-lida). Foi no Explorar e abriu
+    // a 2 ou 3 sem concluir — o cursor não deve pular à frente da jornada.
     const progressos = new Map([concluida(0, DEPOIS)])
     const posicoes = new Map([posicao(2, DEPOIS)])
-    expect(cursorDaJornada([0, 1, 2, 3], progressos, posicoes, null)).toBe(2)
+    expect(cursorDaJornada([0, 1, 2, 3], progressos, posicoes, null)).toBe(1)
+  })
+
+  it('checkpoint de perícope já lida (antes da proximaOrdem) é ignorado', () => {
+    // A 0 está concluída e tem checkpoint: não deve voltar para ela.
+    const progressos = new Map([concluida(0, DEPOIS)])
+    const posicoes = new Map([posicao(0, DEPOIS)])
+    expect(cursorDaJornada([0, 1, 2, 3], progressos, posicoes, null)).toBe(1)
   })
 
   it('ignora checkpoint de perícope que já conta como lida', () => {
@@ -512,10 +527,14 @@ describe('montarTrilhas', () => {
     expect(vt?.peri.ordem).toBe(2) // última ordem da rota VT, não a primeira
   })
 
-  it('prefere o checkpoint mais recente (posição) à primeira não concluída', () => {
-    const posicoes = new Map([posicaoTrilha(2, '3:16', '2026-01-01T00:00:00.000Z')])
+  it('usa o checkpoint quando ele está na proximaOrdem (primeira não concluída)', () => {
+    // O leitor parou no meio da ordem 0 (a primeira não-lida do VT) — o
+    // cursor deve voltar para ela. Checkpoint de ordens ALÉM da proximaOrdem
+    // (visitadas via Explorar) são ignorados: veja teste 'bug do Explorar' em
+    // cursorDaJornada.
+    const posicoes = new Map([posicaoTrilha(0, '1:5', '2026-01-01T00:00:00.000Z')])
     const tracks = montarTrilhas(INDICE_TRILHAS, new Map(), posicoes)
     const vt = tracks.find((t) => t.testament === 'vt')
-    expect(vt?.peri.ordem).toBe(2)
+    expect(vt?.peri.ordem).toBe(0)
   })
 })

@@ -67,11 +67,14 @@ export function progressoDaJornada(
  *
  * Prefere o checkpoint mais recente dentro da rota à primeira não lida —
  * é o que retoma uma perícope longa deixada no meio, e era a heurística da
- * Home antes das jornadas. Duas guardas:
+ * Home antes das jornadas. Três guardas:
  * - checkpoint de perícope que já conta como lida não vale (o rótulo diz
  *   "continuar", não "reler");
  * - em modo reler, checkpoint anterior à âncora não vale, senão a jornada
- *   devolveria o leitor no meio da passada anterior.
+ *   devolveria o leitor no meio da passada anterior;
+ * - checkpoint de perícope que vem DEPOIS da proximaOrdem na rota não vale:
+ *   o leitor pode ter visitado essa perícope pelo Explorar sem estar nela pela
+ *   jornada, e o cursor não deve pular à frente do ponto onde a jornada parou.
  */
 export function cursorDaJornada(
   rota: number[],
@@ -82,8 +85,14 @@ export function cursorDaJornada(
   const { proximaOrdem } = progressoDaJornada(rota, progressos, desde)
   if (proximaOrdem === null) return null
 
+  // Índice da primeira não-lida na rota: checkpoints além deste ponto são
+  // de perícopes que o leitor ainda não alcançou pela jornada e não devem
+  // influenciar o cursor (ex.: visita via Explorar a uma perícope futura).
+  const limiteIdx = rota.indexOf(proximaOrdem)
+
   let melhor: PosicaoLeitura | undefined
-  for (const ordem of rota) {
+  for (let i = 0; i <= limiteIdx; i++) {
+    const ordem = rota[i]!
     const pos = posicoes.get(ordem)
     if (!pos) continue
     if (desde !== null && pos.atualizadoEm < desde) continue
