@@ -1,31 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import LeituraPrefs from '../components/LeituraPrefs'
 import { authClient } from '../lib/auth-client'
 import { signOutLocal } from '../lib/sync'
-import { getThemePref, setThemePref, type ThemePref } from '../lib/theme'
-import { IconeEngrenagem, IconeEntrar, IconeInfo, IconeSair } from '../components/icones'
-
-const TEMAS: { id: ThemePref; label: string }[] = [
-  { id: 'system', label: 'Sistema' },
-  { id: 'light', label: 'Claro' },
-  { id: 'dark', label: 'Escuro' },
-]
+import { IconeEngrenagem, IconeEntrar, IconeInfo, IconeSair, IconeTema } from '../components/icones'
 
 /**
- * Tema, tipografia, ajustes e conta num lugar só. Sucede o popover
- * PerfilMenu: mesma tese ("um lugar só"), container diferente.
+ * Lista de destinos da área pessoal: Tema, Ajustes, Sobre e conta (Entrar/Sair).
+ * Os controles visuais (aparência e tipografia) migraram para a rota /tema,
+ * que aparece aqui como um item no mesmo estilo dos demais.
  *
  * Ser rota em vez de popover é o que resolve o defeito que motivou a
  * mudança: a divulgação obrigatória (voz de IA, licença do texto bíblico)
  * ficava a dois toques dentro de um menu, e um deles num alvo pequeno.
- *
- * A tipografia aparece sempre, sem perguntar de onde a pessoa veio: um
- * endereço próprio não tem contexto de origem para consultar.
  */
 export default function Perfil() {
   const { data: session } = authClient.useSession()
-  const [pref, setPref] = useState<ThemePref>(() => getThemePref())
   const [saindo, setSaindo] = useState(false)
   const [erroSaida, setErroSaida] = useState('')
   const erroSaidaTimer = useRef<number | undefined>(undefined)
@@ -53,35 +42,12 @@ export default function Perfil() {
     <section className="ajustes">
       <h1>Perfil</h1>
 
-      {/* Um grupo rotulado por ajuste, o mesmo formato que o LeituraPrefs usa
-          logo abaixo — e sem um "Leitura" por cima dos cinco dele. Dois níveis
-          de rótulo para seis fileiras era hierarquia inventada: tema também é
-          leitura, e a página inteira é ajuste de leitura. */}
-      <div className="pref-grupo" role="group" aria-labelledby="perfil-tema">
-        <p className="eyebrow" id="perfil-tema">
-          Tema
-        </p>
-        <div className="readmenu-row">
-          {TEMAS.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              className={`read-tool${pref === t.id ? ' active' : ''}`}
-              aria-pressed={pref === t.id}
-              onClick={() => {
-                setThemePref(t.id)
-                setPref(t.id)
-              }}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <LeituraPrefs />
-
       <div className="perfil-sep" role="separator" />
+
+      <Link className="perfil-item" to="/tema">
+        <IconeTema size={18} />
+        Tema
+      </Link>
 
       <Link className="perfil-item" to="/ajustes">
         <IconeEngrenagem size={18} />

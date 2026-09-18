@@ -50,67 +50,13 @@ function textos(seletor: string): string[] {
   return [...container.querySelectorAll(seletor)].map((e) => e.textContent?.trim() ?? '')
 }
 
-function temas(): HTMLButtonElement[] {
-  return [
-    ...container.querySelectorAll<HTMLButtonElement>(
-      '[role="group"][aria-labelledby="perfil-tema"] button',
-    ),
-  ]
-}
-
-describe('Perfil — tema', () => {
-  it('mostra os três temas', () => {
-    montar()
-    expect(temas().map((b) => b.textContent?.trim())).toEqual(['Sistema', 'Claro', 'Escuro'])
-  })
-
-  it('sem preferência gravada, o marcado é Sistema', () => {
-    montar()
-    expect(temas().map((b) => b.getAttribute('aria-pressed'))).toEqual(['true', 'false', 'false'])
-  })
-
-  it('a preferência gravada vem marcada ao montar', () => {
-    localStorage.setItem('pericopes-theme', 'dark')
-    montar()
-    expect(temas().map((b) => b.getAttribute('aria-pressed'))).toEqual(['false', 'false', 'true'])
-  })
-
-  // Sem o listener de `pericopes-theme` que o popover tinha, a marcação só
-  // acompanha o clique se a própria página atualizar o estado.
-  it('escolher um tema move a marcação e aplica o tema', () => {
-    montar()
-    act(() => temas()[2].click())
-    expect(temas().map((b) => b.getAttribute('aria-pressed'))).toEqual(['false', 'false', 'true'])
-    expect(document.documentElement.dataset.theme).toBe('dark')
-  })
-})
-
 describe('Perfil — conteúdo', () => {
-  // O popover só mostrava tipografia vindo da Leitura. A página não tem de
-  // onde vir: é um endereço, e mostra sempre.
-  // Cada ajuste tem de dizer na tela o que configura, num nível só de rótulo:
-  // é o que separa uma página de ajustes de um paredão de botões.
-  it('a tipografia aparece sem depender de rota, com um rótulo por ajuste', () => {
+  it('Tema aparece como item de navegação apontando para /tema', () => {
     montar()
-    expect(textos('.pref-grupo .eyebrow')).toEqual([
-      'Tema',
-      'Tamanho do texto',
-      'Fonte',
-      'Disposição dos versículos',
-      'Espaço entre linhas',
-      'Largura do texto',
-    ])
-  })
-
-  // Rótulo visível E nome acessível são o mesmo texto: `aria-labelledby`
-  // apontando para o <p>, não um `aria-label` paralelo que pode divergir dele.
-  it('o nome de cada grupo sai do rótulo que está na tela', () => {
-    montar()
-    const nomes = [...container.querySelectorAll('.pref-grupo')].map((g) => {
-      const id = g.getAttribute('aria-labelledby')
-      return id ? (container.querySelector(`#${id}`)?.textContent?.trim() ?? '') : ''
-    })
-    expect(nomes).toEqual(textos('.pref-grupo .eyebrow'))
+    const link = [...container.querySelectorAll('a.perfil-item')].find(
+      (a) => a.textContent?.trim() === 'Tema',
+    )
+    expect(link?.getAttribute('href')).toBe('/tema')
   })
 
   it('Ajustes aparece deslogado — a tela funciona sem conta', () => {
@@ -131,6 +77,11 @@ describe('Perfil — conteúdo', () => {
       (a) => a.textContent?.trim() === 'Sobre',
     )
     expect(link?.getAttribute('href')).toBe('/sobre')
+  })
+
+  it('nenhum grupo de preferências aparece no Perfil — eles ficam em /tema', () => {
+    montar()
+    expect(container.querySelectorAll('.pref-grupo')).toHaveLength(0)
   })
 })
 
