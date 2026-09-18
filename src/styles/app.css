@@ -664,10 +664,16 @@ h2 {
 }
 
 .track-card {
+  display: flex;
+  flex-direction: column;
   background: color-mix(in srgb, var(--paper) 92%, transparent);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.15rem 1.2rem;
+}
+
+.track-card .card-acoes {
+  margin-top: auto;
 }
 
 .jornada-card h2,
