@@ -117,8 +117,8 @@ export function manifestoValido(v: unknown): v is Manifesto {
 /** Voz atual preferencial (Algenib V4 - Gemini 3.1 Flash TTS com texto revisado). */
 export const VOZ_V3 = 'algenib-v4'
 
-/** Voz legada V2 (Ash - gpt-audio-mini), preservada como fallback para perícopes ainda não migradas. */
-export const VOZ_V2 = 'gam-ash2'
+/** Voz legada V2 normalizada a -14 LUFS (Ash - gpt-audio-mini), preservada como fallback para perícopes ainda não migradas. */
+export const VOZ_V2 = 'gam-ash2-alto'
 
 /** Voz padrão global para o catálogo. */
 export const VOZ = VOZ_V3
