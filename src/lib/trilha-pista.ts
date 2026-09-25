@@ -23,8 +23,6 @@ import { agendar, type Ponto } from './trilha'
 /** Entrada e saída da pista inteira: nunca um corte seco. */
 const FADE_S = 0.35
 
-/** Ganho base máximo da cama nas pausas (~ -3 dB) para manter a música suave no fundo. */
-export const GANHO_MESTRE_BASE = 0.7
 
 let ctx: AudioContext | null = null
 /** Liga/desliga e fade da pista. */
@@ -113,7 +111,7 @@ export async function tocar(
   }
 
   reagendar(pontos, tAudio)
-  rampa(mestre.gain, GANHO_MESTRE_BASE)
+  rampa(mestre.gain, 1)
 }
 
 /** Reancora a envoltória: no seek, na troca de manifesto e contra a deriva. */

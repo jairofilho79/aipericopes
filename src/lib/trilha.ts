@@ -46,11 +46,12 @@ export function indiceDeCamas(mapa: MapaTrilha): Map<number, string> {
 // ── A envoltória ──
 
 /**
- * Quanto a cama abaixa enquanto a voz fala, em ganho linear. −9 dB (0.35),
- * criando uma separação acolhedora onde a voz bíblica é o foco absoluto e a trilha
- * é uma sutil companhia de fundo.
+ * Quanto a cama abaixa enquanto a voz fala, em ganho linear. −4,4 dB, que é
+ * onde caiu a referência aprovada no teste cego (`threshold=0.03 ratio=2`, uns
+ * 4–5 dB de redução). A cama já foi publicada no nível certo (−25 LUFS), então
+ * fora da fala o ganho é 1: não há correção de volume para fazer aqui.
  */
-export const GANHO_DUCK = 0.35
+export const GANHO_DUCK = 0.6
 
 /** Descida rápida — a música tem de sair da frente antes da sílaba. */
 export const ATAQUE_S = 0.02
