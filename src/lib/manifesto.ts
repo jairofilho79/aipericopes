@@ -114,7 +114,10 @@ export function manifestoValido(v: unknown): v is Manifesto {
  * publicar nada em `gam-ash2/`, não há manifesto e o tocador não aparece —
  * que é o comportamento certo.
  */
-/** Voz atual preferencial (Algenib V4 - Gemini 3.1 Flash TTS com texto revisado). */
+/** Voz normalizada com ganho de volume (+13 dB e limitador sobreamostrado para -11,8 LUFS). */
+export const VOZ_V5 = 'algenib-v5'
+
+/** Voz oficial base (Algenib V4 - Gemini 3.1 Flash TTS com texto revisado). */
 export const VOZ_V3 = 'algenib-v4'
 
 /** Voz legada V2 (Ash - gpt-audio-mini), preservada como fallback para perícopes ainda não migradas. */

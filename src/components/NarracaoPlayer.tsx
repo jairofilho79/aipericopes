@@ -10,7 +10,7 @@ import {
   type Ref,
 } from 'react'
 import { alinhar, type SecaoAlvos } from '../lib/alinhar-narracao'
-import { carregarManifesto, vozDaPericope, VOZ_V3, type Manifesto } from '../lib/manifesto'
+import { carregarManifesto, vozDaPericope, VOZ_V3, VOZ_V5, type Manifesto } from '../lib/manifesto'
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
 import {
@@ -181,13 +181,28 @@ export default function NarracaoPlayer({
     const vozInicial = vozDaPericope(ordem)
 
     async function resolverAudio() {
-      // Prioridade absoluta: voz atual oficial (Algenib V4).
-      // Se ainda não existir no R2, recorre ao fallback legado.
-      let voz = VOZ_V3
+      // Prioridade 1: voz atual normalizada com ganho (+13 dB, Algenib V5).
+      let voz = VOZ_V5
       let url = `/api/audio/${voz}/${ordem}.m4a`
       let res = await fetch(url, { method: 'HEAD', signal: ac.signal })
 
-      if (!res.ok && vozInicial !== VOZ_V3) {
+      // Prioridade 2: voz atual base (Algenib V4).
+      if (!res.ok) {
+        const urlV3 = `/api/audio/${VOZ_V3}/${ordem}.m4a`
+        try {
+          const resV3 = await fetch(urlV3, { method: 'HEAD', signal: ac.signal })
+          if (resV3.ok) {
+            voz = VOZ_V3
+            url = urlV3
+            res = resV3
+          }
+        } catch {
+          // segue com res original
+        }
+      }
+
+      // Fallback legado para perícopes ainda não migradas
+      if (!res.ok && vozInicial !== VOZ_V3 && vozInicial !== VOZ_V5) {
         const urlLegada = `/api/audio/${vozInicial}/${ordem}.m4a`
         try {
           const resLegada = await fetch(urlLegada, { method: 'HEAD', signal: ac.signal })
