@@ -181,19 +181,20 @@ export default function NarracaoPlayer({
     const vozInicial = vozDaPericope(ordem)
 
     async function resolverAudio() {
-      let voz = vozInicial
+      // Prioridade absoluta: voz atual oficial (Algenib V4).
+      // Se ainda não existir no R2, recorre ao fallback legado.
+      let voz = VOZ_V3
       let url = `/api/audio/${voz}/${ordem}.m4a`
       let res = await fetch(url, { method: 'HEAD', signal: ac.signal })
 
-      // Se a ordem caiu no fallback legado mas já foi gerada na voz V4, promove automaticamente
-      if (!res.ok && voz !== VOZ_V3) {
-        const urlV3 = `/api/audio/${VOZ_V3}/${ordem}.m4a`
+      if (!res.ok && vozInicial !== VOZ_V3) {
+        const urlLegada = `/api/audio/${vozInicial}/${ordem}.m4a`
         try {
-          const resV3 = await fetch(urlV3, { method: 'HEAD', signal: ac.signal })
-          if (resV3.ok) {
-            voz = VOZ_V3
-            url = urlV3
-            res = resV3
+          const resLegada = await fetch(urlLegada, { method: 'HEAD', signal: ac.signal })
+          if (resLegada.ok) {
+            voz = vozInicial
+            url = urlLegada
+            res = resLegada
           }
         } catch {
           // segue com res original
