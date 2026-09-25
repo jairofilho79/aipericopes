@@ -478,8 +478,15 @@ async function main() {
       ordens = Array.from({ length: fim - ini + 1 }, (_, i) => ini + i)
     }
     if (a.startsWith('--livro=')) {
-      const nomeLivro = a.split('=')[1]
-      ordens = catalogo.filter((p) => p.livro.toLowerCase() === nomeLivro.toLowerCase()).map((p) => p.ordem)
+      const nomeLivro = a.split('=')[1].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      let achados = catalogo.filter((p) => p.livro.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') === nomeLivro)
+      if (achados.length === 0) {
+        achados = catalogo.filter((p) => (p.abbrev || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') === nomeLivro)
+      }
+      if (achados.length === 0) {
+        achados = catalogo.filter((p) => p.livro.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').startsWith(nomeLivro))
+      }
+      ordens = achados.map((p) => p.ordem)
     }
     if (a.startsWith('--limite=')) limite = parseInt(a.split('=')[1], 10)
     if (a.startsWith('--prefixo=')) prefixo = a.split('=')[1]

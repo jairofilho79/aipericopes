@@ -1922,6 +1922,21 @@ button.pager-fim {
   background: color-mix(in srgb, var(--accent) 88%, var(--ink));
 }
 
+/* O liga/desliga da música de fundo fica junto aos controles:
+   quando ligada, ganha a cor de destaque (var(--accent)); quando desligada,
+   fica com cor atenuada (var(--muted)). */
+.narracao-doca-trilha {
+  width: 3rem;
+  height: 3rem;
+  color: var(--accent);
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.narracao-doca-trilha[aria-pressed='false'] {
+  color: var(--muted);
+  opacity: 0.65;
+}
+
 /* O áudio pode quebrar depois de já ter tocado, e aí o mesmo aviso aparece
    DENTRO da doca — onde ele não é um bloco do artigo e não leva a margem
    negativa que o posiciona lá. */

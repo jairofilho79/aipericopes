@@ -4,6 +4,7 @@ import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import NarracaoPlayer from './NarracaoPlayer'
+import { esquecerMapaTrilha } from '../lib/trilha'
 
 /**
  * O que este arquivo trava é a resposta do componente à pergunta "há narração
@@ -18,12 +19,14 @@ let container: HTMLDivElement
 let root: Root
 
 beforeEach(() => {
+  esquecerMapaTrilha()
   container = document.createElement('div')
   document.body.appendChild(container)
   root = createRoot(container)
 })
 
 afterEach(() => {
+  esquecerMapaTrilha()
   act(() => root.unmount())
   container.remove()
   vi.unstubAllGlobals()
@@ -79,15 +82,17 @@ describe('NarracaoPlayer — disponibilidade', () => {
    * mesmo elemento que já estava lá enquanto o HEAD voava.
    */
   it('a região viva precede a mensagem: mesmo nó antes e depois do HEAD', async () => {
-    let responder!: (r: Response) => void
+    let responderHead: ((r: Response) => void) | null = null
     vi.stubGlobal(
       'fetch',
-      vi.fn(
-        () =>
-          new Promise<Response>((res) => {
-            responder = res
-          }),
-      ),
+      vi.fn((_url: string, init?: RequestInit) => {
+        if (init?.method === 'HEAD') {
+          return new Promise<Response>((res) => {
+            responderHead = res
+          })
+        }
+        return Promise.resolve({ ok: false, headers: new Headers() } as Response)
+      }),
     )
     await montar()
     const regioes = container.querySelectorAll('[role="status"]')
@@ -95,7 +100,15 @@ describe('NarracaoPlayer — disponibilidade', () => {
     const regiao = regioes[0]!
     expect(regiao.textContent).not.toContain('ainda não foi gravada')
 
-    await act(async () => responder({ ok: false } as Response))
+    await act(async () => {
+      responderHead?.({ ok: false } as Response)
+    })
+    // Se fez fallback para VOZ_V3, resolve também o segundo HEAD
+    if (responderHead) {
+      await act(async () => {
+        responderHead?.({ ok: false } as Response)
+      })
+    }
 
     expect(container.querySelector('[role="status"]')).toBe(regiao)
     expect(regiao.textContent).toBe('A narração desta perícope ainda não foi gravada.')
@@ -173,5 +186,25 @@ describe('NarracaoPlayer — doca', () => {
     const barra = container.querySelector('.narracao-doca-barra')
     expect(barra?.getAttribute('aria-label')).toBe('Posição na narração')
     expect(barra?.getAttribute('aria-valuetext')).toBe('0:00 de –:––')
+  })
+
+  it('mostra botão de música de fundo quando há cama no mapa', async () => {
+    const fetchMock = vi.fn((url: string, init?: RequestInit) => {
+      if (init?.method === 'HEAD') {
+        return Promise.resolve({ ok: true } as Response)
+      }
+      if (String(url).includes('trilha.json')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({ prefixo: 'trilha-v1', camas: { louvor: [1600] } }),
+        } as Response)
+      }
+      return Promise.resolve({ ok: false, headers: new Headers() } as Response)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    await montar({ usada: true })
+    const btnTrilha = container.querySelector('.narracao-doca-trilha')
+    expect(btnTrilha).not.toBeNull()
+    expect(btnTrilha?.getAttribute('aria-label')).toBe('Desligar música de fundo')
   })
 })

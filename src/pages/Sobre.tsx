@@ -110,8 +110,9 @@ export default function Sobre() {
         Nem toda perícope tem áudio ainda — a narração vem sendo publicada aos poucos. Onde
         ela existe, o convite para ouvir abre no começo da leitura e os controles ficam
         ancorados no pé da tela enquanto a voz toca; onde ainda não existe, uma linha diz
-        isso e o texto continua inteiro. A trilha instrumental que
-        acompanha a leitura ainda não foi publicada; quando for, ganha um bloco aqui.
+        isso e o texto continua inteiro. Por baixo da voz toca uma cama instrumental, escolhida
+        pelo tom da perícope, que abaixa sozinha enquanto a voz fala e volta nas pausas; a nota
+        ao lado dos controles a desliga, e a escolha fica lembrada.
       </p>
 
       <h2>A cor</h2>

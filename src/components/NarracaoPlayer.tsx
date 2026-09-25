@@ -13,6 +13,16 @@ import { alinhar, type SecaoAlvos } from '../lib/alinhar-narracao'
 import { carregarManifesto, vozDaPericope, VOZ_V3, type Manifesto } from '../lib/manifesto'
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
+import {
+  carregarMapaTrilha,
+  envoltoria,
+  getTrilhaLigada,
+  indiceDeCamas,
+  intervalosDeFala,
+  setTrilhaLigada,
+  type Ponto,
+} from '../lib/trilha'
+import { deriva, parar, reagendar, silenciar, tocar } from '../lib/trilha-pista'
 import { IconeFones } from './icones'
 
 export type NarracaoPlayerHandle = {
@@ -136,6 +146,10 @@ export default function NarracaoPlayer({
   const [tentativa, setTentativa] = useState(0)
   const erro = disponibilidade === 'falhou'
 
+  // A trilha: qual cama toca nesta perícope, e se o usuário a quer.
+  const [cama, setCama] = useState<{ prefixo: string; nome: string } | null>(null)
+  const [trilha, setTrilha] = useState(getTrilhaLigada)
+
   // Índices da última busca: o relógio anda para frente quase sempre.
   const iAlvo = useRef(0)
   const iPalavra = useRef(0)
@@ -206,6 +220,57 @@ export default function NarracaoPlayer({
       ac.abort()
     }
   }, [ordem, tentativa])
+
+  // A cama sai do mapa, que vem do build e não do R2. Falhar aqui é mudo de
+  // propósito: sem cama a narração toca igual, só sem música por baixo.
+  useEffect(() => {
+    let vivo = true
+    setCama(null)
+    carregarMapaTrilha().then((mapa) => {
+      if (!vivo || !mapa) return
+      const nome = indiceDeCamas(mapa).get(ordem)
+      if (nome) setCama({ prefixo: mapa.prefixo, nome })
+    })
+    return () => {
+      vivo = false
+    }
+  }, [ordem])
+
+  /**
+   * A envoltória inteira da perícope. Sem manifesto ela fica vazia, e a cama
+   * toca plana — melhor que silêncio e melhor que adivinhação.
+   */
+  const pontos: Ponto[] = useMemo(
+    () => (manifesto ? envoltoria(intervalosDeFala(manifesto)) : []),
+    [manifesto],
+  )
+
+  // A pista é um singleton fora do React (ver trilha-pista.ts): este efeito é
+  // só quem manda nela. Toca quando a narração toca, silencia quando pausa, e
+  // reagenda sozinho quando o manifesto chega no meio da reprodução.
+  useEffect(() => {
+    if (!trilha || !cama) return
+    if (!tocando) {
+      silenciar()
+      return
+    }
+    let vivo = true
+    void tocar(cama.prefixo, cama.nome, pontos, audioRef.current?.currentTime ?? 0).then(() => {
+      // Baixar e decodificar a cama leva tempo; nesse meio o usuário pode ter
+      // pausado, e a música não pode subir depois disso.
+      if (!vivo) silenciar()
+    })
+    return () => {
+      vivo = false
+    }
+  }, [trilha, cama, tocando, pontos])
+
+  // Desligar a trilha, ou sair da perícope, encerra a pista de verdade — não
+  // basta silenciar, senão a fonte segue girando para sempre.
+  useEffect(() => {
+    if (!trilha) parar()
+  }, [trilha])
+  useEffect(() => () => parar(), [])
 
   // Efeito (e não onLoadedMetadata): o checkpoint chega do IndexedDB depois
   // que o player montou, então `tempoInicial` e a duração podem aparecer em
@@ -405,12 +470,17 @@ export default function NarracaoPlayer({
             if (Number.isFinite(a.duration) && a.duration > 0) {
               onProgresso?.(a.currentTime / a.duration)
             }
+            // Os dois relógios correm separados; um terço de segundo já é
+            // audível no ducking, e reancorar custa um agendamento.
+            if (Math.abs(deriva(a.currentTime)) > 0.3) reagendar(pontos, a.currentTime)
           }}
           onSeeked={() => {
             // A tela precisa estar liberada antes de calcular o novo alvo,
             // senão o realce salta para o lugar certo mas fora da tela.
             onSeek?.()
             aoTempo()
+            // A envoltória da cama estava amarrada ao relógio antigo.
+            reagendar(pontos, audioRef.current?.currentTime ?? 0)
           }}
           onEnded={() => {
             setTocando(false)
@@ -569,6 +639,23 @@ export default function NarracaoPlayer({
             >
               <IconeSalto direcao="frente" />
             </button>
+            {cama && (
+              <button
+                type="button"
+                className="narracao-doca-btn narracao-doca-trilha"
+                aria-pressed={trilha}
+                aria-label={trilha ? 'Desligar música de fundo' : 'Ligar música de fundo'}
+                title={trilha ? 'Música de fundo ligada' : 'Música de fundo desligada'}
+                disabled={erro}
+                onClick={() => {
+                  const novo = !trilha
+                  setTrilha(novo)
+                  setTrilhaLigada(novo)
+                }}
+              >
+                <IconeMusica ligada={trilha} />
+              </button>
+            )}
           </div>
 
           {/* O áudio pode quebrar depois de já ter tocado: o mesmo aviso do
@@ -638,3 +725,27 @@ function IconeSalto({ direcao }: { direcao: 'tras' | 'frente' }) {
     </svg>
   )
 }
+
+/**
+ * A música/trilha de fundo: notas musicais, e um traço por cima quando está desligada.
+ */
+export function IconeMusica({ ligada }: { ligada: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden focusable="false">
+      <path
+        d="M9 17.5V7.2l8-1.7v10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="7" cy="17.6" r="2.2" fill="currentColor" />
+      <circle cx="15" cy="15.6" r="2.2" fill="currentColor" />
+      {!ligada && (
+        <path d="M4 20L20 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      )}
+    </svg>
+  )
+}
+
