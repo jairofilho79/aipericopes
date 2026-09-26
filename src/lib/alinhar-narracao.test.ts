@@ -414,4 +414,45 @@ describe('alinhar — sobrescrito do salmo fundido com "Capítulo N."', () => {
     // contíguo: nenhum vão de silêncio some sem realce entre os dois.
     expect(sobrescrito.fim).toBe(verso.inicio)
   })
+
+  it('tolera ênfase markdown (* e _) no texto da tela sem perder alinhamento', () => {
+    const m: Manifesto = {
+      ordem: 9999,
+      dur_total: 10,
+      unidades: [
+        {
+          i: 0,
+          secao: 'resenha',
+          texto: 'Resenha.',
+          inicio: 0,
+          dur: 1,
+        },
+        {
+          i: 1,
+          secao: 'resenha',
+          texto: 'Ele fala do adversário com certeza.',
+          inicio: 1,
+          dur: 3,
+          palavras: [
+            { t: 'Ele', i: 1.0, d: 0.5 },
+            { t: 'fala', i: 1.5, d: 0.5 },
+            { t: 'do', i: 2.0, d: 0.5 },
+            { t: 'adversário', i: 2.5, d: 0.5 },
+            { t: 'com', i: 3.0, d: 0.5 },
+            { t: 'certeza.', i: 3.5, d: 0.5 },
+          ],
+        },
+      ],
+    }
+    const r = alinhar(m, [
+      {
+        secao: 'resenha',
+        alvos: [{ id: 'resenha-0', texto: 'Ele fala *do adversário* com _certeza_.' }],
+      },
+    ])
+    const alvo = r.find((a) => a.id === 'resenha-0')
+    expect(alvo).toBeDefined()
+    expect(alvo?.palavras).toHaveLength(6)
+  })
 })
+

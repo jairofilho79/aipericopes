@@ -42,7 +42,7 @@ const PREFIXO = /^(Capítulo|Reflexão)\s+(\d+)\.\s+/
  * manifesto (`palavras[k].t` contra o próprio `texto`) continua exata: ali uma
  * diferença de caixa é sinal de alinhamento errado, não de normalização.
  */
-const semCaixaNemColchete = (s: string) => s.toLowerCase().replace(/[[\]]/g, '')
+const semCaixaNemColchete = (s: string) => s.toLowerCase().replace(/[[\]*_]/g, '')
 
 function mesmoToken(narrado: string, naTela: string): boolean {
   return narrado === naTela || semCaixaNemColchete(narrado) === semCaixaNemColchete(naTela)
