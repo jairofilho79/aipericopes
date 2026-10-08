@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { authClient } from '../lib/auth-client'
 import {
   type ChaveIaPublica,
@@ -11,8 +11,8 @@ import {
   IconeChave,
   IconeCheck,
   IconeLixeira,
-  IconeVoltar,
 } from '../components/icones'
+import BotaoVoltar from '../components/BotaoVoltar'
 
 type ProvedorOpcao = {
   id: 'openai' | 'openrouter' | 'anthropic' | 'gemini' | 'cloudflare'
@@ -149,14 +149,14 @@ export default function IaChave() {
 
   if (!session) {
     return (
-      <section className="ajustes">
-        <header className="ajustes-topo">
-          <Link to="/perfil" className="linkish">
-            <IconeVoltar size={18} /> Voltar ao Perfil
-          </Link>
+      <section className="ajustes ia-chave-pagina">
+        <div className="subpagina-topo">
+          <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
           <h1>Chave de IA (BYOK)</h1>
-        </header>
-        <p className="muted">É necessário entrar na sua conta para configurar sua chave de IA.</p>
+        </div>
+        <p className="lead muted">
+          É necessário entrar na sua conta para configurar sua chave de inteligência artificial.
+        </p>
         <button type="button" className="cta" onClick={() => navigate('/entrar')}>
           Entrar na conta
         </button>
@@ -166,53 +166,58 @@ export default function IaChave() {
 
   return (
     <section className="ajustes ia-chave-pagina">
-      <header className="ajustes-topo">
-        <Link to="/perfil" className="linkish">
-          <IconeVoltar size={18} /> Perfil
-        </Link>
+      <div className="subpagina-topo">
+        <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
         <h1>Chave de IA (BYOK)</h1>
-      </header>
+      </div>
 
-      <p className="muted">
+      <p className="lead ia-chave-intro">
         Configure sua própria chave de inteligência artificial para liberar a Explicação Rápida de
         versículos bíblicos e o chat de perguntas.
       </p>
 
       {carregando ? (
-        <p className="muted">Carregando dados da chave...</p>
+        <p className="muted ia-chave-carregando">Carregando dados da chave...</p>
       ) : (
         <>
           {chaveAtual && (
-            <div className="ia-chave-status-box">
-              <div className="ia-chave-status-topo">
-                <span className="ia-badge">
-                  <IconeCheck size={14} /> Chave Ativa
-                </span>
+            <div className="ia-chave-status-card">
+              <div className="ia-chave-status-header">
+                <div className="ia-badge-ativo">
+                  <IconeCheck size={14} /> Chave ativa e configurada
+                </div>
                 <button
                   type="button"
-                  className="linkish btn-perigo"
+                  className="btn-remover-chave"
                   onClick={() => void handleRemover()}
                   disabled={removendo}
+                  title="Remover esta chave"
                 >
-                  <IconeLixeira size={15} /> Remover chave
+                  <IconeLixeira size={14} />
+                  <span>{removendo ? 'Removendo...' : 'Remover'}</span>
                 </button>
               </div>
 
-              <div className="ia-chave-detalhes">
-                <p>
-                  <strong>Provedor:</strong>{' '}
-                  {PROVEDORES.find((p) => p.id === chaveAtual.provedor)?.nome ?? chaveAtual.provedor}
-                </p>
-                <p>
-                  <strong>Modelo:</strong> <code>{chaveAtual.modelo}</code>
-                </p>
-                <p>
-                  <strong>Chave:</strong> •••••••• {chaveAtual.ultimos4}
-                </p>
+              <div className="ia-chave-info-grid">
+                <div className="ia-chave-info-item">
+                  <span className="ia-chave-info-label">Provedor</span>
+                  <span className="ia-chave-info-val">
+                    {PROVEDORES.find((p) => p.id === chaveAtual.provedor)?.nome ?? chaveAtual.provedor}
+                  </span>
+                </div>
+                <div className="ia-chave-info-item">
+                  <span className="ia-chave-info-label">Modelo</span>
+                  <code className="ia-chave-info-code">{chaveAtual.modelo}</code>
+                </div>
+                <div className="ia-chave-info-item">
+                  <span className="ia-chave-info-label">Chave de API</span>
+                  <span className="ia-chave-info-val ia-chave-mascara">•••••••• {chaveAtual.ultimos4}</span>
+                </div>
                 {chaveAtual.contaId && (
-                  <p>
-                    <strong>Conta ID:</strong> {chaveAtual.contaId}
-                  </p>
+                  <div className="ia-chave-info-item">
+                    <span className="ia-chave-info-label">Conta ID</span>
+                    <span className="ia-chave-info-val">{chaveAtual.contaId}</span>
+                  </div>
                 )}
               </div>
             </div>
@@ -221,27 +226,29 @@ export default function IaChave() {
           <form className="ia-chave-form" onSubmit={(e) => void submeter(e)}>
             <h2>{chaveAtual ? 'Substituir ou atualizar chave' : 'Adicionar nova chave'}</h2>
 
-            <div className="campo">
+            <div className="ia-campo">
               <label htmlFor="ia-provedor-select">Provedor de IA</label>
-              <select
-                id="ia-provedor-select"
-                value={provedor}
-                onChange={(e) => trocarProvedor(e.target.value as ProvedorOpcao['id'])}
-                disabled={salvando}
-              >
-                {PROVEDORES.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.nome}
-                  </option>
-                ))}
-              </select>
-              <span className="campo-dica">
+              <div className="ia-select-wrapper">
+                <select
+                  id="ia-provedor-select"
+                  value={provedor}
+                  onChange={(e) => trocarProvedor(e.target.value as ProvedorOpcao['id'])}
+                  disabled={salvando}
+                >
+                  {PROVEDORES.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <span className="ia-campo-dica">
                 {PROVEDORES.find((p) => p.id === provedor)?.dica}
               </span>
             </div>
 
             {provedor === 'cloudflare' && (
-              <div className="campo">
+              <div className="ia-campo">
                 <label htmlFor="ia-conta-id">Cloudflare Account ID</label>
                 <input
                   id="ia-conta-id"
@@ -252,11 +259,17 @@ export default function IaChave() {
                   disabled={salvando}
                   required
                 />
+                <span className="ia-campo-dica">
+                  ID de 32 caracteres da conta Cloudflare (disponível no painel da Cloudflare).
+                </span>
               </div>
             )}
 
-            <div className="campo">
-              <label htmlFor="ia-modelo-input">Modelo</label>
+            <div className="ia-campo">
+              <label htmlFor="ia-modelo-input">
+                <span>Modelo</span>
+                <span className="ia-campo-tag">Personalizável</span>
+              </label>
               <input
                 id="ia-modelo-input"
                 type="text"
@@ -265,12 +278,14 @@ export default function IaChave() {
                 placeholder={PROVEDORES.find((p) => p.id === provedor)?.modeloPadrao}
                 disabled={salvando}
               />
-              <span className="campo-dica">Você pode personalizar o ID exato do modelo.</span>
+              <span className="ia-campo-dica">
+                Você pode manter o modelo padrão recomendado ou personalizar o identificador exato.
+              </span>
             </div>
 
-            <div className="campo">
+            <div className="ia-campo">
               <label htmlFor="ia-chave-input">Chave de API / Token</label>
-              <div className="campo-senha-linha">
+              <div className="ia-chave-input-container">
                 <input
                   id="ia-chave-input"
                   type={mostrarChave ? 'text' : 'password'}
@@ -278,43 +293,58 @@ export default function IaChave() {
                   onChange={(e) => setChave(e.target.value)}
                   placeholder={PROVEDORES.find((p) => p.id === provedor)?.placeholder}
                   autoComplete="off"
+                  spellCheck={false}
                   disabled={salvando}
                   required
                 />
                 <button
                   type="button"
-                  className="linkish btn-olho"
+                  className="ia-btn-toggle-senha"
                   onClick={() => setMostrarChave(!mostrarChave)}
+                  aria-label={mostrarChave ? 'Ocultar chave' : 'Mostrar chave'}
                 >
                   {mostrarChave ? 'Ocultar' : 'Mostrar'}
                 </button>
               </div>
+              <span className="ia-campo-dica">
+                Sua chave é transmitida com segurança e criptografada via AES-GCM 256.
+              </span>
             </div>
 
             {erro && (
-              <div className="ia-erro-box" role="alert">
-                <p>{erro}</p>
+              <div className="ia-status-mensagem ia-status-erro" role="alert">
+                <span className="ia-status-icone" aria-hidden="true">⚠️</span>
+                <div>{erro}</div>
               </div>
             )}
 
             {sucesso && (
-              <div className="ia-sucesso-box" role="status">
-                <IconeCheck size={16} /> Chave validada e gravada com sucesso!
+              <div className="ia-status-mensagem ia-status-sucesso" role="status">
+                <IconeCheck size={18} />
+                <div>Chave testada, validada e gravada com sucesso!</div>
               </div>
             )}
 
             <div className="ia-chave-submit-linha">
-              <button type="submit" className="cta" disabled={salvando}>
+              <button type="submit" className="cta ia-chave-submit-btn" disabled={salvando}>
                 <IconeChave size={18} />
-                {salvando ? 'Validando chave...' : 'Testar e Salvar'}
+                <span>{salvando ? 'Validando chave com o provedor...' : 'Testar e Salvar'}</span>
               </button>
             </div>
 
-            <p className="ia-privacidade-nota muted">
-              🔒 <strong>Segurança:</strong> Sua chave é criptografada no servidor via AES-GCM 256 e
-              nunca é exposta. Ela é utilizada apenas para atender às suas próprias solicitações de
-              estudo bíblico.
-            </p>
+            <div className="ia-seguranca-callout">
+              <div className="ia-seguranca-icone" aria-hidden="true">
+                🔒
+              </div>
+              <div className="ia-seguranca-texto">
+                <strong>Segurança e Criptografia AES-GCM 256</strong>
+                <p>
+                  Sua chave é criptografada no servidor via AES-GCM 256 e nunca é exposta.
+                  Ela é associada exclusivamente ao seu usuário (AAD) e decifrada apenas no
+                  momento de atender às suas solicitações.
+                </p>
+              </div>
+            </div>
           </form>
         </>
       )}

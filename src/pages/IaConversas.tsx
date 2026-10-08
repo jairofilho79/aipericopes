@@ -10,8 +10,8 @@ import {
 import {
   IconeChat,
   IconeLixeira,
-  IconeVoltar,
 } from '../components/icones'
+import BotaoVoltar from '../components/BotaoVoltar'
 
 export default function IaConversas() {
   const { data: session } = authClient.useSession()
@@ -68,25 +68,21 @@ export default function IaConversas() {
   if (!session) {
     return (
       <section className="ajustes">
-        <header className="ajustes-topo">
-          <Link to="/perfil" className="linkish">
-            <IconeVoltar size={18} /> Perfil
-          </Link>
+        <div className="subpagina-topo">
+          <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
           <h1>Conversas com IA</h1>
-        </header>
-        <p className="muted">Entre na sua conta para acessar suas conversas.</p>
+        </div>
+        <p className="lead muted">Entre na sua conta para acessar suas conversas.</p>
       </section>
     )
   }
 
   return (
     <section className="ajustes ia-historico-pagina">
-      <header className="ajustes-topo">
-        <Link to="/perfil" className="linkish">
-          <IconeVoltar size={18} /> Perfil
-        </Link>
+      <div className="subpagina-topo">
+        <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
         <h1>Conversas com IA</h1>
-      </header>
+      </div>
 
       <div className="ia-conversas-topo-linha">
         <p className="muted">Suas conversas e dúvidas sobre a Bíblia.</p>

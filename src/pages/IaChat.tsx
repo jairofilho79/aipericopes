@@ -6,6 +6,8 @@ import {
   enviarMensagemConversa,
   obterConversa,
 } from '../lib/ia-client'
+import { getPericope } from '../lib/content'
+import { parseTexto, type VerseBlock } from '../lib/parse-texto'
 import {
   IconeEnviar,
   IconeFaisca,
@@ -13,12 +15,41 @@ import {
   IconeVoltar,
 } from '../components/icones'
 
+function formatarRefConversa(c: ConversaResumo): string {
+  if (!c.livro) return c.titulo
+  if (c.capituloInicio && c.versiculoInicio) {
+    const cIni = c.capituloInicio
+    const vIni = c.versiculoInicio
+    const cFim = c.capituloFim ?? cIni
+    const vFim = c.versiculoFim ?? vIni
+    if (cIni === cFim) {
+      return vIni === vFim ? `${c.livro} ${cIni}:${vIni}` : `${c.livro} ${cIni}:${vIni}-${vFim}`
+    }
+    return `${c.livro} ${cIni}:${vIni} - ${cFim}:${vFim}`
+  }
+  return c.livro
+}
+
+function formatarMensagemCorpo(conteudo: string, papel: 'user' | 'assistant'): string {
+  if (papel !== 'user') return conteudo
+  const matchExplicacao = conteudo.match(/^(Gostaria de uma explicação sobre [^:\n]+)(?::\n"[\s\S]*")?$/)
+  if (matchExplicacao) {
+    return matchExplicacao[1]
+  }
+  if (conteudo.startsWith('Você é um assistente bíblico e teológico')) {
+    return 'Gostaria de estudar esta perícope com foco no contexto histórico, texto e reflexões.'
+  }
+  return conteudo
+}
+
 export default function IaChat() {
   const { id } = useParams<{ id: string }>()
 
   const [carregando, setCarregando] = useState(true)
   const [conversa, setConversa] = useState<ConversaResumo | null>(null)
   const [mensagens, setMensagens] = useState<MensagemConversa[]>([])
+  const [trechoBiblico, setTrechoBiblico] = useState<string | null>(null)
+  const [refPassagem, setRefPassagem] = useState<string | null>(null)
 
   const [textoInput, setTextoInput] = useState('')
   const [enviando, setEnviando] = useState(false)
@@ -42,6 +73,42 @@ export default function IaChat() {
     }
     void carregar()
   }, [id])
+
+  useEffect(() => {
+    if (!conversa) return
+    const ref = formatarRefConversa(conversa)
+    setRefPassagem(ref)
+
+    if (conversa.trechoTexto) {
+      setTrechoBiblico(conversa.trechoTexto)
+      return
+    }
+
+    if (conversa.pericopeOrdem) {
+      void getPericope(conversa.pericopeOrdem).then((p) => {
+        if (!p) return
+        if (conversa.capituloInicio && conversa.versiculoInicio) {
+          const cIni = conversa.capituloInicio
+          const vIni = conversa.versiculoInicio
+          const cFim = conversa.capituloFim ?? cIni
+          const vFim = conversa.versiculoFim ?? vIni
+          const versos = parseTexto(p.texto)
+            .filter((v): v is VerseBlock => v.kind === 'verse')
+            .filter((v) => {
+              if (v.chapter < cIni || v.chapter > cFim) return false
+              if (v.chapter === cIni && v.verse < vIni) return false
+              if (v.chapter === cFim && v.verse > vFim) return false
+              return true
+            })
+          if (versos.length > 0) {
+            setTrechoBiblico(versos.map((v) => `${v.verse} ${v.text}`).join('\n'))
+            return
+          }
+        }
+        setTrechoBiblico(p.texto)
+      })
+    }
+  }, [conversa])
 
   useEffect(() => {
     fimMensagensRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -133,6 +200,18 @@ export default function IaChat() {
       </header>
 
       <main className="ia-chat-mensagens">
+        {trechoBiblico && (
+          <div className="ia-chat-passagem-card">
+            <div className="ia-chat-passagem-topo">
+              <span className="ia-badge">Texto bíblico</span>
+              <strong className="ia-chat-passagem-ref">{refPassagem ?? conversa?.titulo}</strong>
+            </div>
+            <blockquote className="ia-chat-passagem-texto">
+              {trechoBiblico}
+            </blockquote>
+          </div>
+        )}
+
         {carregando ? (
           <p className="muted ia-chat-status-carregando">Carregando conversa...</p>
         ) : mensagens.length === 0 && !streamResposta ? (
@@ -155,7 +234,7 @@ export default function IaChat() {
                 </span>
               )}
               <div className="ia-chat-bolha-corpo">
-                {msg.conteudo.split('\n\n').map((p, i) => (
+                {formatarMensagemCorpo(msg.conteudo, msg.papel).split('\n\n').map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>

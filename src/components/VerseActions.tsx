@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { DestaqueCor } from '../lib/types'
 import {
   IconeAnotar,
-  IconeChat,
   IconeCompartilhar,
   IconeCopiar,
   IconeFaisca,
   IconeFechar,
   IconeLixeira,
+  IconeRaio,
 } from './icones'
 
 const CORES: { id: DestaqueCor; label: string }[] = [
@@ -53,6 +53,7 @@ export default function VerseActions({
   onAtivarIa,
   onFechar,
 }: Props) {
+  const [iaAberta, setIaAberta] = useState(false)
   const caixaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -120,22 +121,34 @@ export default function VerseActions({
             title="Estudar com inteligência artificial"
           >
             <IconeFaisca size={16} />
-            IA
+            Conversar
+          </button>
+        )}
+        {logado && temChaveIa && (
+          <button
+            type="button"
+            className={`ghost btn-ia-chip${iaAberta ? ' selecionado' : ''}`}
+            onClick={() => setIaAberta((v) => !v)}
+            aria-expanded={iaAberta}
+            title="Opções de estudo com inteligência artificial"
+          >
+            <IconeFaisca size={16} />
+            Conversar
           </button>
         )}
       </div>
-      {logado && temChaveIa && (
-        <div className="verse-actions-row verse-actions-ia">
+      {logado && temChaveIa && iaAberta && (
+        <div className="verse-actions-row verse-actions-ia-sub">
           {onExplicarIa && (
-            <button type="button" className="ghost btn-ia-acao" onClick={onExplicarIa}>
-              <IconeFaisca size={16} />
+            <button type="button" className="ghost" onClick={onExplicarIa}>
+              <IconeRaio size={16} />
               Explicação rápida
             </button>
           )}
           {onPerguntarIa && (
-            <button type="button" className="ghost btn-ia-acao" onClick={onPerguntarIa}>
-              <IconeChat size={16} />
-              Fazer pergunta
+            <button type="button" className="ghost" onClick={onPerguntarIa}>
+              <IconeFaisca size={16} />
+              Conversar
             </button>
           )}
         </div>

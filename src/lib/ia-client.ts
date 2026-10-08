@@ -39,6 +39,7 @@ export type ConversaResumo = {
   versiculoInicio: number | null
   capituloFim: number | null
   versiculoFim: number | null
+  trechoTexto?: string | null
   criadoEm: string
   atualizadoEm: string
 }

@@ -535,7 +535,7 @@ export async function handleCriarConversa(
         msgUser,
         id,
         userId,
-        `Gostaria de uma explicação sobre ${explicacaoOrigem.livro} ${ref}:\n"${explicacaoOrigem.trechoTexto}"`,
+        `Gostaria de uma explicação sobre ${explicacaoOrigem.livro} ${ref}`,
         agora,
       ),
       c.env.DB.prepare(
@@ -589,12 +589,14 @@ export async function handleObterConversa(
   id: string,
 ): Promise<Response> {
   const conversa = await c.env.DB.prepare(
-    `SELECT id, titulo, escopo, explicacao_id AS explicacaoId, contexto_flags AS contextoFlags,
-            pericope_ordem AS pericopeOrdem, livro, capitulo_inicio AS capituloInicio,
-            versiculo_inicio AS versiculoInicio, capitulo_fim AS capituloFim,
-            versiculo_fim AS versiculoFim, criado_em AS criadoEm, atualizado_em AS atualizadoEm
-     FROM ia_conversa
-     WHERE id = ?1 AND user_id = ?2 AND apagado_em IS NULL`,
+    `SELECT c.id, c.titulo, c.escopo, c.explicacao_id AS explicacaoId, c.contexto_flags AS contextoFlags,
+            c.pericope_ordem AS pericopeOrdem, c.livro, c.capitulo_inicio AS capituloInicio,
+            c.versiculo_inicio AS versiculoInicio, c.capitulo_fim AS capituloFim,
+            c.versiculo_fim AS versiculoFim, c.criado_em AS criadoEm, c.atualizado_em AS atualizadoEm,
+            e.trecho_texto AS trechoTexto
+     FROM ia_conversa c
+     LEFT JOIN ia_explicacao e ON e.id = c.explicacao_id
+     WHERE c.id = ?1 AND c.user_id = ?2 AND c.apagado_em IS NULL`,
   )
     .bind(id, userId)
     .first()

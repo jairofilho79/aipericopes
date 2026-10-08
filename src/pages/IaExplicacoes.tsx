@@ -11,8 +11,8 @@ import {
   IconeChat,
   IconeFaisca,
   IconeLixeira,
-  IconeVoltar,
 } from '../components/icones'
+import BotaoVoltar from '../components/BotaoVoltar'
 
 export default function IaExplicacoes() {
   const { data: session } = authClient.useSession()
@@ -86,25 +86,21 @@ export default function IaExplicacoes() {
   if (!session) {
     return (
       <section className="ajustes">
-        <header className="ajustes-topo">
-          <Link to="/perfil" className="linkish">
-            <IconeVoltar size={18} /> Perfil
-          </Link>
+        <div className="subpagina-topo">
+          <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
           <h1>Minhas Explicações</h1>
-        </header>
-        <p className="muted">Entre na sua conta para consultar suas explicações de IA.</p>
+        </div>
+        <p className="lead muted">Entre na sua conta para consultar suas explicações de IA.</p>
       </section>
     )
   }
 
   return (
     <section className="ajustes ia-historico-pagina">
-      <header className="ajustes-topo">
-        <Link to="/perfil" className="linkish">
-          <IconeVoltar size={18} /> Perfil
-        </Link>
+      <div className="subpagina-topo">
+        <BotaoVoltar to="/perfil" rotulo="Voltar para o Perfil" />
         <h1>Minhas Explicações com IA</h1>
-      </header>
+      </div>
 
       <p className="muted">
         Histórico de passagens bíblicas que você consultou e suas explicações salvas.

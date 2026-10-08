@@ -192,6 +192,18 @@ export default function ExplicacaoIaModal({
         </div>
 
         <div className="ia-modal-corpo">
+          {trechoTexto && (
+            <div className="ia-passagem-card">
+              <div className="ia-passagem-topo">
+                <span className="ia-badge">Texto bíblico</span>
+                <strong className="ia-passagem-ref">{livro} {refLabel}</strong>
+              </div>
+              <blockquote className="ia-passagem-texto">
+                {trechoTexto}
+              </blockquote>
+            </div>
+          )}
+
           {carregando && !textoStream && (
             <div className="ia-loading-box">
               <div className="ia-spinner" aria-hidden="true" />

@@ -18,7 +18,7 @@ import {
   IconeAnotar,
   IconeCheck,
   IconeCompartilhar,
-  IconeConversar,
+  IconeFaisca,
   IconeDesvincular,
   IconeEstrela,
   IconeFones,
@@ -1438,7 +1438,7 @@ export default function Leitura() {
               [
                 ['anotacoes', 'Anotações', <IconeAnotar key="a" size={16} />],
                 ['topicos', 'Tópicos', <IconeTopicos key="t" size={16} />],
-                ['conversar', 'Conversar', <IconeConversar key="c" size={16} />],
+                ['conversar', 'Conversar', <IconeFaisca key="c" size={16} />],
               ] as const
             ).map(([id, label, icone]) => (
               <button

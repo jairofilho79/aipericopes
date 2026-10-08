@@ -365,6 +365,14 @@ export function IconeFaisca({ size = 18, className }: IconeProps) {
   )
 }
 
+export function IconeRaio({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  )
+}
+
 export function IconeChat({ size = 18, className }: IconeProps) {
   return (
     <svg {...baseSvg} width={size} height={size} className={className}>
