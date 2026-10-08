@@ -27,6 +27,19 @@ import {
   montarInput as montarInputRevisao,
   parseTexto,
 } from './revisar'
+import { VERSAO_SEGREDO, cifrarChave } from './ia-cripto'
+import { PROVEDORES, parsePedidoChave, validarChave } from './ia-provedores'
+import {
+  handleApagarConversa,
+  handleApagarExplicacao,
+  handleCriarConversa,
+  handleEnviarMensagemConversa,
+  handleExplicar,
+  handleListarConversas,
+  handleListarExplicacoes,
+  handleObterConversa,
+  handleObterExplicacao,
+} from './ia-handlers'
 import type { Env } from './env.d'
 
 const app = new Hono<{ Bindings: Env }>()
@@ -547,6 +560,151 @@ app.on(['GET', 'HEAD'], '/api/audio/*', async (c) => {
   const contentRange = cabecalhoContentRange(obj.range, obj.size)
   if (contentRange) cabecalhos.set('content-range', contentRange)
   return new Response(obj.body, { status: contentRange ? 206 : 200, headers: cabecalhos })
+})
+
+// --- BYOK de IA: gerenciamento da chave -------------------------------------
+// A chave só trafega no PUT. Fica cifrada (ia-cripto.ts) e NUNCA volta ao
+// cliente: o GET devolve provedor, modelo, últimos 4 e estado. Nenhum destes
+// handlers loga corpo, chave ou resposta do provedor.
+const SEM_CACHE = { 'cache-control': 'no-store' }
+
+app.get('/api/ia/chave', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  const linha = await c.env.DB.prepare(
+    `SELECT provedor, modelo, conta_id AS contaId, ultimos4, status, validada_em AS validadaEm
+     FROM ia_chave WHERE user_id = ?1`,
+  )
+    .bind(userId)
+    .first()
+  return c.json({ chave: linha ?? null }, 200, SEM_CACHE)
+})
+
+app.put('/api/ia/chave', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  const pedido = parsePedidoChave(await c.req.json().catch(() => null))
+  if (!pedido) return c.json({ erro: 'Provedor, modelo ou chave inválidos' }, 400, SEM_CACHE)
+
+  if (!c.env.AI_KEY_SECRET) {
+    console.error('[ia] AI_KEY_SECRET não configurado')
+    return c.json({ erro: 'Recurso de IA indisponível no momento' }, 503, SEM_CACHE)
+  }
+  const resultado = await validarChave(pedido.provedor, pedido.chave, pedido.contaId)
+  if (resultado === 'invalida') {
+    return c.json({ erro: `O ${PROVEDORES[pedido.provedor].nome} recusou esta chave` }, 422, SEM_CACHE)
+  }
+  if (resultado === 'indisponivel') {
+    return c.json({ erro: 'Não foi possível validar agora. Tente de novo em instantes.' }, 502, SEM_CACHE)
+  }
+  // 'sem_credito' ainda grava: a chave existe e é válida, só está sem saldo.
+  const status = resultado === 'ok' ? 'ativa' : 'sem_credito'
+
+  const { cifrada, iv } = await cifrarChave(c.env.AI_KEY_SECRET, userId, pedido.chave)
+  const agora = new Date().toISOString()
+  await c.env.DB.prepare(
+    `INSERT INTO ia_chave (user_id, provedor, modelo, conta_id, chave_cifrada, iv, versao_segredo,
+                           ultimos4, status, validada_em, criado_em, atualizado_em)
+     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?10, ?10)
+     ON CONFLICT(user_id) DO UPDATE SET
+       provedor = excluded.provedor, modelo = excluded.modelo, conta_id = excluded.conta_id,
+       chave_cifrada = excluded.chave_cifrada, iv = excluded.iv,
+       versao_segredo = excluded.versao_segredo, ultimos4 = excluded.ultimos4,
+       status = excluded.status, validada_em = excluded.validada_em,
+       atualizado_em = excluded.atualizado_em`,
+  )
+    .bind(
+      userId,
+      pedido.provedor,
+      pedido.modelo,
+      pedido.contaId,
+      cifrada,
+      iv,
+      VERSAO_SEGREDO,
+      pedido.chave.slice(-4),
+      status,
+      agora,
+    )
+    .run()
+  return c.json(
+    {
+      chave: {
+        provedor: pedido.provedor,
+        modelo: pedido.modelo,
+        contaId: pedido.contaId,
+        ultimos4: pedido.chave.slice(-4),
+        status,
+        validadaEm: agora,
+      },
+    },
+    200,
+    SEM_CACHE,
+  )
+})
+
+// Remover a chave NÃO apaga o histórico (explicações e conversas): são
+// decisões separadas do usuário.
+app.delete('/api/ia/chave', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  await c.env.DB.prepare(`DELETE FROM ia_chave WHERE user_id = ?1`).bind(userId).run()
+  return c.json({ ok: true }, 200, SEM_CACHE)
+})
+
+// --- Explicações de IA ------------------------------------------------------
+app.post('/api/ia/explicar', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleExplicar(c, userId)
+})
+
+app.get('/api/ia/explicacoes', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleListarExplicacoes(c, userId)
+})
+
+app.get('/api/ia/explicacoes/:id', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleObterExplicacao(c, userId, c.req.param('id'))
+})
+
+app.delete('/api/ia/explicacoes/:id', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleApagarExplicacao(c, userId, c.req.param('id'))
+})
+
+// --- Conversas de IA (Chat) -------------------------------------------------
+app.post('/api/ia/conversas', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleCriarConversa(c, userId)
+})
+
+app.get('/api/ia/conversas', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleListarConversas(c, userId)
+})
+
+app.get('/api/ia/conversas/:id', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleObterConversa(c, userId, c.req.param('id'))
+})
+
+app.delete('/api/ia/conversas/:id', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleApagarConversa(c, userId, c.req.param('id'))
+})
+
+app.post('/api/ia/conversas/:id/mensagens', async (c) => {
+  const userId = await requireUserId(c)
+  if (!userId) return c.json({ error: 'não autenticado' }, 401)
+  return handleEnviarMensagemConversa(c, userId, c.req.param('id'))
 })
 
 app.notFound((c) => c.json({ error: 'não encontrado' }, 404))

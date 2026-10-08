@@ -10,6 +10,10 @@ import Ajustes from './pages/Ajustes'
 import Sobre from './pages/Sobre'
 import Perfil from './pages/Perfil'
 import Tema from './pages/Tema'
+import IaChave from './pages/IaChave'
+import IaExplicacoes from './pages/IaExplicacoes'
+import IaConversas from './pages/IaConversas'
+import IaChat from './pages/IaChat'
 import { applyReadingPrefs, getReadingPrefs } from './lib/reading-prefs'
 import { getStoredTheme, resolveTheme } from './lib/theme'
 import { initSyncTriggers } from './lib/sync'
@@ -79,6 +83,10 @@ function Shell() {
           <Route path="/tema" element={<Tema />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/ia" element={<IaChave />} />
+          <Route path="/perfil/explicacoes" element={<IaExplicacoes />} />
+          <Route path="/perfil/conversas" element={<IaConversas />} />
+          <Route path="/ia/conversa/:id" element={<IaChat />} />
         </Routes>
       </main>
     </div>

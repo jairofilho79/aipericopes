@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react'
 import type { DestaqueCor } from '../lib/types'
 import {
   IconeAnotar,
+  IconeChat,
   IconeCompartilhar,
   IconeCopiar,
+  IconeFaisca,
   IconeFechar,
   IconeLixeira,
 } from './icones'
@@ -21,11 +23,16 @@ type Props = {
   // seleção mistura cores — nenhum swatch aparece pressionado nesse caso.
   corAtual: DestaqueCor | null
   aviso: string
+  temChaveIa?: boolean
+  logado?: boolean
   onCopiar: () => void
   onCompartilhar: () => void
   onDestacar: (cor: DestaqueCor) => void
   onRemoverDestaque: () => void
   onAnotar: () => void
+  onExplicarIa?: () => void
+  onPerguntarIa?: () => void
+  onAtivarIa?: () => void
   onFechar: () => void
 }
 
@@ -34,11 +41,16 @@ export default function VerseActions({
   temDestaque,
   corAtual,
   aviso,
+  temChaveIa = false,
+  logado = false,
   onCopiar,
   onCompartilhar,
   onDestacar,
   onRemoverDestaque,
   onAnotar,
+  onExplicarIa,
+  onPerguntarIa,
+  onAtivarIa,
   onFechar,
 }: Props) {
   const caixaRef = useRef<HTMLDivElement>(null)
@@ -100,7 +112,34 @@ export default function VerseActions({
           <IconeAnotar size={17} />
           Anotar
         </button>
+        {(!logado || !temChaveIa) && onAtivarIa && (
+          <button
+            type="button"
+            className="ghost btn-ia-chip"
+            onClick={onAtivarIa}
+            title="Estudar com inteligência artificial"
+          >
+            <IconeFaisca size={16} />
+            IA
+          </button>
+        )}
       </div>
+      {logado && temChaveIa && (
+        <div className="verse-actions-row verse-actions-ia">
+          {onExplicarIa && (
+            <button type="button" className="ghost btn-ia-acao" onClick={onExplicarIa}>
+              <IconeFaisca size={16} />
+              Explicação rápida
+            </button>
+          )}
+          {onPerguntarIa && (
+            <button type="button" className="ghost btn-ia-acao" onClick={onPerguntarIa}>
+              <IconeChat size={16} />
+              Fazer pergunta
+            </button>
+          )}
+        </div>
+      )}
       <div className="verse-actions-row" role="group" aria-label="Destacar">
         {CORES.map((c) => (
           <button

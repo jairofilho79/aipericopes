@@ -356,3 +356,66 @@ export function IconeEmail({ size = 18, className }: IconeProps) {
     </svg>
   )
 }
+
+export function IconeFaisca({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+    </svg>
+  )
+}
+
+export function IconeChat({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  )
+}
+
+export function IconeChave({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="m21 2-2 2m-1.5 1.5L14 9l-2-2-7 7a3.5 3.5 0 1 0 5 5l7-7 2 2 3.5-3.5-2-2Z" />
+      <circle cx="7.5" cy="16.5" r=".5" fill="currentColor" />
+    </svg>
+  )
+}
+
+export function IconeCadeado({ size = 15, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  )
+}
+
+export function IconeEnviar({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <line x1="22" y1="2" x2="11" y2="13" />
+      <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" fillOpacity="0.15" />
+    </svg>
+  )
+}
+
+export function IconeParar({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor" fillOpacity="0.2" />
+    </svg>
+  )
+}
+
+export function IconeRecarregar({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+      <path d="M3 21v-5h5" />
+    </svg>
+  )
+}
+

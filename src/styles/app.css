@@ -4661,4 +4661,680 @@ fieldset.jornada-campo {
   user-select: none;
 }
 
+/* ── Estilos de IA (BYOK) ──────────────────────────────────────────────── */
+
+.verse-actions-ia {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.btn-ia-chip {
+  color: var(--accent);
+  border-color: var(--accent-line, var(--line));
+  font-weight: 600;
+}
+
+.btn-ia-acao {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line, var(--line));
+  min-height: 2.75rem;
+}
+
+/* Modais / Sheets de IA */
+.ia-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ia-modal-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  max-height: 85dvh;
+  background: var(--paper);
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.22s ease-out;
+}
+
+.ia-modal-pequeno {
+  max-width: 32rem;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 640px) {
+  .ia-modal-overlay {
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .ia-modal-sheet {
+    border-radius: 1.25rem;
+    border: 1px solid var(--line);
+    max-height: 80vh;
+  }
+}
+
+.ia-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.1rem 1.25rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ia-modal-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ia-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.ia-modal-titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: var(--font-ui);
+  color: var(--ink);
+}
+
+.btn-fechar-modal {
+  padding: 0.35rem;
+  border-radius: 9999px;
+}
+
+.ia-modal-corpo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  font-family: var(--read-font);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  -webkit-overflow-scrolling: touch;
+}
+
+.ia-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  gap: 1rem;
+}
+
+.ia-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ia-aviso-salva {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  border-radius: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.btn-gerar-nova {
+  color: var(--accent);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ia-erro-box {
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 0.5rem;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.ia-sucesso-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 0.5rem;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.ia-markdown-corpo h3.ia-secao-titulo {
+  margin: 1.25rem 0 0.4rem;
+  font-size: 1.15rem;
+  color: var(--accent);
+  font-family: var(--font-ui);
+  letter-spacing: -0.01em;
+}
+
+.ia-markdown-corpo h3.ia-secao-titulo:first-child {
+  margin-top: 0;
+}
+
+.ia-secao-texto p {
+  margin: 0 0 0.85rem;
+}
+
+.ia-modal-footer {
+  padding: 0.85rem 1.25rem;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.ia-modal-footer-acoes {
+  display: flex;
+  gap: 0.65rem;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-continuar-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-parar {
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* Modal Ativar */
+.ia-ativar-info p {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ia-ativar-botoes {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Tela de Chave */
+.ia-chave-status-box {
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  margin-bottom: 1.5rem;
+}
+
+.ia-chave-status-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ia-chave-detalhes p {
+  margin: 0.25rem 0;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.ia-chave-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.campo-senha-linha {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.campo-senha-linha input {
+  flex: 1;
+}
+
+.btn-olho {
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+}
+
+.ia-chave-submit-linha {
+  margin-top: 0.5rem;
+}
+
+.ia-privacidade-nota {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin-top: 1rem;
+}
+
+/* Listagem de Explicações e Conversas */
+.ia-conversas-topo-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-nova-conversa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.85rem;
+}
+
+.ia-vazio-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3.5rem 1rem;
+  gap: 0.65rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+}
+
+.ia-lista-cartoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.ia-cartao-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--paper);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  font-family: var(--font-ui);
+}
+
+.ia-cartao-item:hover {
+  border-color: var(--accent);
+}
+
+.ia-cartao-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ia-cartao-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ia-cartao-ref {
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.ia-cartao-data {
+  font-size: 0.78rem;
+}
+
+.ia-cartao-subref {
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+.ia-cartao-trecho-preview {
+  margin: 0.65rem 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.ia-cartao-detalhe {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line);
+  font-family: var(--read-font);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ia-cartao-rodape-acoes {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.btn-ir-leitura {
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+/* Chat Tela Completa */
+.ia-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 3.5rem);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.ia-chat-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.btn-voltar-chat {
+  padding: 0.35rem;
+}
+
+.ia-chat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ia-chat-titulo {
+  margin: 0;
+  font-size: 1.1rem;
+  font-family: var(--font-ui);
+}
+
+.ia-chat-link-leitura {
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.ia-chat-mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ia-chat-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  padding: 2rem 1rem;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+}
+
+.ia-chat-bolha {
+  display: flex;
+  gap: 0.65rem;
+  max-width: 85%;
+  font-family: var(--read-font);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.ia-chat-bolha.usuario {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.65rem 1rem;
+  border-radius: 1.15rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.ia-chat-bolha.assistente {
+  align-self: flex-start;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.75rem 1.1rem;
+  border-radius: 1.15rem;
+  border-bottom-left-radius: 0.25rem;
+  border: 1px solid var(--line);
+}
+
+.ia-chat-bolha-avatar {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--accent);
+}
+
+.ia-chat-bolha-corpo p {
+  margin: 0 0 0.5rem;
+}
+
+.ia-chat-bolha-corpo p:last-child {
+  margin-bottom: 0;
+}
+
+.ia-cursor-pulsante {
+  display: inline-block;
+  width: 0.45rem;
+  height: 1rem;
+  background: var(--accent);
+  margin-left: 0.2rem;
+  vertical-align: middle;
+  animation: pulse 0.75s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.ia-chat-composer {
+  padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.ia-chat-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.ia-chat-textarea {
+  flex: 1;
+  resize: none;
+  min-height: 2.75rem;
+  max-height: 8rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 1.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+}
+
+.btn-enviar-chat, .btn-parar-chat {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-height: 2.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Aba Conversar com IA */
+.conversar-com-ia {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.ia-compositor-cabecalho strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+}
+
+.ia-chips-seletor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ia-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  min-height: 2.1rem;
+}
+
+.ia-chip-btn.ativo {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent-line, var(--line));
+  font-weight: 600;
+}
+
+.ia-chip-btn.bloqueado {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.ia-compositor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ia-compositor-textarea {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.ia-compositor-rodape {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-iniciar-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ia-banner-convite {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ia-banner-info strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+}
+
+.btn-configurar-chave-banner, .btn-entrar-aba {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.conversar-acoes-linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+
 

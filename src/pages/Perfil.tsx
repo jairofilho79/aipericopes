@@ -2,7 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { authClient } from '../lib/auth-client'
 import { signOutLocal } from '../lib/sync'
-import { IconeEngrenagem, IconeEntrar, IconeInfo, IconeSair, IconeTema } from '../components/icones'
+import {
+  IconeChat,
+  IconeChave,
+  IconeEngrenagem,
+  IconeEntrar,
+  IconeFaisca,
+  IconeInfo,
+  IconeSair,
+  IconeTema,
+} from '../components/icones'
 
 /**
  * Lista de destinos da área pessoal: Tema, Ajustes, Sobre e conta (Entrar/Sair).
@@ -53,6 +62,25 @@ export default function Perfil() {
         <IconeEngrenagem size={18} />
         Ajustes
       </Link>
+
+      {session && (
+        <>
+          <Link className="perfil-item" to="/perfil/ia">
+            <IconeChave size={18} />
+            Chave de IA (BYOK)
+          </Link>
+
+          <Link className="perfil-item" to="/perfil/explicacoes">
+            <IconeFaisca size={18} />
+            Minhas explicações
+          </Link>
+
+          <Link className="perfil-item" to="/perfil/conversas">
+            <IconeChat size={18} />
+            Conversas com IA
+          </Link>
+        </>
+      )}
 
       {/* A página Sobre guarda a atribuição da Bíblia Livre e a divulgação
           de que a narração é voz de IA. Como nada disso aparece na tela de

@@ -9,12 +9,16 @@ import { SkeletonLeitura } from '../components/Skeleton'
 import VerseActions from '../components/VerseActions'
 import DitarBotao from '../components/DitarBotao'
 import { TempoEstimado } from '../components/TempoEstimado'
+import ExplicacaoIaModal from '../components/ExplicacaoIaModal'
+import AtivarIaModal from '../components/AtivarIaModal'
+import AbaConversarIa from '../components/AbaConversarIa'
+import { authClient } from '../lib/auth-client'
+import { criarConversa, obterChaveIa } from '../lib/ia-client'
 import {
   IconeAnotar,
   IconeCheck,
   IconeCompartilhar,
   IconeConversar,
-  IconeCopiar,
   IconeDesvincular,
   IconeEstrela,
   IconeFones,
@@ -68,7 +72,6 @@ import {
 import { rotaDaJornada } from '../lib/jornadas'
 import { getVerseFocus, setVerseFocus } from '../lib/verse-highlight'
 import { nextSelection, parseVerseRef, rangeLabel, rangeRef, verseRefLabel, versesInRange, type VerseSelection } from '../lib/verse-range'
-import { promptConversa } from '../lib/contexto-ia'
 import { getContextoAberto, setContextoAberto } from '../lib/contexto-collapse'
 import { inserirNoCursor, substituirTrecho } from '../lib/ditado'
 import type { Anotacao, DestaqueCor, Jornada, Pericope, Progresso, ProgressoStatus } from '../lib/types'
@@ -308,7 +311,18 @@ export default function Leitura() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [confirmarId, setConfirmarId] = useState<string | null>(null)
   const [tab, setTab] = useState<NotesTab>('anotacoes')
-  const [copied, setCopied] = useState(false)
+  const { data: session } = authClient.useSession()
+  const [temChaveIa, setTemChaveIa] = useState(false)
+  const [modalExplicacaoIaAberto, setModalExplicacaoIaAberto] = useState(false)
+  const [modalAtivarIaAberto, setModalAtivarIaAberto] = useState(false)
+
+  useEffect(() => {
+    if (session) {
+      void obterChaveIa().then((c) => setTemChaveIa(!!c && c.status !== 'invalida'))
+    } else {
+      setTemChaveIa(false)
+    }
+  }, [session])
   const doneRef = useRef(false)
   // Espelha `p` para o listener de rolagem: evita reinscrever o `scroll` a
   // cada troca de skeleton → conteúdo (ver efeito de salvar posição abaixo).
@@ -504,7 +518,6 @@ export default function Leitura() {
           setNext(vizinha(proximaNoTestamento(all, ordem)))
         }
 
-        setCopied(false)
         // Rascunho, edição e confirmação zeram por TROCA DE PERÍCOPE, não por
         // mudança de `?v=`: navegar pelo chip de vínculo de uma anotação é
         // movimento dentro da mesma perícope e não pode apagar o que a pessoa
@@ -1054,6 +1067,43 @@ export default function Leitura() {
     setBarOpen(false)
   }
 
+  function abrirExplicacaoIa() {
+    setModalExplicacaoIaAberto(true)
+    setBarOpen(false)
+  }
+
+  async function iniciarPerguntaIa() {
+    if (!p || selecionados.length === 0) return
+    const primeiro = selecionados[0]
+    const ultimo = selecionados[selecionados.length - 1]
+    const [capIni, verIni] = primeiro.id.split(':').map(Number)
+    const [capFim, verFim] = ultimo.id.split(':').map(Number)
+
+    try {
+      const conv = await criarConversa({
+        escopo: 'selecao',
+        pericopeOrdem: ordem,
+        livro: p.livro,
+        capituloInicio: capIni,
+        versiculoInicio: verIni,
+        capituloFim: capFim,
+        versiculoFim: verFim,
+        titulo: `Pergunta sobre ${p.livro} ${rangeLabel(p, selecionados)}`,
+      })
+      if (conv) {
+        setBarOpen(false)
+        navigate(`/ia/conversa/${conv.id}`)
+      }
+    } catch {
+      flashAviso('Não foi possível iniciar a conversa')
+    }
+  }
+
+  function abrirAtivarIa() {
+    setModalAtivarIaAberto(true)
+    setBarOpen(false)
+  }
+
   function alternarContexto() {
     const proximo = !contextoAberto
     setContextoAbertoState(proximo)
@@ -1064,13 +1114,6 @@ export default function Leitura() {
     if (contextoAberto) return
     setContextoAbertoState(true)
     setContextoAberto(true)
-  }
-
-  async function copyContexto() {
-    if (!p) return
-    await navigator.clipboard.writeText(promptConversa(p))
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1600)
   }
 
   // As duas saídas antecipadas montam o topo também. O header do App não
@@ -1518,17 +1561,7 @@ export default function Leitura() {
               existe. Continua sendo a última das três porque conversar é o que
               se faz depois de ler. */}
           {tab === 'conversar' && (
-            <div className="conversar-bloco">
-              <p className="muted">
-                Leve este trecho para uma conversa com IA: o texto abaixo já vem pronto para
-                colar.
-              </p>
-              <pre className="contexto-ia-text">{promptConversa(p)}</pre>
-              <button type="button" className="ghost copy-btn" onClick={copyContexto}>
-                {copied ? <IconeCheck size={16} /> : <IconeCopiar size={16} />}
-                {copied ? 'Copiado' : 'Copiar'}
-              </button>
-            </div>
+            <AbaConversarIa pericope={p} logado={!!session} temChaveIa={temChaveIa} />
           )}
 
           <div className="actions">
@@ -1608,14 +1641,41 @@ export default function Leitura() {
             temDestaque={selecionados.some((v) => destaques.has(v.id))}
             corAtual={corAtual}
             aviso={aviso}
+            temChaveIa={temChaveIa}
+            logado={!!session}
             onCopiar={() => void copiarSelecao()}
             onCompartilhar={() => void compartilharSelecao()}
             onDestacar={(cor) => void destacarSelecao(cor)}
             onRemoverDestaque={() => void removerDestaqueSelecao()}
             onAnotar={anotarSelecao}
+            onExplicarIa={abrirExplicacaoIa}
+            onPerguntarIa={() => void iniciarPerguntaIa()}
+            onAtivarIa={abrirAtivarIa}
             onFechar={fecharBarra}
           />
         )}
+
+        {selecionados.length > 0 && (
+          <ExplicacaoIaModal
+            aberto={modalExplicacaoIaAberto}
+            onFechar={() => setModalExplicacaoIaAberto(false)}
+            livro={p.livro}
+            refLabel={rangeLabel(p, selecionados)}
+            pericopeOrdem={ordem}
+            capituloInicio={Number(selecionados[0].id.split(':')[0])}
+            versiculoInicio={Number(selecionados[0].id.split(':')[1])}
+            capituloFim={Number(selecionados[selecionados.length - 1].id.split(':')[0])}
+            versiculoFim={Number(selecionados[selecionados.length - 1].id.split(':')[1])}
+            versiculos={selecionados.map((v) => v.id)}
+            trechoTexto={selecionados.map((v) => v.text).join('\n')}
+          />
+        )}
+
+        <AtivarIaModal
+          aberto={modalAtivarIaAberto}
+          logado={!!session}
+          onFechar={() => setModalAtivarIaAberto(false)}
+        />
       </article>
     </>
   )

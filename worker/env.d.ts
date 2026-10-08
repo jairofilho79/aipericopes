@@ -8,4 +8,6 @@ export interface Env {
   EMAIL_FROM: string
   RESEND_API_KEY?: string
   ALLOWED_EMAILS?: string
+  /** Segredo mestre que cifra as chaves de IA dos usuários (BYOK). `wrangler secret put AI_KEY_SECRET`. */
+  AI_KEY_SECRET?: string
 }
