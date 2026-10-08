@@ -66,6 +66,25 @@ export const SOLTURA_S = 0.4
  */
 export const PAUSA_MINIMA_S = 0.6
 
+/**
+ * Com a trilha ligada, a música entra sozinha e a narração só começa depois
+ * disto — só quando a narração parte do início.
+ */
+export const ATRASO_NARRACAO_S = 3
+
+/** Teto do fadeout de despedida da música depois que a narração acaba. */
+export const FADE_FIM_MAX_S = 30
+
+/**
+ * Duração do fadeout quando a narração acaba: a música vai até o fim da volta
+ * da cama em curso (`restante`), então o fadeout ocupa esse tempo todo — mas
+ * nunca mais que `FADE_FIM_MAX_S`, e nunca menos que `minimo` (um corte seco
+ * é o que isto existe para evitar).
+ */
+export function duracaoFadeFinal(restante: number, minimo: number, maximo = FADE_FIM_MAX_S): number {
+  return Math.min(Math.max(restante, minimo), maximo)
+}
+
 export type Intervalo = { inicio: number; fim: number }
 
 /**

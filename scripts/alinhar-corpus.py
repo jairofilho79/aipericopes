@@ -195,6 +195,8 @@ def processar_pericope(pericope_dir: Path, force: bool = False) -> bool:
     total_palavras = 0
     for u in unidades:
         raw_file = pericope_dir / "unidades" / f"u{u['i']:02d}.raw"
+        if not raw_file.exists():
+            raw_file = pericope_dir / "unidades_38" / f"u{u['i']:02d}.raw"
         palavras = alinha_unidade(raw_file, u["texto"], u["inicio"])
         u["palavras"] = palavras
         total_palavras += len(palavras)

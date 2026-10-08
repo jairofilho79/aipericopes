@@ -78,7 +78,7 @@ class ContextoFalso {
   }
   async decodeAudioData() {
     this.decodificados++
-    return { duracao: 120 }
+    return { duracao: 120, duration: 120 }
   }
 }
 
@@ -192,5 +192,46 @@ describe('silenciar e parar', () => {
     await pista.tocar('trilha-v1', 'louvor', PONTOS, 0)
     expect(ctx.fontes).toHaveLength(2)
     expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('encerrar', () => {
+  it('tocar diz se a música soou', async () => {
+    expect(await pista.tocar('trilha-v1', 'louvor', PONTOS, 0)).toBe(true)
+    fetchMock.mockResolvedValue({ ok: false })
+    expect(await pista.tocar('trilha-v1', 'inexistente', PONTOS, 0)).toBe(false)
+  })
+
+  it('faltando 5 s para o fim da volta, o fadeout dura 5 s', async () => {
+    await pista.tocar('trilha-v1', 'louvor', PONTOS, 0) // começa em t=100, volta de 120 s
+    ctx.currentTime = 100 + 115
+    pista.encerrar()
+    expect(ctx.ganhos[0]!.gain.eventos.at(-1)).toBe(`ramp 0@${100 + 115 + 5}`)
+  })
+
+  it('o fadeout nunca passa de 30 s, mesmo faltando mais', async () => {
+    await pista.tocar('trilha-v1', 'louvor', PONTOS, 0)
+    ctx.currentTime = 100 + 10 // faltam 110 s
+    pista.encerrar()
+    expect(ctx.ganhos[0]!.gain.eventos.at(-1)).toBe(`ramp 0@${110 + 30}`)
+  })
+
+  it('conta a posição pela volta em curso, não pelo tempo total', async () => {
+    await pista.tocar('trilha-v1', 'louvor', PONTOS, 0)
+    ctx.currentTime = 100 + 120 * 3 + 104 // 3 voltas e 104 s: faltam 16 s
+    pista.encerrar()
+    expect(ctx.ganhos[0]!.gain.eventos.at(-1)).toBe(`ramp 0@${100 + 360 + 104 + 16}`)
+  })
+
+  it('terminando junto com a volta, cai no fade curto de sempre', async () => {
+    await pista.tocar('trilha-v1', 'louvor', PONTOS, 0)
+    ctx.currentTime = 100 + 119.99
+    pista.encerrar()
+    const [, quando] = ctx.ganhos[0]!.gain.eventos.at(-1)!.split('@')
+    expect(Number(quando) - ctx.currentTime).toBeCloseTo(0.35, 6)
+  })
+
+  it('sem música tocando, não faz nada além de não quebrar', () => {
+    expect(() => pista.encerrar()).not.toThrow()
   })
 })

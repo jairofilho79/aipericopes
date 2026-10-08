@@ -14,6 +14,7 @@ import { carregarManifesto, vozDaPericope, VOZ_V3, VOZ_V5, type Manifesto } from
 import { type SecaoNarrada, formatarTempo, inicioDaSecao } from '../lib/narracao-controles'
 import { indiceDaPalavra, indiceEm } from '../lib/narracao-timeline'
 import {
+  ATRASO_NARRACAO_S,
   carregarMapaTrilha,
   envoltoria,
   getTrilhaLigada,
@@ -22,7 +23,7 @@ import {
   setTrilhaLigada,
   type Ponto,
 } from '../lib/trilha'
-import { deriva, parar, reagendar, silenciar, tocar } from '../lib/trilha-pista'
+import { deriva, encerrar, parar, reagendar, silenciar, tocar } from '../lib/trilha-pista'
 import { IconeFones } from './icones'
 
 export type NarracaoPlayerHandle = {
@@ -150,6 +151,19 @@ export default function NarracaoPlayer({
   const [cama, setCama] = useState<{ prefixo: string; nome: string } | null>(null)
   const [trilha, setTrilha] = useState(getTrilhaLigada)
 
+  // O atraso entre a música e a voz (ver `iniciar`). `esperaAtiva` é o espelho
+  // síncrono de `esperando`: os eventos do `<audio>` e o handle imperativo
+  // precisam lê-lo sem esperar o render.
+  const [esperando, setEsperando] = useState(false)
+  const esperaAtiva = useRef(false)
+  const esperaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // O handle imperativo (header compacto) só renova a cada manifesto: lê daqui
+  // para não decidir o atraso com a trilha/cama de uma renderização antiga.
+  const trilhaRef = useRef(trilha)
+  const camaRef = useRef(cama)
+  trilhaRef.current = trilha
+  camaRef.current = cama
+
   // Índices da última busca: o relógio anda para frente quase sempre.
   const iAlvo = useRef(0)
   const iPalavra = useRef(0)
@@ -172,6 +186,8 @@ export default function NarracaoPlayer({
     setSrc(null)
     setManifesto(null)
     setTocando(false)
+    limparEspera()
+    setEsperando(false)
     setTempo(0)
     setDuracao(Number.NaN)
     setDisponibilidade('verificando')
@@ -262,31 +278,53 @@ export default function NarracaoPlayer({
   )
 
   // A pista é um singleton fora do React (ver trilha-pista.ts): este efeito é
-  // só quem manda nela. Toca quando a narração toca, silencia quando pausa, e
-  // reagenda sozinho quando o manifesto chega no meio da reprodução.
+  // só quem manda nela. Toca quando a narração toca (ou espera os 3 s de
+  // entrada), silencia quando pausa, e reagenda sozinho quando o manifesto
+  // chega no meio da reprodução. Quando a narração ACABA, em vez de silenciar
+  // despede-se com um fadeout até o fim da volta da cama (ver `encerrar`).
   useEffect(() => {
-    if (!trilha || !cama) return
-    if (!tocando) {
-      silenciar()
+    if (!trilha || !cama) {
+      // Música desligada no meio da espera: ninguém mais vai disparar a voz.
+      if (esperaAtiva.current) comecarNarracao()
+      return
+    }
+    if (!tocando && !esperando) {
+      if (audioRef.current?.ended) encerrar()
+      else silenciar()
       return
     }
     let vivo = true
-    void tocar(cama.prefixo, cama.nome, pontos, audioRef.current?.currentTime ?? 0).then(() => {
+    // Na espera a voz está parada em 0 mas só entra daqui a ATRASO_NARRACAO_S:
+    // o ducking, que anda no eixo da narração, começa deslocado por isso.
+    const tAudio = esperando ? -ATRASO_NARRACAO_S : (audioRef.current?.currentTime ?? 0)
+    void tocar(cama.prefixo, cama.nome, pontos, tAudio).then((soou) => {
       // Baixar e decodificar a cama leva tempo; nesse meio o usuário pode ter
       // pausado, e a música não pode subir depois disso.
-      if (!vivo) silenciar()
+      if (!vivo) {
+        silenciar()
+        return
+      }
+      // Os 3 s contam do instante em que a música soa. Sem música (falhou),
+      // a voz não espera por nada.
+      agendarNarracao(soou ? ATRASO_NARRACAO_S : 0)
     })
     return () => {
       vivo = false
     }
-  }, [trilha, cama, tocando, pontos])
+  }, [trilha, cama, tocando, esperando, pontos])
 
   // Desligar a trilha, ou sair da perícope, encerra a pista de verdade — não
   // basta silenciar, senão a fonte segue girando para sempre.
   useEffect(() => {
     if (!trilha) parar()
   }, [trilha])
-  useEffect(() => () => parar(), [])
+  useEffect(
+    () => () => {
+      limparEspera()
+      parar()
+    },
+    [],
+  )
 
   // Efeito (e não onLoadedMetadata): o checkpoint chega do IndexedDB depois
   // que o player montou, então `tempoInicial` e a duração podem aparecer em
@@ -316,7 +354,9 @@ export default function NarracaoPlayer({
     const a = audioRef.current
     if (!a || !Number.isFinite(duracao) || duracao <= 0) return
     autoTentado.current = true
-    a.play().catch(() => {})
+    // O atraso da voz depende de o gesto do usuário ainda valer (ver `iniciar`):
+    // sem ele, toca direto como antes — ou é recusado, como antes.
+    iniciar(navigator.userActivation?.isActive === true)
     onTentouTocar?.()
   }, [tocarAoCarregar, duracao, onTentouTocar])
 
@@ -394,12 +434,95 @@ export default function NarracaoPlayer({
     return () => cancelAnimationFrame(quadro)
   }, [tocando, aoTempo])
 
+  /** Largou o relógio da espera sem mexer em estado — serve ao cancelamento e à desmontagem. */
+  function limparEspera() {
+    esperaAtiva.current = false
+    if (esperaTimer.current !== null) {
+      clearTimeout(esperaTimer.current)
+      esperaTimer.current = null
+    }
+  }
+
+  /** Desiste da espera (pausa ou seek durante os 3 s): a música cai pelo efeito da trilha. */
+  function cancelarEspera() {
+    if (!esperaAtiva.current) return
+    limparEspera()
+    const a = audioRef.current
+    if (a) {
+      a.muted = false
+      a.pause()
+    }
+    setEsperando(false)
+    onTocando?.(false)
+  }
+
+  /** Fim da espera: a música já corre há `ATRASO_NARRACAO_S`, a voz entra. */
+  function comecarNarracao() {
+    limparEspera()
+    const a = audioRef.current
+    if (!a) {
+      setEsperando(false)
+      onTocando?.(false)
+      return
+    }
+    a.muted = false
+    a.play()
+      .then(() => {
+        setTocando(!a.paused)
+        setEsperando(false)
+      })
+      .catch(() => {
+        setEsperando(false)
+        onTocando?.(false)
+      })
+  }
+
+  /** A música decide quando a espera conta: depois de ela de fato soar (ou de falhar). */
+  function agendarNarracao(atrasoS: number) {
+    if (!esperaAtiva.current || esperaTimer.current !== null) return
+    esperaTimer.current = setTimeout(comecarNarracao, atrasoS * 1000)
+  }
+
+  /**
+   * Play. Com a música ligada e a narração partindo do começo, a música entra
+   * primeiro e a voz só vem `ATRASO_NARRACAO_S` depois; em qualquer outro caso
+   * (música desligada, retomada de pausa, checkpoint) toca já, sem atraso.
+   *
+   * Dentro do gesto do usuário o `<audio>` faz um play MUDO e pausa em
+   * seguida: sem isso o iOS recusa o `play()` real, três segundos depois,
+   * quando o gesto já expirou. Mudo e pausado, o leitor não ouve nem vê nada
+   * (os eventos do `<audio>` são ignorados enquanto `esperaAtiva`).
+   */
+  function iniciar(comAtraso = true) {
+    const a = audioRef.current
+    if (!a) return
+    const noComeco = a.ended || a.currentTime < 0.5
+    if (!comAtraso || !trilhaRef.current || !camaRef.current || !noComeco) {
+      // `play()` rejeita quando o áudio não carregou; `onError` já mostra o
+      // aviso, então aqui basta não deixar a rejeição virar erro não tratado.
+      a.play().catch(() => {})
+      return
+    }
+    esperaAtiva.current = true
+    setEsperando(true)
+    onTocando?.(true)
+    a.muted = true
+    a.play()
+      .then(() => {
+        if (!esperaAtiva.current) return
+        a.pause()
+        a.currentTime = 0
+      })
+      .catch(() => {
+        if (esperaAtiva.current) cancelarEspera()
+      })
+  }
+
   function alternar() {
     const a = audioRef.current
     if (!a) return
-    // `play()` rejeita quando o áudio não carregou; `onError` já mostra o
-    // aviso, então aqui basta não deixar a rejeição virar erro não tratado.
-    if (a.paused) a.play().catch(() => {})
+    if (esperaAtiva.current) cancelarEspera()
+    else if (a.paused) iniciar()
     else a.pause()
   }
 
@@ -407,6 +530,7 @@ export default function NarracaoPlayer({
   function irPara(segundos: number) {
     const a = audioRef.current
     if (!a) return
+    cancelarEspera()
     const fim = Number.isFinite(a.duration) ? a.duration : Number.POSITIVE_INFINITY
     a.currentTime = Math.min(Math.max(0, segundos), fim)
     setTempo(a.currentTime)
@@ -488,9 +612,13 @@ export default function NarracaoPlayer({
             }
             // Os dois relógios correm separados; um terço de segundo já é
             // audível no ducking, e reancorar custa um agendamento.
-            if (Math.abs(deriva(a.currentTime)) > 0.3) reagendar(pontos, a.currentTime)
+            if (!esperaAtiva.current && Math.abs(deriva(a.currentTime)) > 0.3) {
+              reagendar(pontos, a.currentTime)
+            }
           }}
           onSeeked={() => {
+            // O reposicionamento do desbloqueio (ver `iniciar`) não é do usuário.
+            if (esperaAtiva.current) return
             // A tela precisa estar liberada antes de calcular o novo alvo,
             // senão o realce salta para o lugar certo mas fora da tela.
             onSeek?.()
@@ -505,10 +633,12 @@ export default function NarracaoPlayer({
             trocarAlvo(null)
           }}
           onPlay={() => {
+            if (esperaAtiva.current) return
             setTocando(true)
             onTocando?.(true)
           }}
           onPause={() => {
+            if (esperaAtiva.current) return
             setTocando(false)
             onTocando?.(false)
           }}
@@ -638,12 +768,12 @@ export default function NarracaoPlayer({
             <button
               type="button"
               className="narracao-doca-btn narracao-doca-play"
-              aria-label={tocando ? 'Pausar narração' : 'Tocar narração'}
-              title={tocando ? 'Pausar' : 'Tocar'}
+              aria-label={tocando || esperando ? 'Pausar narração' : 'Tocar narração'}
+              title={tocando || esperando ? 'Pausar' : 'Tocar'}
               disabled={erro}
               onClick={alternar}
             >
-              {tocando ? <IconePausa /> : <IconePlay />}
+              {tocando || esperando ? <IconePausa /> : <IconePlay />}
             </button>
             <button
               type="button"

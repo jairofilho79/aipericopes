@@ -18,7 +18,7 @@
  * mesmo `<audio>` de onde sai o realce palavra a palavra. A envoltória vem do
  * manifesto, que já sabe quando a voz fala (ver `trilha.ts`).
  */
-import { agendar, type Ponto } from './trilha'
+import { agendar, duracaoFadeFinal, type Ponto } from './trilha'
 
 /** Entrada e saída da pista inteira: nunca um corte seco. */
 const FADE_S = 0.35
@@ -32,6 +32,10 @@ let mestre: GainNode | null = null
 let ducking: GainNode | null = null
 let fonte: AudioBufferSourceNode | null = null
 let camaAtual: string | null = null
+/** `currentTime` do contexto quando a fonte atual começou, e a duração de uma
+ *  volta da cama: com os dois se sabe onde o laço está (ver `encerrar`). */
+let inicioFonte = 0
+let duracaoCama = 0
 /** O par de relógios do último agendamento, para medir a deriva entre eles. */
 let ancora: { contexto: number; audio: number } | null = null
 
@@ -91,27 +95,30 @@ export async function tocar(
   cama: string,
   pontos: Ponto[],
   tAudio: number,
-): Promise<void> {
+): Promise<boolean> {
   const c = contexto()
-  if (!c || !mestre || !ducking) return
+  if (!c || !mestre || !ducking) return false
   if (c.state === 'suspended') await c.resume().catch(() => {})
 
   if (cama !== camaAtual || !fonte) {
     const buf = await buffer(prefixo, cama)
     // Recheca tudo: o `await` pode ter sido ultrapassado por outra perícope,
     // ou a pista pode ter sido desligada no meio.
-    if (!buf || !ctx || !mestre || !ducking) return
+    if (!buf || !ctx || !mestre || !ducking) return false
     pararFonte()
     fonte = ctx.createBufferSource()
     fonte.buffer = buf
     fonte.loop = true
     fonte.connect(ducking)
     fonte.start()
+    inicioFonte = ctx.currentTime
+    duracaoCama = buf.duration
     camaAtual = cama
   }
 
   reagendar(pontos, tAudio)
   rampa(mestre.gain, 1)
+  return true
 }
 
 /** Reancora a envoltória: no seek, na troca de manifesto e contra a deriva. */
@@ -141,6 +148,22 @@ export function silenciar(): void {
   if (mestre) rampa(mestre.gain, 0)
 }
 
+/**
+ * A narração acabou: em vez de cortar a música, deixa-a correr até o fim da
+ * volta da cama em curso, descendo a zero durante todo esse tempo (no máximo
+ * `FADE_FIM_MAX_S`). Faltando 5 s para o fim da volta, o fadeout dura 5 s;
+ * terminando junto com ela, é só o fade curto de sempre.
+ */
+export function encerrar(): void {
+  if (!ctx || !mestre) return
+  if (!fonte || !(duracaoCama > 0)) {
+    silenciar()
+    return
+  }
+  const posicao = (ctx.currentTime - inicioFonte) % duracaoCama
+  rampa(mestre.gain, 0, duracaoFadeFinal(duracaoCama - posicao, FADE_S))
+}
+
 /** Encerra a pista: trilha desligada, perícope sem cama, tocador desmontado. */
 export function parar(): void {
   if (mestre) rampa(mestre.gain, 0)
@@ -158,12 +181,12 @@ export function parar(): void {
   }
 }
 
-function rampa(g: AudioParam, alvo: number) {
+function rampa(g: AudioParam, alvo: number, duracao = FADE_S) {
   if (!ctx) return
   const agora = ctx.currentTime
   g.cancelScheduledValues(agora)
   g.setValueAtTime(g.value, agora)
-  g.linearRampToValueAtTime(alvo, agora + FADE_S)
+  g.linearRampToValueAtTime(alvo, agora + duracao)
 }
 
 function pararFonte() {
