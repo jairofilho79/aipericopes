@@ -203,9 +203,12 @@ async function obterBlobModelo(): Promise<Blob> {
 let carregarWasmPromessa: Promise<unknown> | null = null
 
 async function garantirWasm(): Promise<void> {
-  if (carregarWasmPromessa) return carregarWasmPromessa
+  if (carregarWasmPromessa) {
+    await carregarWasmPromessa
+    return
+  }
   carregarWasmPromessa = loadLiteRtLm(WASM_CDN_DIR)
-  return carregarWasmPromessa
+  await carregarWasmPromessa
 }
 
 let inicializacaoPromessa: Promise<EmbeddingEngine> | null = null
