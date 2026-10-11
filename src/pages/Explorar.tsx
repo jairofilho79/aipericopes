@@ -23,7 +23,9 @@ import {
   embedQuery,
   inicializarEmbedder,
   modeloJaEmCache,
-  suportaWebGpu,
+  obterUltimoDiagnosticoEmbedder,
+  suportaHardware,
+  type DiagnosticoEmbedder,
   type EstadoEmbedder,
   type ProgressoDownload,
 } from '../lib/gemma-embedder'
@@ -435,8 +437,8 @@ export default function Explorar() {
     return () => window.clearInterval(id)
   }, [preparando])
 
-  // ---- Seção Semântica (Gemma 2 via LiteRT-LM WebGPU) ----
-  const [suportaGpu, setSuportaGpu] = useState<boolean | null>(null)
+  // ---- Seção Semântica (LiteRT-LM WebGPU com fallback automático para CPU) ----
+  const [suportaHardwareIa, setSuportaHardwareIa] = useState<boolean | null>(null)
   const [estadoIa, setEstadoIa] = useState<EstadoEmbedder>('descarregado')
   const [progressoIa, setProgressoIa] = useState<ProgressoDownload | undefined>(undefined)
   const [ativouIa, setAtivouIa] = useState(false)
@@ -444,9 +446,10 @@ export default function Explorar() {
   const [buscandoSemantico, setBuscandoSemantico] = useState(false)
   const [erroSemantico, setErroSemantico] = useState('')
   const [diagnostico, setDiagnostico] = useState<DiagnosticoSemantico | null>(null)
+  const [diagnosticoEmbedder, setDiagnosticoEmbedder] = useState<DiagnosticoEmbedder | null>(null)
 
   useEffect(() => {
-    void suportaWebGpu().then(setSuportaGpu)
+    void suportaHardware().then((h) => setSuportaHardwareIa(h.gpu || h.cpu))
     void modeloJaEmCache().then((cached) => {
       if (cached) setAtivouIa(true)
     })
@@ -457,10 +460,11 @@ export default function Explorar() {
   }, [])
 
   useEffect(() => {
-    if (!ativouIa || consulta.termo.length < MIN_CHARS || !suportaGpu) {
+    if (!ativouIa || consulta.termo.length < MIN_CHARS || suportaHardwareIa === false) {
       setHitsSemanticos([])
       setBuscandoSemantico(false)
       setDiagnostico(null)
+      setDiagnosticoEmbedder(null)
       return
     }
 
@@ -479,10 +483,13 @@ export default function Explorar() {
         .then((hits) => {
           if (!vivo) return
           const diag = obterUltimoDiagnostico()
+          const diagEmb = obterUltimoDiagnosticoEmbedder()
           setDiagnostico(diag)
+          setDiagnosticoEmbedder(diagEmb)
           console.log('[Explorar:Semântica] Hits retornados:', {
             totalHits: hits.length,
             diagnostico: diag,
+            diagnosticoEmbedder: diagEmb,
           })
 
           const mapa = new Map(todas.map((p) => [p.ordem, p]))
@@ -503,6 +510,7 @@ export default function Explorar() {
             const detalhe = err instanceof Error ? err.message : String(err)
             setErroSemantico(`Não foi possível gerar a busca inteligente no dispositivo: ${detalhe}`)
             setDiagnostico(obterUltimoDiagnostico())
+            setDiagnosticoEmbedder(obterUltimoDiagnosticoEmbedder())
             console.error('[Explorar:Semântica] Erro na busca:', err)
           }
         })
@@ -516,7 +524,7 @@ export default function Explorar() {
       vivo = false
       window.clearTimeout(timer)
     }
-  }, [ativouIa, consulta.termo, aceita, suportaGpu, todas])
+  }, [ativouIa, consulta.termo, aceita, suportaHardwareIa, todas])
 
   // ---- Livro aberto ----
   const [doLivro, setDoLivro] = useState<PericopeIndex[]>([])
@@ -852,14 +860,14 @@ export default function Explorar() {
                 )}
               </h2>
 
-              {suportaGpu === false && (
+              {suportaHardwareIa === false && (
                 <p className="muted">
-                  Este navegador ou dispositivo não possui suporte a WebGPU para busca inteligente
+                  Este navegador ou dispositivo não possui suporte a aceleração (WebGPU ou WebAssembly) para busca inteligente
                   offline.
                 </p>
               )}
 
-              {suportaGpu && !ativouIa && (
+              {suportaHardwareIa && !ativouIa && (
                 <div className="card-ativar-ia">
                   <p>
                     Descubra passagens bíblicas por contexto, sentimentos ou temas com busca
@@ -878,7 +886,7 @@ export default function Explorar() {
                 </div>
               )}
 
-              {suportaGpu && ativouIa && (
+              {suportaHardwareIa && ativouIa && (
                 <div aria-live="polite">
                   {estadoIa === 'baixando' && progressoIa && (
                     <div className="progresso-ia">
@@ -930,7 +938,8 @@ export default function Explorar() {
                             [diag: aval={diagnostico.totalAvaliadas}, max={diagnostico.maxScore},
                             corte={diagnostico.corte}, hits={diagnostico.hitsAcimaDeCorte}, bytes=
                             {diagnostico.bufferByteLength}, nan={String(diagnostico.temNaNNoVetor)},
-                            zero={String(diagnostico.vetorZerado)}]
+                            zero={String(diagnostico.vetorZerado)}, b={diagnosticoEmbedder?.backendUsado},
+                            len={diagnosticoEmbedder?.rawLength}, fb={String(diagnosticoEmbedder?.teveFallbackCpu)}]
                           </p>
                         )}
                       </div>

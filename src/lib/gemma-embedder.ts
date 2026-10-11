@@ -101,22 +101,52 @@ export async function limparCacheModelo(): Promise<void> {
   }
 }
 
+let ultimoBlob: Blob | null = null
+
+export type DiagnosticoEmbedder = {
+  rawLength: number
+  inputLength: number
+  allZero: boolean
+  hasNaN: boolean
+  backendUsado: 'gpu' | 'cpu'
+  teveFallbackCpu: boolean
+  tamanhoBlobMb: number
+}
+
+let ultimoDiagnosticoEmbedder: DiagnosticoEmbedder | null = null
+
+export function obterUltimoDiagnosticoEmbedder(): DiagnosticoEmbedder | null {
+  return ultimoDiagnosticoEmbedder
+}
+
+export async function suportaHardware(): Promise<{ gpu: boolean; cpu: boolean }> {
+  const gpu = await suportaWebGpu()
+  const cpu = typeof WebAssembly !== 'undefined'
+  return { gpu, cpu }
+}
+
 /**
  * Obtém o Blob do modelo, seja do Cache Storage ou baixando do Hugging Face com progresso.
  */
 async function obterBlobModelo(): Promise<Blob> {
+  if (ultimoBlob) return ultimoBlob
+
   if (!('caches' in window)) {
     // Fallback sem Cache Storage (baixa direto)
     const res = await fetch(MODEL_URL)
     if (!res.ok) throw new Error(`Falha ao baixar modelo do Hugging Face (${res.status})`)
-    return await res.blob()
+    const b = await res.blob()
+    ultimoBlob = b
+    return b
   }
 
   const cache = await window.caches.open(CACHE_NAME)
   const cached = await cache.match(MODEL_URL)
 
   if (cached) {
-    return await cached.blob()
+    const b = await cached.blob()
+    ultimoBlob = b
+    return b
   }
 
   // Baixa do Hugging Face com monitoramento de progresso
@@ -130,6 +160,7 @@ async function obterBlobModelo(): Promise<Blob> {
   if (!reader) {
     const blob = await res.blob()
     await cache.put(MODEL_URL, new Response(blob))
+    ultimoBlob = blob
     return blob
   }
 
@@ -165,15 +196,41 @@ async function obterBlobModelo(): Promise<Blob> {
     console.warn('[GemmaEmbedder] Aviso: não foi possível salvar no Cache Storage:', cacheErr)
   }
 
+  ultimoBlob = blobFinal
   return blobFinal
 }
 
 let inicializacaoPromessa: Promise<EmbeddingEngine> | null = null
+let backendAtivo: Backend = Backend.GPU
+
+async function criarEngine(backend: Backend): Promise<EmbeddingEngine> {
+  const blob = await obterBlobModelo()
+  await loadLiteRtLm(WASM_CDN_DIR)
+  if (backend === Backend.GPU) {
+    try {
+      await setupDefaultWebGpuDevice()
+    } catch (e) {
+      console.warn('[GemmaEmbedder] Falha ao configurar WebGPU, usando CPU:', e)
+      backend = Backend.CPU
+    }
+  }
+
+  console.log(
+    `[GemmaEmbedder] Criando EmbeddingEngine com Backend.${backend === Backend.GPU ? 'GPU' : 'CPU'}...`,
+  )
+  const engine = await EmbeddingEngine.create({
+    model: blob,
+    backend,
+    maxInputLength: 1024,
+  })
+  backendAtivo = backend
+  return engine
+}
 
 /**
- * Inicializa o motor de embedding LiteRT-LM WebGPU.
+ * Inicializa o motor de embedding LiteRT-LM (WebGPU com fallback automático para CPU).
  */
-export async function inicializarEmbedder(): Promise<EmbeddingEngine> {
+export async function inicializarEmbedder(forcarBackend?: Backend): Promise<EmbeddingEngine> {
   if (engineInstance) return engineInstance
   if (inicializacaoPromessa) return inicializacaoPromessa
 
@@ -183,34 +240,11 @@ export async function inicializarEmbedder(): Promise<EmbeddingEngine> {
       notificar('verificando_hardware')
       const temGpu = await suportaWebGpu()
       console.log('[GemmaEmbedder] Suporte a WebGPU:', temGpu)
-      if (!temGpu) {
-        notificar('sem_webgpu')
-        throw new Error('Navegador ou dispositivo não suporta WebGPU.')
-      }
 
-      // 1. Obtém o modelo (cache ou Hugging Face)
-      const blob = await obterBlobModelo()
-      console.log('[GemmaEmbedder] Blob do modelo obtido:', {
-        tamanhoBytes: blob.size,
-        tipo: blob.type,
-      })
+      const backendDesejado = forcarBackend ?? (temGpu ? Backend.GPU : Backend.CPU)
 
       notificar('inicializando_gpu')
-
-      // 2. Carrega o runtime LiteRT Wasm e configura o device WebGPU
-      console.log('[GemmaEmbedder] Carregando LiteRT Wasm de:', WASM_CDN_DIR)
-      await loadLiteRtLm(WASM_CDN_DIR)
-      console.log('[GemmaEmbedder] Configurando device WebGPU default...')
-      await setupDefaultWebGpuDevice()
-
-      // 3. Cria a instância do EmbeddingEngine
-      console.log('[GemmaEmbedder] Criando EmbeddingEngine com Backend.GPU...')
-      const engine = await EmbeddingEngine.create({
-        model: blob,
-        backend: Backend.GPU,
-        maxInputLength: 1024,
-      })
-
+      const engine = await criarEngine(backendDesejado)
       console.log('[GemmaEmbedder] EmbeddingEngine criado com sucesso!')
       engineInstance = engine
       notificar('pronto')
@@ -218,9 +252,7 @@ export async function inicializarEmbedder(): Promise<EmbeddingEngine> {
     } catch (err) {
       mensagemErro = err instanceof Error ? err.message : String(err)
       console.error('[GemmaEmbedder] Falha ao inicializar embedder:', err)
-      if (estadoAtual !== 'sem_webgpu') {
-        notificar('erro')
-      }
+      notificar('erro')
       inicializacaoPromessa = null
       throw err
     }
@@ -231,6 +263,8 @@ export async function inicializarEmbedder(): Promise<EmbeddingEngine> {
 
 /**
  * Gera o vetor de embedding da consulta, trunca para 256d e aplica Normalização L2 unitária.
+ * Se o backend GPU produzir tensores zerados (comum no WebKit/Metal do iOS),
+ * faz fallback automático para CPU (XNNPACK).
  */
 export async function embedQuery(texto: string): Promise<Float32Array> {
   const consulta = texto.trim()
@@ -239,15 +273,17 @@ export async function embedQuery(texto: string): Promise<Float32Array> {
   }
 
   console.log('[GemmaEmbedder] embedQuery chamada:', { consulta })
-  const engine = await inicializarEmbedder()
-  const response = await engine.computeEmbedding(consulta)
+  let engine = await inicializarEmbedder()
+  let teveFallback = false
 
-  const raw = response.embedding // array de números originais
-  const rawLength = raw?.length ?? 0
-  const hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
-  const allZero = raw?.every((x) => x === 0) ?? false
+  let response = await engine.computeEmbedding(consulta, { normalize: true })
+  let raw = response.embedding // array de números originais
+  let rawLength = raw?.length ?? 0
+  let hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
+  let allZero = raw?.every((x) => x === 0) ?? false
 
-  console.log('[GemmaEmbedder] computeEmbedding retorno:', {
+  console.log('[GemmaEmbedder] computeEmbedding retorno inicial:', {
+    backend: backendAtivo === Backend.GPU ? 'gpu' : 'cpu',
     inputLength: response.inputLength,
     numChunks: response.numChunks,
     rawLength,
@@ -255,6 +291,46 @@ export async function embedQuery(texto: string): Promise<Float32Array> {
     allZero,
     primeiros5: raw?.slice(0, 5),
   })
+
+  // Se o backend GPU retornou vetor vazio ou zerado (comum em Metal/WebGPU no WebKit iOS devido a shaders não vinculados):
+  if ((rawLength === 0 || allZero) && backendAtivo === Backend.GPU) {
+    console.warn(
+      '[GemmaEmbedder] Backend.GPU retornou vetor zerado/vazio. Alternando para Backend.CPU (XNNPACK)...',
+    )
+    teveFallback = true
+    try {
+      await engineInstance?.delete()
+    } catch {}
+    engineInstance = null
+    inicializacaoPromessa = null
+
+    engine = await criarEngine(Backend.CPU)
+    engineInstance = engine
+    response = await engine.computeEmbedding(consulta, { normalize: true })
+    raw = response.embedding
+    rawLength = raw?.length ?? 0
+    hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
+    allZero = raw?.every((x) => x === 0) ?? false
+
+    console.log('[GemmaEmbedder] computeEmbedding retorno após fallback CPU:', {
+      inputLength: response.inputLength,
+      numChunks: response.numChunks,
+      rawLength,
+      hasNaN,
+      allZero,
+      primeiros5: raw?.slice(0, 5),
+    })
+  }
+
+  ultimoDiagnosticoEmbedder = {
+    rawLength,
+    inputLength: response.inputLength,
+    allZero,
+    hasNaN,
+    backendUsado: backendAtivo === Backend.GPU ? 'gpu' : 'cpu',
+    teveFallbackCpu: teveFallback,
+    tamanhoBlobMb: Number(((ultimoBlob?.size ?? 0) / (1024 * 1024)).toFixed(1)),
+  }
 
   if (!raw || rawLength === 0) {
     console.error('[GemmaEmbedder] Retorno vazio de computeEmbedding!')
