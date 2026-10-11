@@ -12,8 +12,21 @@ import { IconeFechar } from '../components/icones'
 // componente: exportar função pura ao lado de um componente dispara
 // `react(only-export-components)` e quebra o fast refresh. Moram em
 // `src/lib/item-pericope.ts`, seguindo o que o repositório já faz com toda
-// lógica pura.
-import { itemDeHit, itemDeIndice, type ItemPericope } from '../lib/item-pericope'
+import { itemDeHit, itemDeIndice, itemDeSemantico, type ItemPericope } from '../lib/item-pericope'
+import {
+  obterUltimoDiagnostico,
+  searchSemantico,
+  type DiagnosticoSemantico,
+} from '../lib/semantic-search'
+import {
+  assinarEstadoEmbedder,
+  embedQuery,
+  inicializarEmbedder,
+  modeloJaEmCache,
+  suportaWebGpu,
+  type EstadoEmbedder,
+  type ProgressoDownload,
+} from '../lib/gemma-embedder'
 import { BIBLE_BOOKS, bookByName, type BibleBook } from '../lib/bible-books'
 import {
   contagemPorLivro,
@@ -422,6 +435,89 @@ export default function Explorar() {
     return () => window.clearInterval(id)
   }, [preparando])
 
+  // ---- Seção Semântica (Gemma 2 via LiteRT-LM WebGPU) ----
+  const [suportaGpu, setSuportaGpu] = useState<boolean | null>(null)
+  const [estadoIa, setEstadoIa] = useState<EstadoEmbedder>('descarregado')
+  const [progressoIa, setProgressoIa] = useState<ProgressoDownload | undefined>(undefined)
+  const [ativouIa, setAtivouIa] = useState(false)
+  const [hitsSemanticos, setHitsSemanticos] = useState<ItemPericope[]>([])
+  const [buscandoSemantico, setBuscandoSemantico] = useState(false)
+  const [erroSemantico, setErroSemantico] = useState('')
+  const [diagnostico, setDiagnostico] = useState<DiagnosticoSemantico | null>(null)
+
+  useEffect(() => {
+    void suportaWebGpu().then(setSuportaGpu)
+    void modeloJaEmCache().then((cached) => {
+      if (cached) setAtivouIa(true)
+    })
+    return assinarEstadoEmbedder((st, prog) => {
+      setEstadoIa(st)
+      if (prog) setProgressoIa(prog)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!ativouIa || consulta.termo.length < MIN_CHARS || !suportaGpu) {
+      setHitsSemanticos([])
+      setBuscandoSemantico(false)
+      setDiagnostico(null)
+      return
+    }
+
+    let vivo = true
+    setBuscandoSemantico(true)
+    setErroSemantico('')
+
+    console.log('[Explorar:Semântica] Agendando busca semântica para:', consulta.termo)
+
+    const timer = window.setTimeout(() => {
+      embedQuery(consulta.termo)
+        .then((vetor) => {
+          console.log('[Explorar:Semântica] Vetor recebido, iniciando searchSemantico...')
+          return searchSemantico(vetor, 20, 0.28, aceita)
+        })
+        .then((hits) => {
+          if (!vivo) return
+          const diag = obterUltimoDiagnostico()
+          setDiagnostico(diag)
+          console.log('[Explorar:Semântica] Hits retornados:', {
+            totalHits: hits.length,
+            diagnostico: diag,
+          })
+
+          const mapa = new Map(todas.map((p) => [p.ordem, p]))
+          const itens = hits.flatMap((h) => {
+            const p = mapa.get(h.ordem)
+            return p ? [itemDeSemantico(p, h.score, h.tipo)] : []
+          })
+          if (hits.length > 0 && itens.length === 0) {
+            console.warn('[Explorar:Semântica] Atenção: hits encontrados mas não mapeados!', {
+              hits: hits.length,
+              todasLength: todas.length,
+            })
+          }
+          setHitsSemanticos(itens)
+        })
+        .catch((err: unknown) => {
+          if (vivo) {
+            const detalhe = err instanceof Error ? err.message : String(err)
+            setErroSemantico(`Não foi possível gerar a busca inteligente no dispositivo: ${detalhe}`)
+            setDiagnostico(obterUltimoDiagnostico())
+            console.error('[Explorar:Semântica] Erro na busca:', err)
+          }
+        })
+        .finally(() => {
+          if (!vivo) return
+          setBuscandoSemantico(false)
+        })
+    }, 400)
+
+    return () => {
+      vivo = false
+      window.clearTimeout(timer)
+    }
+  }, [ativouIa, consulta.termo, aceita, suportaGpu, todas])
+
   // ---- Livro aberto ----
   const [doLivro, setDoLivro] = useState<PericopeIndex[]>([])
   useEffect(() => {
@@ -744,6 +840,103 @@ export default function Explorar() {
                 concluidas={concluidas}
                 jornadaId={jornadaAtiva?.id}
               />
+            </section>
+          )}
+
+          {consulta.buscarNoTexto && (
+            <section className="secao-resultado">
+              <h2 className="secao-h">
+                Por significado{' '}
+                {hitsSemanticos.length > 0 && (
+                  <span className="secao-n">{hitsSemanticos.length}</span>
+                )}
+              </h2>
+
+              {suportaGpu === false && (
+                <p className="muted">
+                  Este navegador ou dispositivo não possui suporte a WebGPU para busca inteligente
+                  offline.
+                </p>
+              )}
+
+              {suportaGpu && !ativouIa && (
+                <div className="card-ativar-ia">
+                  <p>
+                    Descubra passagens bíblicas por contexto, sentimentos ou temas com busca
+                    inteligente rodando direto no seu aparelho.
+                  </p>
+                  <button
+                    type="button"
+                    className="cta"
+                    onClick={() => {
+                      setAtivouIa(true)
+                      void inicializarEmbedder().catch(() => {})
+                    }}
+                  >
+                    ✨ Ativar busca inteligente offline (157 MB)
+                  </button>
+                </div>
+              )}
+
+              {suportaGpu && ativouIa && (
+                <div aria-live="polite">
+                  {estadoIa === 'baixando' && progressoIa && (
+                    <div className="progresso-ia">
+                      <p className="muted">
+                        Baixando modelo de busca inteligente: {progressoIa.percentual}% (
+                        {(progressoIa.recebido / (1024 * 1024)).toFixed(1)} de{' '}
+                        {(progressoIa.total / (1024 * 1024)).toFixed(1)} MB)
+                      </p>
+                      <div className="barra-progresso">
+                        <div
+                          className="barra-progresso-preenchimento"
+                          style={{ width: `${progressoIa.percentual}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {estadoIa === 'inicializando_gpu' && (
+                    <p className="muted">Preparando busca inteligente no aparelho…</p>
+                  )}
+
+                  {buscandoSemantico && <p className="muted">Analisando significado…</p>}
+
+                  {erroSemantico && <p className="muted">{erroSemantico}</p>}
+
+                  {!buscandoSemantico && hitsSemanticos.length > 0 && (
+                    <ListaPericopes
+                      itens={hitsSemanticos}
+                      concluidas={concluidas}
+                      jornadaId={jornadaAtiva?.id}
+                    />
+                  )}
+
+                  {!buscandoSemantico &&
+                    estadoIa === 'pronto' &&
+                    hitsSemanticos.length === 0 && (
+                      <div>
+                        <p className="muted">Nenhuma passagem correspondente por significado.</p>
+                        {diagnostico && (
+                          <p
+                            className="muted"
+                            style={{
+                              fontSize: '0.75rem',
+                              opacity: 0.75,
+                              marginTop: '0.25rem',
+                              fontFamily: 'monospace',
+                            }}
+                          >
+                            [diag: aval={diagnostico.totalAvaliadas}, max={diagnostico.maxScore},
+                            corte={diagnostico.corte}, hits={diagnostico.hitsAcimaDeCorte}, bytes=
+                            {diagnostico.bufferByteLength}, nan={String(diagnostico.temNaNNoVetor)},
+                            zero={String(diagnostico.vetorZerado)}]
+                          </p>
+                        )}
+                      </div>
+                    )}
+                </div>
+              )}
             </section>
           )}
 

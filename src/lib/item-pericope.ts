@@ -10,6 +10,8 @@ export type ItemPericope = {
   verseId?: string
   /** Trecho já partido para o <mark>, por `marcarTrecho`. */
   trecho?: { antes: string; marcado: string; depois: string }
+  /** Selo ou relevância contextual (ex: busca semântica). */
+  badge?: string
 }
 
 export function itemDeIndice(p: PericopeIndex): ItemPericope {
@@ -26,5 +28,21 @@ export function itemDeHit(h: FulltextHit, termo: string): ItemPericope {
     ref: h.refLabel,
     verseId: h.verseId || undefined,
     trecho: marcarTrecho(h.snippet, termo),
+  }
+}
+
+/** Terceiro construtor de `ItemPericope`, para os hits da busca semântica por significado. */
+export function itemDeSemantico(
+  p: PericopeIndex,
+  score: number,
+  tipo: 'biblico' | 'tematico',
+): ItemPericope {
+  const pct = Math.round(score * 100)
+  const rotulo = tipo === 'biblico' ? 'Texto bíblico' : 'Reflexão & Estudo'
+  return {
+    ordem: p.ordem,
+    titulo: p.titulo_pericope_pt,
+    ref: refLabel(p),
+    badge: `${pct}% similaridade · ${rotulo}`,
   }
 }

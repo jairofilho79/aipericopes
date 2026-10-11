@@ -22,6 +22,7 @@ data/enriched/
 data/raw-pericopes.jsonl
 data/etl-warnings.json
 data/enrich-state.json
+data/embeddings-progresso.json
 data/NAA.json
 data/preach-sample/
 

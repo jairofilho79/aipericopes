@@ -793,6 +793,57 @@ h2 {
   min-width: 0;
 }
 
+.peri-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--line);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-top: 0.2rem;
+  letter-spacing: 0.01em;
+}
+
+.card-ativar-ia {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 0.5rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-ativar-ia p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.progresso-ia {
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.barra-progresso {
+  height: 6px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barra-progresso-preenchimento {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
 .peri-list li a.done strong {
   color: var(--muted);
 }

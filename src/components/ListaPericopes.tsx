@@ -31,6 +31,7 @@ export default function ListaPericopes({
                 <span className="peri-text">
                   <strong>{it.titulo}</strong>
                   <span>{it.ref}</span>
+                  {it.badge && <span className="peri-badge">{it.badge}</span>}
                   {it.trecho && (
                     <span className="hit-snippet">
                       {it.trecho.antes}
