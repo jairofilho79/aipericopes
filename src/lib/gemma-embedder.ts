@@ -200,12 +200,20 @@ async function obterBlobModelo(): Promise<Blob> {
   return blobFinal
 }
 
+let carregarWasmPromessa: Promise<unknown> | null = null
+
+async function garantirWasm(): Promise<void> {
+  if (carregarWasmPromessa) return carregarWasmPromessa
+  carregarWasmPromessa = loadLiteRtLm(WASM_CDN_DIR)
+  return carregarWasmPromessa
+}
+
 let inicializacaoPromessa: Promise<EmbeddingEngine> | null = null
 let backendAtivo: Backend = Backend.GPU
 
 async function criarEngine(backend: Backend): Promise<EmbeddingEngine> {
   const blob = await obterBlobModelo()
-  await loadLiteRtLm(WASM_CDN_DIR)
+  await garantirWasm()
   if (backend === Backend.GPU) {
     try {
       await setupDefaultWebGpuDevice()
