@@ -862,8 +862,7 @@ export default function Explorar() {
 
               {suportaHardwareIa === false && (
                 <p className="muted">
-                  Este navegador ou dispositivo não possui suporte a aceleração (WebGPU ou WebAssembly) para busca inteligente
-                  offline.
+                  A busca inteligente offline no aparelho requer navegador com suporte a WebGPU e WebAssembly JSPI (Chrome/Chromium no macOS, Windows ou Android).
                 </p>
               )}
 
@@ -939,7 +938,7 @@ export default function Explorar() {
                             corte={diagnostico.corte}, hits={diagnostico.hitsAcimaDeCorte}, bytes=
                             {diagnostico.bufferByteLength}, nan={String(diagnostico.temNaNNoVetor)},
                             zero={String(diagnostico.vetorZerado)}, b={diagnosticoEmbedder?.backendUsado},
-                            len={diagnosticoEmbedder?.rawLength}, fb={String(diagnosticoEmbedder?.teveFallbackCpu)}]
+                            len={diagnosticoEmbedder?.rawLength}]
                           </p>
                         )}
                       </div>

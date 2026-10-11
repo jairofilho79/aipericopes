@@ -60,9 +60,22 @@ export function obterEstadoEmbedder(): { estado: EstadoEmbedder; erro: string | 
   return { estado: estadoAtual, erro: mensagemErro }
 }
 
-/** Verifica se o navegador atual tem suporte a WebGPU */
+/** Verifica se o navegador atual tem suporte a JSPI (JavaScript Promise Integration) */
+export function suportaJspi(): boolean {
+  return typeof WebAssembly !== 'undefined' && 'Suspending' in WebAssembly
+}
+
+/**
+ * Verifica se o navegador atual tem suporte a WebGPU e à extensão WebAssembly JSPI
+ * necessária para a execução do modelo no cliente.
+ */
 export async function suportaWebGpu(): Promise<boolean> {
   if (typeof navigator === 'undefined' || !('gpu' in navigator)) {
+    return false
+  }
+  // No iOS Safari/WebKit, 'Suspending' in WebAssembly não existe (apenas Chromium possui JSPI).
+  // Sem JSPI, a execução do modelo no WebKit gera buffers zerados ou trava o módulo Wasm.
+  if (!suportaJspi()) {
     return false
   }
   try {
@@ -108,8 +121,7 @@ export type DiagnosticoEmbedder = {
   inputLength: number
   allZero: boolean
   hasNaN: boolean
-  backendUsado: 'gpu' | 'cpu'
-  teveFallbackCpu: boolean
+  backendUsado: string
   tamanhoBlobMb: number
 }
 
@@ -119,10 +131,10 @@ export function obterUltimoDiagnosticoEmbedder(): DiagnosticoEmbedder | null {
   return ultimoDiagnosticoEmbedder
 }
 
-export async function suportaHardware(): Promise<{ gpu: boolean; cpu: boolean }> {
+export async function suportaHardware(): Promise<{ gpu: boolean; jspi: boolean }> {
+  const jspi = suportaJspi()
   const gpu = await suportaWebGpu()
-  const cpu = typeof WebAssembly !== 'undefined'
-  return { gpu, cpu }
+  return { gpu, jspi }
 }
 
 /**
@@ -212,36 +224,25 @@ async function garantirWasm(): Promise<void> {
 }
 
 let inicializacaoPromessa: Promise<EmbeddingEngine> | null = null
-let backendAtivo: Backend = Backend.GPU
 
-async function criarEngine(backend: Backend): Promise<EmbeddingEngine> {
+async function criarEngine(): Promise<EmbeddingEngine> {
   const blob = await obterBlobModelo()
   await garantirWasm()
-  if (backend === Backend.GPU) {
-    try {
-      await setupDefaultWebGpuDevice()
-    } catch (e) {
-      console.warn('[GemmaEmbedder] Falha ao configurar WebGPU, usando CPU:', e)
-      backend = Backend.CPU
-    }
-  }
+  await setupDefaultWebGpuDevice()
 
-  console.log(
-    `[GemmaEmbedder] Criando EmbeddingEngine com Backend.${backend === Backend.GPU ? 'GPU' : 'CPU'}...`,
-  )
+  console.log('[GemmaEmbedder] Criando EmbeddingEngine com Backend.GPU...')
   const engine = await EmbeddingEngine.create({
     model: blob,
-    backend,
+    backend: Backend.GPU,
     maxInputLength: 1024,
   })
-  backendAtivo = backend
   return engine
 }
 
 /**
- * Inicializa o motor de embedding LiteRT-LM (WebGPU com fallback automático para CPU).
+ * Inicializa o motor de embedding LiteRT-LM (WebGPU).
  */
-export async function inicializarEmbedder(forcarBackend?: Backend): Promise<EmbeddingEngine> {
+export async function inicializarEmbedder(): Promise<EmbeddingEngine> {
   if (engineInstance) return engineInstance
   if (inicializacaoPromessa) return inicializacaoPromessa
 
@@ -250,12 +251,17 @@ export async function inicializarEmbedder(forcarBackend?: Backend): Promise<Embe
       console.log('[GemmaEmbedder] Iniciando inicializarEmbedder...')
       notificar('verificando_hardware')
       const temGpu = await suportaWebGpu()
-      console.log('[GemmaEmbedder] Suporte a WebGPU:', temGpu)
+      console.log('[GemmaEmbedder] Suporte a WebGPU + JSPI:', temGpu)
 
-      const backendDesejado = forcarBackend ?? (temGpu ? Backend.GPU : Backend.CPU)
+      if (!temGpu) {
+        notificar('sem_webgpu')
+        throw new Error(
+          'Este dispositivo ou navegador não suporta WebGPU com WebAssembly JSPI para execução do modelo no cliente.',
+        )
+      }
 
       notificar('inicializando_gpu')
-      const engine = await criarEngine(backendDesejado)
+      const engine = await criarEngine()
       console.log('[GemmaEmbedder] EmbeddingEngine criado com sucesso!')
       engineInstance = engine
       notificar('pronto')
@@ -263,7 +269,9 @@ export async function inicializarEmbedder(forcarBackend?: Backend): Promise<Embe
     } catch (err) {
       mensagemErro = err instanceof Error ? err.message : String(err)
       console.error('[GemmaEmbedder] Falha ao inicializar embedder:', err)
-      notificar('erro')
+      if (estadoAtual !== 'sem_webgpu') {
+        notificar('erro')
+      }
       inicializacaoPromessa = null
       throw err
     }
@@ -274,8 +282,6 @@ export async function inicializarEmbedder(forcarBackend?: Backend): Promise<Embe
 
 /**
  * Gera o vetor de embedding da consulta, trunca para 256d e aplica Normalização L2 unitária.
- * Se o backend GPU produzir tensores zerados (comum no WebKit/Metal do iOS),
- * faz fallback automático para CPU (XNNPACK).
  */
 export async function embedQuery(texto: string): Promise<Float32Array> {
   const consulta = texto.trim()
@@ -284,17 +290,15 @@ export async function embedQuery(texto: string): Promise<Float32Array> {
   }
 
   console.log('[GemmaEmbedder] embedQuery chamada:', { consulta })
-  let engine = await inicializarEmbedder()
-  let teveFallback = false
+  const engine = await inicializarEmbedder()
 
-  let response = await engine.computeEmbedding(consulta, { normalize: true })
-  let raw = response.embedding // array de números originais
-  let rawLength = raw?.length ?? 0
-  let hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
-  let allZero = raw?.every((x) => x === 0) ?? false
+  const response = await engine.computeEmbedding(consulta, { normalize: true })
+  const raw = response.embedding // array de números originais
+  const rawLength = raw?.length ?? 0
+  const hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
+  const allZero = raw?.every((x) => x === 0) ?? false
 
-  console.log('[GemmaEmbedder] computeEmbedding retorno inicial:', {
-    backend: backendAtivo === Backend.GPU ? 'gpu' : 'cpu',
+  console.log('[GemmaEmbedder] computeEmbedding retorno:', {
     inputLength: response.inputLength,
     numChunks: response.numChunks,
     rawLength,
@@ -303,49 +307,18 @@ export async function embedQuery(texto: string): Promise<Float32Array> {
     primeiros5: raw?.slice(0, 5),
   })
 
-  // Se o backend GPU retornou vetor vazio ou zerado (comum em Metal/WebGPU no WebKit iOS devido a shaders não vinculados):
-  if ((rawLength === 0 || allZero) && backendAtivo === Backend.GPU) {
-    console.warn(
-      '[GemmaEmbedder] Backend.GPU retornou vetor zerado/vazio. Alternando para Backend.CPU (XNNPACK)...',
-    )
-    teveFallback = true
-    try {
-      await engineInstance?.delete()
-    } catch {}
-    engineInstance = null
-    inicializacaoPromessa = null
-
-    engine = await criarEngine(Backend.CPU)
-    engineInstance = engine
-    response = await engine.computeEmbedding(consulta, { normalize: true })
-    raw = response.embedding
-    rawLength = raw?.length ?? 0
-    hasNaN = raw?.some((x) => Number.isNaN(x)) ?? false
-    allZero = raw?.every((x) => x === 0) ?? false
-
-    console.log('[GemmaEmbedder] computeEmbedding retorno após fallback CPU:', {
-      inputLength: response.inputLength,
-      numChunks: response.numChunks,
-      rawLength,
-      hasNaN,
-      allZero,
-      primeiros5: raw?.slice(0, 5),
-    })
-  }
-
   ultimoDiagnosticoEmbedder = {
     rawLength,
     inputLength: response.inputLength,
     allZero,
     hasNaN,
-    backendUsado: backendAtivo === Backend.GPU ? 'gpu' : 'cpu',
-    teveFallbackCpu: teveFallback,
+    backendUsado: 'gpu',
     tamanhoBlobMb: Number(((ultimoBlob?.size ?? 0) / (1024 * 1024)).toFixed(1)),
   }
 
-  if (!raw || rawLength === 0) {
-    console.error('[GemmaEmbedder] Retorno vazio de computeEmbedding!')
-    return new Float32Array(256)
+  if (!raw || rawLength === 0 || allZero) {
+    console.error('[GemmaEmbedder] Retorno vazio ou zerado de computeEmbedding!')
+    throw new Error('A aceleração do dispositivo não gerou vetores válidos.')
   }
 
   // Truncamento Matryoshka para 256 dimensões
