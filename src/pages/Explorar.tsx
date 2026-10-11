@@ -449,7 +449,7 @@ export default function Explorar() {
   const [diagnosticoEmbedder, setDiagnosticoEmbedder] = useState<DiagnosticoEmbedder | null>(null)
 
   useEffect(() => {
-    void suportaHardware().then((h) => setSuportaHardwareIa(h.gpu || h.cpu))
+    void suportaHardware().then((h) => setSuportaHardwareIa(h.gpu))
     void modeloJaEmCache().then((cached) => {
       if (cached) setAtivouIa(true)
     })
