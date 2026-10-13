@@ -158,6 +158,26 @@ export function IconeTopicos({ size = 18, className }: IconeProps) {
   )
 }
 
+export function IconeNotaMusical({ size = 18, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  )
+}
+
+export function IconeLinkExterno({ size = 16, className }: IconeProps) {
+  return (
+    <svg {...baseSvg} width={size} height={size} className={className}>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  )
+}
+
 export function IconeConversar({ size = 18, className }: IconeProps) {
   return (
     <svg {...baseSvg} width={size} height={size} className={className}>

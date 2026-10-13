@@ -12,6 +12,7 @@ import { TempoEstimado } from '../components/TempoEstimado'
 import ExplicacaoIaModal from '../components/ExplicacaoIaModal'
 import AtivarIaModal from '../components/AtivarIaModal'
 import AbaConversarIa from '../components/AbaConversarIa'
+import AbaLouvores from '../components/AbaLouvores'
 import { authClient } from '../lib/auth-client'
 import { criarConversa, obterChaveIa } from '../lib/ia-client'
 import {
@@ -24,6 +25,7 @@ import {
   IconeFones,
   IconeLapis,
   IconeLixeira,
+  IconeNotaMusical,
   IconeSetaDireita,
   IconeSetaEsquerda,
   IconeTopicos,
@@ -78,7 +80,7 @@ import type { Anotacao, DestaqueCor, Jornada, Pericope, Progresso, ProgressoStat
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { testamentLabel, testamentOf } from '../lib/testament'
 
-type NotesTab = 'anotacoes' | 'topicos' | 'conversar'
+type NotesTab = 'anotacoes' | 'topicos' | 'conversar' | 'louvores'
 type Vizinha = { ordem: number; titulo: string; narrado: boolean }
 
 /**
@@ -1433,11 +1435,12 @@ export default function Leitura() {
         </section>
 
         <section className="block notes" id="notas">
-          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos e conversa">
+          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos, louvores e conversa">
             {(
               [
                 ['anotacoes', 'Anotações', <IconeAnotar key="a" size={16} />],
                 ['topicos', 'Tópicos', <IconeTopicos key="t" size={16} />],
+                ['louvores', 'Louvores', <IconeNotaMusical key="l" size={16} />],
                 ['conversar', 'Conversar', <IconeFaisca key="c" size={16} />],
               ] as const
             ).map(([id, label, icone]) => (
@@ -1550,6 +1553,8 @@ export default function Leitura() {
             ) : (
               <p className="muted">Ainda não gerado.</p>
             ))}
+
+          {tab === 'louvores' && <AbaLouvores pericope={p} />}
 
           {/* A porta para a IA é aba, não rodapé de "Anotações": solta ali
               embaixo ela aparecia debaixo dos dois painéis, sem pertencer a

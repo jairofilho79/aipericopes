@@ -256,3 +256,21 @@ describe('Leitura — contexto de jornada via query param', () => {
     expect(topo?.getAttribute('data-jornada-nome')).toBe('Salmos de Esperança')
   })
 })
+
+describe('Leitura — aba de Louvores', () => {
+  it('renderiza o botão da aba Louvores e exibe o painel de louvores ao clicar', async () => {
+    await renderLeitura()
+
+    const tabs = Array.from(container.querySelectorAll('.notes-tab'))
+    const tabLouvores = tabs.find((t) => t.textContent?.includes('Louvores'))
+    expect(tabLouvores).toBeDefined()
+    expect(tabLouvores?.getAttribute('aria-selected')).toBe('false')
+
+    await act(async () => {
+      tabLouvores?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(tabLouvores?.getAttribute('aria-selected')).toBe('true')
+    expect(container.querySelector('.louvores-painel')).not.toBeNull()
+  })
+})

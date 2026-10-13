@@ -1011,6 +1011,209 @@ button.ghost {
   user-select: all;
 }
 
+/* ===== Aba Louvores (Coldigom) ===== */
+.louvores-painel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.louvores-cabecalho {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.louvores-intro {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.louvores-filtros {
+  display: inline-flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  background: color-mix(in srgb, var(--line) 40%, var(--paper));
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  align-self: flex-start;
+}
+
+.louvores-filtro-btn {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.louvores-filtro-btn:hover {
+  color: var(--ink);
+}
+
+.louvores-filtro-btn.active {
+  background: var(--paper);
+  color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.louvores-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.louvor-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.95rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.louvor-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+
+.louvor-card-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.louvor-badge-numero {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--line) 70%, var(--paper));
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.louvor-badge-numero--sn {
+  font-weight: 500;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+}
+
+.louvor-card-badges-direita {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.louvor-badge-tipo {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 45%, var(--paper));
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.louvor-badge-afinidade {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.louvor-titulo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0.1rem 0 0;
+}
+
+.louvor-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.45rem;
+}
+
+.louvor-categoria {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 45%, var(--paper));
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.louvor-tag {
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 25%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+}
+
+.louvor-card-acoes {
+  display: flex;
+  align-items: center;
+  margin-top: 0.2rem;
+}
+
+.louvor-link-externo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  transition: all 0.15s ease;
+}
+
+.louvor-link-externo:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.louvor-link-externo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Linha de meta do cabeçalho da perícope: só a referência e a estimativa de
    tempo. O grupo ←/→/Aa que justificava o flex-wrap saiu — as setas foram
    para o pager do rodapé e o swipe, e o "Aa" para o menu Perfil. */
