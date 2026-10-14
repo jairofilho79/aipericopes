@@ -7,6 +7,7 @@ export type MatchTipo = 'biblico' | 'tematico' | 'ambos'
 
 export type LouvorRecomendado = {
   id: string
+  shortId?: string
   number: string
   name: string
   category: string

@@ -188,13 +188,13 @@ export default function AbaLouvores({ pericope }: Props) {
 
               <div className="louvor-card-acoes">
                 <a
-                  href={`https://coldigom-web.pages.dev/praise/${louvor.id}`}
+                  href={`https://v2.plpcg.com/louvor/${louvor.shortId || louvor.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="louvor-link-externo"
-                  aria-label={`Abrir ${louvor.name} no Coldigom Web (abre em nova aba)`}
+                  aria-label={`Abrir ${louvor.name} no PLPCG (abre em nova aba)`}
                 >
-                  <span>Abrir no Coldigom</span>
+                  <span>Abrir no PLPCG</span>
                   <IconeLinkExterno size={14} />
                 </a>
               </div>

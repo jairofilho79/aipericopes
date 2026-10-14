@@ -11,6 +11,7 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true
 const MOCK_LOUVORES: LouvorRecomendado[] = [
   {
     id: 'cf01385d-9d14-4690-96ae-d6344d323afa',
+    shortId: '545',
     number: '115',
     name: 'Jesus, o bom pastor',
     category: 'Crianças e Adolescentes',
@@ -78,17 +79,21 @@ describe('AbaLouvores', () => {
 
     const link1 = card1.querySelector('a.louvor-link-externo') as HTMLAnchorElement
     expect(link1).not.toBeNull()
-    expect(link1.href).toBe('https://coldigom-web.pages.dev/praise/cf01385d-9d14-4690-96ae-d6344d323afa')
+    expect(link1.href).toBe('https://v2.plpcg.com/louvor/545')
+    expect(link1.textContent).toContain('Abrir no PLPCG')
     expect(link1.target).toBe('_blank')
     expect(link1.rel).toBe('noopener noreferrer')
 
-    // Segundo card: Sem número (S/N) com badge de tipo 'Texto'
+    // Segundo card: Sem número (S/N) com fallback para UUID e badge de tipo 'Texto'
     const card2 = cards[1]
     expect(card2.querySelector('.louvor-badge-numero')?.textContent).toBe('S/N')
     expect(card2.querySelector('.louvor-badge-numero')?.className).toContain('louvor-badge-numero--sn')
     expect(card2.querySelector('.louvor-titulo')?.textContent).toBe('O Senhor é Minha Luz')
     expect(card2.querySelector('.louvor-badge-afinidade')?.textContent).toBe('78.5% de afinidade')
     expect(card2.querySelector('.louvor-badge-tipo')?.textContent).toBe('Texto')
+
+    const link2 = card2.querySelector('a.louvor-link-externo') as HTMLAnchorElement
+    expect(link2.href).toBe('https://v2.plpcg.com/louvor/7cf98f00-274e-48da-ad0a-b4bc061bc79c')
   })
 
   it('permite alternar entre os filtros de match bíblico e temático', async () => {

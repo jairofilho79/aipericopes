@@ -119,6 +119,18 @@ def main():
     print("🔄 4/4: Montando índices para cada perícope...")
     resultado_pericopes: dict[str, list[dict]] = {}
 
+    # Carrega mapa de short_id (se disponível)
+    short_id_map = {}
+    short_ids_file = REPO_PERICOPES / "data" / "coldigom-short-ids.json"
+    if short_ids_file.exists():
+        with open(short_ids_file, "r", encoding="utf-8") as f:
+            raw_short = json.load(f)
+            if isinstance(raw_short, list) and len(raw_short) > 0 and "results" in raw_short[0]:
+                for row in raw_short[0]["results"]:
+                    if row.get("id") and row.get("short_id"):
+                        short_id_map[row["id"]] = row["short_id"]
+        print(f"   -> {len(short_id_map)} short_ids mapeados do Coldigom")
+
     for row_idx, ord_id in enumerate(ordens_ordenadas):
         sb_row = sim_biblico[row_idx]
         st_row = sim_tematico[row_idx]
@@ -160,7 +172,7 @@ def main():
             else:
                 match_tipo = "ambos"
 
-            lista_louvores.append({
+            praise_obj = {
                 "id": pr["id"],
                 "number": pr["number"],
                 "name": pr["name"],
@@ -170,7 +182,11 @@ def main():
                 "similarityBiblico": score_bib,
                 "similarityTematico": score_tem,
                 "matchTipo": match_tipo,
-            })
+            }
+            if pr["id"] in short_id_map:
+                praise_obj["shortId"] = short_id_map[pr["id"]]
+
+            lista_louvores.append(praise_obj)
 
             # Seleciona até 6 louvores representativos para o card
             if len(lista_louvores) >= 6:
