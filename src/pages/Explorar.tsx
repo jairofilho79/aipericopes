@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SkeletonIndice } from '../components/Skeleton'
 import CatalogoLivros from '../components/CatalogoLivros'
@@ -266,6 +266,88 @@ export default function Explorar() {
       }
       p.set('q', valor)
     }, /* replace */ !livro && !registro)
+
+  // Estado local imediato para o input, desvinculado de navegações síncronas:
+  // previne que o React Router e re-renders pesados interfiram com a digitação
+  // de acentos e dead keys em teclados internacionais.
+  const [texto, setTexto] = useState(q)
+  const isComposingRef = useRef(false)
+  const debounceTimerRef = useRef<number | null>(null)
+
+  // Sincroniza o estado local quando 'q' mudar externamente (ex.: voltar no
+  // histórico, clicar em links, fechar livro), a menos que o usuário esteja
+  // compondo ou com digitação ativa no campo.
+  useEffect(() => {
+    if (!isComposingRef.current && debounceTimerRef.current === null) {
+      setTexto(q)
+    }
+  }, [q])
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current !== null) {
+        window.clearTimeout(debounceTimerRef.current)
+        debounceTimerRef.current = null
+      }
+    }
+  }, [])
+
+  const agendarBusca = (novoTexto: string) => {
+    if (debounceTimerRef.current !== null) {
+      window.clearTimeout(debounceTimerRef.current)
+      debounceTimerRef.current = null
+    }
+
+    // Se o campo for esvaziado, limpa a URL imediatamente para que
+    // a tela volte ao repouso sem atraso perceptível.
+    if (!novoTexto.trim()) {
+      setQ('')
+      return
+    }
+
+    // Debounce de 300 ms: agrupa a digitação do usuário e permite
+    // a composição natural de acentos e dead keys em teclados internacionais
+    // sem interferir com re-renders ou navegações prematuras na URL.
+    debounceTimerRef.current = window.setTimeout(() => {
+      debounceTimerRef.current = null
+      setQ(novoTexto)
+    }, 300)
+  }
+
+  const onChangeBusca = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = e.target.value
+    setTexto(valor)
+    if (!isComposingRef.current) {
+      agendarBusca(valor)
+    }
+  }
+
+  const onCompositionStart = () => {
+    isComposingRef.current = true
+  }
+
+  const onCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
+    isComposingRef.current = false
+    agendarBusca(e.currentTarget.value)
+  }
+
+  const onKeyDownBusca = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (debounceTimerRef.current !== null) {
+        window.clearTimeout(debounceTimerRef.current)
+        debounceTimerRef.current = null
+      }
+      setQ(texto)
+    }
+  }
+
+  const onBlurBusca = () => {
+    if (debounceTimerRef.current !== null) {
+      window.clearTimeout(debounceTimerRef.current)
+      debounceTimerRef.current = null
+      setQ(texto)
+    }
+  }
   const setFiltro = (valor: FiltroLeitura) =>
     mexerNaUrl((p) => (valor === 'todos' ? p.delete('f') : p.set('f', valor)), false)
   const abrirLivro = (b: BibleBook) => {
@@ -643,8 +725,12 @@ export default function Explorar() {
           <input
             type="search"
             placeholder="Buscar livro, título, referência ou trecho…"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
+            value={texto}
+            onChange={onChangeBusca}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
+            onKeyDown={onKeyDownBusca}
+            onBlur={onBlurBusca}
             aria-label="Buscar livro, título, referência ou trecho"
             aria-describedby="ref-dica"
           />
@@ -659,7 +745,13 @@ export default function Explorar() {
             rotuloOcioso="Ditar referência"
             onTexto={(trecho) => {
               setAviso('')
-              setQ(normalizarDitadoRef(trecho))
+              const normalizado = normalizarDitadoRef(trecho)
+              if (debounceTimerRef.current !== null) {
+                window.clearTimeout(debounceTimerRef.current)
+                debounceTimerRef.current = null
+              }
+              setTexto(normalizado)
+              setQ(normalizado)
             }}
             onAviso={setAviso}
           />

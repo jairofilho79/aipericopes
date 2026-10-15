@@ -350,6 +350,98 @@ describe('Explorar', () => {
     const linhas = [...host.querySelectorAll('.livro-row .livro-nome')].map((n) => n.textContent)
     expect(linhas).toEqual(['Lamento', 'Louvor'])
   })
+
+  function digitar(el: HTMLInputElement, valor: string) {
+    const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+    set?.call(el, valor)
+    el.dispatchEvent(new Event('input', { bubbles: true }))
+  }
+
+  it('digitação no campo atualiza o input imediatamente mas aguarda debounce para atualizar a busca', async () => {
+    await montar('/explorar')
+    const input = host.querySelector('input[type="search"]') as HTMLInputElement
+
+    await act(async () => {
+      digitar(input, 'João')
+    })
+
+    // O input reflete o texto digitado imediatamente
+    expect(input.value).toBe('João')
+    // Mas a busca ainda não disparou antes dos 300 ms (ainda em repouso)
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(66)
+
+    // Avança 300 ms
+    await act(async () => {
+      vi.advanceTimersByTime(300)
+    })
+
+    // Agora a busca foi ativada
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+  })
+
+  it('teclar Enter dispara a busca imediatamente sem esperar os 300 ms', async () => {
+    await montar('/explorar')
+    const input = host.querySelector('input[type="search"]') as HTMLInputElement
+
+    await act(async () => {
+      digitar(input, 'João')
+    })
+    expect(host.querySelectorAll('.secao-resultado')).toHaveLength(0)
+
+    await act(async () => {
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+    })
+
+    // Com Enter, a busca ativa na hora
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+  })
+
+  it('esvaziar o campo restaura o catálogo imediatamente sem debounce', async () => {
+    await montar('/explorar?q=Jo%C3%A3o')
+    const input = host.querySelector('input[type="search"]') as HTMLInputElement
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+
+    await act(async () => {
+      digitar(input, '')
+    })
+
+    // Volta ao repouso na hora
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(66)
+    expect(host.querySelectorAll('.secao-resultado')).toHaveLength(0)
+  })
+
+  it('composição de acento (IME/dead key) não dispara busca prematura e aguarda compositionend', async () => {
+    await montar('/explorar')
+    const input = host.querySelector('input[type="search"]') as HTMLInputElement
+
+    // Inicia composição (ex.: acento dead key `^`)
+    await act(async () => {
+      input.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }))
+      digitar(input, 'Gê')
+    })
+
+    // Avança o tempo que seria do debounce
+    await act(async () => {
+      vi.advanceTimersByTime(350)
+    })
+
+    // Busca NÃO deve disparar enquanto estiver compondo
+    expect(host.querySelectorAll('.livro-row')).toHaveLength(66)
+
+    // Finaliza composição com o caractere acentuado
+    await act(async () => {
+      digitar(input, 'Gênesis')
+      input.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true }))
+    })
+
+    // Avança o debounce pós-composição
+    await act(async () => {
+      vi.advanceTimersByTime(300)
+    })
+
+    // Agora sim a busca dispara
+    expect(host.querySelectorAll('.secao-resultado').length).toBeGreaterThan(0)
+  })
 })
 
 describe('Explorar — ditado no campo de referência', () => {
