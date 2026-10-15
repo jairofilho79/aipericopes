@@ -38,7 +38,9 @@
     "reenrich:claim": "tsx scripts/reenriquecimento.ts claim",
     "reenrich:aplicar": "tsx scripts/reenriquecimento.ts aplicar",
     "reenrich:soltar-travas": "tsx scripts/reenriquecimento.ts soltar-travas",
-    "trilha": "tsx scripts/montar-trilha.ts"
+    "trilha": "tsx scripts/montar-trilha.ts",
+    "louvores:sync": "python3 scripts/sincronizar_louvores.py",
+    "louvores:sync:force": "python3 scripts/sincronizar_louvores.py --force"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "^5.3.0",

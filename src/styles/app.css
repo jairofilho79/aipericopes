@@ -1133,6 +1133,19 @@ button.ghost {
   letter-spacing: 0.02em;
 }
 
+.louvor-badge-tipo--citacao {
+  color: #2b7a3e;
+  background: color-mix(in srgb, #2b7a3e 14%, var(--paper));
+  border: 1px solid color-mix(in srgb, #2b7a3e 28%, transparent);
+  font-weight: 700;
+}
+
+.louvor-badge-afinidade--citacao {
+  color: #2b7a3e;
+  background: color-mix(in srgb, #2b7a3e 14%, var(--paper));
+  border: 1px solid color-mix(in srgb, #2b7a3e 30%, transparent);
+}
+
 .louvor-badge-afinidade {
   font-family: var(--font-ui);
   font-size: 0.75rem;
@@ -1179,6 +1192,40 @@ button.ghost {
   border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
   padding: 0.12rem 0.45rem;
   border-radius: 4px;
+}
+
+.louvor-mensagem-central {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--tint) 6%, var(--paper));
+  border-left: 3px solid color-mix(in srgb, var(--tint) 65%, transparent);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 6px 6px 0;
+  margin: 0.2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.louvor-mensagem-icone {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.louvor-tag--citacao {
+  color: #2b7a3e;
+  background: color-mix(in srgb, #2b7a3e 12%, var(--paper));
+  border-color: color-mix(in srgb, #2b7a3e 35%, transparent);
+  font-weight: 600;
+}
+
+.louvor-tag--homiletico {
+  color: color-mix(in srgb, #b27300 85%, var(--ink));
+  background: color-mix(in srgb, #e6a700 12%, var(--paper));
+  border-color: color-mix(in srgb, #e6a700 35%, transparent);
+  font-weight: 500;
 }
 
 .louvor-card-acoes {

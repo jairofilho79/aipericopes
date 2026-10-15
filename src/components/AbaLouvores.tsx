@@ -17,7 +17,8 @@ function formatarNumeroLouvor(rawNumber: string): { texto: string; ehSn: boolean
   return { texto: `Nº ${limpo}`, ehSn: false }
 }
 
-function formatarAfinidade(similarity: number, complemento?: string): string {
+function formatarAfinidade(similarity: number, complemento?: string, ehCitacao?: boolean): string {
+  if (ehCitacao) return '100% Citação'
   const valor = typeof similarity === 'number' && !Number.isNaN(similarity) ? similarity.toFixed(1) : similarity
   return complemento ? `${valor}% ${complemento}` : `${valor}% de afinidade`
 }
@@ -52,7 +53,11 @@ export default function AbaLouvores({ pericope }: Props) {
     }
     if (filtro === 'tematico') {
       return lista.sort(
-        (a, b) => (b.similarityTematico ?? b.similarity) - (a.similarityTematico ?? a.similarity),
+        (a, b) => {
+          const scoreB = b.similarityHomiletico ?? b.similarityTematico ?? b.similarity
+          const scoreA = a.similarityHomiletico ?? a.similarityTematico ?? a.similarity
+          return scoreB - scoreA
+        },
       )
     }
     return lista.sort((a, b) => b.similarity - a.similarity)
@@ -126,11 +131,11 @@ export default function AbaLouvores({ pericope }: Props) {
             filtro === 'biblico'
               ? (louvor.similarityBiblico ?? louvor.similarity)
               : filtro === 'tematico'
-                ? (louvor.similarityTematico ?? louvor.similarity)
+                ? (louvor.similarityHomiletico ?? louvor.similarityTematico ?? louvor.similarity)
                 : louvor.similarity
 
           const complemento =
-            filtro === 'biblico' ? 'bíblico' : filtro === 'tematico' ? 'temático' : 'de afinidade'
+            filtro === 'biblico' ? 'bíblico' : filtro === 'tematico' ? 'homilético' : 'de afinidade'
 
           return (
             <li key={louvor.id} className="louvor-card">
@@ -145,35 +150,67 @@ export default function AbaLouvores({ pericope }: Props) {
                 <div className="louvor-card-badges-direita">
                   {filtro === 'geral' && louvor.matchTipo && (
                     <span
-                      className="louvor-badge-tipo"
+                      className={`louvor-badge-tipo${louvor.matchTipo === 'citacao_direta' ? ' louvor-badge-tipo--citacao' : ''}`}
                       title={
-                        louvor.matchTipo === 'biblico'
-                          ? `Maior afinidade no texto bíblico (${louvor.similarityBiblico ?? ''}%)`
-                          : louvor.matchTipo === 'tematico'
-                            ? `Maior afinidade no contexto e resenha (${louvor.similarityTematico ?? ''}%)`
-                            : 'Afinidade equilibrada entre texto e estudo'
+                        louvor.matchTipo === 'citacao_direta'
+                          ? `Citação bíblica (${louvor.citacaoBiblica ?? ''})`
+                          : louvor.matchTipo === 'biblico'
+                            ? `Maior afinidade no texto bíblico (${louvor.similarityBiblico ?? ''}%)`
+                            : louvor.matchTipo === 'tematico'
+                              ? `Maior afinidade temática e homilética (${louvor.similarityHomiletico ?? louvor.similarityTematico ?? ''}%)`
+                              : 'Afinidade equilibrada entre texto e estudo'
                       }
                     >
-                      {louvor.matchTipo === 'biblico'
-                        ? 'Texto'
-                        : louvor.matchTipo === 'tematico'
-                          ? 'Estudo'
-                          : 'Equilibrado'}
+                      {louvor.matchTipo === 'citacao_direta'
+                        ? 'Citação Direta'
+                        : louvor.matchTipo === 'biblico'
+                          ? 'Texto'
+                          : louvor.matchTipo === 'tematico'
+                            ? 'Estudo'
+                            : 'Equilibrado'}
                     </span>
                   )}
 
                   <span
-                    className="louvor-badge-afinidade"
-                    title={`Similaridade com Gemma Embedding 2: ${scoreExibido}%`}
+                    className={`louvor-badge-afinidade${louvor.matchTipo === 'citacao_direta' ? ' louvor-badge-afinidade--citacao' : ''}`}
+                    title={
+                      louvor.matchTipo === 'citacao_direta'
+                        ? `Citação literal de ${louvor.citacaoBiblica ?? 'passagem'}`
+                        : `Similaridade com Gemma Embedding 2: ${scoreExibido}%`
+                    }
                   >
-                    {formatarAfinidade(scoreExibido, complemento)}
+                    {formatarAfinidade(scoreExibido, complemento, louvor.matchTipo === 'citacao_direta')}
                   </span>
                 </div>
               </div>
 
               <h4 className="louvor-titulo">{louvor.name}</h4>
 
+              {louvor.mensagemCentral && (
+                <p className="louvor-mensagem-central" title="Síntese teológica e mensagem homilética">
+                  <span className="louvor-mensagem-icone" aria-hidden="true">💡</span>
+                  <span>{louvor.mensagemCentral}</span>
+                </p>
+              )}
+
               <div className="louvor-meta">
+                {louvor.citacaoBiblica && (
+                  <span
+                    className="louvor-tag louvor-tag--citacao"
+                    title={`Passagem citada textualmente: ${louvor.citacaoBiblica}`}
+                  >
+                    📖 {louvor.citacaoBiblica}
+                  </span>
+                )}
+                {louvor.temasHomileticos && louvor.temasHomileticos.map((th) => (
+                  <span
+                    key={th}
+                    className="louvor-tag louvor-tag--homiletico"
+                    title={`Tema homilético de pregação: ${th}`}
+                  >
+                    🎯 {th}
+                  </span>
+                ))}
                 {louvor.category && (
                   <span className="louvor-categoria" title={`Categoria: ${louvor.category}`}>
                     {louvor.category}

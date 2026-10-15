@@ -24,6 +24,8 @@ data/etl-warnings.json
 data/enrich-state.json
 data/embeddings-progresso.json
 data/NAA.json
+data/ARC.json
+*.npz
 data/preach-sample/
 
 # Derivados do catálogo (gerados por scripts/shard-catalogo.ts no build)

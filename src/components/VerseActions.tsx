@@ -7,6 +7,7 @@ import {
   IconeFaisca,
   IconeFechar,
   IconeLixeira,
+  IconeNotaMusical,
   IconeRaio,
 } from './icones'
 
@@ -30,6 +31,8 @@ type Props = {
   onDestacar: (cor: DestaqueCor) => void
   onRemoverDestaque: () => void
   onAnotar: () => void
+  onVerLouvores?: () => void
+  qtdLouvoresDiretos?: number
   onExplicarIa?: () => void
   onPerguntarIa?: () => void
   onAtivarIa?: () => void
@@ -48,6 +51,8 @@ export default function VerseActions({
   onDestacar,
   onRemoverDestaque,
   onAnotar,
+  onVerLouvores,
+  qtdLouvoresDiretos = 0,
   onExplicarIa,
   onPerguntarIa,
   onAtivarIa,
@@ -113,6 +118,21 @@ export default function VerseActions({
           <IconeAnotar size={17} />
           Anotar
         </button>
+        {onVerLouvores && (
+          <button
+            type="button"
+            className={`ghost btn-louvores-chip${qtdLouvoresDiretos > 0 ? ' tem-direto' : ''}`}
+            onClick={onVerLouvores}
+            title={
+              qtdLouvoresDiretos > 0
+                ? `${qtdLouvoresDiretos} louvor(es) com citação bíblica direta para este trecho`
+                : 'Ver louvores sugeridos para os versículos selecionados'
+            }
+          >
+            <IconeNotaMusical size={16} />
+            <span>Louvores{qtdLouvoresDiretos > 0 ? ` (${qtdLouvoresDiretos})` : ''}</span>
+          </button>
+        )}
         {(!logado || !temChaveIa) && onAtivarIa && (
           <button
             type="button"
