@@ -51,6 +51,19 @@
       "referencia": "Salmos 100:1-4",
       "qtdNgrams": 10,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "98bc4f29-f416-4900-8e81-4837d6543cfd",
+      "praiseNumber": "",
+      "praiseName": "Celebrai",
+      "livro": "Salmos",
+      "capitulo": 100,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Salmos 100:1-5",
+      "similaridade": 89.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "b045daec-dae1-4129-b3d0-6084e0af5e38": [
@@ -119,6 +132,19 @@
       "referencia": "Deuteronômio 12:10",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "4512b238-f891-4df8-abf4-cd9b23e7e01e",
+      "praiseNumber": "",
+      "praiseName": "E veio a mim",
+      "livro": "Ezequiel",
+      "capitulo": 36,
+      "versiculoInicio": 25,
+      "versiculoFim": 28,
+      "referencia": "Ezequiel 36:25-28",
+      "similaridade": 84.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "1a70bc66-33e0-4e84-ad07-09b48abd8509": [
@@ -175,6 +201,19 @@
       "referencia": "Salmos 118:2-7",
       "qtdNgrams": 6,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "63df03fd-0fde-4abf-aa66-81bb316e8562",
+      "praiseNumber": "",
+      "praiseName": "Louvai Ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 118,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 118:1-6",
+      "similaridade": 88.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "3ceee6df-1f9d-41b7-b4b4-ca1140a0809a": [
@@ -245,6 +284,19 @@
       "referencia": "Apocalipse 19:1-7",
       "qtdNgrams": 15,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "150caf2d-8c10-4611-bc35-a32e9d51bc41",
+      "praiseNumber": "",
+      "praiseName": "Ouvi como que a voz (561)",
+      "livro": "Apocalipse",
+      "capitulo": 19,
+      "versiculoInicio": 6,
+      "versiculoFim": 7,
+      "referencia": "Apocalipse 19:6-7",
+      "similaridade": 89.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "404a3d68-7066-48c8-8e63-66ca36804ecc": [
@@ -311,6 +363,19 @@
       "referencia": "Salmos 139:1-12",
       "qtdNgrams": 17,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "4fea5632-30b3-4ad5-af81-e19ece593971",
+      "praiseNumber": "",
+      "praiseName": "Senhor, tu me sondaste",
+      "livro": "Salmos",
+      "capitulo": 139,
+      "versiculoInicio": 1,
+      "versiculoFim": 14,
+      "referencia": "Salmos 139:1-14",
+      "similaridade": 90.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "9822331e-3ca0-4590-8b18-f19354d0696c": [
@@ -391,6 +456,19 @@
       "referencia": "Isaías 9:6-7",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e7aa4e9a-fa1f-496e-a237-99d8b77e9f5e",
+      "praiseNumber": "19",
+      "praiseName": "Forte Deus",
+      "livro": "Isaías",
+      "capitulo": 9,
+      "versiculoInicio": 6,
+      "versiculoFim": 6,
+      "referencia": "Isaías 9:6",
+      "similaridade": 86.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "fb4bda1e-a9ed-4c9b-bd88-48691a255d06": [
@@ -528,6 +606,19 @@
       "referencia": "Cantares 8:6-13",
       "qtdNgrams": 22,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "072836e3-d28a-4166-9b9f-8f31980a89c2",
+      "praiseNumber": "035",
+      "praiseName": "Põe-me como selo",
+      "livro": "Cantares",
+      "capitulo": 8,
+      "versiculoInicio": 6,
+      "versiculoFim": 7,
+      "referencia": "Cânticos 8:6-7",
+      "similaridade": 88.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "a3da93b3-ff11-466f-98e3-b8440f1eec10": [
@@ -542,6 +633,19 @@
       "referencia": "Salmos 63:1-3",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "a3da93b3-ff11-466f-98e3-b8440f1eec10",
+      "praiseNumber": "39",
+      "praiseName": "Jesus, Tu és o meu Deus",
+      "livro": "Salmos",
+      "capitulo": 63,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 63:1-4",
+      "similaridade": 87.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "2c684831-3563-4364-99e8-891d1632479f": [
@@ -556,6 +660,19 @@
       "referencia": "Salmos 63:1-3",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "2c684831-3563-4364-99e8-891d1632479f",
+      "praiseNumber": "039",
+      "praiseName": "Jesus, Tu és o meu Deus (SCTB)",
+      "livro": "Salmos",
+      "capitulo": 63,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 63:1-4",
+      "similaridade": 87.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "8767965b-8ac6-48bc-ba3e-2a069102a378": [
@@ -570,6 +687,19 @@
       "referencia": "Salmos 63:1-3",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "8767965b-8ac6-48bc-ba3e-2a069102a378",
+      "praiseNumber": "039",
+      "praiseName": "Jesus, Tu és o meu Deus (Solo)",
+      "livro": "Salmos",
+      "capitulo": 63,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 63:1-4",
+      "similaridade": 87.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "ffad139d-c8a1-4357-8d55-9f8e0e571773": [
@@ -665,6 +795,19 @@
       "referencia": "Salmos 66:13-19",
       "qtdNgrams": 2,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "28ae394d-9c37-4d60-869e-dcd00f339310",
+      "praiseNumber": "58",
+      "praiseName": "Atende a Voz do Meu Clamor",
+      "livro": "Salmos",
+      "capitulo": 5,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 5:1-8",
+      "similaridade": 88.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "91f2a5fd-fe0f-43aa-9ecb-b1110348278a": [
@@ -706,6 +849,19 @@
       "referencia": "Salmos 141:1-2",
       "qtdNgrams": 7,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "642034d6-5fa3-4635-bbbf-104822e70bf3",
+      "praiseNumber": "061",
+      "praiseName": "Suba a Minha Oração",
+      "livro": "Salmos",
+      "capitulo": 141,
+      "versiculoInicio": 2,
+      "versiculoFim": 2,
+      "referencia": "Salmos 141:2",
+      "similaridade": 83.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "f26a2371-8df7-4eb6-9197-440f83bf56c3": [
@@ -774,6 +930,19 @@
       "referencia": "João 3:15-16",
       "qtdNgrams": 10,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "7c0a71d3-370a-4a22-b5f9-90aacae19518",
+      "praiseNumber": "073",
+      "praiseName": "De eternidade a eternidade",
+      "livro": "João",
+      "capitulo": 3,
+      "versiculoInicio": 16,
+      "versiculoFim": 16,
+      "referencia": "João 3:16",
+      "similaridade": 85.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "704909ad-4212-4d21-b0eb-8fc9121c2f61": [
@@ -800,6 +969,19 @@
       "referencia": "Deuteronômio 12:10",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "704909ad-4212-4d21-b0eb-8fc9121c2f61",
+      "praiseNumber": "82",
+      "praiseName": "E veio a mim",
+      "livro": "Ezequiel",
+      "capitulo": 36,
+      "versiculoInicio": 25,
+      "versiculoFim": 28,
+      "referencia": "Ezequiel 36:25-28",
+      "similaridade": 86.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "a54774dc-c7ae-4161-8650-8dc62d2495fb": [
@@ -814,6 +996,19 @@
       "referencia": "Salmos 143:10",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "a54774dc-c7ae-4161-8650-8dc62d2495fb",
+      "praiseNumber": "84",
+      "praiseName": "Atende, Senhor, a minha oração",
+      "livro": "Salmos",
+      "capitulo": 143,
+      "versiculoInicio": 6,
+      "versiculoFim": 10,
+      "referencia": "Salmos 143:6-10",
+      "similaridade": 88.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "557a5740-f037-42bd-b5c7-dee866e923c2": [
@@ -828,6 +1023,19 @@
       "referencia": "João 3:2-5",
       "qtdNgrams": 8,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "557a5740-f037-42bd-b5c7-dee866e923c2",
+      "praiseNumber": "89",
+      "praiseName": "Certo homem, príncipe dos judeus (Nicodemos)",
+      "livro": "João",
+      "capitulo": 3,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "João 3:1-5",
+      "similaridade": 87.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "b9f513ff-dea3-4f84-86c8-5e36cd725d89": [
@@ -842,6 +1050,19 @@
       "referencia": "Salmos 142:1-6",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "b9f513ff-dea3-4f84-86c8-5e36cd725d89",
+      "praiseNumber": "96",
+      "praiseName": "Com a minha voz clamo ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 142,
+      "versiculoInicio": 1,
+      "versiculoFim": 7,
+      "referencia": "Salmos 142:1-7",
+      "similaridade": 91.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e49bc31e-15c7-4f83-aa50-e88a596f0842": [
@@ -962,6 +1183,19 @@
       "referencia": "2 Crônicas 6:2",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "914ede90-5472-48d8-bffd-4ef6396ca2c6",
+      "praiseNumber": "118",
+      "praiseName": "Ó Senhor, Deus de Israel Edifiquei uma casa",
+      "livro": "2 Crônicas",
+      "capitulo": 6,
+      "versiculoInicio": 14,
+      "versiculoFim": 21,
+      "referencia": "2 Crônicas 6:14-21",
+      "similaridade": 83.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "6b1f1585-8b94-4881-89ba-62e078c1411e": [
@@ -976,6 +1210,19 @@
       "referencia": "2 Crônicas 20:15-17",
       "qtdNgrams": 17,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "6b1f1585-8b94-4881-89ba-62e078c1411e",
+      "praiseNumber": "123",
+      "praiseName": "Nesta batalha não tereis que pelejar",
+      "livro": "2 Crônicas",
+      "capitulo": 20,
+      "versiculoInicio": 17,
+      "versiculoFim": 17,
+      "referencia": "2 Crônicas 20:17",
+      "similaridade": 94.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "a2efe49e-d9e0-4e66-b66c-e22b6f4f63b7": [
@@ -1070,6 +1317,19 @@
       "referencia": "Cantares 8:7",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "040b56c8-bc60-4e87-b398-275f57f4baf9",
+      "praiseNumber": "140",
+      "praiseName": "As muitas águas nao podem",
+      "livro": "Cantares",
+      "capitulo": 8,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cânticos 8:7",
+      "similaridade": 84.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "fe3c6f77-03fd-44c3-afa9-c0a3da605418": [
@@ -1084,6 +1344,19 @@
       "referencia": "Salmos 126:6",
       "qtdNgrams": 6,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "fe3c6f77-03fd-44c3-afa9-c0a3da605418",
+      "praiseNumber": "141",
+      "praiseName": "Quem irá (Preciosa semente)",
+      "livro": "Salmos",
+      "capitulo": 126,
+      "versiculoInicio": 5,
+      "versiculoFim": 6,
+      "referencia": "Salmos 126:5-6",
+      "similaridade": 82.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "3187ef77-6f6f-46c5-bcb3-1d572c097b0c": [
@@ -1140,6 +1413,19 @@
       "referencia": "Cantares 2:3-12",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "18223c9e-a524-478e-bce3-f56c7c1757a6",
+      "praiseNumber": "159",
+      "praiseName": "Ele é a rosa de Sarom",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 1,
+      "versiculoFim": 13,
+      "referencia": "Cânticos 2:1-13",
+      "similaridade": 90.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e4885327-1204-4af6-8921-c0f9ad0b0c1d": [
@@ -1154,6 +1440,19 @@
       "referencia": "Cantares 7:10-13",
       "qtdNgrams": 18,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e4885327-1204-4af6-8921-c0f9ad0b0c1d",
+      "praiseNumber": "160",
+      "praiseName": "Eu Sou do Meu Amado",
+      "livro": "Cantares",
+      "capitulo": 7,
+      "versiculoInicio": 10,
+      "versiculoFim": 13,
+      "referencia": "Cânticos 7:10-13",
+      "similaridade": 91.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "09a136e7-bef7-47a4-843e-0d724bfe862f": [
@@ -1168,6 +1467,19 @@
       "referencia": "Cantares 1:7",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "09a136e7-bef7-47a4-843e-0d724bfe862f",
+      "praiseNumber": "166",
+      "praiseName": "Ó amado de minhalma",
+      "livro": "Cantares",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cânticos 1:7",
+      "similaridade": 82.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "7eda9d96-cebc-49e1-8f0a-53761e47cf4b": [
@@ -1182,6 +1494,19 @@
       "referencia": "Cantares 1:7",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "7eda9d96-cebc-49e1-8f0a-53761e47cf4b",
+      "praiseNumber": "166",
+      "praiseName": "Ó amado de minhalma",
+      "livro": "Cantares",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cânticos 1:7",
+      "similaridade": 82.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "47f80b90-00a7-4ead-b75a-6f6421d0ebdc": [
@@ -1196,6 +1521,19 @@
       "referencia": "Apocalipse 3:8-11",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "47f80b90-00a7-4ead-b75a-6f6421d0ebdc",
+      "praiseNumber": "171",
+      "praiseName": "Sou o santo",
+      "livro": "Apocalipse",
+      "capitulo": 3,
+      "versiculoInicio": 7,
+      "versiculoFim": 11,
+      "referencia": "Apocalipse 3:7-11",
+      "similaridade": 87.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "d0815328-a642-419c-a5f2-18a0350ecdcd": [
@@ -1304,6 +1642,19 @@
       "referencia": "Salmos 98:7",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "4eeaa652-54b6-48b1-89fa-3090b48c31dd",
+      "praiseNumber": "221",
+      "praiseName": "Vai raiar o dia",
+      "livro": "1 Crônicas",
+      "capitulo": 16,
+      "versiculoInicio": 23,
+      "versiculoFim": 29,
+      "referencia": "1 Crônicas 16:23-29",
+      "similaridade": 83.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "c29975e8-b5ab-4ca5-a9ea-568994e0dad6": [
@@ -1346,6 +1697,19 @@
       "referencia": "João 4:10",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "3283cdc8-fd74-45ad-91b2-890d2bb54333",
+      "praiseNumber": "229",
+      "praiseName": "Ao Poço de Jacó Chegou Jesus",
+      "livro": "João",
+      "capitulo": 4,
+      "versiculoInicio": 10,
+      "versiculoFim": 14,
+      "referencia": "João 4:10-14",
+      "similaridade": 87.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "3aadba9f-f90a-440f-9110-f8ff6c5073ed": [
@@ -1374,6 +1738,19 @@
       "referencia": "Lucas 2:14",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "ab997279-5b64-4290-9cd6-7f260323cfb2",
+      "praiseNumber": "233",
+      "praiseName": "Na cidade de Davi nasceu o Salvador",
+      "livro": "Lucas",
+      "capitulo": 2,
+      "versiculoInicio": 11,
+      "versiculoFim": 14,
+      "referencia": "Lucas 2:11-14",
+      "similaridade": 90.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "4ba2e751-c750-442a-92dc-092d4b6ba48d": [
@@ -1414,6 +1791,19 @@
       "referencia": "Mateus 11:29",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "14239f10-7968-4706-8a91-6e215492fd65",
+      "praiseNumber": "240",
+      "praiseName": "Se Cansado Tu Estás",
+      "livro": "Mateus",
+      "capitulo": 11,
+      "versiculoInicio": 28,
+      "versiculoFim": 30,
+      "referencia": "Mateus 11:28-30",
+      "similaridade": 89.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "5488ae6c-0d57-48f2-b8c7-3505273f633a": [
@@ -1442,6 +1832,19 @@
       "referencia": "Jó 11:17-19",
       "qtdNgrams": 6,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "94308f02-2356-420f-b9dd-a83f152db22c",
+      "praiseNumber": "252",
+      "praiseName": "Se Dispuseres o Teu Coração",
+      "livro": "Jó",
+      "capitulo": 11,
+      "versiculoInicio": 13,
+      "versiculoFim": 19,
+      "referencia": "Jó 11:13-19",
+      "similaridade": 90.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "6ac95284-dd99-42c0-b0a5-1c1cb48873c4": [
@@ -1553,6 +1956,19 @@
       "referencia": "Lamentações 3:31-32",
       "qtdNgrams": 2,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "71909420-d432-40ee-8e1e-6158c70988a2",
+      "praiseNumber": "320",
+      "praiseName": "Bom é o Senhor",
+      "livro": "Lamentações",
+      "capitulo": 3,
+      "versiculoInicio": 25,
+      "versiculoFim": 33,
+      "referencia": "Lamentações 3:25-33",
+      "similaridade": 87.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e0fcbebb-8ff9-4cd7-a837-8da67fe79e49": [
@@ -1595,6 +2011,19 @@
       "referencia": "Isaías 40:1-9",
       "qtdNgrams": 8,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "6474622e-098c-4d1e-9690-3a93fd5e5514",
+      "praiseNumber": "328",
+      "praiseName": "Consolai, Consolai o Meu Povo",
+      "livro": "Isaías",
+      "capitulo": 40,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Isaías 40:1-5",
+      "similaridade": 89.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "5e2477d1-8b4c-463e-bc97-0f65b167fb45": [
@@ -1635,6 +2064,19 @@
       "referencia": "Salmos 28:8",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "02d49e79-48f1-43ca-8166-c92649d7c760",
+      "praiseNumber": "348",
+      "praiseName": "Espera no Senhor, anima-te",
+      "livro": "Salmos",
+      "capitulo": 27,
+      "versiculoInicio": 14,
+      "versiculoFim": 14,
+      "referencia": "Salmos 27:14",
+      "similaridade": 89.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "6a38af2e-7e15-4ba9-a027-942ffe51e4d7": [
@@ -1649,6 +2091,19 @@
       "referencia": "Salmos 124:2",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "6a38af2e-7e15-4ba9-a027-942ffe51e4d7",
+      "praiseNumber": "349",
+      "praiseName": "Se não fosse o Senhor",
+      "livro": "Salmos",
+      "capitulo": 124,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 124:1-8",
+      "similaridade": 86.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "fdba536b-5975-49a4-a4d9-de4201e4d38f": [
@@ -1663,6 +2118,19 @@
       "referencia": "Salmos 23:1-3",
       "qtdNgrams": 6,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "fdba536b-5975-49a4-a4d9-de4201e4d38f",
+      "praiseNumber": "356",
+      "praiseName": "O Senhor é o meu pastor Refrigera",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 23:1-4",
+      "similaridade": 93.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "1d99059a-8575-4f48-ab2e-938bfe077546": [
@@ -1677,6 +2145,19 @@
       "referencia": "Salmos 23:1-4",
       "qtdNgrams": 9,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "1d99059a-8575-4f48-ab2e-938bfe077546",
+      "praiseNumber": "357",
+      "praiseName": "O Senhor é o meu pastor Bondade",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 90.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "8a9b88e0-deba-4973-9631-97fa0278e28c": [
@@ -1691,6 +2172,19 @@
       "referencia": "Salmos 23:1-3",
       "qtdNgrams": 2,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "8a9b88e0-deba-4973-9631-97fa0278e28c",
+      "praiseNumber": "358",
+      "praiseName": "O Senhor é o Meu Pastor",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "037bef84-0dcc-4912-a1c2-ffcb1f56a839": [
@@ -1718,6 +2212,19 @@
       "similaridade": 86.4,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "037bef84-0dcc-4912-a1c2-ffcb1f56a839",
+      "praiseNumber": "362",
+      "praiseName": "Deus Proverá",
+      "livro": "Isaías",
+      "capitulo": 43,
+      "versiculoInicio": 2,
+      "versiculoFim": 5,
+      "referencia": "Isaías 43:2-5",
+      "similaridade": 86.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "c3a7bfd0-2d5b-4223-a26a-37e1c266496f": [
@@ -1732,6 +2239,19 @@
       "referencia": "Isaías 43:4-5",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "c3a7bfd0-2d5b-4223-a26a-37e1c266496f",
+      "praiseNumber": "365",
+      "praiseName": "Não Temas, Pois Te Escolhi",
+      "livro": "Isaías",
+      "capitulo": 43,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Isaías 43:1-3",
+      "similaridade": 85.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "f0a357bd-e080-4e1f-8175-fd0111bc4d42": [
@@ -1788,6 +2308,19 @@
       "referencia": "Salmos 101:1-3",
       "qtdNgrams": 7,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "d543095b-efd0-45a3-bfd9-b0d345f03e26",
+      "praiseNumber": "390",
+      "praiseName": "Cantarei a misericórdia",
+      "livro": "Salmos",
+      "capitulo": 101,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 101:1-6",
+      "similaridade": 91.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "5f804c50-53f7-44a8-90c5-e8534a4e4611": [
@@ -1886,6 +2419,19 @@
       "referencia": "Salmos 80:1-2",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "797e9106-5fcc-48f2-811f-aaa6f8f015c0",
+      "praiseNumber": "423",
+      "praiseName": "Ó Pastor de Israel",
+      "livro": "Salmos",
+      "capitulo": 80,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 80:1-3",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "2ba91169-cd4d-483e-ac33-af1ab7dc8660": [
@@ -1983,6 +2529,19 @@
       "referencia": "Salmos 71:19-23",
       "qtdNgrams": 17,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "ebfb28ad-baca-4135-81ce-f3724a441544",
+      "praiseNumber": "450",
+      "praiseName": "A tua justiça, ó Deus",
+      "livro": "Salmos",
+      "capitulo": 71,
+      "versiculoInicio": 19,
+      "versiculoFim": 24,
+      "referencia": "Salmos 71:19-24",
+      "similaridade": 88.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "732d6058-e74a-4c17-b48e-40a30801f98e": [
@@ -2065,6 +2624,19 @@
       "referencia": "Ageu 2:6-21",
       "qtdNgrams": 7,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "1919c6df-303a-4ea3-bf92-a6ebb7c88470",
+      "praiseNumber": "475",
+      "praiseName": "Ainda Uma Vez Ageu",
+      "livro": "Ageu",
+      "capitulo": 2,
+      "versiculoInicio": 6,
+      "versiculoFim": 9,
+      "referencia": "Ageu 2:6-9",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "9f60c0d1-3ffd-4a64-9fee-2d5629c41213": [
@@ -2079,6 +2651,19 @@
       "referencia": "Ageu 2:6-21",
       "qtdNgrams": 7,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "9f60c0d1-3ffd-4a64-9fee-2d5629c41213",
+      "praiseNumber": "475",
+      "praiseName": "Ainda Uma Vez Ageu",
+      "livro": "Ageu",
+      "capitulo": 2,
+      "versiculoInicio": 6,
+      "versiculoFim": 9,
+      "referencia": "Ageu 2:6-9",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "ef2a1228-f3ea-4227-bac0-671cc5bf66d5": [
@@ -2135,6 +2720,19 @@
       "referencia": "Cantares 2:10-14",
       "qtdNgrams": 25,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e24f2169-d5f2-428b-949a-2be2da10e4a5",
+      "praiseNumber": "512",
+      "praiseName": "O Meu Amado fala e Me Diz",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 10,
+      "versiculoFim": 14,
+      "referencia": "Cânticos 2:10-14",
+      "similaridade": 95.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e8659c2f-3e56-4921-bb81-82005e4be644": [
@@ -2149,6 +2747,19 @@
       "referencia": "Cantares 6:4-13",
       "qtdNgrams": 8,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e8659c2f-3e56-4921-bb81-82005e4be644",
+      "praiseNumber": "513",
+      "praiseName": "Quem é Esta Que Aparece",
+      "livro": "Cantares",
+      "capitulo": 6,
+      "versiculoInicio": 10,
+      "versiculoFim": 13,
+      "referencia": "Cânticos 6:10-13",
+      "similaridade": 93.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "4a14e83d-67ef-4f08-8923-f08da27fee14": [
@@ -2205,6 +2816,19 @@
       "referencia": "Apocalipse 19:1-7",
       "qtdNgrams": 11,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "3a2fc302-bfa9-434b-925d-42ec759666b6",
+      "praiseNumber": "561",
+      "praiseName": "Ouvi como que a voz",
+      "livro": "Apocalipse",
+      "capitulo": 19,
+      "versiculoInicio": 6,
+      "versiculoFim": 7,
+      "referencia": "Apocalipse 19:6-7",
+      "similaridade": 90.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e69cf88f-7773-431e-8a1e-0764fa0f9770": [
@@ -2219,6 +2843,19 @@
       "referencia": "Apocalipse 19:1-7",
       "qtdNgrams": 11,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e69cf88f-7773-431e-8a1e-0764fa0f9770",
+      "praiseNumber": "561",
+      "praiseName": "Ouvi como que a voz",
+      "livro": "Apocalipse",
+      "capitulo": 19,
+      "versiculoInicio": 6,
+      "versiculoFim": 7,
+      "referencia": "Apocalipse 19:6-7",
+      "similaridade": 90.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "7e58c381-c551-403f-8416-0bbe005dab60": [
@@ -2287,6 +2924,19 @@
       "referencia": "Salmos 18:2",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "27dc02ed-72cc-4860-84b6-38ff3402797e",
+      "praiseNumber": "577",
+      "praiseName": "Glória e Aleluia",
+      "livro": "Salmos",
+      "capitulo": 18,
+      "versiculoInicio": 2,
+      "versiculoFim": 3,
+      "referencia": "Salmos 18:2-3",
+      "similaridade": 86.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "61ee5ee1-7eeb-4cef-9978-b365dc609ce7": [
@@ -2341,6 +2991,19 @@
       "referencia": "Apocalipse 5:12",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "82cd59bb-cdec-49c0-b149-533a6fe8ea19",
+      "praiseNumber": "596",
+      "praiseName": "És majestade o rei da gloria",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 9,
+      "versiculoFim": 12,
+      "referencia": "Apocalipse 5:9-12",
+      "similaridade": 84.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "af2ccfc0-71ab-4ff2-9f87-feda6deaa0dd": [
@@ -2355,6 +3018,19 @@
       "referencia": "Gênesis 1:2",
       "qtdNgrams": 6,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "af2ccfc0-71ab-4ff2-9f87-feda6deaa0dd",
+      "praiseNumber": "605",
+      "praiseName": "Nosso Deus é soberano",
+      "livro": "Gênesis",
+      "capitulo": 1,
+      "versiculoInicio": 1,
+      "versiculoFim": 27,
+      "referencia": "Gênesis 1:1-27",
+      "similaridade": 84.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "44ec5565-fd7b-4958-9977-720212a68c4c": [
@@ -2383,6 +3059,19 @@
       "referencia": "1 Samuel 2:1-6",
       "qtdNgrams": 16,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "fd31bded-4d64-4f23-b5fd-beb426ae2490",
+      "praiseNumber": "617",
+      "praiseName": "O meu coração se regozija no Senhor",
+      "livro": "1 Samuel",
+      "capitulo": 2,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "1 Samuel 2:1-2, 6",
+      "similaridade": 87.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "2c0cb601-4aed-44ac-ba6a-ee60e99d8b05": [
@@ -2423,6 +3112,19 @@
       "referencia": "Salmos 108:3-5",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "36a57199-3b96-4b87-9801-48f32199b775",
+      "praiseNumber": "631",
+      "praiseName": "Sê Exaltado, ó Deus",
+      "livro": "Salmos",
+      "capitulo": 57,
+      "versiculoInicio": 5,
+      "versiculoFim": 5,
+      "referencia": "Salmos 57:5",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "8d2545f3-ca75-4989-9868-cabcbc5b50e4": [
@@ -2477,6 +3179,19 @@
       "referencia": "Salmos 116:12-19",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "931a50b1-269a-4d6f-a26d-591b73ca16a2",
+      "praiseNumber": "651",
+      "praiseName": "Amo Ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 116,
+      "versiculoInicio": 1,
+      "versiculoFim": 13,
+      "referencia": "Salmos 116:1-13",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "e3fa2c6b-ae66-4f10-8188-1289688be8ae": [
@@ -2491,6 +3206,19 @@
       "referencia": "Salmos 116:12-19",
       "qtdNgrams": 4,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "e3fa2c6b-ae66-4f10-8188-1289688be8ae",
+      "praiseNumber": "651",
+      "praiseName": "Amo Ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 116,
+      "versiculoInicio": 1,
+      "versiculoFim": 13,
+      "referencia": "Salmos 116:1-13",
+      "similaridade": 88.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "1716acc2-420a-4052-86d2-e1a0d1e4cc0c": [
@@ -2533,6 +3261,19 @@
       "referencia": "Salmos 48:1-8",
       "qtdNgrams": 7,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "34e32e24-cae4-42a9-8681-25d6c84eef58",
+      "praiseNumber": "654",
+      "praiseName": "Grande é o Senhor e Mui Digno de ser Louvado Sl 48",
+      "livro": "Salmos",
+      "capitulo": 48,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 48:1-2",
+      "similaridade": 95.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "226d5368-b796-4e10-ab7f-7021998b4c15": [
@@ -2587,6 +3328,19 @@
       "referencia": "Salmos 106:1",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "16613d7f-558c-44f4-9cde-fe2ef902bb03",
+      "praiseNumber": "659",
+      "praiseName": "Celebrai com júbilo ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 100,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Salmos 100:1-5",
+      "similaridade": 92.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "d2674beb-30d1-4351-9391-7a73bbf2ed1b": [
@@ -2694,6 +3448,19 @@
       "similaridade": 90.1,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "8e256459-22ab-4144-9a52-a40a1228d856",
+      "praiseNumber": "671",
+      "praiseName": "Ouve pois, Israel",
+      "livro": "Deuteronômio",
+      "capitulo": 6,
+      "versiculoInicio": 4,
+      "versiculoFim": 9,
+      "referencia": "Deuteronômio 6:4-9",
+      "similaridade": 90.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "997fbaf0-3275-43d3-a4a7-5fbec1f42ed0": [
@@ -2749,6 +3516,19 @@
       "similaridade": 83.0,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "0b410141-394b-4e61-83e5-44bad31cb1d2",
+      "praiseNumber": "684",
+      "praiseName": "Ele é o Rei dos reis",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 5,
+      "versiculoFim": 12,
+      "referencia": "Apocalipse 5:5-12",
+      "similaridade": 83.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "59644c4e-5806-47f1-b3ac-2b2ac0327f8d": [
@@ -2763,6 +3543,19 @@
       "referencia": "Salmos 89:8-11",
       "qtdNgrams": 9,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "59644c4e-5806-47f1-b3ac-2b2ac0327f8d",
+      "praiseNumber": "687",
+      "praiseName": "Quem é como Tu",
+      "livro": "Salmos",
+      "capitulo": 89,
+      "versiculoInicio": 8,
+      "versiculoFim": 14,
+      "referencia": "Salmos 89:8-14",
+      "similaridade": 89.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "25d1a6c3-2694-4f8b-8f2b-40ace77277ff": [
@@ -2805,6 +3598,19 @@
       "referencia": "Apocalipse 19:7-8",
       "qtdNgrams": 3,
       "tipo": "citacao_direta"
+    },
+    {
+      "praiseId": "13c81043-ecda-4bba-8442-dc94dc3ada9d",
+      "praiseNumber": "708",
+      "praiseName": "Ouvi no Céu Bodas do Cordeiro",
+      "livro": "Apocalipse",
+      "capitulo": 19,
+      "versiculoInicio": 6,
+      "versiculoFim": 9,
+      "referencia": "Apocalipse 19:6-9",
+      "similaridade": 87.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "1c73d801-5cc6-4d57-ad23-dfa9104ce9dc": [
@@ -3032,6 +3838,19 @@
       "similaridade": 85.4,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "c6e6f52f-001d-48b1-9e64-1a99dd612a8e",
+      "praiseNumber": "031",
+      "praiseName": "Eu quero ser o sal da terra",
+      "livro": "Mateus",
+      "capitulo": 5,
+      "versiculoInicio": 13,
+      "versiculoFim": 14,
+      "referencia": "Mateus 5:13-14",
+      "similaridade": 84.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "170cc373-3452-4919-ade3-4127b124faf1": [
@@ -3122,6 +3941,19 @@
       "similaridade": 82.5,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "5640d408-9526-4b1a-85e3-5132a7e1502e",
+      "praiseNumber": "024",
+      "praiseName": "Uma ovelhinha de Jesus eu sou",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 23:1-4",
+      "similaridade": 87.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "4e493d47-00d8-4ee4-be09-cda7cabfe787": [
@@ -3180,6 +4012,19 @@
       "versiculoFim": 6,
       "referencia": "Salmos 23:1-6",
       "similaridade": 86.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "10b4247d-cdc7-4334-8f21-e27d35f235e3",
+      "praiseNumber": "28",
+      "praiseName": "Ó, Senhor, tu és o meu Pastor (Salmo 23)",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 23:1-3",
+      "similaridade": 86.0,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -3452,6 +4297,19 @@
       "similaridade": 86.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "ff9eebe6-0adb-4b84-8a32-77604e892f4a",
+      "praiseNumber": "88",
+      "praiseName": "Das Profundezas",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 130:1-2",
+      "similaridade": 89.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "9ae4aafe-89e9-4e2b-8867-dddd29392d3d": [
@@ -3662,6 +4520,19 @@
       "similaridade": 89.5,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "ffe2706b-ddd3-40a1-9a90-e84bc1ac4c6e",
+      "praiseNumber": "130",
+      "praiseName": "Meu bom pastor é Cristo",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 2,
+      "versiculoFim": 2,
+      "referencia": "Salmos 23:2",
+      "similaridade": 82.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "170cb30f-c5ec-4554-920a-04b34820335a": [
@@ -3705,6 +4576,19 @@
       "versiculoFim": 14,
       "referencia": "1 Coríntios 2:9-14",
       "similaridade": 87.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "38ab4ce4-9938-474e-bee2-5126e04d581e",
+      "praiseNumber": "145",
+      "praiseName": "Revelação abre pra você",
+      "livro": "1 Coríntios",
+      "capitulo": 2,
+      "versiculoInicio": 9,
+      "versiculoFim": 10,
+      "referencia": "1 Coríntios 2:9-10",
+      "similaridade": 88.0,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -3765,6 +4649,19 @@
       "versiculoFim": 22,
       "referencia": "Gênesis 6:14-22",
       "similaridade": 83.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "3dc59bee-e62b-4538-afdb-e7fd7ca3b4f2",
+      "praiseNumber": "153",
+      "praiseName": "Como Noé",
+      "livro": "Hebreus",
+      "capitulo": 11,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Hebreus 11:7",
+      "similaridade": 86.7,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -3855,6 +4752,19 @@
       "versiculoFim": 27,
       "referencia": "Daniel 6:10-27",
       "similaridade": 86.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "735f3826-cb03-4816-8a17-d5cd76705e09",
+      "praiseNumber": "167",
+      "praiseName": "Daniel na cova dos leões",
+      "livro": "Daniel",
+      "capitulo": 6,
+      "versiculoInicio": 10,
+      "versiculoFim": 23,
+      "referencia": "Daniel 6:10-23",
+      "similaridade": 84.8,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -4322,6 +5232,19 @@
       "similaridade": 84.0,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "bd54965b-6b89-42aa-93cf-23f741f3d4dd",
+      "praiseNumber": "261",
+      "praiseName": "Cristo Caminhava Lentamente",
+      "livro": "Lucas",
+      "capitulo": 8,
+      "versiculoInicio": 43,
+      "versiculoFim": 48,
+      "referencia": "Lucas 8:43-48",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "22737709-af88-4502-80d0-fcec9adcc84c": [
@@ -4410,6 +5333,19 @@
       "versiculoFim": 8,
       "referencia": "Salmos 95:7-8",
       "similaridade": 82.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "8545cc80-7b28-4a33-8f28-ebe69a41bd74",
+      "praiseNumber": "303",
+      "praiseName": "Se não puderes mais",
+      "livro": "Hebreus",
+      "capitulo": 3,
+      "versiculoInicio": 7,
+      "versiculoFim": 8,
+      "referencia": "Hebreus 3:7-8",
+      "similaridade": 84.3,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -4547,6 +5483,19 @@
       "similaridade": 90.7,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "464952ec-b462-425c-b2bd-f0ff91492396",
+      "praiseNumber": "351",
+      "praiseName": "Tu és meu Rei",
+      "livro": "Salmos",
+      "capitulo": 44,
+      "versiculoInicio": 4,
+      "versiculoFim": 7,
+      "referencia": "Salmos 44:4-7",
+      "similaridade": 89.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "2c57a558-3cc9-4317-bedb-475d32eb9da2": [
@@ -4560,6 +5509,19 @@
       "versiculoFim": 3,
       "referencia": "Salmos 46:1-3",
       "similaridade": 86.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "2c57a558-3cc9-4317-bedb-475d32eb9da2",
+      "praiseNumber": "359",
+      "praiseName": "Deus é nosso amparo",
+      "livro": "Salmos",
+      "capitulo": 46,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 46:1-2",
+      "similaridade": 84.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -4817,6 +5779,19 @@
       "similaridade": 86.1,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "f0394526-446a-4646-8cff-13278d4e35ce",
+      "praiseNumber": "458",
+      "praiseName": "Ó Cristo Pão da Vida",
+      "livro": "João",
+      "capitulo": 6,
+      "versiculoInicio": 33,
+      "versiculoFim": 35,
+      "referencia": "João 6:33-35",
+      "similaridade": 87.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "d489ce54-5f0b-45a7-b869-e51720c09f3f": [
@@ -4920,6 +5895,19 @@
       "versiculoFim": 4,
       "referencia": "Apocalipse 21:1-4",
       "similaridade": 84.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "c6430f52-fe3c-475b-960b-81566c0f2cde",
+      "praiseNumber": "478",
+      "praiseName": "Vi um novo céu",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Apocalipse 21:1-2",
+      "similaridade": 84.1,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5117,6 +6105,19 @@
       "similaridade": 82.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "7d2a5a12-2809-4127-814b-45ec6611c400",
+      "praiseNumber": "582",
+      "praiseName": "Cantarei ao amor dos amores",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 11,
+      "versiculoFim": 13,
+      "referencia": "Cantares 2:11-13",
+      "similaridade": 82.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "61d501de-1249-4f48-810e-014cb68c3951": [
@@ -5190,6 +6191,19 @@
       "versiculoFim": 11,
       "referencia": "Filipenses 2:5-11",
       "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "b54afd46-009f-44ea-b985-afc3bbfb8218",
+      "praiseNumber": "607",
+      "praiseName": "A Deus seja o louvor",
+      "livro": "Filipenses",
+      "capitulo": 2,
+      "versiculoInicio": 6,
+      "versiculoFim": 11,
+      "referencia": "Filipenses 2:6-11",
+      "similaridade": 82.4,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5312,6 +6326,19 @@
       "similaridade": 89.1,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "c32f3e18-d4eb-41af-b61d-f6707355d095",
+      "praiseNumber": "658",
+      "praiseName": "Meditarei nas maravilhas do Senhor",
+      "livro": "Salmos",
+      "capitulo": 145,
+      "versiculoInicio": 17,
+      "versiculoFim": 18,
+      "referencia": "Salmos 145:17-18",
+      "similaridade": 83.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "57977a03-afae-4b6c-a3b2-de0e6fcb284b": [
@@ -5370,6 +6397,19 @@
       "versiculoFim": 34,
       "referencia": "Mateus 25:34",
       "similaridade": 82.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "18ae0ad8-f20f-4087-be3b-237dccffb8d9",
+      "praiseNumber": "674",
+      "praiseName": "Eu Não Sei Qual Será Meu Louvor",
+      "livro": "1 Coríntios",
+      "capitulo": 2,
+      "versiculoInicio": 9,
+      "versiculoFim": 9,
+      "referencia": "1 Coríntios 2:9",
+      "similaridade": 82.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5460,6 +6500,19 @@
       "versiculoFim": 4,
       "referencia": "Apocalipse 21:1-4",
       "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "562c9834-959c-4329-b2a7-44ce352157a6",
+      "praiseNumber": "694",
+      "praiseName": "Jerusalém Eterna",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 2,
+      "versiculoFim": 3,
+      "referencia": "Apocalipse 21:2-3",
+      "similaridade": 85.6,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5597,6 +6650,19 @@
       "similaridade": 83.2,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "882c845a-35a8-4942-bd5e-b87e3532a649",
+      "praiseNumber": "750",
+      "praiseName": "Deixa a glória de Deus brilhar",
+      "livro": "Êxodo",
+      "capitulo": 34,
+      "versiculoInicio": 29,
+      "versiculoFim": 30,
+      "referencia": "Êxodo 34:29-30",
+      "similaridade": 82.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "6d40264a-183b-4b86-9c12-c591249415c6": [
@@ -5640,6 +6706,19 @@
       "versiculoFim": 1,
       "referencia": "Salmos 96:1",
       "similaridade": 90.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "a00ce662-ba29-4f73-99c6-14cf12a9cc65",
+      "praiseNumber": "784",
+      "praiseName": "Cantai ao Senhor um Cântico Novo",
+      "livro": "Salmos",
+      "capitulo": 98,
+      "versiculoInicio": 1,
+      "versiculoFim": 1,
+      "referencia": "Salmos 98:1",
+      "similaridade": 90.2,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5852,6 +6931,19 @@
       "similaridade": 83.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "9b7aaeae-9ff0-4db9-95d4-602d9902030b",
+      "praiseNumber": "",
+      "praiseName": "Glorifica",
+      "livro": "Apocalipse",
+      "capitulo": 1,
+      "versiculoInicio": 13,
+      "versiculoFim": 17,
+      "referencia": "Apocalipse 1:13-17",
+      "similaridade": 84.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "3ddecb58-dd02-4b84-8f52-575cd69396df": [
@@ -5895,6 +6987,19 @@
       "versiculoFim": 4,
       "referencia": "Apocalipse 21:1-4",
       "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "a086d1d5-d43a-4010-9eb8-2916769c82ce",
+      "praiseNumber": "",
+      "praiseName": "Jerusalém eterna",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 2,
+      "versiculoFim": 3,
+      "referencia": "Apocalipse 21:2-3",
+      "similaridade": 85.2,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -5970,6 +7075,19 @@
       "versiculoFim": 3,
       "referencia": "Salmos 23:1-3",
       "similaridade": 88.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "c21a88ca-0ae8-4564-a1f0-e17a79244474",
+      "praiseNumber": "",
+      "praiseName": "Minh'Alma Cantará",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 1,
+      "referencia": "Salmos 23:1",
+      "similaridade": 84.5,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -6120,6 +7238,19 @@
       "versiculoFim": 2,
       "referencia": "Salmos 61:1-2",
       "similaridade": 84.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "5584c422-5fa1-4678-9c8c-f85091489781",
+      "praiseNumber": "",
+      "praiseName": "Ouve, pois, Israel",
+      "livro": "Salmos",
+      "capitulo": 61,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 61:1-3",
+      "similaridade": 84.1,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -6812,6 +7943,19 @@
       "similaridade": 80.2,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "2c557f02-5f04-4037-af4f-fe94054c585e",
+      "praiseNumber": "236",
+      "praiseName": "Ouve a Voz de Jesus",
+      "livro": "Mateus",
+      "capitulo": 11,
+      "versiculoInicio": 28,
+      "versiculoFim": 29,
+      "referencia": "Mateus 11:28-29",
+      "similaridade": 83.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
     }
   ],
   "32dd2fd7-85d8-4a87-acce-a5b1e9a3b557": [
@@ -7080,6 +8224,19 @@
       "versiculoFim": 53,
       "referencia": "1 Coríntios 15:51-53",
       "similaridade": 82.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "a3812b37-cc11-408f-b2ad-776fcddfd63f",
+      "praiseNumber": "515",
+      "praiseName": "Quando a última trombeta ecoar",
+      "livro": "1 Coríntios",
+      "capitulo": 15,
+      "versiculoInicio": 51,
+      "versiculoFim": 52,
+      "referencia": "1 Coríntios 15:51-52",
+      "similaridade": 83.9,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -7455,6 +8612,19 @@
       "versiculoFim": 6,
       "referencia": "Isaías 53:4-6",
       "similaridade": 83.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    },
+    {
+      "praiseId": "64fef8eb-93dc-4ec8-abef-58ea7c43b488",
+      "praiseNumber": "",
+      "praiseName": "Como Ovelhas Perdidas",
+      "livro": "Isaías",
+      "capitulo": 53,
+      "versiculoInicio": 6,
+      "versiculoFim": 6,
+      "referencia": "Isaías 53:6",
+      "similaridade": 83.2,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }
@@ -7845,6 +9015,2314 @@
       "versiculoFim": 6,
       "referencia": "Isaías 9:6",
       "similaridade": 86.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "10b4247d-d40b-426c-8fe8-444bb2720d20": [
+    {
+      "praiseId": "10b4247d-d40b-426c-8fe8-444bb2720d20",
+      "praiseNumber": "28",
+      "praiseName": "Ó, Senhor, tu és o meu Pastor (Salmo 23)",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "5000de1f-6119-417d-94b2-03d3606fbfeb": [
+    {
+      "praiseId": "5000de1f-6119-417d-94b2-03d3606fbfeb",
+      "praiseNumber": "",
+      "praiseName": "Salmo 150",
+      "livro": "Salmos",
+      "capitulo": 150,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 150:1-6",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "53bfcdfb-7f61-463d-82d0-bbfb9f1d93aa": [
+    {
+      "praiseId": "53bfcdfb-7f61-463d-82d0-bbfb9f1d93aa",
+      "praiseNumber": "056",
+      "praiseName": "Uma voz mansa e delicada (I Reis 19)",
+      "livro": "1 Reis",
+      "capitulo": 19,
+      "versiculoInicio": 11,
+      "versiculoFim": 13,
+      "referencia": "1 Reis 19:11-13",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "9bc8bfee-caee-4e59-b1be-f29e160a2ba7": [
+    {
+      "praiseId": "9bc8bfee-caee-4e59-b1be-f29e160a2ba7",
+      "praiseNumber": "097",
+      "praiseName": "Salmo 91",
+      "livro": "Salmos",
+      "capitulo": 91,
+      "versiculoInicio": 1,
+      "versiculoFim": 16,
+      "referencia": "Salmos 91:1-16",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "b5b8c9eb-a7f4-42b7-a066-db1be2fc683a": [
+    {
+      "praiseId": "b5b8c9eb-a7f4-42b7-a066-db1be2fc683a",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23 - Silmar Correia",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "c60bc0d4-1a35-430c-b26a-9f5b619f71c4": [
+    {
+      "praiseId": "c60bc0d4-1a35-430c-b26a-9f5b619f71c4",
+      "praiseNumber": "098",
+      "praiseName": "Cantares 2",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 1,
+      "versiculoFim": 17,
+      "referencia": "Cantares 2:1-17",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "d69733a7-37ca-42de-829d-328b76d6af46": [
+    {
+      "praiseId": "d69733a7-37ca-42de-829d-328b76d6af46",
+      "praiseNumber": "",
+      "praiseName": "Salmo 86",
+      "livro": "Salmos",
+      "capitulo": 86,
+      "versiculoInicio": 1,
+      "versiculoFim": 17,
+      "referencia": "Salmos 86:1-17",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    },
+    {
+      "praiseId": "d69733a7-37ca-42de-829d-328b76d6af46",
+      "praiseNumber": "",
+      "praiseName": "Salmo 86",
+      "livro": "Salmos",
+      "capitulo": 86,
+      "versiculoInicio": 11,
+      "versiculoFim": 13,
+      "referencia": "Salmos 86:11-13",
+      "similaridade": 85.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d7ab3973-2d5f-4091-bf96-981f422c5448": [
+    {
+      "praiseId": "d7ab3973-2d5f-4091-bf96-981f422c5448",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "dd2f3c04-58a5-4228-a6d1-432a6886e902": [
+    {
+      "praiseId": "dd2f3c04-58a5-4228-a6d1-432a6886e902",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23 - 2",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "ec28fc6a-689b-449e-ba7d-cb03f6bb999c": [
+    {
+      "praiseId": "ec28fc6a-689b-449e-ba7d-cb03f6bb999c",
+      "praiseNumber": "",
+      "praiseName": "Clamor de Ana",
+      "livro": "1 Samuel",
+      "capitulo": 1,
+      "versiculoInicio": 1,
+      "versiculoFim": 28,
+      "referencia": "1 Samuel 1:1-28",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "f9cf6525-45c1-4cb5-aa50-70f9df5608cb": [
+    {
+      "praiseId": "f9cf6525-45c1-4cb5-aa50-70f9df5608cb",
+      "praiseNumber": "010",
+      "praiseName": "Das Profundezas Salmo 130",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 130:1-8",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "feb7c9b3-ff00-4b8c-b0fc-c3e031e326c5": [
+    {
+      "praiseId": "feb7c9b3-ff00-4b8c-b0fc-c3e031e326c5",
+      "praiseNumber": "004",
+      "praiseName": "À minha Voz, ó Deus, Atende Salmo 5",
+      "livro": "Salmos",
+      "capitulo": 5,
+      "versiculoInicio": 1,
+      "versiculoFim": 12,
+      "referencia": "Salmos 5:1-12",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "9de2c9d7-83d3-4a11-b062-817349971917": [
+    {
+      "praiseId": "9de2c9d7-83d3-4a11-b062-817349971917",
+      "praiseNumber": "",
+      "praiseName": "Salmo 130",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 130:1-8",
+      "similaridade": 100.0,
+      "tipo": "citacao_direta",
+      "origem": "titulo_ancora_biblica"
+    }
+  ],
+  "c6bd51a8-6a7a-435f-9ca4-4d2968377dbc": [
+    {
+      "praiseId": "c6bd51a8-6a7a-435f-9ca4-4d2968377dbc",
+      "praiseNumber": "001",
+      "praiseName": "Meu Deus, meu pai",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 20,
+      "referencia": "Hebreus 10:19-20",
+      "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "ebebe96e-c2a6-4e56-9cbe-495c54ac9f9a": [
+    {
+      "praiseId": "ebebe96e-c2a6-4e56-9cbe-495c54ac9f9a",
+      "praiseNumber": "001",
+      "praiseName": "O sangue de Jesus tem poder",
+      "livro": "1 João",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "1 João 1:7",
+      "similaridade": 82.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "144e8655-fed5-4aab-9ebc-0e416efb588d": [
+    {
+      "praiseId": "144e8655-fed5-4aab-9ebc-0e416efb588d",
+      "praiseNumber": "003",
+      "praiseName": "Clamo, ó Senhor por teu sangue",
+      "livro": "Mateus",
+      "capitulo": 26,
+      "versiculoInicio": 28,
+      "versiculoFim": 28,
+      "referencia": "Mateus 26:28",
+      "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c4209d2f-cd90-419d-8bcf-56399b458d16": [
+    {
+      "praiseId": "c4209d2f-cd90-419d-8bcf-56399b458d16",
+      "praiseNumber": "007",
+      "praiseName": "É teu sangue, meu Senhor Jesus",
+      "livro": "1 João",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "1 João 1:7",
+      "similaridade": 85.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8d776fe2-309e-4f06-968d-d3e1fb971f37": [
+    {
+      "praiseId": "8d776fe2-309e-4f06-968d-d3e1fb971f37",
+      "praiseNumber": "8",
+      "praiseName": "Pelo Sangue de Jesus",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 22,
+      "referencia": "Hebreus 10:19-22",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d543897f-70e3-4b96-905d-9215804bf900": [
+    {
+      "praiseId": "d543897f-70e3-4b96-905d-9215804bf900",
+      "praiseNumber": "008",
+      "praiseName": "Pelo Sangue de Jesus",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 22,
+      "referencia": "Hebreus 10:19-22",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "7010936f-8ecc-4099-86b8-7eb81741fe74": [
+    {
+      "praiseId": "7010936f-8ecc-4099-86b8-7eb81741fe74",
+      "praiseNumber": "021",
+      "praiseName": "Santo, Justo, Príncipe da Vida",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 19,
+      "referencia": "Hebreus 10:19",
+      "similaridade": 82.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "63f82990-8b96-4ac6-9c04-7fe64f7c33b0": [
+    {
+      "praiseId": "63f82990-8b96-4ac6-9c04-7fe64f7c33b0",
+      "praiseNumber": "035",
+      "praiseName": "A Meu Senhor",
+      "livro": "Apocalipse",
+      "capitulo": 7,
+      "versiculoInicio": 14,
+      "versiculoFim": 14,
+      "referencia": "Apocalipse 7:14",
+      "similaridade": 83.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "cbe45953-1bed-4ae5-9438-5182b39e5012": [
+    {
+      "praiseId": "cbe45953-1bed-4ae5-9438-5182b39e5012",
+      "praiseNumber": "063",
+      "praiseName": "Tem bom ânimo, pobre pecador",
+      "livro": "Marcos",
+      "capitulo": 10,
+      "versiculoInicio": 46,
+      "versiculoFim": 52,
+      "referencia": "Marcos 10:46-52",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8261f5ef-087a-4590-a810-1068538e23d4": [
+    {
+      "praiseId": "8261f5ef-087a-4590-a810-1068538e23d4",
+      "praiseNumber": "043",
+      "praiseName": "Sou feliz!",
+      "livro": "1 João",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "1 João 1:7",
+      "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "08f336b1-881e-41f8-b2ad-0a72cc53afbf": [
+    {
+      "praiseId": "08f336b1-881e-41f8-b2ad-0a72cc53afbf",
+      "praiseNumber": "82",
+      "praiseName": "Jesus vem nos buscar",
+      "livro": "Mateus",
+      "capitulo": 7,
+      "versiculoInicio": 13,
+      "versiculoFim": 14,
+      "referencia": "Mateus 7:13-14",
+      "similaridade": 85.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "37ce34fa-02a6-453c-a7c8-d4580403f229": [
+    {
+      "praiseId": "37ce34fa-02a6-453c-a7c8-d4580403f229",
+      "praiseNumber": "99",
+      "praiseName": "A Salvação",
+      "livro": "Isaías",
+      "capitulo": 43,
+      "versiculoInicio": 1,
+      "versiculoFim": 1,
+      "referencia": "Isaías 43:1",
+      "similaridade": 82.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "3c3adcdd-5181-4d65-9825-5080fa670bab": [
+    {
+      "praiseId": "3c3adcdd-5181-4d65-9825-5080fa670bab",
+      "praiseNumber": "138",
+      "praiseName": "Sou um soldado do bom salvador",
+      "livro": "2 Timóteo",
+      "capitulo": 2,
+      "versiculoInicio": 3,
+      "versiculoFim": 4,
+      "referencia": "2 Timóteo 2:3-4",
+      "similaridade": 84.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "01cd300a-558c-4498-b301-d0139bc15467": [
+    {
+      "praiseId": "01cd300a-558c-4498-b301-d0139bc15467",
+      "praiseNumber": "142",
+      "praiseName": "Como uma folha ao vento",
+      "livro": "João",
+      "capitulo": 3,
+      "versiculoInicio": 8,
+      "versiculoFim": 8,
+      "referencia": "João 3:8",
+      "similaridade": 87.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "dc7a8f2d-ad50-4387-9909-ba225ab92ee2": [
+    {
+      "praiseId": "dc7a8f2d-ad50-4387-9909-ba225ab92ee2",
+      "praiseNumber": "151",
+      "praiseName": "No princípio era o verbo",
+      "livro": "João",
+      "capitulo": 1,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "João 1:1-3",
+      "similaridade": 87.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c24cb986-e6a1-4eb3-bbd3-6e3c473fee12": [
+    {
+      "praiseId": "c24cb986-e6a1-4eb3-bbd3-6e3c473fee12",
+      "praiseNumber": "160",
+      "praiseName": "Existem segredos na tua palavra",
+      "livro": "1 Coríntios",
+      "capitulo": 2,
+      "versiculoInicio": 10,
+      "versiculoFim": 14,
+      "referencia": "1 Coríntios 2:10-14",
+      "similaridade": 83.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "514c0c0b-f488-4deb-b5c2-eaad1203d9e5": [
+    {
+      "praiseId": "514c0c0b-f488-4deb-b5c2-eaad1203d9e5",
+      "praiseNumber": "161",
+      "praiseName": "Tu és pra mim um vaso escolhido",
+      "livro": "Atos",
+      "capitulo": 9,
+      "versiculoInicio": 15,
+      "versiculoFim": 15,
+      "referencia": "Atos 9:15",
+      "similaridade": 86.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6a0694ad-af0f-4195-a81c-2b09ae431a2a": [
+    {
+      "praiseId": "6a0694ad-af0f-4195-a81c-2b09ae431a2a",
+      "praiseNumber": "224",
+      "praiseName": "Deus criou os céus e a terra",
+      "livro": "Gênesis",
+      "capitulo": 1,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Gênesis 1:1-3",
+      "similaridade": 86.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "a6d93cf0-56aa-40ab-9148-b5d1823a98c9": [
+    {
+      "praiseId": "a6d93cf0-56aa-40ab-9148-b5d1823a98c9",
+      "praiseNumber": "232",
+      "praiseName": "Quem Beber da Água que Eu lhe Der",
+      "livro": "João",
+      "capitulo": 4,
+      "versiculoInicio": 14,
+      "versiculoFim": 14,
+      "referencia": "João 4:14",
+      "similaridade": 83.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b7d5e55a-0a8a-4637-9563-92fd821b2af4": [
+    {
+      "praiseId": "b7d5e55a-0a8a-4637-9563-92fd821b2af4",
+      "praiseNumber": "234",
+      "praiseName": "Deus Hoje Quer Te Falar",
+      "livro": "Apocalipse",
+      "capitulo": 3,
+      "versiculoInicio": 20,
+      "versiculoFim": 20,
+      "referencia": "Apocalipse 3:20",
+      "similaridade": 82.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b2c1ec21-1aab-47c2-8cdf-184e2e8982bd": [
+    {
+      "praiseId": "b2c1ec21-1aab-47c2-8cdf-184e2e8982bd",
+      "praiseNumber": "241",
+      "praiseName": "Exaltai, Exaltai",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 9,
+      "versiculoFim": 9,
+      "referencia": "Apocalipse 5:9",
+      "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "59d84bec-c850-4477-8ae0-22f6cdea07fe": [
+    {
+      "praiseId": "59d84bec-c850-4477-8ae0-22f6cdea07fe",
+      "praiseNumber": "289",
+      "praiseName": "Estende tua mão",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 23:1-3",
+      "similaridade": 83.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "3fdd8622-efe1-4216-aaeb-9672d7467b3f": [
+    {
+      "praiseId": "3fdd8622-efe1-4216-aaeb-9672d7467b3f",
+      "praiseNumber": "366",
+      "praiseName": "As Lágrimas Falam, Jesus Te Escuta",
+      "livro": "Mateus",
+      "capitulo": 5,
+      "versiculoInicio": 4,
+      "versiculoFim": 4,
+      "referencia": "Mateus 5:4",
+      "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "08a66eb2-f5d7-4dce-8915-19d0024b6096": [
+    {
+      "praiseId": "08a66eb2-f5d7-4dce-8915-19d0024b6096",
+      "praiseNumber": "429",
+      "praiseName": "És o pão da vida",
+      "livro": "João",
+      "capitulo": 6,
+      "versiculoInicio": 35,
+      "versiculoFim": 35,
+      "referencia": "João 6:35",
+      "similaridade": 84.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f97673ed-ee62-4d77-8203-3fc143bea039": [
+    {
+      "praiseId": "f97673ed-ee62-4d77-8203-3fc143bea039",
+      "praiseNumber": "546",
+      "praiseName": "Oh! Quanto almejo estar",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 2,
+      "versiculoFim": 4,
+      "referencia": "Apocalipse 21:2-4",
+      "similaridade": 82.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "fa53f3a4-f1bd-4762-9dd2-2983fb04949a": [
+    {
+      "praiseId": "fa53f3a4-f1bd-4762-9dd2-2983fb04949a",
+      "praiseNumber": "601",
+      "praiseName": "Ao que está no trono",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 12,
+      "versiculoFim": 13,
+      "referencia": "Apocalipse 5:12-13",
+      "similaridade": 84.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f69dfd53-8f04-47e4-ae25-2da6010c7e80": [
+    {
+      "praiseId": "f69dfd53-8f04-47e4-ae25-2da6010c7e80",
+      "praiseNumber": "602",
+      "praiseName": "Santo é o que está no trono",
+      "livro": "Apocalipse",
+      "capitulo": 4,
+      "versiculoInicio": 8,
+      "versiculoFim": 11,
+      "referencia": "Apocalipse 4:8-11",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "429d9fa9-0958-4b12-8ccf-a31df9e67f13": [
+    {
+      "praiseId": "429d9fa9-0958-4b12-8ccf-a31df9e67f13",
+      "praiseNumber": "603",
+      "praiseName": "Louvarei ao meu Senhor",
+      "livro": "Salmos",
+      "capitulo": 146,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 146:1-2",
+      "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "5ffc1838-f3db-410c-b00e-99d66f73bcb4": [
+    {
+      "praiseId": "5ffc1838-f3db-410c-b00e-99d66f73bcb4",
+      "praiseNumber": "628",
+      "praiseName": "Santo é seu nome",
+      "livro": "Filipenses",
+      "capitulo": 2,
+      "versiculoInicio": 9,
+      "versiculoFim": 10,
+      "referencia": "Filipenses 2:9-10",
+      "similaridade": 82.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f370074f-cc80-4dad-87a5-bf9242ff20ad": [
+    {
+      "praiseId": "f370074f-cc80-4dad-87a5-bf9242ff20ad",
+      "praiseNumber": "613",
+      "praiseName": "Dai glória a Deus",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 5,
+      "versiculoFim": 5,
+      "referencia": "Apocalipse 5:5",
+      "similaridade": 84.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b406e303-26ff-49d5-83be-b9bc07b172b0": [
+    {
+      "praiseId": "b406e303-26ff-49d5-83be-b9bc07b172b0",
+      "praiseNumber": "645",
+      "praiseName": "Coroai",
+      "livro": "Filipenses",
+      "capitulo": 2,
+      "versiculoInicio": 9,
+      "versiculoFim": 11,
+      "referencia": "Filipenses 2:9-11",
+      "similaridade": 82.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "51e6d57f-04ba-43da-9827-74c56169b8c0": [
+    {
+      "praiseId": "51e6d57f-04ba-43da-9827-74c56169b8c0",
+      "praiseNumber": "657",
+      "praiseName": "Os Céus Proclamam",
+      "livro": "Salmos",
+      "capitulo": 19,
+      "versiculoInicio": 1,
+      "versiculoFim": 1,
+      "referencia": "Salmos 19:1",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6b295f08-9453-4af2-b1c1-3869fbbaca14": [
+    {
+      "praiseId": "6b295f08-9453-4af2-b1c1-3869fbbaca14",
+      "praiseNumber": "657",
+      "praiseName": "Os Céus Proclamam",
+      "livro": "Salmos",
+      "capitulo": 19,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 19:1-4",
+      "similaridade": 86.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "13fd9214-8ce3-4c5e-9320-b8be42da1db8": [
+    {
+      "praiseId": "13fd9214-8ce3-4c5e-9320-b8be42da1db8",
+      "praiseNumber": "662",
+      "praiseName": "Onipotente Deus",
+      "livro": "Salmos",
+      "capitulo": 8,
+      "versiculoInicio": 4,
+      "versiculoFim": 6,
+      "referencia": "Salmos 8:4-6",
+      "similaridade": 83.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "354f6685-1658-40a2-8b2b-7f7a2528f7a3": [
+    {
+      "praiseId": "354f6685-1658-40a2-8b2b-7f7a2528f7a3",
+      "praiseNumber": "729",
+      "praiseName": "Os teus anjos te exaltam",
+      "livro": "João",
+      "capitulo": 16,
+      "versiculoInicio": 33,
+      "versiculoFim": 33,
+      "referencia": "João 16:33",
+      "similaridade": 84.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "33871ab8-6c49-4bd4-a32d-b3ce4267e384": [
+    {
+      "praiseId": "33871ab8-6c49-4bd4-a32d-b3ce4267e384",
+      "praiseNumber": "",
+      "praiseName": "Aquilo que fui Não sou Mais (Contra capa)",
+      "livro": "Gálatas",
+      "capitulo": 2,
+      "versiculoInicio": 20,
+      "versiculoFim": 20,
+      "referencia": "Gálatas 2:20",
+      "similaridade": 83.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "185983c5-27c2-4932-8681-366bb5d470f3": [
+    {
+      "praiseId": "185983c5-27c2-4932-8681-366bb5d470f3",
+      "praiseNumber": "",
+      "praiseName": "Com meu coração",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 22,
+      "referencia": "Hebreus 10:19-22",
+      "similaridade": 82.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "3483c775-5bdd-4a9a-ad0d-149552b14035": [
+    {
+      "praiseId": "3483c775-5bdd-4a9a-ad0d-149552b14035",
+      "praiseNumber": "",
+      "praiseName": "Eu Sou",
+      "livro": "Apocalipse",
+      "capitulo": 22,
+      "versiculoInicio": 13,
+      "versiculoFim": 16,
+      "referencia": "Apocalipse 22:13-16",
+      "similaridade": 89.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "37770946-234b-4158-b3d6-3d76f0d6ccb5": [
+    {
+      "praiseId": "37770946-234b-4158-b3d6-3d76f0d6ccb5",
+      "praiseNumber": "",
+      "praiseName": "O Anjo do Egito",
+      "livro": "Êxodo",
+      "capitulo": 12,
+      "versiculoInicio": 12,
+      "versiculoFim": 13,
+      "referencia": "Êxodo 12:12-13",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "bb2091a6-299e-4048-8868-8c98e0fa2ccf": [
+    {
+      "praiseId": "bb2091a6-299e-4048-8868-8c98e0fa2ccf",
+      "praiseNumber": "",
+      "praiseName": "Ó Exaltai Jesus Senhor",
+      "livro": "Salmos",
+      "capitulo": 99,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Salmos 99:1-5",
+      "similaridade": 86.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "156bd988-949a-4008-ab51-290362d6738a": [
+    {
+      "praiseId": "156bd988-949a-4008-ab51-290362d6738a",
+      "praiseNumber": "",
+      "praiseName": "Tua, ó Deus",
+      "livro": "1 Crônicas",
+      "capitulo": 29,
+      "versiculoInicio": 11,
+      "versiculoFim": 11,
+      "referencia": "1 Crônicas 29:11",
+      "similaridade": 91.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "4f54c201-84fd-44ee-b6e9-7398c4261b97": [
+    {
+      "praiseId": "4f54c201-84fd-44ee-b6e9-7398c4261b97",
+      "praiseNumber": "",
+      "praiseName": "Vós, Criaturas De Deus Pai",
+      "livro": "Salmos",
+      "capitulo": 148,
+      "versiculoInicio": 1,
+      "versiculoFim": 14,
+      "referencia": "Salmos 148:1-14",
+      "similaridade": 85.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c536090a-690c-405c-a01e-2f033bbd7140": [
+    {
+      "praiseId": "c536090a-690c-405c-a01e-2f033bbd7140",
+      "praiseNumber": "",
+      "praiseName": "Os céus Proclamam",
+      "livro": "Salmos",
+      "capitulo": 19,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 19:1-4",
+      "similaridade": 86.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6e416d3e-b4b1-4e11-b985-e67d828c6c0a": [
+    {
+      "praiseId": "6e416d3e-b4b1-4e11-b985-e67d828c6c0a",
+      "praiseNumber": "",
+      "praiseName": "O sangue de Jesus tem poder",
+      "livro": "1 João",
+      "capitulo": 1,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "1 João 1:7",
+      "similaridade": 82.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f93b4df2-f13a-49f9-96a0-7332dfb6d09f": [
+    {
+      "praiseId": "f93b4df2-f13a-49f9-96a0-7332dfb6d09f",
+      "praiseNumber": "",
+      "praiseName": "Cristo Já Ressuscitou (Coro Masculino)",
+      "livro": "1 Coríntios",
+      "capitulo": 15,
+      "versiculoInicio": 54,
+      "versiculoFim": 57,
+      "referencia": "1 Coríntios 15:54-57",
+      "similaridade": 85.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d22c4e8c-cdd4-4a99-b882-8fecc5dbbec0": [
+    {
+      "praiseId": "d22c4e8c-cdd4-4a99-b882-8fecc5dbbec0",
+      "praiseNumber": "",
+      "praiseName": "Jesus ia caminhando (canta, meu povo)",
+      "livro": "Lucas",
+      "capitulo": 19,
+      "versiculoInicio": 37,
+      "versiculoFim": 40,
+      "referencia": "Lucas 19:37-40",
+      "similaridade": 86.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "af2b854f-adf3-4638-8257-4097116dba3b": [
+    {
+      "praiseId": "af2b854f-adf3-4638-8257-4097116dba3b",
+      "praiseNumber": "",
+      "praiseName": "Ó Amado De Minh'Alma",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 10,
+      "versiculoFim": 16,
+      "referencia": "Cantares 2:10-16",
+      "similaridade": 88.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f9cf6525-0fe3-4162-9d4b-9e45cfdd546a": [
+    {
+      "praiseId": "f9cf6525-0fe3-4162-9d4b-9e45cfdd546a",
+      "praiseNumber": "010",
+      "praiseName": "Das Profundezas Salmo 130",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 130:1-8",
+      "similaridade": 86.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "73794e27-07df-4d03-8619-3dd51cf5d638": [
+    {
+      "praiseId": "73794e27-07df-4d03-8619-3dd51cf5d638",
+      "praiseNumber": "020",
+      "praiseName": "Honra e Glória ao Cordeiro",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 12,
+      "versiculoFim": 13,
+      "referencia": "Apocalipse 5:12-13",
+      "similaridade": 84.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b6a6c0ed-cadc-45b4-9030-9aa7e12a18b3": [
+    {
+      "praiseId": "b6a6c0ed-cadc-45b4-9030-9aa7e12a18b3",
+      "praiseNumber": "",
+      "praiseName": "Contra os Males Deste Mundo",
+      "livro": "Tiago",
+      "capitulo": 5,
+      "versiculoInicio": 14,
+      "versiculoFim": 15,
+      "referencia": "Tiago 5:14-15",
+      "similaridade": 85.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "1747e742-d521-47ff-bc7d-e72de709480a": [
+    {
+      "praiseId": "1747e742-d521-47ff-bc7d-e72de709480a",
+      "praiseNumber": "",
+      "praiseName": "Um corpo só",
+      "livro": "Efésios",
+      "capitulo": 4,
+      "versiculoInicio": 4,
+      "versiculoFim": 6,
+      "referencia": "Efésios 4:4-6",
+      "similaridade": 92.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "4b97799e-52e5-4b3e-b343-cd4f4f68adfb": [
+    {
+      "praiseId": "4b97799e-52e5-4b3e-b343-cd4f4f68adfb",
+      "praiseNumber": "",
+      "praiseName": "Bem-Aventurado",
+      "livro": "Salmos",
+      "capitulo": 65,
+      "versiculoInicio": 4,
+      "versiculoFim": 4,
+      "referencia": "Salmos 65:4",
+      "similaridade": 90.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "54e20961-348c-4f6f-aa0b-1da350f279ed": [
+    {
+      "praiseId": "54e20961-348c-4f6f-aa0b-1da350f279ed",
+      "praiseNumber": "",
+      "praiseName": "Tua glória enche toda terra_",
+      "livro": "Apocalipse",
+      "capitulo": 1,
+      "versiculoInicio": 5,
+      "versiculoFim": 6,
+      "referencia": "Apocalipse 1:5-6",
+      "similaridade": 84.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f31d378c-fd81-4332-bd16-b768ffc0f6a7": [
+    {
+      "praiseId": "f31d378c-fd81-4332-bd16-b768ffc0f6a7",
+      "praiseNumber": "",
+      "praiseName": "Quem é como tu_",
+      "livro": "Salmos",
+      "capitulo": 89,
+      "versiculoInicio": 6,
+      "versiculoFim": 14,
+      "referencia": "Salmos 89:6-14",
+      "similaridade": 88.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "4f3c8c70-4e16-443a-91d8-b42b0cdbd843": [
+    {
+      "praiseId": "4f3c8c70-4e16-443a-91d8-b42b0cdbd843",
+      "praiseNumber": "",
+      "praiseName": "Eu Não Posso Fugir Do Teu Espírito",
+      "livro": "Salmos",
+      "capitulo": 139,
+      "versiculoInicio": 7,
+      "versiculoFim": 12,
+      "referencia": "Salmos 139:7-12",
+      "similaridade": 91.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c60bc0d4-3c02-45ef-913e-efb1444cc972": [
+    {
+      "praiseId": "c60bc0d4-3c02-45ef-913e-efb1444cc972",
+      "praiseNumber": "098",
+      "praiseName": "Cantares 2",
+      "livro": "Cantares",
+      "capitulo": 2,
+      "versiculoInicio": 8,
+      "versiculoFim": 10,
+      "referencia": "Cantares 2:8-10",
+      "similaridade": 82.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "5e040fe5-c821-43c0-b53c-a3b157852393": [
+    {
+      "praiseId": "5e040fe5-c821-43c0-b53c-a3b157852393",
+      "praiseNumber": "",
+      "praiseName": "Leão da Tribo de Judá CIAS",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 5,
+      "versiculoFim": 5,
+      "referencia": "Apocalipse 5:5",
+      "similaridade": 83.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c6cb79c2-103d-412d-b590-4a9da735c762": [
+    {
+      "praiseId": "c6cb79c2-103d-412d-b590-4a9da735c762",
+      "praiseNumber": "",
+      "praiseName": "Aviva, Senhor, a Tua Obra",
+      "livro": "Habacuque",
+      "capitulo": 3,
+      "versiculoInicio": 2,
+      "versiculoFim": 2,
+      "referencia": "Habacuque 3:2",
+      "similaridade": 88.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "e76acbad-629a-4afb-8d5d-d99b75908d9e": [
+    {
+      "praiseId": "e76acbad-629a-4afb-8d5d-d99b75908d9e",
+      "praiseNumber": "",
+      "praiseName": "Vem Nas Asas Do Amanhecer",
+      "livro": "Apocalipse",
+      "capitulo": 22,
+      "versiculoInicio": 20,
+      "versiculoFim": 20,
+      "referencia": "Apocalipse 22:20",
+      "similaridade": 85.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "9bd3c958-0c39-4b84-bbc5-19d1ccdf2327": [
+    {
+      "praiseId": "9bd3c958-0c39-4b84-bbc5-19d1ccdf2327",
+      "praiseNumber": "052",
+      "praiseName": "O Novo Céu",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Apocalipse 21:1-4",
+      "similaridade": 89.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "4d0dbabb-2701-4354-9a16-fd85c8acd352": [
+    {
+      "praiseId": "4d0dbabb-2701-4354-9a16-fd85c8acd352",
+      "praiseNumber": "",
+      "praiseName": "Não Sei Por Que De Deus",
+      "livro": "2 Timóteo",
+      "capitulo": 1,
+      "versiculoInicio": 12,
+      "versiculoFim": 12,
+      "referencia": "2 Timóteo 1:12",
+      "similaridade": 83.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b5b8c9eb-03d0-4020-99f7-a5f5d32859b2": [
+    {
+      "praiseId": "b5b8c9eb-03d0-4020-99f7-a5f5d32859b2",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23 - Silmar Correia",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 89.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6e4ae024-72f9-42e8-bd6b-c94c09520e06": [
+    {
+      "praiseId": "6e4ae024-72f9-42e8-bd6b-c94c09520e06",
+      "praiseNumber": "",
+      "praiseName": "Cântico De Rute",
+      "livro": "Rute",
+      "capitulo": 1,
+      "versiculoInicio": 16,
+      "versiculoFim": 16,
+      "referencia": "Rute 1:16",
+      "similaridade": 85.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "45647a0d-d4be-4aad-91dd-41109bd9e96c": [
+    {
+      "praiseId": "45647a0d-d4be-4aad-91dd-41109bd9e96c",
+      "praiseNumber": "",
+      "praiseName": "Digno é o Cordeiro",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 12,
+      "versiculoFim": 12,
+      "referencia": "Apocalipse 5:12",
+      "similaridade": 87.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f3471e07-3a66-40ee-910d-7066b7a6d2e9": [
+    {
+      "praiseId": "f3471e07-3a66-40ee-910d-7066b7a6d2e9",
+      "praiseNumber": "",
+      "praiseName": "Grandes coisas",
+      "livro": "Salmos",
+      "capitulo": 126,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 126:1-6",
+      "similaridade": 84.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f9f9acf2-895b-4f91-b2f5-759ddcf1b0e3": [
+    {
+      "praiseId": "f9f9acf2-895b-4f91-b2f5-759ddcf1b0e3",
+      "praiseNumber": "",
+      "praiseName": "Santo Santo Santo Deus Dos Exércitos",
+      "livro": "Isaías",
+      "capitulo": 6,
+      "versiculoInicio": 3,
+      "versiculoFim": 3,
+      "referencia": "Isaías 6:3",
+      "similaridade": 88.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "bac0c676-25b8-4abf-aa5e-6c33f7c34121": [
+    {
+      "praiseId": "bac0c676-25b8-4abf-aa5e-6c33f7c34121",
+      "praiseNumber": "",
+      "praiseName": "Grande é o Senhor, Digno de Louvor",
+      "livro": "Salmos",
+      "capitulo": 145,
+      "versiculoInicio": 3,
+      "versiculoFim": 3,
+      "referencia": "Salmos 145:3",
+      "similaridade": 85.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "1fe455a8-06ac-417b-8236-3d3d1f9d4149": [
+    {
+      "praiseId": "1fe455a8-06ac-417b-8236-3d3d1f9d4149",
+      "praiseNumber": "",
+      "praiseName": "Creia",
+      "livro": "Romanos",
+      "capitulo": 8,
+      "versiculoInicio": 31,
+      "versiculoFim": 37,
+      "referencia": "Romanos 8:31-37",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f313d665-7674-465a-8ab4-74de9c1af57b": [
+    {
+      "praiseId": "f313d665-7674-465a-8ab4-74de9c1af57b",
+      "praiseNumber": "",
+      "praiseName": "Ouvi, ó Céus e Falarei",
+      "livro": "Deuteronômio",
+      "capitulo": 32,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Deuteronômio 32:1-4",
+      "similaridade": 91.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8cd0eea8-10d4-4ded-a259-fe789f7a1fd8": [
+    {
+      "praiseId": "8cd0eea8-10d4-4ded-a259-fe789f7a1fd8",
+      "praiseNumber": "",
+      "praiseName": "Ontem, Hoje e Para Sempre",
+      "livro": "Hebreus",
+      "capitulo": 13,
+      "versiculoInicio": 8,
+      "versiculoFim": 8,
+      "referencia": "Hebreus 13:8",
+      "similaridade": 82.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "7d9c64a3-2ea5-4e1a-96c0-fa3cf71534bf": [
+    {
+      "praiseId": "7d9c64a3-2ea5-4e1a-96c0-fa3cf71534bf",
+      "praiseNumber": "",
+      "praiseName": "Bodas do Cordeiro",
+      "livro": "Apocalipse",
+      "capitulo": 19,
+      "versiculoInicio": 6,
+      "versiculoFim": 9,
+      "referencia": "Apocalipse 19:6-9",
+      "similaridade": 92.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "ea7992fd-1e2e-4561-bafd-dcc189cc2909": [
+    {
+      "praiseId": "ea7992fd-1e2e-4561-bafd-dcc189cc2909",
+      "praiseNumber": "",
+      "praiseName": "Abba Pai",
+      "livro": "Romanos",
+      "capitulo": 8,
+      "versiculoInicio": 15,
+      "versiculoFim": 17,
+      "referencia": "Romanos 8:15-17",
+      "similaridade": 83.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "12f0b933-13d7-486a-be9a-450cdd9cec96": [
+    {
+      "praiseId": "12f0b933-13d7-486a-be9a-450cdd9cec96",
+      "praiseNumber": "",
+      "praiseName": "Pela Fé",
+      "livro": "2 Timóteo",
+      "capitulo": 4,
+      "versiculoInicio": 7,
+      "versiculoFim": 8,
+      "referencia": "2 Timóteo 4:7-8",
+      "similaridade": 89.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c7d458b0-23a6-4ebe-9ebc-168442292c50": [
+    {
+      "praiseId": "c7d458b0-23a6-4ebe-9ebc-168442292c50",
+      "praiseNumber": "",
+      "praiseName": "Não Temas",
+      "livro": "Isaías",
+      "capitulo": 43,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Isaías 43:1-3",
+      "similaridade": 87.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "df0bcb70-6467-46ec-913c-8a4e36ab0385": [
+    {
+      "praiseId": "df0bcb70-6467-46ec-913c-8a4e36ab0385",
+      "praiseNumber": "",
+      "praiseName": "Eu não posso fugir",
+      "livro": "Salmos",
+      "capitulo": 139,
+      "versiculoInicio": 7,
+      "versiculoFim": 12,
+      "referencia": "Salmos 139:7-12",
+      "similaridade": 90.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "71f9987d-5249-461c-a332-deb0b9c34f51": [
+    {
+      "praiseId": "71f9987d-5249-461c-a332-deb0b9c34f51",
+      "praiseNumber": "",
+      "praiseName": "Deus Guiou o teu Caminho",
+      "livro": "Rute",
+      "capitulo": 1,
+      "versiculoInicio": 16,
+      "versiculoFim": 17,
+      "referencia": "Rute 1:16-17",
+      "similaridade": 84.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "431d9e8d-17f6-4451-acd2-558d55813397": [
+    {
+      "praiseId": "431d9e8d-17f6-4451-acd2-558d55813397",
+      "praiseNumber": "",
+      "praiseName": "Não há o que temer",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 23:1-4",
+      "similaridade": 86.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "19cd28ed-c363-44d9-916f-9130ff702cae": [
+    {
+      "praiseId": "19cd28ed-c363-44d9-916f-9130ff702cae",
+      "praiseNumber": "",
+      "praiseName": "Asas Da Alva",
+      "livro": "Salmos",
+      "capitulo": 139,
+      "versiculoInicio": 1,
+      "versiculoFim": 14,
+      "referencia": "Salmos 139:1-14",
+      "similaridade": 92.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f2ba3831-7ae7-457c-8221-80857b46f8a7": [
+    {
+      "praiseId": "f2ba3831-7ae7-457c-8221-80857b46f8a7",
+      "praiseNumber": "",
+      "praiseName": "Quem irá_ - CIA",
+      "livro": "Salmos",
+      "capitulo": 126,
+      "versiculoInicio": 5,
+      "versiculoFim": 6,
+      "referencia": "Salmos 126:5-6",
+      "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8a81f5dd-0914-40e3-8b35-1b423506c036": [
+    {
+      "praiseId": "8a81f5dd-0914-40e3-8b35-1b423506c036",
+      "praiseNumber": "49",
+      "praiseName": "Tu conservarás em paz",
+      "livro": "Isaías",
+      "capitulo": 26,
+      "versiculoInicio": 3,
+      "versiculoFim": 3,
+      "referencia": "Isaías 26:3",
+      "similaridade": 86.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "46fa477c-ecb8-483d-9adf-614445ec4b95": [
+    {
+      "praiseId": "46fa477c-ecb8-483d-9adf-614445ec4b95",
+      "praiseNumber": "",
+      "praiseName": "Não sei porque de Deus o amor_",
+      "livro": "2 Timóteo",
+      "capitulo": 1,
+      "versiculoInicio": 12,
+      "versiculoFim": 12,
+      "referencia": "2 Timóteo 1:12",
+      "similaridade": 83.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "22dbc3e4-618d-4676-b243-ddae0383864d": [
+    {
+      "praiseId": "22dbc3e4-618d-4676-b243-ddae0383864d",
+      "praiseNumber": "",
+      "praiseName": "Santo, Santo, Santo Deus dos Exércitos (Santo Deus dos Exércitos)",
+      "livro": "Isaías",
+      "capitulo": 6,
+      "versiculoInicio": 3,
+      "versiculoFim": 3,
+      "referencia": "Isaías 6:3",
+      "similaridade": 88.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6f2c05b0-b7d3-40f9-ab08-e02a7f459298": [
+    {
+      "praiseId": "6f2c05b0-b7d3-40f9-ab08-e02a7f459298",
+      "praiseNumber": "002",
+      "praiseName": "Aquele que há de vir, virá Viveremos pela fé",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 37,
+      "versiculoFim": 38,
+      "referencia": "Hebreus 10:37-38",
+      "similaridade": 87.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "f8a9070f-78c3-44e6-b235-c8242243c6a9": [
+    {
+      "praiseId": "f8a9070f-78c3-44e6-b235-c8242243c6a9",
+      "praiseNumber": "",
+      "praiseName": "Oh Contemplai e Vede Este Amor",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 12,
+      "versiculoFim": 12,
+      "referencia": "Apocalipse 5:12",
+      "similaridade": 84.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "821de68a-c2a6-4fc1-a3d5-013f2132e426": [
+    {
+      "praiseId": "821de68a-c2a6-4fc1-a3d5-013f2132e426",
+      "praiseNumber": "",
+      "praiseName": "As Muitas Águas (Misto)",
+      "livro": "Cantares",
+      "capitulo": 8,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cantares 8:7",
+      "similaridade": 85.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "a68940ca-1d23-4d4f-9078-a9a0ae6c0185": [
+    {
+      "praiseId": "a68940ca-1d23-4d4f-9078-a9a0ae6c0185",
+      "praiseNumber": "",
+      "praiseName": "Edifiquei Uma Casa",
+      "livro": "2 Crônicas",
+      "capitulo": 6,
+      "versiculoInicio": 14,
+      "versiculoFim": 21,
+      "referencia": "2 Crônicas 6:14-21",
+      "similaridade": 89.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "dd2f3c04-e3f4-48d5-8438-3dafd17ef2fa": [
+    {
+      "praiseId": "dd2f3c04-e3f4-48d5-8438-3dafd17ef2fa",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23 - 2",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 89.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d7ab3973-543b-492c-82ec-fbbb97ca3c75": [
+    {
+      "praiseId": "d7ab3973-543b-492c-82ec-fbbb97ca3c75",
+      "praiseNumber": "",
+      "praiseName": "Salmo 23",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 95.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "5000de1f-f7d2-4e78-aa56-f7cc178846b4": [
+    {
+      "praiseId": "5000de1f-f7d2-4e78-aa56-f7cc178846b4",
+      "praiseNumber": "",
+      "praiseName": "Salmo 150",
+      "livro": "Salmos",
+      "capitulo": 150,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 150:1-6",
+      "similaridade": 89.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "bf60662f-20f7-49a3-af1e-6f23d197c4ba": [
+    {
+      "praiseId": "bf60662f-20f7-49a3-af1e-6f23d197c4ba",
+      "praiseNumber": "",
+      "praiseName": "Se Eu Orar",
+      "livro": "2 Crônicas",
+      "capitulo": 7,
+      "versiculoInicio": 14,
+      "versiculoFim": 14,
+      "referencia": "2 Crônicas 7:14",
+      "similaridade": 85.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "93daedc3-8a38-4723-b1b6-d27cb3b5fd0f": [
+    {
+      "praiseId": "93daedc3-8a38-4723-b1b6-d27cb3b5fd0f",
+      "praiseNumber": "",
+      "praiseName": "Digno De Louvor",
+      "livro": "Apocalipse",
+      "capitulo": 5,
+      "versiculoInicio": 12,
+      "versiculoFim": 13,
+      "referencia": "Apocalipse 5:12-13",
+      "similaridade": 82.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "2fbce423-221b-4577-8068-535f52ac5269": [
+    {
+      "praiseId": "2fbce423-221b-4577-8068-535f52ac5269",
+      "praiseNumber": "",
+      "praiseName": "Cristo Já Ressuscitou (Misto)",
+      "livro": "1 Coríntios",
+      "capitulo": 15,
+      "versiculoInicio": 54,
+      "versiculoFim": 57,
+      "referencia": "1 Coríntios 15:54-57",
+      "similaridade": 85.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "5926edb5-7108-4116-b6ee-2af0460d052a": [
+    {
+      "praiseId": "5926edb5-7108-4116-b6ee-2af0460d052a",
+      "praiseNumber": "",
+      "praiseName": "Lázaro",
+      "livro": "João",
+      "capitulo": 11,
+      "versiculoInicio": 25,
+      "versiculoFim": 44,
+      "referencia": "João 11:25-44",
+      "similaridade": 85.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "73f6997e-867d-4863-9b20-fc1f13574008": [
+    {
+      "praiseId": "73f6997e-867d-4863-9b20-fc1f13574008",
+      "praiseNumber": "",
+      "praiseName": "Não há impossível",
+      "livro": "Lucas",
+      "capitulo": 1,
+      "versiculoInicio": 37,
+      "versiculoFim": 37,
+      "referencia": "Lucas 1:37",
+      "similaridade": 84.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "feb7c9b3-3739-4dea-ac5a-2233a4c8c31e": [
+    {
+      "praiseId": "feb7c9b3-3739-4dea-ac5a-2233a4c8c31e",
+      "praiseNumber": "004",
+      "praiseName": "À minha Voz, ó Deus, Atende Salmo 5",
+      "livro": "Salmos",
+      "capitulo": 5,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 5:1-8",
+      "similaridade": 84.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "67e6c54b-b550-41f7-bc3d-9c290eae7ffe": [
+    {
+      "praiseId": "67e6c54b-b550-41f7-bc3d-9c290eae7ffe",
+      "praiseNumber": "",
+      "praiseName": "Deus é Nosso Refúgio (God is our Refuge)",
+      "livro": "Salmos",
+      "capitulo": 46,
+      "versiculoInicio": 1,
+      "versiculoFim": 10,
+      "referencia": "Salmos 46:1-10",
+      "similaridade": 88.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "379f6708-924f-409a-b688-6d83882d4aad": [
+    {
+      "praiseId": "379f6708-924f-409a-b688-6d83882d4aad",
+      "praiseNumber": "",
+      "praiseName": "Sobe aqui",
+      "livro": "Apocalipse",
+      "capitulo": 4,
+      "versiculoInicio": 1,
+      "versiculoFim": 11,
+      "referencia": "Apocalipse 4:1-11",
+      "similaridade": 84.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "3984796b-f52e-4903-9a64-72a3de659faa": [
+    {
+      "praiseId": "3984796b-f52e-4903-9a64-72a3de659faa",
+      "praiseNumber": "",
+      "praiseName": "Jesus, tu és o meu Deus",
+      "livro": "Salmos",
+      "capitulo": 63,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Salmos 63:1-4",
+      "similaridade": 88.5,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "9bbb394e-2bf5-4496-9bf2-00720190221e": [
+    {
+      "praiseId": "9bbb394e-2bf5-4496-9bf2-00720190221e",
+      "praiseNumber": "",
+      "praiseName": "Deus Mesmo Revelou Um Novo Céu",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Apocalipse 21:1-4",
+      "similaridade": 88.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "54a966a5-8ab9-41a1-b79a-cf1cbb4c12a7": [
+    {
+      "praiseId": "54a966a5-8ab9-41a1-b79a-cf1cbb4c12a7",
+      "praiseNumber": "",
+      "praiseName": "A oração da Tua igreja",
+      "livro": "2 Crônicas",
+      "capitulo": 7,
+      "versiculoInicio": 14,
+      "versiculoFim": 14,
+      "referencia": "2 Crônicas 7:14",
+      "similaridade": 87.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "a52c1e8b-1dc6-4dec-9398-ca117524420a": [
+    {
+      "praiseId": "a52c1e8b-1dc6-4dec-9398-ca117524420a",
+      "praiseNumber": "",
+      "praiseName": "Não temas, pois",
+      "livro": "Isaías",
+      "capitulo": 43,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Isaías 43:1-3",
+      "similaridade": 87.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "aabede80-f851-420d-aef2-3a6672119faa": [
+    {
+      "praiseId": "aabede80-f851-420d-aef2-3a6672119faa",
+      "praiseNumber": "",
+      "praiseName": "Das Profundezas Clamo a Ti",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 1,
+      "referencia": "Salmos 130:1",
+      "similaridade": 89.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "babc4c0a-a85e-4745-ba70-f5dfaa390d81": [
+    {
+      "praiseId": "babc4c0a-a85e-4745-ba70-f5dfaa390d81",
+      "praiseNumber": "",
+      "praiseName": "Minh_alma cantará",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 23:1-3",
+      "similaridade": 87.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "9706e6b9-65e9-44fd-b09e-29c869b82a0f": [
+    {
+      "praiseId": "9706e6b9-65e9-44fd-b09e-29c869b82a0f",
+      "praiseNumber": "",
+      "praiseName": "Como Foi Para o Céu",
+      "livro": "1 Tessalonicenses",
+      "capitulo": 4,
+      "versiculoInicio": 16,
+      "versiculoFim": 17,
+      "referencia": "1 Tessalonicenses 4:16-17",
+      "similaridade": 84.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "07260914-4313-4377-88b0-4e7f2946e188": [
+    {
+      "praiseId": "07260914-4313-4377-88b0-4e7f2946e188",
+      "praiseNumber": "",
+      "praiseName": "Em Breve Sei",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Apocalipse 21:1-4",
+      "similaridade": 82.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "ebbbac37-4409-4bcd-bfb3-25b1d3fbcc34": [
+    {
+      "praiseId": "ebbbac37-4409-4bcd-bfb3-25b1d3fbcc34",
+      "praiseNumber": "",
+      "praiseName": "Um dia eu vi uma ovelha",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 23:1-2",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "e983a2f6-0ea0-47ef-a703-00da2814f6b1": [
+    {
+      "praiseId": "e983a2f6-0ea0-47ef-a703-00da2814f6b1",
+      "praiseNumber": "",
+      "praiseName": "Cristo já ressuscitou_",
+      "livro": "1 Coríntios",
+      "capitulo": 15,
+      "versiculoInicio": 54,
+      "versiculoFim": 57,
+      "referencia": "1 Coríntios 15:54-57",
+      "similaridade": 84.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "2910ffd8-68c5-4fc1-bf56-dac3eff79904": [
+    {
+      "praiseId": "2910ffd8-68c5-4fc1-bf56-dac3eff79904",
+      "praiseNumber": "",
+      "praiseName": "Aquilo que fui não sou mais",
+      "livro": "Gálatas",
+      "capitulo": 2,
+      "versiculoInicio": 20,
+      "versiculoFim": 20,
+      "referencia": "Gálatas 2:20",
+      "similaridade": 85.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "dab1c60a-33eb-44cd-9802-69dd52d92f96": [
+    {
+      "praiseId": "dab1c60a-33eb-44cd-9802-69dd52d92f96",
+      "praiseNumber": "",
+      "praiseName": "Cantai Um Cântico Novo Ao Senhor",
+      "livro": "Salmos",
+      "capitulo": 98,
+      "versiculoInicio": 1,
+      "versiculoFim": 9,
+      "referencia": "Salmos 98:1-9",
+      "similaridade": 94.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "25d9d234-6dd5-47d7-b832-1c1b04fd60b5": [
+    {
+      "praiseId": "25d9d234-6dd5-47d7-b832-1c1b04fd60b5",
+      "praiseNumber": "",
+      "praiseName": "Cântico de Davi",
+      "livro": "Salmos",
+      "capitulo": 23,
+      "versiculoInicio": 1,
+      "versiculoFim": 6,
+      "referencia": "Salmos 23:1-6",
+      "similaridade": 92.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "b5d63843-085a-4702-8156-8f903953f2ba": [
+    {
+      "praiseId": "b5d63843-085a-4702-8156-8f903953f2ba",
+      "praiseNumber": "",
+      "praiseName": "A Minha Paz te Dou (Coro Masculino)",
+      "livro": "João",
+      "capitulo": 14,
+      "versiculoInicio": 27,
+      "versiculoFim": 27,
+      "referencia": "João 14:27",
+      "similaridade": 90.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "3f0f2d9e-a9d4-48a2-b214-b9141db4bd62": [
+    {
+      "praiseId": "3f0f2d9e-a9d4-48a2-b214-b9141db4bd62",
+      "praiseNumber": "",
+      "praiseName": "Vem, Senhor, visita tua vinha",
+      "livro": "Salmos",
+      "capitulo": 80,
+      "versiculoInicio": 14,
+      "versiculoFim": 15,
+      "referencia": "Salmos 80:14-15",
+      "similaridade": 83.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c94ddae4-faf2-4ec1-89bd-c13fd91da2ee": [
+    {
+      "praiseId": "c94ddae4-faf2-4ec1-89bd-c13fd91da2ee",
+      "praiseNumber": "",
+      "praiseName": "Deus está no templo_",
+      "livro": "Habacuque",
+      "capitulo": 2,
+      "versiculoInicio": 20,
+      "versiculoFim": 20,
+      "referencia": "Habacuque 2:20",
+      "similaridade": 84.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "af87e463-b52f-498a-b9a3-2404ed47c9d9": [
+    {
+      "praiseId": "af87e463-b52f-498a-b9a3-2404ed47c9d9",
+      "praiseNumber": "",
+      "praiseName": "João viu (Jerusalém)",
+      "livro": "Apocalipse",
+      "capitulo": 21,
+      "versiculoInicio": 1,
+      "versiculoFim": 4,
+      "referencia": "Apocalipse 21:1-4",
+      "similaridade": 84.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "cc765216-30e1-4a98-96d7-c1ac720be4ae": [
+    {
+      "praiseId": "cc765216-30e1-4a98-96d7-c1ac720be4ae",
+      "praiseNumber": "026",
+      "praiseName": "O Amor do Nosso Pai",
+      "livro": "Lucas",
+      "capitulo": 15,
+      "versiculoInicio": 20,
+      "versiculoFim": 22,
+      "referencia": "Lucas 15:20-22",
+      "similaridade": 84.6,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "0c8b03f9-035a-4d6f-87ae-06903b6dfa80": [
+    {
+      "praiseId": "0c8b03f9-035a-4d6f-87ae-06903b6dfa80",
+      "praiseNumber": "",
+      "praiseName": "Castelo Forte (Coro Masculino)",
+      "livro": "Salmos",
+      "capitulo": 46,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 46:1-3",
+      "similaridade": 84.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "10361b46-1020-47dc-83a3-073c39d87d02": [
+    {
+      "praiseId": "10361b46-1020-47dc-83a3-073c39d87d02",
+      "praiseNumber": "",
+      "praiseName": "Chuva De Bênçãos",
+      "livro": "Ezequiel",
+      "capitulo": 34,
+      "versiculoInicio": 26,
+      "versiculoFim": 26,
+      "referencia": "Ezequiel 34:26",
+      "similaridade": 85.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "1e1cd578-fe7d-43ba-a082-9733f86c79f2": [
+    {
+      "praiseId": "1e1cd578-fe7d-43ba-a082-9733f86c79f2",
+      "praiseNumber": "",
+      "praiseName": "É Teu Sangue",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 20,
+      "referencia": "Hebreus 10:19-20",
+      "similaridade": 86.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "5330c187-708b-463a-85c2-8e4124c865c5": [
+    {
+      "praiseId": "5330c187-708b-463a-85c2-8e4124c865c5",
+      "praiseNumber": "81",
+      "praiseName": "Ele é o Senhor (Ele é o meu Senhor)",
+      "livro": "1 Pedro",
+      "capitulo": 1,
+      "versiculoInicio": 18,
+      "versiculoFim": 19,
+      "referencia": "1 Pedro 1:18-19",
+      "similaridade": 83.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d39f2ea5-356b-4c71-8665-7e3b756511c2": [
+    {
+      "praiseId": "d39f2ea5-356b-4c71-8665-7e3b756511c2",
+      "praiseNumber": "",
+      "praiseName": "Aos Olhos Do Céu",
+      "livro": "2 Coríntios",
+      "capitulo": 12,
+      "versiculoInicio": 9,
+      "versiculoFim": 10,
+      "referencia": "2 Coríntios 12:9-10",
+      "similaridade": 86.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6a9039da-3e4e-4e3c-9511-56ffd1c9c47e": [
+    {
+      "praiseId": "6a9039da-3e4e-4e3c-9511-56ffd1c9c47e",
+      "praiseNumber": "",
+      "praiseName": "Grande é o Senhor - WK- Beto Trancoso",
+      "livro": "Salmos",
+      "capitulo": 48,
+      "versiculoInicio": 1,
+      "versiculoFim": 2,
+      "referencia": "Salmos 48:1-2",
+      "similaridade": 88.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "c7b07ad5-4050-414b-b476-95703e3416fe": [
+    {
+      "praiseId": "c7b07ad5-4050-414b-b476-95703e3416fe",
+      "praiseNumber": "",
+      "praiseName": "Do fundo de um abismo",
+      "livro": "Salmos",
+      "capitulo": 130,
+      "versiculoInicio": 1,
+      "versiculoFim": 8,
+      "referencia": "Salmos 130:1-8",
+      "similaridade": 89.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "9bc8bfee-25d6-490d-98d9-6d76737a5a82": [
+    {
+      "praiseId": "9bc8bfee-25d6-490d-98d9-6d76737a5a82",
+      "praiseNumber": "097",
+      "praiseName": "Salmo 91",
+      "livro": "Salmos",
+      "capitulo": 91,
+      "versiculoInicio": 1,
+      "versiculoFim": 7,
+      "referencia": "Salmos 91:1-7",
+      "similaridade": 84.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "d6040794-b503-43d5-baf6-ff689001ead3": [
+    {
+      "praiseId": "d6040794-b503-43d5-baf6-ff689001ead3",
+      "praiseNumber": "",
+      "praiseName": "As Muitas Águas Não Poderiam",
+      "livro": "Cantares",
+      "capitulo": 8,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cantares 8:7",
+      "similaridade": 92.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "0638fe44-34d8-47ef-854a-7f0c36c34ce0": [
+    {
+      "praiseId": "0638fe44-34d8-47ef-854a-7f0c36c34ce0",
+      "praiseNumber": "",
+      "praiseName": "Jubilate Deo - II",
+      "livro": "Salmos",
+      "capitulo": 100,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Salmos 100:1-5",
+      "similaridade": 89.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "14ab6224-7aa5-4933-a32e-ae196878a5c5": [
+    {
+      "praiseId": "14ab6224-7aa5-4933-a32e-ae196878a5c5",
+      "praiseNumber": "",
+      "praiseName": "Quão Bem-Aventurado",
+      "livro": "Salmos",
+      "capitulo": 1,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "Salmos 1:1-3",
+      "similaridade": 85.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "cfa491fc-36e0-4a16-84dc-d985455652dc": [
+    {
+      "praiseId": "cfa491fc-36e0-4a16-84dc-d985455652dc",
+      "praiseNumber": "",
+      "praiseName": "Jesus Vem Logo (Coro Masculino)",
+      "livro": "João",
+      "capitulo": 14,
+      "versiculoInicio": 1,
+      "versiculoFim": 3,
+      "referencia": "João 14:1-3",
+      "similaridade": 88.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "2c45f590-b7d2-46e8-af70-e43e9df48404": [
+    {
+      "praiseId": "2c45f590-b7d2-46e8-af70-e43e9df48404",
+      "praiseNumber": "062",
+      "praiseName": "Ouço o som",
+      "livro": "Isaías",
+      "capitulo": 40,
+      "versiculoInicio": 3,
+      "versiculoFim": 3,
+      "referencia": "Isaías 40:3",
+      "similaridade": 83.0,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "6fc3dc7e-2efd-43a9-83fc-e246f33c0dde": [
+    {
+      "praiseId": "6fc3dc7e-2efd-43a9-83fc-e246f33c0dde",
+      "praiseNumber": "",
+      "praiseName": "Vem, Visita a Tua Igreja (Misto)",
+      "livro": "Salmos",
+      "capitulo": 80,
+      "versiculoInicio": 18,
+      "versiculoFim": 19,
+      "referencia": "Salmos 80:18-19",
+      "similaridade": 84.3,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "abe0bcc8-9267-452b-9164-6c37229c72e9": [
+    {
+      "praiseId": "abe0bcc8-9267-452b-9164-6c37229c72e9",
+      "praiseNumber": "",
+      "praiseName": "O Espírito do Senhor vem sobre mim",
+      "livro": "Isaías",
+      "capitulo": 11,
+      "versiculoInicio": 2,
+      "versiculoFim": 2,
+      "referencia": "Isaías 11:2",
+      "similaridade": 83.4,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "de7ef180-26f2-4bc7-9172-f3b10738b22d": [
+    {
+      "praiseId": "de7ef180-26f2-4bc7-9172-f3b10738b22d",
+      "praiseNumber": "",
+      "praiseName": "Cristo cura, sim",
+      "livro": "Isaías",
+      "capitulo": 53,
+      "versiculoInicio": 4,
+      "versiculoFim": 5,
+      "referencia": "Isaías 53:4-5",
+      "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "2a1cc9a5-1517-4c41-a531-c3e3920162e7": [
+    {
+      "praiseId": "2a1cc9a5-1517-4c41-a531-c3e3920162e7",
+      "praiseNumber": "",
+      "praiseName": "Aquele que há de vir, virá!",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 37,
+      "versiculoFim": 38,
+      "referencia": "Hebreus 10:37-38",
+      "similaridade": 88.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "18181afc-acf5-4b22-a7cf-64a10bb5a3ff": [
+    {
+      "praiseId": "18181afc-acf5-4b22-a7cf-64a10bb5a3ff",
+      "praiseNumber": "",
+      "praiseName": "Pai Nosso (Teu Nome Santo)",
+      "livro": "Mateus",
+      "capitulo": 6,
+      "versiculoInicio": 9,
+      "versiculoFim": 13,
+      "referencia": "Mateus 6:9-13",
+      "similaridade": 95.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "84f92b68-98e0-40f4-82ec-8c5c38a4db6c": [
+    {
+      "praiseId": "84f92b68-98e0-40f4-82ec-8c5c38a4db6c",
+      "praiseNumber": "",
+      "praiseName": "Pai Nosso (Misto)",
+      "livro": "Mateus",
+      "capitulo": 6,
+      "versiculoInicio": 9,
+      "versiculoFim": 13,
+      "referencia": "Mateus 6:9-13",
+      "similaridade": 94.7,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "91fa0b87-5844-44c6-a0e2-c270128afeef": [
+    {
+      "praiseId": "91fa0b87-5844-44c6-a0e2-c270128afeef",
+      "praiseNumber": "",
+      "praiseName": "Senhor, suplico a ti em oração",
+      "livro": "Hebreus",
+      "capitulo": 10,
+      "versiculoInicio": 19,
+      "versiculoFim": 22,
+      "referencia": "Hebreus 10:19-22",
+      "similaridade": 82.9,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8ea1a466-b10a-4333-b25d-79e08f232f41": [
+    {
+      "praiseId": "8ea1a466-b10a-4333-b25d-79e08f232f41",
+      "praiseNumber": "071",
+      "praiseName": "Celebrai",
+      "livro": "Salmos",
+      "capitulo": 100,
+      "versiculoInicio": 1,
+      "versiculoFim": 5,
+      "referencia": "Salmos 100:1-5",
+      "similaridade": 92.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "84b29ac4-c29a-4fa8-ab51-d3255379e980": [
+    {
+      "praiseId": "84b29ac4-c29a-4fa8-ab51-d3255379e980",
+      "praiseNumber": "",
+      "praiseName": "O Anjo do Egito (versão João L)",
+      "livro": "Êxodo",
+      "capitulo": 12,
+      "versiculoInicio": 12,
+      "versiculoFim": 13,
+      "referencia": "Êxodo 12:12-13",
+      "similaridade": 83.1,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "8ddfc464-5318-45ad-832e-84b49ace11a1": [
+    {
+      "praiseId": "8ddfc464-5318-45ad-832e-84b49ace11a1",
+      "praiseNumber": "050",
+      "praiseName": "Tua Alma Está Ferida, Magoado o Coração (Vinde a Mim)",
+      "livro": "Mateus",
+      "capitulo": 11,
+      "versiculoInicio": 28,
+      "versiculoFim": 30,
+      "referencia": "Mateus 11:28-30",
+      "similaridade": 86.8,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "108a7028-4843-4c39-a3b5-e7a2319d0f6c": [
+    {
+      "praiseId": "108a7028-4843-4c39-a3b5-e7a2319d0f6c",
+      "praiseNumber": "",
+      "praiseName": "As Muitas Águas (Coro Masculino)",
+      "livro": "Cantares",
+      "capitulo": 8,
+      "versiculoInicio": 7,
+      "versiculoFim": 7,
+      "referencia": "Cânticos 8:7",
+      "similaridade": 92.2,
+      "tipo": "citacao_direta",
+      "origem": "gemini_validado_semanticamente"
+    }
+  ],
+  "0bb15348-97d2-4c62-9ef1-090bf0415e33": [
+    {
+      "praiseId": "0bb15348-97d2-4c62-9ef1-090bf0415e33",
+      "praiseNumber": "",
+      "praiseName": "Alerta, ó Terra, Entoa",
+      "livro": "Lucas",
+      "capitulo": 2,
+      "versiculoInicio": 10,
+      "versiculoFim": 14,
+      "referencia": "Lucas 2:10-14",
+      "similaridade": 83.6,
       "tipo": "citacao_direta",
       "origem": "gemini_validado_semanticamente"
     }

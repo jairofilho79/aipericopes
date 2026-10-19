@@ -285,6 +285,10 @@ def main():
             score_hom = round(float(sh_row[p_idx]) * 100, 1)
             score_comb = round(float(sc_row[p_idx]) * 100, 1)
 
+            # Heurística estrita: descarta combinações fracas (< 70%) para evitar falsos-positivos
+            if score_comb < 70.0:
+                continue
+
             # Classifica tipo de match predominante
             max_estudo = max(score_tem, score_hom)
             diff = score_bib - max_estudo

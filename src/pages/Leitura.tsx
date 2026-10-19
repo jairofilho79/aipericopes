@@ -13,6 +13,7 @@ import ExplicacaoIaModal from '../components/ExplicacaoIaModal'
 import AtivarIaModal from '../components/AtivarIaModal'
 import AbaConversarIa from '../components/AbaConversarIa'
 import AbaLouvores from '../components/AbaLouvores'
+import { obterCitacoesParaVersiculos } from '../lib/louvores'
 import { authClient } from '../lib/auth-client'
 import { criarConversa, obterChaveIa } from '../lib/ia-client'
 import {
@@ -376,6 +377,28 @@ export default function Leitura() {
     () => (selection ? versesInRange(blocks, selection.start, selection.end) : []),
     [blocks, selection],
   )
+  const [versiculosFocoLouvores, setVersiculosFocoLouvores] = useState<typeof selecionados | null>(null)
+  const [qtdCitacoesDiretas, setQtdCitacoesDiretas] = useState(0)
+
+  useEffect(() => {
+    if (!p || !selecionados.length) {
+      setQtdCitacoesDiretas(0)
+      return
+    }
+    let ativo = true
+    obterCitacoesParaVersiculos(
+      p.livro,
+      selecionados.map((v) => ({ chapter: v.chapter, verse: v.verse })),
+    ).then((cits) => {
+      if (ativo) {
+        setQtdCitacoesDiretas(cits.length)
+      }
+    })
+    return () => {
+      ativo = false
+    }
+  }, [p?.livro, selecionados])
+
   const primeiroCapitulo = useMemo(
     () => blocks.find((b) => b.kind === 'chapter'),
     [blocks],
@@ -556,6 +579,7 @@ export default function Leitura() {
     // a barra é resposta a toque, não a navegação.
     setSelection(focus ? { start: focus, end: focus } : null)
     setBarOpen(false)
+    setVersiculosFocoLouvores(null)
     if (fromQuery) setVerseFocus(ordem, fromQuery)
   }, [ordem, verseParam])
 
@@ -1065,6 +1089,16 @@ export default function Leitura() {
     }, 0)
   }
 
+  function verLouvoresSelecao() {
+    setVersiculosFocoLouvores(selecionados)
+    setTab('louvores')
+    setBarOpen(false)
+    window.setTimeout(() => {
+      const el = document.querySelector('.notes-tabs')
+      el?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 0)
+  }
+
   function fecharBarra() {
     setBarOpen(false)
   }
@@ -1554,7 +1588,13 @@ export default function Leitura() {
               <p className="muted">Ainda não gerado.</p>
             ))}
 
-          {tab === 'louvores' && <AbaLouvores pericope={p} />}
+          {tab === 'louvores' && (
+            <AbaLouvores
+              pericope={p}
+              versiculosFoco={versiculosFocoLouvores ?? undefined}
+              onLimparVersiculosFoco={() => setVersiculosFocoLouvores(null)}
+            />
+          )}
 
           {/* A porta para a IA é aba, não rodapé de "Anotações": solta ali
               embaixo ela aparecia debaixo dos dois painéis, sem pertencer a
@@ -1653,6 +1693,8 @@ export default function Leitura() {
             onDestacar={(cor) => void destacarSelecao(cor)}
             onRemoverDestaque={() => void removerDestaqueSelecao()}
             onAnotar={anotarSelecao}
+            onVerLouvores={verLouvoresSelecao}
+            qtdLouvoresDiretos={qtdCitacoesDiretas}
             onExplicarIa={abrirExplicacaoIa}
             onPerguntarIa={() => void iniciarPerguntaIa()}
             onAtivarIa={abrirAtivarIa}

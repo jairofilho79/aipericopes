@@ -1,10 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Pericope } from '../lib/types'
-import { obterLouvoresDaPericope, type LouvorRecomendado } from '../lib/louvores'
-import { IconeLinkExterno } from './icones'
+import {
+  obterLouvoresDaPericope,
+  obterLouvoresDosVersiculos,
+  type LouvorRecomendado,
+} from '../lib/louvores'
+import { IconeLinkExterno, IconeNotaMusical } from './icones'
 
 type Props = {
-  pericope: Pericope | { ordem: number }
+  pericope: Pericope | { ordem: number; livro?: string }
+  versiculosFoco?: Array<{ id: string; chapter: number; verse: number; text: string }>
+  onLimparVersiculosFoco?: () => void
 }
 
 type FiltroTipo = 'geral' | 'biblico' | 'tematico'
@@ -23,26 +29,56 @@ function formatarAfinidade(similarity: number, complemento?: string, ehCitacao?:
   return complemento ? `${valor}% ${complemento}` : `${valor}% de afinidade`
 }
 
-export default function AbaLouvores({ pericope }: Props) {
+export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersiculosFoco }: Props) {
   const [louvores, setLouvores] = useState<LouvorRecomendado[]>([])
   const [carregando, setCarregando] = useState(true)
   const [filtro, setFiltro] = useState<FiltroTipo>('geral')
+
+  const labelFoco = useMemo(() => {
+    if (!versiculosFoco || versiculosFoco.length === 0) return ''
+    const livro = 'livro' in pericope && pericope.livro ? pericope.livro : ''
+    const v0 = versiculosFoco[0]
+    const vLast = versiculosFoco[versiculosFoco.length - 1]
+    if (v0.chapter === vLast.chapter) {
+      const vStr = v0.verse === vLast.verse ? `${v0.verse}` : `${v0.verse}–${vLast.verse}`
+      return livro ? `${livro} ${v0.chapter}:${vStr}` : `Cap. ${v0.chapter}:${vStr}`
+    }
+    return livro
+      ? `${livro} ${v0.chapter}:${v0.verse}–${vLast.chapter}:${vLast.verse}`
+      : `${v0.chapter}:${v0.verse}–${vLast.chapter}:${vLast.verse}`
+  }, [pericope, versiculosFoco])
+
+  const temFoco = Boolean(versiculosFoco && versiculosFoco.length > 0)
 
   useEffect(() => {
     let ativo = true
     setCarregando(true)
 
-    obterLouvoresDaPericope(pericope.ordem).then((itens) => {
-      if (ativo) {
-        setLouvores(itens)
-        setCarregando(false)
-      }
-    })
+    const livro = 'livro' in pericope && pericope.livro ? pericope.livro : ''
+
+    if (versiculosFoco && versiculosFoco.length > 0 && livro) {
+      obterLouvoresDosVersiculos(
+        livro,
+        versiculosFoco.map((v) => ({ chapter: v.chapter, verse: v.verse })),
+      ).then((itens) => {
+        if (ativo) {
+          setLouvores(itens)
+          setCarregando(false)
+        }
+      })
+    } else {
+      obterLouvoresDaPericope(pericope.ordem).then((itens) => {
+        if (ativo) {
+          setLouvores(itens)
+          setCarregando(false)
+        }
+      })
+    }
 
     return () => {
       ativo = false
     }
-  }, [pericope.ordem])
+  }, [pericope.ordem, 'livro' in pericope ? pericope.livro : '', versiculosFoco])
 
   const louvoresOrdenados = useMemo(() => {
     const lista = [...louvores]
@@ -66,6 +102,19 @@ export default function AbaLouvores({ pericope }: Props) {
   if (carregando) {
     return (
       <div className="louvores-painel" aria-busy="true">
+        {temFoco && (
+          <div className="louvores-foco-banner">
+            <div className="louvores-foco-info">
+              <span className="louvores-foco-badge" aria-hidden="true">
+                <IconeNotaMusical size={18} />
+              </span>
+              <div>
+                <strong className="louvores-foco-titulo">Louvores para {labelFoco}</strong>
+                <span className="louvores-foco-sub">Buscando sugestões para o trecho…</span>
+              </div>
+            </div>
+          </div>
+        )}
         <p className="muted">Carregando louvores recomendados…</p>
       </div>
     )
@@ -74,7 +123,33 @@ export default function AbaLouvores({ pericope }: Props) {
   if (louvores.length === 0) {
     return (
       <div className="louvores-painel">
-        <p className="muted">Nenhum louvor associado a esta perícope.</p>
+        {temFoco && (
+          <div className="louvores-foco-banner">
+            <div className="louvores-foco-info">
+              <span className="louvores-foco-badge" aria-hidden="true">
+                <IconeNotaMusical size={18} />
+              </span>
+              <div>
+                <strong className="louvores-foco-titulo">Louvores para {labelFoco}</strong>
+                <span className="louvores-foco-sub">Sugestões específicas para os versículos selecionados</span>
+              </div>
+            </div>
+            {onLimparVersiculosFoco && (
+              <button
+                type="button"
+                className="louvores-foco-limpar-btn"
+                onClick={onLimparVersiculosFoco}
+              >
+                ✕ Toda a perícope
+              </button>
+            )}
+          </div>
+        )}
+        <p className="muted">
+          {temFoco
+            ? 'Nenhum louvor associado diretamente a este trecho.'
+            : 'Nenhum louvor associado a esta perícope.'}
+        </p>
       </div>
     )
   }
@@ -86,9 +161,35 @@ export default function AbaLouvores({ pericope }: Props) {
   return (
     <div className="louvores-painel">
       <header className="louvores-cabecalho">
-        <p className="louvores-intro">
-          Louvores recomendados por afinidade semântica com esta perícope no acervo Coldigom.
-        </p>
+        {temFoco ? (
+          <div className="louvores-foco-banner">
+            <div className="louvores-foco-info">
+              <span className="louvores-foco-badge" aria-hidden="true">
+                <IconeNotaMusical size={18} />
+              </span>
+              <div>
+                <strong className="louvores-foco-titulo">Louvores para {labelFoco}</strong>
+                <span className="louvores-foco-sub">
+                  Sugestões cirúrgicas focadas exclusivamente no trecho selecionado.
+                </span>
+              </div>
+            </div>
+            {onLimparVersiculosFoco && (
+              <button
+                type="button"
+                className="louvores-foco-limpar-btn"
+                onClick={onLimparVersiculosFoco}
+                title="Voltar a ver louvores de toda a perícope"
+              >
+                ✕ Toda a perícope
+              </button>
+            )}
+          </div>
+        ) : (
+          <p className="louvores-intro">
+            Louvores recomendados por afinidade semântica com esta perícope no acervo Coldigom.
+          </p>
+        )}
 
         {temScoresEspecificos && (
           <div className="louvores-filtros" role="group" aria-label="Modo de afinidade">

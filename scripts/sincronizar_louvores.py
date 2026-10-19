@@ -40,8 +40,13 @@ import requests
 
 np.seterr(all="ignore")
 
-REPO_PERICOPES = Path(__file__).resolve().parent.parent
-REPO_COLDIGOM = REPO_PERICOPES.parent / "coldigom"
+_CURRENT_REPO = Path(__file__).resolve().parent.parent
+if _CURRENT_REPO.name == "coldigom":
+    REPO_COLDIGOM = _CURRENT_REPO
+    REPO_PERICOPES = _CURRENT_REPO.parent / "biblia-pericopes"
+else:
+    REPO_PERICOPES = _CURRENT_REPO
+    REPO_COLDIGOM = _CURRENT_REPO.parent / "coldigom"
 
 DB_EMBEDDINGS = REPO_COLDIGOM / "data" / "embeddings" / "acervo_embeddings.sqlite"
 if not DB_EMBEDDINGS.exists():
@@ -91,12 +96,49 @@ def obter_api_key() -> str:
     return ""
 
 
+CLITICS = {'me', 'te', 'se', 'nos', 'vos', 'lhe', 'lhes', 'o', 'a', 'os', 'as', 'lo', 'la', 'los', 'las'}
+COMPOUND_PREFIXES = {'bem', 'mal', 'todo', 'recém', 'el', 'guia', 'dá', 'faz', 'porta', 'guarda'}
+CHORD_LINE_RE = re.compile(
+    r'^\s*([A-G][b#]?(?:m|maj|min|dim|aug|sus\d*|\d+)*(?:/[A-G][b#]?)?(?:\s+[A-G][b#]?(?:m|maj|min|dim|aug|sus\d*|\d+)*(?:/[A-G][b#]?)?)*)\s*$',
+    re.IGNORECASE
+)
+VOICE_HEADER_RE = re.compile(
+    r'^\s*(soprano|contralto|tenor|baixo|dueto|solista|todos|mulheres|homens)\s*[:\-]\s*',
+    re.IGNORECASE
+)
+
+
+def _replace_hyphen(m: re.Match) -> str:
+    a, b = m.group(1), m.group(2)
+    if b.lower() in CLITICS or a.lower() in COMPOUND_PREFIXES or b.lower() in COMPOUND_PREFIXES:
+        return f"{a}-{b}"
+    return f"{a}{b}"
+
+
 def limpar_letra(lyrics_raw: str) -> str:
-    return "\n".join(
-        line.strip()
-        for line in lyrics_raw.splitlines()
-        if line.strip() and not line.strip().startswith(("*", "/")) and "INSTRUMENTOS" not in line.upper()
-    )
+    if not lyrics_raw:
+        return ""
+    linhas = []
+    for line in lyrics_raw.splitlines():
+        l_str = line.strip()
+        if not l_str:
+            continue
+        if l_str.startswith(('*', '/', '(', '[')) and any(k in l_str.upper() for k in ('INSTRUMENT', 'INTERL', 'INTRO')):
+            continue
+        if "INSTRUMENTOS" in l_str.upper():
+            continue
+        if CHORD_LINE_RE.match(l_str):
+            continue
+        l_str = VOICE_HEADER_RE.sub('', l_str)
+        for _ in range(5):
+            novo = re.sub(r'\b([A-Za-zÀ-ÖØ-öø-ÿ]+)\s*-\s*([A-Za-zÀ-ÖØ-öø-ÿ]+)\b', _replace_hyphen, l_str)
+            if novo == l_str:
+                break
+            l_str = novo
+        l_str = re.sub(r'\b(?:Tac|paddo)\b', '', l_str, flags=re.IGNORECASE)
+        if l_str.strip():
+            linhas.append(l_str.strip())
+    return "\n".join(linhas)
 
 
 def calcular_hash_letra(lyrics: str) -> str:
@@ -324,7 +366,7 @@ def main():
     citacoes_data: dict[str, list[dict[str, Any]]] = defaultdict(list)
     if CITATIONS_JSON.exists():
         with open(CITATIONS_JSON, "r", encoding="utf-8") as f:
-            citacoes_data = json.load(f)
+            citacoes_data = defaultdict(list, json.load(f))
 
     # Migração transparente de lyrics_hash se necessário
     precisa_salvar_hash = False
@@ -516,15 +558,26 @@ def main():
         print(f"   💾 Matriz homilética atualizada: {V.shape}")
 
     # 7. Executa Associação Matricial Final (~1.9s)
-    print("\n🎯 Executando associação matricial completa (2.823 perícopes × louvores)...")
-    # Executa o script de associação diretamente
-    import subprocess
-    cmd = [sys.executable, str(REPO_PERICOPES / "scripts" / "associar-louvores.py")]
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    if res.returncode == 0:
-        print("   ✅ Associação e índice invertido atualizados com sucesso!")
-    else:
-        print(f"   ❌ Erro na associação:\n{res.stderr}", file=sys.stderr)
+    script_associar = REPO_PERICOPES / "scripts" / "associar-louvores.py"
+    if script_associar.exists():
+        print("\n🎯 Executando associação matricial completa (2.823 perícopes × louvores)...")
+        import subprocess
+        cmd = [sys.executable, str(script_associar)]
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode == 0:
+            print("   ✅ Associação e índice invertido atualizados com sucesso!")
+        else:
+            print(f"   ❌ Erro na associação:\n{res.stderr}", file=sys.stderr)
+
+    # 8. Consolidação Canônica dos Metadados Bíblicos (louvores-biblia-consolidado.json)
+    print("\n📦 Consolidando metadados bíblicos canônicos (louvores-biblia-consolidado.json)...")
+    try:
+        if str(REPO_COLDIGOM) not in sys.path:
+            sys.path.insert(0, str(REPO_COLDIGOM))
+        from scripts.consolidar_metadados_biblicos import consolidar_metadados
+        consolidar_metadados(repo_coldigom=REPO_COLDIGOM, repo_pericopes=REPO_PERICOPES, verbose=True)
+    except Exception as e:
+        print(f"⚠️ Erro ao consolidar metadados bíblicos: {e}", file=sys.stderr)
 
     print("\n" + "=" * 70)
     print("🎉 SINCRONIZAÇÃO INCREMENTAL CONCLUÍDA COM SUCESSO!")

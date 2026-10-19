@@ -3,7 +3,9 @@ import {
   _resetCacheLouvores,
   carregarMapaLouvores,
   louvoresCarregados,
+  obterCitacoesParaVersiculos,
   obterLouvoresDaPericope,
+  obterLouvoresDosVersiculos,
   type LouvorRecomendado,
 } from './louvores'
 
@@ -115,5 +117,93 @@ describe('louvores.ts loader', () => {
 
     expect(resultado).toEqual([])
     erroConsole.mockRestore()
+  })
+
+  it('obterCitacoesParaVersiculos retorna citação direta de Jó 42:2 com 100% de afinidade', async () => {
+    const mockCitacoes = {
+      Jó: {
+        '42': [
+          {
+            id: 'ad01d861-d5d9-4ed2-ab83-5f42dfa3a477',
+            shortId: '454',
+            number: '384',
+            name: 'Bem sei que tudo podes',
+            category: 'Consolo e Encorajamento',
+            versiculoInicio: 2,
+            versiculoFim: 2,
+            referencia: 'Jó 42:2',
+            mensagemCentral: 'A soberania de Deus.',
+            temasHomileticos: ['Soberania de Deus'],
+          },
+        ],
+      },
+    }
+
+    const fetchMock = vi.fn(async () => mockResponse(mockCitacoes))
+    vi.stubGlobal('fetch', fetchMock)
+
+    const resultado = await obterCitacoesParaVersiculos('Jó', [{ chapter: 42, verse: 2 }])
+
+    expect(resultado).toHaveLength(1)
+    expect(resultado[0].name).toBe('Bem sei que tudo podes')
+    expect(resultado[0].matchTipo).toBe('citacao_direta')
+    expect(resultado[0].similarity).toBe(100.0)
+    expect(resultado[0].citacaoBiblica).toBe('Jó 42:2')
+  })
+
+  it('obterLouvoresDosVersiculos combina citações diretas no topo seguidas de temáticos', async () => {
+    const mockCitacoes = {
+      Jó: {
+        '42': [
+          {
+            id: 'cit-1',
+            number: '384',
+            name: 'Bem sei que tudo podes',
+            category: 'Consolo',
+            versiculoInicio: 2,
+            versiculoFim: 2,
+            referencia: 'Jó 42:2',
+          },
+        ],
+      },
+    }
+
+    const mockLivro = {
+      book: 'Jó',
+      slug: 'jo',
+      praises: [
+        { id: 'tem-1', number: '100', name: 'Grande é o Senhor', category: 'Louvor' },
+        { id: 'cit-1', number: '384', name: 'Bem sei que tudo podes', category: 'Consolo' },
+      ],
+      verses: {
+        '42:2': [
+          [0, 85.0],
+          [1, 80.0],
+        ],
+      },
+    }
+
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url.includes('citacoes-por-versiculo.json')) {
+        return mockResponse(mockCitacoes)
+      }
+      if (url.includes('versiculos-louvores/jo.json')) {
+        return mockResponse(mockLivro)
+      }
+      return mockResponse(null, 404)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const resultado = await obterLouvoresDosVersiculos('Jó', [{ chapter: 42, verse: 2 }])
+
+    expect(resultado).toHaveLength(2)
+    // Citação direta no topo
+    expect(resultado[0].id).toBe('cit-1')
+    expect(resultado[0].matchTipo).toBe('citacao_direta')
+    expect(resultado[0].similarity).toBe(100.0)
+
+    // Temático logo após, sem duplicar o cit-1
+    expect(resultado[1].id).toBe('tem-1')
+    expect(resultado[1].similarity).toBe(85.0)
   })
 })

@@ -34,10 +34,30 @@ const MOCK_LOUVORES: LouvorRecomendado[] = [
   },
 ]
 
+const MOCK_LOUVORES_VERSICULO: LouvorRecomendado[] = [
+  {
+    id: 'ad01d861-d5d9-4ed2-ab83-5f42dfa3a477',
+    shortId: '454',
+    number: '384',
+    name: 'Bem sei que tudo podes',
+    category: 'Consolo e Encorajamento',
+    tags: 'Coletânea',
+    similarity: 100.0,
+    similarityBiblico: 100.0,
+    similarityTematico: 100.0,
+    matchTipo: 'citacao_direta',
+    citacaoBiblica: 'Jó 42:2',
+    mensagemCentral: 'A soberania de Deus.',
+    temasHomileticos: ['Soberania de Deus'],
+  },
+]
+
 let mockRetornoLouvores: LouvorRecomendado[] = MOCK_LOUVORES
+let mockRetornoVersiculos: LouvorRecomendado[] = MOCK_LOUVORES_VERSICULO
 
 vi.mock('../lib/louvores', () => ({
   obterLouvoresDaPericope: vi.fn(async () => mockRetornoLouvores),
+  obterLouvoresDosVersiculos: vi.fn(async () => mockRetornoVersiculos),
 }))
 
 let container: HTMLDivElement
@@ -45,6 +65,7 @@ let root: Root
 
 beforeEach(() => {
   mockRetornoLouvores = MOCK_LOUVORES
+  mockRetornoVersiculos = MOCK_LOUVORES_VERSICULO
   container = document.createElement('div')
   document.body.appendChild(container)
   root = createRoot(container)
@@ -115,6 +136,42 @@ describe('AbaLouvores', () => {
 
     const cards = container.querySelectorAll('.louvor-card')
     expect(cards[0].querySelector('.louvor-badge-afinidade')?.textContent).toContain('bíblico')
+  })
+
+  it('renderiza banner de foco quando versículos são selecionados', async () => {
+    const onLimpar = vi.fn()
+    await act(async () => {
+      root.render(
+        <AbaLouvores
+          pericope={{ ordem: 1097, livro: 'Jó' } as any}
+          versiculosFoco={[{ id: '42:2', chapter: 42, verse: 2, text: 'Bem sei que tudo podes' }]}
+          onLimparVersiculosFoco={onLimpar}
+        />,
+      )
+    })
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+    })
+
+    const banner = container.querySelector('.louvores-foco-banner')
+    expect(banner).not.toBeNull()
+    expect(container.querySelector('.louvores-foco-titulo')?.textContent).toContain('Louvores para Jó 42:2')
+
+    // Primeiro louvor é citação direta com 100% Citação
+    const cards = container.querySelectorAll('.louvor-card')
+    expect(cards).toHaveLength(1)
+    expect(cards[0].querySelector('.louvor-titulo')?.textContent).toBe('Bem sei que tudo podes')
+    expect(cards[0].querySelector('.louvor-badge-afinidade')?.textContent).toBe('100% Citação')
+    expect(cards[0].querySelector('.louvor-tag--citacao')?.textContent).toContain('Jó 42:2')
+
+    // Botão de limpar
+    const limparBtn = container.querySelector('.louvores-foco-limpar-btn') as HTMLButtonElement
+    expect(limparBtn).not.toBeNull()
+    await act(async () => {
+      limparBtn.click()
+    })
+    expect(onLimpar).toHaveBeenCalledTimes(1)
   })
 
   it('exibe mensagem quando não há louvores associados à perícope', async () => {
