@@ -9,6 +9,7 @@ import {
   setReadingFont,
   setReadingLayout,
   setReadingMeasure,
+  setReadingReferencias,
   SIZE_STEPS,
   type ReadingLayout,
 } from '../lib/reading-prefs'
@@ -43,6 +44,7 @@ export default function LeituraPrefs() {
     disposicao: `${id}-disposicao`,
     entrelinha: `${id}-entrelinha`,
     largura: `${id}-largura`,
+    referencias: `${id}-referencias`,
   }
 
   return (
@@ -156,6 +158,31 @@ export default function LeituraPrefs() {
               onClick={() => setReadingMeasure(m.id)}
             >
               {m.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* A letrinha sobrescrita (a, b, c…) marca no texto onde há referências
+          cruzadas da ARC. Quem prefere a página limpa desliga aqui; as
+          referências continuam no botão do versículo. */}
+      <div className="pref-grupo" role="group" aria-labelledby={rotulo.referencias}>
+        <p className="eyebrow" id={rotulo.referencias}>
+          Referências no texto
+        </p>
+        <div className="readmenu-row">
+          {[
+            { valor: true, label: 'Mostrar letras' },
+            { valor: false, label: 'Ocultar' },
+          ].map((o) => (
+            <button
+              key={String(o.valor)}
+              type="button"
+              className={`read-tool${prefs.referencias === o.valor ? ' active' : ''}`}
+              aria-pressed={prefs.referencias === o.valor}
+              onClick={() => setReadingReferencias(o.valor)}
+            >
+              {o.label}
             </button>
           ))}
         </div>

@@ -7,6 +7,7 @@ import {
   montarPromptPericope,
   promptConversa,
 } from '../lib/contexto-ia'
+import { formatarReferenciasParaIa, obterReferenciasDaPericope } from '../lib/referencias'
 import { criarConversa, enviarMensagemConversa } from '../lib/ia-client'
 import {
   IconeCadeado,
@@ -30,6 +31,8 @@ export default function AbaConversarIa({ pericope, logado, temChaveIa }: Props) 
 
   // Estado clássico para deslogado ou sem chave
   const [copiado, setCopiado] = useState(false)
+  const [textoRefs, setTextoRefs] = useState('')
+  const [temRefs, setTemRefs] = useState(false)
 
   // Chips do compositor para quem tem chave (todos marcados por padrão)
   const [chips, setChips] = useState<ChipsContexto>({
@@ -37,11 +40,33 @@ export default function AbaConversarIa({ pericope, logado, temChaveIa }: Props) 
     texto: true, // fixo / obrigatório
     resenha: true,
     reflexoes: true,
+    referencias: true,
   })
 
   const [textoPrompt, setTextoPrompt] = useState(() => montarPromptPericope(pericope, chips))
   const [editadoManual, setEditadoManual] = useState(false)
   const [iniciandoChat, setIniciandoChat] = useState(false)
+
+  // Carrega as referências cruzadas da perícope para material de apoio
+  useEffect(() => {
+    let vivo = true
+    void obterReferenciasDaPericope(pericope)
+      .then((refs) => {
+        if (!vivo) return
+        const fmt = formatarReferenciasParaIa(refs)
+        setTextoRefs(fmt)
+        setTemRefs(Boolean(fmt))
+      })
+      .catch(() => {
+        if (vivo) {
+          setTextoRefs('')
+          setTemRefs(false)
+        }
+      })
+    return () => {
+      vivo = false
+    }
+  }, [pericope])
 
   // Quando muda a perícope, reinicia o prompt
   useEffect(() => {
@@ -77,7 +102,7 @@ export default function AbaConversarIa({ pericope, logado, temChaveIa }: Props) 
 
     setIniciandoChat(true)
     try {
-      const materialApoio = montarMaterialApoio(pericope, chips)
+      const materialApoio = montarMaterialApoio(pericope, chips, textoRefs)
       const flags = Object.entries(chips)
         .filter(([, v]) => v)
         .map(([k]) => k)
@@ -210,6 +235,17 @@ export default function AbaConversarIa({ pericope, logado, temChaveIa }: Props) 
         >
           Reflexões
         </button>
+
+        {temRefs && (
+          <button
+            type="button"
+            className={`ia-chip-btn ${chips.referencias ? 'ativo' : ''}`}
+            onClick={() => alternarChip('referencias')}
+            aria-pressed={chips.referencias}
+          >
+            Referências
+          </button>
+        )}
       </div>
 
       <form className="ia-compositor-form" onSubmit={(e) => void handleIniciarConversa(e)}>

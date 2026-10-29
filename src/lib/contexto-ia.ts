@@ -6,6 +6,7 @@ export type ChipsContexto = {
   texto: boolean
   resenha: boolean
   reflexoes: boolean
+  referencias?: boolean
 }
 
 export function promptConversa(p: Pericope): string {
@@ -18,12 +19,17 @@ export function montarPromptPericope(p: Pericope, chips: ChipsContexto): string 
   if (chips.contexto) inclusos.push('o contexto histórico')
   if (chips.resenha) inclusos.push('a resenha explicativa')
   if (chips.reflexoes) inclusos.push('as perguntas de reflexão')
+  if (chips.referencias) inclusos.push('as referências cruzadas')
 
   const lista = inclusos.join(', ')
   return `Quero conversar sobre ${p.titulo_pericope_pt} (${refLabel(p)}), considerando ${lista}. Gostaria de refletir sobre:`
 }
 
-export function montarMaterialApoio(p: Pericope, chips: ChipsContexto): string {
+export function montarMaterialApoio(
+  p: Pericope,
+  chips: ChipsContexto,
+  referenciasTexto?: string | null,
+): string {
   const blocos: string[] = []
   if (chips.texto && p.texto) {
     blocos.push(`[Texto Bíblico - ${refLabel(p)}]\n${p.texto}`)
@@ -36,6 +42,9 @@ export function montarMaterialApoio(p: Pericope, chips: ChipsContexto): string {
   }
   if (chips.reflexoes && p.perguntas_reflexao?.length) {
     blocos.push(`[Perguntas de Reflexão]\n${p.perguntas_reflexao.map((q, i) => `${i + 1}. ${q}`).join('\n')}`)
+  }
+  if (chips.referencias && referenciasTexto?.trim()) {
+    blocos.push(`[Referências Cruzadas Bíblicas]\n${referenciasTexto.trim()}`)
   }
   return blocos.join('\n\n')
 }

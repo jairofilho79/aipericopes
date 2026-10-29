@@ -6,6 +6,7 @@ import {
   IconeCopiar,
   IconeFaisca,
   IconeFechar,
+  IconeLivroAberto,
   IconeLixeira,
   IconeNotaMusical,
   IconeRaio,
@@ -33,6 +34,9 @@ type Props = {
   onAnotar: () => void
   onVerLouvores?: () => void
   qtdLouvoresDiretos?: number
+  /** Só vem quando os versículos têm referências cruzadas: sem elas o botão não aparece. */
+  onVerReferencias?: () => void
+  qtdReferencias?: number
   onExplicarIa?: () => void
   onPerguntarIa?: () => void
   onAtivarIa?: () => void
@@ -53,6 +57,8 @@ export default function VerseActions({
   onAnotar,
   onVerLouvores,
   qtdLouvoresDiretos = 0,
+  onVerReferencias,
+  qtdReferencias = 0,
   onExplicarIa,
   onPerguntarIa,
   onAtivarIa,
@@ -118,6 +124,17 @@ export default function VerseActions({
           <IconeAnotar size={17} />
           Anotar
         </button>
+        {onVerReferencias && (
+          <button
+            type="button"
+            className="ghost btn-refs-chip"
+            onClick={onVerReferencias}
+            title={`${qtdReferencias} ${qtdReferencias === 1 ? 'nota' : 'notas'} de referência cruzada para este trecho`}
+          >
+            <IconeLivroAberto size={16} />
+            <span>Refs{qtdReferencias > 0 ? ` (${qtdReferencias})` : ''}</span>
+          </button>
+        )}
         {onVerLouvores && (
           <button
             type="button"

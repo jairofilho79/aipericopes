@@ -107,6 +107,7 @@ describe('Tema — tipografia', () => {
       'Disposição dos versículos',
       'Espaço entre linhas',
       'Largura do texto',
+      'Referências no texto',
     ])
   })
 

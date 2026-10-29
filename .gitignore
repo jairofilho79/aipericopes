@@ -29,6 +29,7 @@ data-arc/
 *.epub
 perícopes ARC.json
 data/referencias-cruzadas-arc.json
+data/referencias-ancoras-arc.json
 data/palavras-de-jesus-arc.json
 data/pericopes-arc.json
 *.npz
@@ -39,6 +40,7 @@ public/data/index.json
 public/data/versao.json
 public/data/texto/
 public/data/estudo/
+public/data/referencias/
 public/data/trilha.json
 public/data/registros.json
 

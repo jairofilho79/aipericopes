@@ -163,6 +163,7 @@ export async function solicitarExplicacao(params: {
   versiculoFim: number
   versiculos: string[]
   trechoTexto: string
+  referencias?: string
   gerarNova?: boolean
   onToken: (token: string) => void
   onFim: (dados: { id: string; resposta: string; salva: boolean }) => void
@@ -182,6 +183,7 @@ export async function solicitarExplicacao(params: {
         versiculoFim: params.versiculoFim,
         versiculos: params.versiculos,
         trechoTexto: params.trechoTexto,
+        referencias: params.referencias,
         gerarNova: params.gerarNova,
       }),
       signal: params.signal,

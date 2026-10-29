@@ -1,5 +1,5 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type MouseEvent, type ReactNode } from 'react'
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { tokens, type SecaoAlvos } from '../lib/alinhar-narracao'
 import NarracaoPlayer, { type NarracaoPlayerHandle } from '../components/NarracaoPlayer'
 import { secaoDoChip } from '../lib/narracao-controles'
@@ -13,7 +13,12 @@ import ExplicacaoIaModal from '../components/ExplicacaoIaModal'
 import AtivarIaModal from '../components/AtivarIaModal'
 import AbaConversarIa from '../components/AbaConversarIa'
 import AbaLouvores from '../components/AbaLouvores'
+import ReferenciasSheet from '../components/ReferenciasSheet'
+import AbaReferencias from '../components/AbaReferencias'
 import { obterCitacoesParaVersiculos } from '../lib/louvores'
+import { estadoDeContexto, origemDaReferencia, qsDeContexto } from '../lib/contexto-leitura'
+import { chamadasPorPalavra, pontosDeChamada, type Chamada, type PontoDeChamada } from '../lib/chamadas-texto'
+import { contarReferencias, obterReferenciasDaPericope, type NotaReferencia } from '../lib/referencias'
 import { authClient } from '../lib/auth-client'
 import { criarConversa, obterChaveIa } from '../lib/ia-client'
 import {
@@ -25,6 +30,7 @@ import {
   IconeEstrela,
   IconeFones,
   IconeLapis,
+  IconeLivroAberto,
   IconeLixeira,
   IconeNotaMusical,
   IconeSetaDireita,
@@ -81,7 +87,7 @@ import type { Anotacao, DestaqueCor, Jornada, Pericope, Progresso, ProgressoStat
 import { useSyncRefresh } from '../lib/use-sync-refresh'
 import { testamentLabel, testamentOf } from '../lib/testament'
 
-type NotesTab = 'anotacoes' | 'topicos' | 'conversar' | 'louvores'
+type NotesTab = 'anotacoes' | 'topicos' | 'conversar' | 'louvores' | 'referencias'
 type Vizinha = { ordem: number; titulo: string; narrado: boolean }
 
 function encontrarFaixasJesus(texto: string, frases?: string[]): { start: number; end: number }[] {
@@ -102,6 +108,53 @@ function encontrarFaixasJesus(texto: string, frases?: string[]): { start: number
   return faixas.sort((a, b) => a.start - b.start)
 }
 
+/** A letrinha de referência cruzada. O glifo vem do CSS (`data-letra`), não do DOM: não é copiado, lido nem tokenizado. */
+function ChamadaRef({ letra }: { letra: string }) {
+  return <span className="ref-callout" data-letra={letra} aria-hidden="true" />
+}
+
+/**
+ * Texto sem narração, fatiado nos limites das palavras de Jesus e nas letrinhas.
+ * A letrinha nunca fica dentro do span vermelho: cada trecho tem o seu span.
+ */
+function fatiarTexto(
+  texto: string,
+  faixas: { start: number; end: number }[],
+  pontos: PontoDeChamada[],
+): ReactNode[] {
+  const cortes = new Set<number>([0, texto.length])
+  for (const f of faixas) {
+    cortes.add(f.start)
+    cortes.add(f.end)
+  }
+  for (const pt of pontos) cortes.add(pt.offset)
+  const ordenados = [...cortes].sort((a, b) => a - b)
+  const partes: ReactNode[] = []
+  let proximoPonto = 0
+  for (let i = 0; i < ordenados.length; i++) {
+    const pos = ordenados[i]
+    while (proximoPonto < pontos.length && pontos[proximoPonto].offset === pos) {
+      partes.push(<ChamadaRef key={`r-${proximoPonto}`} letra={pontos[proximoPonto].letra} />)
+      proximoPonto++
+    }
+    const prox = ordenados[i + 1]
+    if (prox === undefined) break
+    const trecho = texto.slice(pos, prox)
+    if (!trecho) continue
+    const eJesus = faixas.some((f) => pos >= f.start && prox <= f.end)
+    partes.push(
+      eJesus ? (
+        <span key={`j-${pos}`} className="palavra-jesus">
+          {trecho}
+        </span>
+      ) : (
+        trecho
+      ),
+    )
+  }
+  return partes
+}
+
 /**
  * Quebra em palavras só a unidade em fala — o resto da página fica com o nó de
  * texto único de sempre (ou spans coloridos para as Palavras de Jesus). O espaço
@@ -112,36 +165,24 @@ function TextoFalado({
   texto,
   ativo,
   frasesJesus,
+  chamadas,
 }: {
   texto: string
   ativo: boolean
   frasesJesus?: string[]
+  /** Letrinhas de referência cruzada deste versículo (só quando a preferência está ligada). */
+  chamadas?: Chamada[]
 }) {
   const faixas = useMemo(() => encontrarFaixasJesus(texto, frasesJesus), [texto, frasesJesus])
+  const pontos = useMemo(() => pontosDeChamada(texto, chamadas), [texto, chamadas])
 
   if (!ativo) {
-    if (faixas.length === 0) return <>{texto}</>
-    const partes: ReactNode[] = []
-    let pos = 0
-    for (let i = 0; i < faixas.length; i++) {
-      const { start, end } = faixas[i]
-      if (start > pos) {
-        partes.push(texto.slice(pos, start))
-      }
-      partes.push(
-        <span key={`j-${start}`} className="palavra-jesus">
-          {texto.slice(start, end)}
-        </span>,
-      )
-      pos = end
-    }
-    if (pos < texto.length) {
-      partes.push(texto.slice(pos))
-    }
-    return <>{partes}</>
+    if (faixas.length === 0 && pontos.length === 0) return <>{texto}</>
+    return <>{fatiarTexto(texto, faixas, pontos)}</>
   }
 
   const todosTokens = tokens(texto)
+  const depoisDaPalavra = chamadasPorPalavra(todosTokens.length, chamadas)
   let offset = 0
   return (
     <>
@@ -156,7 +197,12 @@ function TextoFalado({
           escura a cada troca de palavra. Com os spans encostados, a palavra
           que sai encolhe para a direita enquanto a que entra cresce da
           esquerda, as duas metades se tocam na fronteira e o realce vira uma
-          faixa contínua que desliza. O texto renderizado é o mesmo. */}
+          faixa contínua que desliza. O texto renderizado é o mesmo.
+
+          A letrinha de referência entra dentro do span da palavra anterior,
+          antes do espaço: não é palavra (não tem `data-w` nem texto no DOM) e
+          fica colada à palavra, como na Bíblia impressa. */}
+      {depoisDaPalavra.get(-1)?.map((l, i) => <ChamadaRef key={`r-ini-${i}`} letra={l} />)}
       {todosTokens.map((tk, k) => {
         const start = offset
         const end = offset + tk.length
@@ -168,7 +214,9 @@ function TextoFalado({
             key={k}
             className={eJesus ? 'palavra-jesus' : undefined}
           >
-            {k < todosTokens.length - 1 ? `${tk} ` : tk}
+            {tk}
+            {depoisDaPalavra.get(k)?.map((l, i) => <ChamadaRef key={`r-${i}`} letra={l} />)}
+            {k < todosTokens.length - 1 ? ' ' : ''}
           </span>
         )
       })}
@@ -270,14 +318,11 @@ function PagerLado({
   primario?: boolean
 }) {
   const [searchParams] = useSearchParams()
-  // ponytail: carrega `de`/`jornadaId`/`mock` pra o chevron continuar apontando à jornada
-  const qsVoltar = [
-    searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
-    searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
-    searchParams.has('mock') ? 'mock=1' : '',
-  ]
-    .filter(Boolean)
-    .join('&')
+  const location = useLocation()
+  // ponytail: carrega o contexto (jornada, mock e a origem de uma referência)
+  // pra o botão de voltar continuar apontando pro lugar certo.
+  const qsVoltar = qsDeContexto(searchParams)
+  const estado = estadoDeContexto(location.state, searchParams)
   const comQs = (base: string) => {
     if (!qsVoltar) return base
     return base.includes('?') ? `${base}&${qsVoltar}` : `${base}?${qsVoltar}`
@@ -301,6 +346,7 @@ function PagerLado({
       aria-label={ariaNav}
       title={tituloAtalho}
       to={comQs(`/leitura/${v.ordem}`)}
+      state={estado}
     >
       {!proxima && !v.narrado && seta}
       <span>{v.titulo}</span>
@@ -313,6 +359,7 @@ function PagerLado({
     <Link
       className="pager-ouvir"
       to={comQs(`/leitura/${v.ordem}?ouvir=1`)}
+      state={estado}
       aria-label={`Ouvir ${v.titulo}`}
       title="Ouvir"
     >
@@ -355,6 +402,13 @@ export default function Leitura() {
   const verseParam = searchParams.get('v')
   const jornadaId = searchParams.get('jornadaId')
   const [jornadaAtiva, setJornadaAtiva] = useState<Jornada | null>(null)
+  // Chegou por uma referência cruzada: de onde (para o botão de voltar) e em que
+  // jornada a origem estava (só para nomear o destino "Jornada", sem mexer na rota).
+  const origemOrdem = origemDaReferencia(searchParams)?.ordem ?? null
+  const origemVersiculo = origemDaReferencia(searchParams)?.versiculoId ?? null
+  const jid = searchParams.get('jid')
+  const [origemRotulo, setOrigemRotulo] = useState<string | null>(null)
+  const [jornadaDaOrigem, setJornadaDaOrigem] = useState<Jornada | null>(null)
   const [p, setP] = useState<Pericope | null>(null)
   const [prev, setPrev] = useState<Vizinha | null>(null)
   const [next, setNext] = useState<Vizinha | null>(null)
@@ -439,8 +493,15 @@ export default function Leitura() {
     () => (selection ? versesInRange(blocks, selection.start, selection.end) : []),
     [blocks, selection],
   )
+  // Referências cruzadas da perícope. Guardadas COM a ordem a que pertencem: a
+  // chave "cap:ver" se repete entre perícopes, e um mapa velho atribuiria
+  // letrinhas ao versículo errado no instante da troca.
+  const [refs, setRefs] = useState<{ ordem: number; porVerso: Map<string, NotaReferencia[]> } | null>(null)
+  const [refSheet, setRefSheet] = useState<{ versiculoId: string; letra: string } | null>(null)
   const [versiculosFocoLouvores, setVersiculosFocoLouvores] = useState<typeof selecionados | null>(null)
   const [qtdCitacoesDiretas, setQtdCitacoesDiretas] = useState(0)
+  const [versiculosFocoRefs, setVersiculosFocoRefs] = useState<typeof selecionados | null>(null)
+  const [qtdReferenciasSelecao, setQtdReferenciasSelecao] = useState(0)
 
   useEffect(() => {
     if (!p || !selecionados.length) {
@@ -460,6 +521,44 @@ export default function Leitura() {
       ativo = false
     }
   }, [p?.livro, selecionados])
+
+  useEffect(() => {
+    setRefSheet(null)
+    if (!p) return
+    let ativo = true
+    void obterReferenciasDaPericope(p).then((lista) => {
+      if (!ativo) return
+      setRefs({
+        ordem: p.ordem,
+        porVerso: new Map(lista.map((r) => [`${r.capitulo}:${r.versiculo}`, r.notas])),
+      })
+    })
+    return () => {
+      ativo = false
+    }
+  }, [p])
+
+  /** Letrinhas de um versículo; nada quando a preferência está desligada ou as referências são de outra perícope. */
+  function chamadasDoVerso(id: string): NotaReferencia[] | undefined {
+    if (!prefs.referencias || !p || refs?.ordem !== p.ordem) return undefined
+    return refs.porVerso.get(id)
+  }
+
+  // Quantas notas de referência há nos versículos selecionados (contador do botão Refs).
+  useEffect(() => {
+    if (!p || !selecionados.length) {
+      setQtdReferenciasSelecao(0)
+      return
+    }
+    let ativo = true
+    void contarReferencias(
+      p.livro,
+      selecionados.map((v) => ({ chapter: v.chapter, verse: v.verse })),
+    ).then((n) => ativo && setQtdReferenciasSelecao(n))
+    return () => {
+      ativo = false
+    }
+  }, [p, selecionados])
 
   const primeiroCapitulo = useMemo(
     () => blocks.find((b) => b.kind === 'chapter'),
@@ -630,6 +729,38 @@ export default function Leitura() {
     })()
   }, [ordem, jornadaId])
 
+  useEffect(() => {
+    if (origemOrdem === null) {
+      setOrigemRotulo(null)
+      return
+    }
+    let ativo = true
+    void loadIndex()
+      .then((todas) => {
+        if (!ativo) return
+        const o = todas.find((x) => x.ordem === origemOrdem)
+        setOrigemRotulo(o ? `${o.livro}${origemVersiculo ? ` ${origemVersiculo}` : ''}` : null)
+      })
+      .catch(() => ativo && setOrigemRotulo(null))
+    return () => {
+      ativo = false
+    }
+  }, [origemOrdem, origemVersiculo])
+
+  useEffect(() => {
+    if (!jid || jornadaId) {
+      setJornadaDaOrigem(null)
+      return
+    }
+    let ativo = true
+    void getJornada(jid)
+      .then((j) => ativo && setJornadaDaOrigem(j ?? null))
+      .catch(() => undefined)
+    return () => {
+      ativo = false
+    }
+  }, [jid, jornadaId])
+
   // Foco do versículo: `?v=` na URL, senão o foco salvo da perícope. Fica
   // separado da carga acima porque muda muito mais vezes que a perícope — e
   // porque é síncrono: a carga é `async`, e se ela também mexesse em
@@ -642,6 +773,7 @@ export default function Leitura() {
     setSelection(focus ? { start: focus, end: focus } : null)
     setBarOpen(false)
     setVersiculosFocoLouvores(null)
+    setVersiculosFocoRefs(null)
     if (fromQuery) setVerseFocus(ordem, fromQuery)
   }, [ordem, verseParam])
 
@@ -838,29 +970,24 @@ export default function Leitura() {
     )
   }, [setSearchParams])
 
+  const location = useLocation()
+  const irParaVizinha = useCallback(
+    (destino: number) => {
+      const qs = qsDeContexto(searchParams)
+      navigate(`/leitura/${destino}${qs ? `?${qs}` : ''}`, {
+        state: estadoDeContexto(location.state, searchParams),
+      })
+    },
+    [navigate, searchParams, location.state],
+  )
+
   const irAnterior = useCallback(() => {
-    if (!prev) return
-    const qs = [
-      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
-      searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
-      searchParams.has('mock') ? 'mock=1' : '',
-    ]
-      .filter(Boolean)
-      .join('&')
-    navigate(`/leitura/${prev.ordem}${qs ? `?${qs}` : ''}`)
-  }, [navigate, prev, searchParams])
+    if (prev) irParaVizinha(prev.ordem)
+  }, [prev, irParaVizinha])
 
   const irProxima = useCallback(() => {
-    if (!next) return
-    const qs = [
-      searchParams.get('de') === 'jornada' ? 'de=jornada' : '',
-      searchParams.get('jornadaId') ? `jornadaId=${searchParams.get('jornadaId')}` : '',
-      searchParams.has('mock') ? 'mock=1' : '',
-    ]
-      .filter(Boolean)
-      .join('&')
-    navigate(`/leitura/${next.ordem}${qs ? `?${qs}` : ''}`)
-  }, [navigate, next, searchParams])
+    if (next) irParaVizinha(next.ordem)
+  }, [next, irParaVizinha])
 
   useSwipeNav(rootRef, { onPrev: irAnterior, onNext: irProxima, enabled: p !== null })
   useKeyboardNav({ onPrev: irAnterior, onNext: irProxima, enabled: p !== null })
@@ -1042,7 +1169,23 @@ export default function Leitura() {
     setProg((await getProgresso(ordem)) ?? null)
   }
 
+  /**
+   * Toque num versículo. A letrinha vive DENTRO do botão do versículo (um botão
+   * dentro de botão é HTML inválido), então o toque nela chega aqui e é
+   * reconhecido pelo alvo: abre as referências em vez de selecionar o versículo.
+   */
+  function aoTocarVersiculo(e: MouseEvent<HTMLElement>, id: string) {
+    const letra = (e.target as HTMLElement).closest<HTMLElement>('.ref-callout')?.dataset.letra
+    if (letra) {
+      setRefSheet({ versiculoId: id, letra })
+      setBarOpen(false)
+      return
+    }
+    selectVerse(id)
+  }
+
   function selectVerse(id: string) {
+    setRefSheet(null)
     const prox = nextSelection(blocks, selection, id)
     setSelection(prox)
     setBarOpen(prox !== null)
@@ -1158,6 +1301,15 @@ export default function Leitura() {
     window.setTimeout(() => {
       const el = document.querySelector('.notes-tabs')
       el?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 0)
+  }
+
+  function verReferenciasSelecao() {
+    setVersiculosFocoRefs(selecionados)
+    setTab('referencias')
+    setBarOpen(false)
+    window.setTimeout(() => {
+      document.querySelector('.notes-tabs')?.scrollIntoView({ block: 'start', behavior: 'smooth' })
     }, 0)
   }
 
@@ -1321,7 +1473,8 @@ export default function Leitura() {
         livro={p.livro}
         posicao={posNoLivro}
         onCompartilhar={() => void compartilharPericope()}
-        jornadaNome={jornadaAtiva?.nome}
+        jornadaNome={jornadaAtiva?.nome ?? jornadaDaOrigem?.nome}
+        origemRotulo={origemRotulo}
       />
       {/* `narracao-ativa` só existe para o CSS reservar, no fim do artigo, a
           folga da altura da doca: sem ela a doca cobriria as últimas perguntas
@@ -1439,7 +1592,7 @@ export default function Leitura() {
                             data-verse-id={b.id}
                             aria-pressed={selecionadosIds.has(b.id)}
                             aria-label={verseAria(b)}
-                            onClick={() => selectVerse(b.id)}
+                            onClick={(e) => aoTocarVersiculo(e, b.id)}
                           >
                             {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                             <span className="verse-text">
@@ -1447,6 +1600,7 @@ export default function Leitura() {
                                 texto={b.text}
                                 ativo={falando === b.id}
                                 frasesJesus={p?.palavras_jesus?.[b.id]}
+                                chamadas={chamadasDoVerso(b.id)}
                               />
                             </span>
                           </button>{' '}
@@ -1477,7 +1631,7 @@ export default function Leitura() {
                           data-verse-id={b.id}
                           aria-pressed={selecionadosIds.has(b.id)}
                           aria-label={verseAria(b)}
-                          onClick={() => selectVerse(b.id)}
+                          onClick={(e) => aoTocarVersiculo(e, b.id)}
                         >
                           {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                           <span className="verse-text">
@@ -1485,6 +1639,7 @@ export default function Leitura() {
                               texto={b.text}
                               ativo={falando === b.id}
                               frasesJesus={p?.palavras_jesus?.[b.id]}
+                                chamadas={chamadasDoVerso(b.id)}
                             />
                           </span>
                         </button>
@@ -1539,12 +1694,13 @@ export default function Leitura() {
         </section>
 
         <section className="block notes" id="notas">
-          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos, louvores e conversa">
+          <div className="notes-tabs" role="tablist" aria-label="Anotações, tópicos, louvores, referências e conversa">
             {(
               [
                 ['anotacoes', 'Anotações', <IconeAnotar key="a" size={16} />],
                 ['topicos', 'Tópicos', <IconeTopicos key="t" size={16} />],
                 ['louvores', 'Louvores', <IconeNotaMusical key="l" size={16} />],
+                ['referencias', 'Referências', <IconeLivroAberto key="r" size={16} />],
                 ['conversar', 'Conversar', <IconeFaisca key="c" size={16} />],
               ] as const
             ).map(([id, label, icone]) => (
@@ -1666,6 +1822,14 @@ export default function Leitura() {
             />
           )}
 
+          {tab === 'referencias' && (
+            <AbaReferencias
+              pericope={p}
+              versiculosFoco={versiculosFocoRefs?.map((v) => ({ chapter: v.chapter, verse: v.verse }))}
+              onLimparFoco={() => setVersiculosFocoRefs(null)}
+            />
+          )}
+
           {/* A porta para a IA é aba, não rodapé de "Anotações": solta ali
               embaixo ela aparecia debaixo dos dois painéis, sem pertencer a
               nenhum, e o prompt comprido empurrava a lista de notas.
@@ -1750,6 +1914,16 @@ export default function Leitura() {
           </nav>
         </section>
 
+        {refSheet && p && refs?.ordem === p.ordem && refs.porVerso.has(refSheet.versiculoId) && (
+          <ReferenciasSheet
+            rotulo={`${p.livro} ${refSheet.versiculoId}`}
+            origem={{ ordem: p.ordem, versiculoId: refSheet.versiculoId }}
+            notas={refs.porVerso.get(refSheet.versiculoId) ?? []}
+            letraInicial={refSheet.letra}
+            onFechar={() => setRefSheet(null)}
+          />
+        )}
+
         {barOpen && selecionados.length > 0 && (
           <VerseActions
             label={rangeLabel(p, selecionados)}
@@ -1765,6 +1939,8 @@ export default function Leitura() {
             onAnotar={anotarSelecao}
             onVerLouvores={verLouvoresSelecao}
             qtdLouvoresDiretos={qtdCitacoesDiretas}
+            onVerReferencias={qtdReferenciasSelecao > 0 ? verReferenciasSelecao : undefined}
+            qtdReferencias={qtdReferenciasSelecao}
             onExplicarIa={abrirExplicacaoIa}
             onPerguntarIa={() => void iniciarPerguntaIa()}
             onAtivarIa={abrirAtivarIa}

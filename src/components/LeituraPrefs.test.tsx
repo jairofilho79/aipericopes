@@ -46,7 +46,7 @@ describe('LeituraPrefs', () => {
   // Cada grupo tem rótulo VISÍVEL e é ele que dá o nome acessível: um
   // `aria-label` paralelo diria uma coisa ao leitor de tela e outra a quem
   // olha, e era o que fazia "Corrido | Blocos" não explicar nada na tela.
-  it('mostra os cinco grupos, cada um nomeado pelo rótulo que está na tela', () => {
+  it('mostra os seis grupos, cada um nomeado pelo rótulo que está na tela', () => {
     montar()
     const grupos = [...container.querySelectorAll('[role="group"]')].map((g) => {
       const id = g.getAttribute('aria-labelledby') ?? ''
@@ -58,7 +58,17 @@ describe('LeituraPrefs', () => {
       'Disposição dos versículos',
       'Espaço entre linhas',
       'Largura do texto',
+      'Referências no texto',
     ])
+  })
+
+  it('o liga/desliga das referências no texto persiste a escolha', () => {
+    montar()
+    expect(getReadingPrefs().referencias).toBe(true)
+    act(() => botao('Referências no texto', 'Ocultar').click())
+    expect(getReadingPrefs().referencias).toBe(false)
+    act(() => botao('Referências no texto', 'Mostrar letras').click())
+    expect(getReadingPrefs().referencias).toBe(true)
   })
 
   // Nenhum símbolo sozinho: ▼/▲ pareciam ordenação de tabela e só faziam

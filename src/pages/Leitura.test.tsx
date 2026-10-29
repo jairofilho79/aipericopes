@@ -15,6 +15,7 @@ let prefsMock: ReadingPrefs = {
   layout: 'blocos',
   measure: 'media',
   leadingStep: 1,
+  referencias: true,
 }
 
 vi.mock('../lib/reading-prefs', () => ({
@@ -147,8 +148,8 @@ vi.mock('../components/NarracaoPlayer', () => ({
 }))
 
 vi.mock('../components/LeituraTopo', () => ({
-  default: ({ jornadaNome }: { jornadaNome?: string }) => (
-    <header data-testid="leitura-topo" data-jornada-nome={jornadaNome} />
+  default: ({ jornadaNome, origemRotulo }: { jornadaNome?: string; origemRotulo?: string | null }) => (
+    <header data-testid="leitura-topo" data-jornada-nome={jornadaNome} data-origem-rotulo={origemRotulo ?? ''} />
   ),
 }))
 
@@ -166,6 +167,14 @@ vi.mock('../lib/use-sync-refresh', () => ({ useSyncRefresh: () => {} }))
 vi.mock('../lib/auth-client', () => ({
   authClient: { useSession: () => ({ data: null }) },
 }))
+
+// Referências cruzadas: cada teste escolhe o que a perícope tem. O padrão é nada.
+let refsMock: { capitulo: number; versiculo: number; notas: { letra: string; posicao: number | null; alvos: unknown[] }[] }[] = []
+vi.mock('../lib/referencias', async (original) => ({
+  ...(await original<typeof import('../lib/referencias')>()),
+  obterReferenciasDaPericope: async () => refsMock,
+}))
+vi.mock('../lib/referencias-previa', () => ({ previaDoAlvo: async () => null }))
 
 vi.mock('../components/VerseActions', () => ({
   default: () => null,
@@ -363,5 +372,184 @@ describe('Leitura — Palavras de Jesus em vermelho (Red Letter)', () => {
     expect(falaJesus?.textContent).toBe(
       'Permite por agora, porque assim nos convém cumprir toda a justiça.',
     )
+  })
+})
+
+describe('Leitura — letrinhas de referência cruzada', () => {
+  const ALVO = {
+    livro: 'Marcos',
+    capitulo: 1,
+    versiculo: '9',
+    versiculos: [9],
+    rotulo: 'Marcos 1:9',
+  }
+
+  async function renderMateus() {
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={['/leitura/1607']}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+  }
+
+  beforeEach(() => {
+    prefsMock = { ...prefsMock, layout: 'blocos', referencias: true }
+    refsMock = [{ capitulo: 3, versiculo: 14, notas: [{ letra: 'a', posicao: 2, alvos: [ALVO] }] }]
+  })
+
+  afterEach(() => {
+    refsMock = []
+  })
+
+  it.each(['blocos', 'corrido'] as const)('coloca a letra colada na palavra certa no layout %s', async (layout) => {
+    prefsMock = { ...prefsMock, layout }
+    await renderMateus()
+    const callout = container.querySelector('[data-verse-id="3:14"] .ref-callout')
+    expect(callout).not.toBeNull()
+    expect(callout?.getAttribute('data-letra')).toBe('a')
+    expect(callout?.previousSibling?.textContent).toBe('Mas João')
+  })
+
+  it('a letra não vira texto: o texto do versículo segue idêntico', async () => {
+    await renderMateus()
+    const verso = container.querySelector('[data-verse-id="3:14"] .verse-text')
+    expect(verso?.textContent).toBe('Mas João lhe impedia.')
+  })
+
+  it('com a preferência desligada, nenhuma letra aparece', async () => {
+    prefsMock = { ...prefsMock, referencias: false }
+    await renderMateus()
+    expect(container.querySelector('.ref-callout')).toBeNull()
+  })
+
+  it('a letra nunca fica dentro do vermelho das palavras de Jesus', async () => {
+    refsMock = [{ capitulo: 3, versiculo: 15, notas: [{ letra: 'a', posicao: 7, alvos: [ALVO] }] }]
+    await renderMateus()
+    const callout = container.querySelector('[data-verse-id="3:15"] .ref-callout')
+    expect(callout).not.toBeNull()
+    expect(callout?.closest('.palavra-jesus')).toBeNull()
+    expect(container.querySelector('[data-verse-id="3:15"] .verse-text')?.textContent).toContain(
+      'Permite por agora, porque assim nos convém cumprir toda a justiça.',
+    )
+  })
+
+  it('tocar na letra abre as referências e NÃO seleciona o versículo', async () => {
+    await renderMateus()
+    const callout = container.querySelector<HTMLElement>('[data-verse-id="3:14"] .ref-callout')!
+    await act(async () => {
+      callout.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+    const painel = container.querySelector('.ref-sheet')
+    expect(painel).not.toBeNull()
+    expect(painel?.textContent).toContain('Mateus 3:14')
+    expect(painel?.textContent).toContain('Marcos 1:9')
+    expect(container.querySelector('[data-verse-id="3:14"]')?.getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('tocar no versículo fora da letra seleciona e fecha as referências', async () => {
+    await renderMateus()
+    await act(async () => {
+      container
+        .querySelector<HTMLElement>('[data-verse-id="3:14"] .ref-callout')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+    expect(container.querySelector('.ref-sheet')).not.toBeNull()
+    await act(async () => {
+      container
+        .querySelector<HTMLElement>('[data-verse-id="3:13"]')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+    expect(container.querySelector('.ref-sheet')).toBeNull()
+    expect(container.querySelector('[data-verse-id="3:13"]')?.getAttribute('aria-pressed')).toBe('true')
+  })
+})
+
+describe('Leitura — aba Referências', () => {
+  it('a aba existe e abre o painel de referências da perícope', async () => {
+    refsMock = [
+      {
+        capitulo: 3,
+        versiculo: 14,
+        notas: [{ letra: 'a', posicao: 2, alvos: [{ livro: 'Marcos', capitulo: 1, versiculo: '9', versiculos: [9], rotulo: 'Marcos 1:9' }] }],
+      },
+    ]
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={['/leitura/1607']}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+    const aba = Array.from(container.querySelectorAll('.notes-tab')).find((t) => t.textContent?.includes('Referências'))
+    expect(aba).toBeDefined()
+    await act(async () => {
+      aba?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+    expect(aba?.getAttribute('aria-selected')).toBe('true')
+    expect(container.querySelector('.refs-painel')).not.toBeNull()
+    refsMock = []
+  })
+})
+
+describe('Leitura — chegou por uma referência cruzada', () => {
+  async function renderEm(url: string) {
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={[url]}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+  }
+  const topo = () => container.querySelector('[data-testid="leitura-topo"]')
+
+  it('entrega ao topo o rótulo da perícope e do versículo de origem', async () => {
+    await renderEm('/leitura/1607?via=ref&origem=3146&ov=102%3A1')
+    expect(topo()?.getAttribute('data-origem-rotulo')).toBe('Salmos 102:1')
+  })
+
+  it('sem via=ref, não há origem', async () => {
+    await renderEm('/leitura/1607?origem=3146&ov=102%3A1')
+    expect(topo()?.getAttribute('data-origem-rotulo')).toBe('')
+  })
+
+  it('origem que não existe no índice não quebra: o topo cai no nome genérico', async () => {
+    await renderEm('/leitura/1607?via=ref&origem=999999&ov=1%3A1')
+    expect(topo()?.getAttribute('data-origem-rotulo')).toBe('')
+  })
+
+  it('a jornada da origem (jid) nomeia o destino "Jornada" sem virar a rota da leitura', async () => {
+    mockJornada = {
+      id: 'j1',
+      nome: 'Salmos de Esperança',
+      tipo: 'livro',
+      escopo: 'Salmos',
+      inicioOrdem: 3146,
+      contaDesde: null,
+      criadoEm: '2026-01-01T00:00:00.000Z',
+      atualizadoEm: '2026-01-01T00:00:00.000Z',
+      arquivadaEm: null,
+      concluidaEm: null,
+    }
+    await renderEm('/leitura/1607?via=ref&origem=3146&ov=102%3A1&jid=j1')
+    expect(topo()?.getAttribute('data-jornada-nome')).toBe('Salmos de Esperança')
+    mockJornada = undefined
   })
 })

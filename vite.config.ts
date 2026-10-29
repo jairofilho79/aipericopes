@@ -142,7 +142,7 @@ export default defineConfig(({ command }) => {
           globPatterns: ['**/*.{js,css,html,ico,svg,png,woff2}'],
           // O índice entra no precache (é o que a primeira tela espera); os shards
           // não — precachear os 132 arquivos desfaria a mudança inteira.
-          globIgnores: ['**/data/texto/**', '**/data/estudo/**'],
+          globIgnores: ['**/data/texto/**', '**/data/estudo/**', '**/data/referencias/**'],
           // /api/** é do Worker (auth e sync): nunca responder com o index.html
           // do app shell no lugar de uma resposta de API.
           navigateFallbackDenylist: [/^\/api\//],
@@ -150,7 +150,7 @@ export default defineConfig(({ command }) => {
             {
               // Prioriza a rede para conteúdo atualizado (com timeout de 3s para offline)
               // garantindo sincronia perfeita entre texto e narração do R2.
-              urlPattern: /\/data\/(texto|estudo)\/.*\.json$/,
+              urlPattern: /\/data\/(texto|estudo|referencias)\/.*\.json$/,
               handler: 'NetworkFirst',
               options: {
                 cacheName: cacheDosShards,

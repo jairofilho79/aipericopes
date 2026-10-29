@@ -1,4 +1,12 @@
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+
+import {
+  idxDoHistorico,
+  jornadaDoContexto,
+  origemDaReferencia,
+  passosAteOrigem,
+  urlDaOrigem,
+} from '../lib/contexto-leitura'
 
 import { useHideOnScroll } from '../lib/use-hide-on-scroll'
 import { usePopover } from '../lib/use-popover'
@@ -13,6 +21,8 @@ type Props = {
   onCompartilhar: () => void
   /** Nome da jornada quando a leitura ocorre no contexto de uma jornada. */
   jornadaNome?: string | null
+  /** Rótulo da perícope de onde veio, quando chegou por uma referência cruzada ("Gênesis 1:1"). */
+  origemRotulo?: string | null
 }
 
 type AaProps = ReturnType<typeof usePopover>
@@ -86,34 +96,108 @@ function destinoVoltar(
  * que é o offset da barra de chips. Trocar a classe desalinha os chips sem
  * um único erro no console.
  */
-export default function LeituraTopo({ livro, posicao, onCompartilhar, jornadaNome }: Props) {
+export default function LeituraTopo({ livro, posicao, onCompartilhar, jornadaNome, origemRotulo }: Props) {
   const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const navigate = useNavigate()
   const aa = usePopover()
+  const destinos = usePopover()
   // Com o "Aa" aberto o header fica travado. `.top-hidden` não é só um
   // translate: leva `visibility: hidden`, e o popover é filho daqui — rolar
   // levaria embora o painel junto com o foco que o `usePopover` acabou de
   // mover para dentro dele.
-  const escondido = useHideOnScroll(!aa.open)
+  const escondido = useHideOnScroll(!aa.open && !destinos.open)
 
   const { to: voltarTo, rotulo: voltarRotulo } = destinoVoltar(
     livro,
     searchParams.get('de'),
-    searchParams.get('jornadaId'),
+    jornadaDoContexto(searchParams),
     searchParams.has('mock'),
     jornadaNome,
   )
 
+  const origem = origemDaReferencia(searchParams)
+  const rotuloOrigem = origemRotulo ?? 'perícope de origem'
+
+  /**
+   * Volta à perícope de origem. Quando a entrada de histórico dela ainda está
+   * atrás, desfaz a pilha (`navigate(-n)`) — é a MESMA volta do botão/gesto do
+   * sistema, sem empilhar a origem de novo. Sem isso (refresh, link aberto de
+   * fora), vai pela URL, já focando o versículo de onde saiu.
+   */
+  function voltarParaOrigem() {
+    if (!origem) return
+    const passos = passosAteOrigem(location.state, idxDoHistorico())
+    if (passos !== null) navigate(passos)
+    else navigate(urlDaOrigem(origem))
+  }
+
   return (
     <header className={'top leitura-top' + (escondido ? ' top-hidden' : '')}>
-      <Link
-        className="leitura-top-voltar"
-        to={voltarTo}
-        // Um chevron isolado não é confiável em leitor de tela.
-        aria-label={`Voltar para ${voltarRotulo}`}
-      >
-        <IconeSetaEsquerda size={15} />
-        <span>{voltarRotulo}</span>
-      </Link>
+      {origem ? (
+        // Veio por uma referência: o toque principal volta à origem, e o menu
+        // ao lado guarda o destino de sempre (jornada, ou o livro).
+        <span className="leitura-top-voltar-grupo" ref={destinos.rootRef}>
+          <button
+            type="button"
+            className="leitura-top-voltar"
+            onClick={voltarParaOrigem}
+            aria-label={`Voltar para ${rotuloOrigem}`}
+          >
+            <IconeSetaEsquerda size={15} />
+            <span>{rotuloOrigem}</span>
+          </button>
+          <button
+            ref={destinos.btnRef}
+            type="button"
+            className="leitura-top-voltar-mais"
+            aria-haspopup="menu"
+            aria-expanded={destinos.open}
+            aria-label="Outros destinos para voltar"
+            onClick={destinos.toggle}
+          >
+            ▾
+          </button>
+          {destinos.open && (
+            <div className="readmenu-pop pop-voltar" ref={destinos.popRef} role="menu" aria-label="Voltar para">
+              <button
+                type="button"
+                role="menuitem"
+                className="pop-voltar-item"
+                onClick={() => {
+                  destinos.close()
+                  voltarParaOrigem()
+                }}
+              >
+                <IconeSetaEsquerda size={15} />
+                <span>{rotuloOrigem}</span>
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                className="pop-voltar-item"
+                onClick={() => {
+                  destinos.close()
+                  navigate(voltarTo)
+                }}
+              >
+                <IconeSetaEsquerda size={15} />
+                <span>{voltarRotulo}</span>
+              </button>
+            </div>
+          )}
+        </span>
+      ) : (
+        <Link
+          className="leitura-top-voltar"
+          to={voltarTo}
+          // Um chevron isolado não é confiável em leitor de tela.
+          aria-label={`Voltar para ${voltarRotulo}`}
+        >
+          <IconeSetaEsquerda size={15} />
+          <span>{voltarRotulo}</span>
+        </Link>
+      )}
 
       {/* Montado mesmo sem posição: o grid é `1fr auto 1fr` e um centro
           ausente puxaria a zona da direita para a coluna do meio. Sem

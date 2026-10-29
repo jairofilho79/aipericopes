@@ -7,6 +7,7 @@ import {
   onReadingPrefs,
   setReadingLayout,
   setReadingMeasure,
+  setReadingReferencias,
 } from './reading-prefs'
 import { installLocalStorageMock } from './testing/storage-mock'
 
@@ -102,5 +103,26 @@ describe('onReadingPrefs', () => {
     expect(vistos).toEqual(['a', 'b'])
     off1()
     off2()
+  })
+})
+
+describe('reading-prefs referências cruzadas', () => {
+  beforeEach(() => localStorage.clear())
+
+  it('ligadas por padrão, inclusive em prefs antigas sem o campo', () => {
+    expect(getReadingPrefs().referencias).toBe(true)
+    localStorage.setItem('pericopes-reading', JSON.stringify({ sizeStep: 3 }))
+    expect(getReadingPrefs().referencias).toBe(true)
+  })
+
+  it('setReadingReferencias persiste e avisa', () => {
+    let avisos = 0
+    const sair = onReadingPrefs(() => avisos++)
+    setReadingReferencias(false)
+    expect(getReadingPrefs().referencias).toBe(false)
+    setReadingReferencias(true)
+    expect(getReadingPrefs().referencias).toBe(true)
+    expect(avisos).toBe(2)
+    sair()
   })
 })

@@ -9,6 +9,7 @@ import {
   IconeRecarregar,
 } from './icones'
 import { solicitarExplicacao, criarConversa } from '../lib/ia-client'
+import { formatarReferenciasParaIa, obterReferenciasDosVersiculos } from '../lib/referencias'
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
@@ -92,31 +93,42 @@ export default function ExplicacaoIaModal({
     setExplicacaoId(null)
     setSalvaAnteriormente(false)
 
-    void solicitarExplicacao({
-      pericopeOrdem,
-      livro,
-      capituloInicio,
-      versiculoInicio,
-      capituloFim,
-      versiculoFim,
-      versiculos,
-      trechoTexto,
-      gerarNova,
-      signal: ac.signal,
-      onToken: (token) => {
-        setTextoStream((prev) => prev + token)
-      },
-      onFim: (dados) => {
-        setCarregando(false)
-        setTextoStream(dados.resposta)
-        setExplicacaoId(dados.id)
-        setSalvaAnteriormente(dados.salva)
-      },
-      onErro: (err) => {
-        setCarregando(false)
-        setErro(err)
-      },
-    })
+    void (async () => {
+      const versosRef = versiculos.map((v) => {
+        const [c, s] = v.split(':').map(Number)
+        return { chapter: c, verse: s }
+      })
+      const refs = await obterReferenciasDosVersiculos(livro, versosRef).catch(() => [])
+      if (ac.signal.aborted) return
+      const textoRefs = formatarReferenciasParaIa(refs)
+
+      void solicitarExplicacao({
+        pericopeOrdem,
+        livro,
+        capituloInicio,
+        versiculoInicio,
+        capituloFim,
+        versiculoFim,
+        versiculos,
+        trechoTexto,
+        referencias: textoRefs || undefined,
+        gerarNova,
+        signal: ac.signal,
+        onToken: (token) => {
+          setTextoStream((prev) => prev + token)
+        },
+        onFim: (dados) => {
+          setCarregando(false)
+          setTextoStream(dados.resposta)
+          setExplicacaoId(dados.id)
+          setSalvaAnteriormente(dados.salva)
+        },
+        onErro: (err) => {
+          setCarregando(false)
+          setErro(err)
+        },
+      })
+    })()
   }
 
   function pararGeracao() {

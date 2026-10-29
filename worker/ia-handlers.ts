@@ -76,6 +76,7 @@ export function montarPromptExplicacao(params: {
   capituloFim: number
   versiculoFim: number
   trechoTexto: string
+  referencias?: string
 }): { system: string; user: string } {
   const ref = formatarRefVersos(
     params.capituloInicio,
@@ -89,12 +90,21 @@ export function montarPromptExplicacao(params: {
     'Suas explicações são acessíveis a leitores leigos, mantendo rigor e respeito ao texto sagrado. ' +
     'Evite polêmicas denominacionais desnecessárias e responda exclusivamente sobre o trecho bíblico selecionado.'
 
-  const user =
+  let user =
     `Você receberá um trecho bíblico selecionado de ${params.livro} ${ref}:\n\n` +
-    `"""\n${params.trechoTexto.trim()}\n"""\n\n` +
+    `"""\n${params.trechoTexto.trim()}\n"""\n\n`
+
+  if (params.referencias?.trim()) {
+    user += `Referências cruzadas canônicas associadas a este trecho:\n${params.referencias.trim()}\n\n`
+  }
+
+  user +=
     'Por favor, forneça uma explicação simples e estruturada contendo exatamente as três seções abaixo em formato Markdown:\n\n' +
     '### Contexto\n' +
-    'Uma explicação simplificada sobre o contexto histórico e literário deste trecho específico (quem fala, para quem ou o cenário em que ocorre).\n\n' +
+    'Uma explicação simplificada sobre o contexto histórico e literário deste trecho específico (quem fala, para quem ou o cenário em que ocorre).' +
+    (params.referencias?.trim()
+      ? ' Se pertinente, enriqueça a explicação conectando com as referências cruzadas fornecidas.\n\n'
+      : '\n\n') +
     '### Resenha\n' +
     'Uma síntese explicativa e clara sobre o que este trecho selecionado diz e o que acontece nele.\n\n' +
     '### Reflexão\n' +
@@ -122,6 +132,7 @@ export async function handleExplicar(
     versiculos?: unknown
     trechoTexto?: unknown
     gerarNova?: unknown
+    referencias?: unknown
   } | null
 
   if (
@@ -213,6 +224,7 @@ export async function handleExplicar(
     capituloFim,
     versiculoFim,
     trechoTexto,
+    referencias: typeof corpo.referencias === 'string' ? corpo.referencias : undefined,
   })
 
   // 3. Monta stream SSE

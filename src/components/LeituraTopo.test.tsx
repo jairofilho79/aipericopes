@@ -8,6 +8,8 @@ import { installLocalStorageMock } from '../lib/testing/storage-mock'
 installLocalStorageMock()
 
 let mockSearch = ''
+let mockState: unknown = null
+const mockNavigate = vi.fn()
 
 vi.mock('react-router-dom', () => ({
   Link: ({ to, children, ...resto }: { to: string; children: unknown }) => (
@@ -16,6 +18,8 @@ vi.mock('react-router-dom', () => ({
     </a>
   ),
   useSearchParams: () => [new URLSearchParams(mockSearch), vi.fn()],
+  useLocation: () => ({ state: mockState }),
+  useNavigate: () => mockNavigate,
 }))
 
 import LeituraTopo from './LeituraTopo'
@@ -27,6 +31,8 @@ const cafOriginal = window.cancelAnimationFrame
 
 beforeEach(() => {
   mockSearch = ''
+  mockState = null
+  mockNavigate.mockClear()
   localStorage.clear()
   // O `window` é o mesmo para todos os testes do arquivo: sem zerar aqui, o
   // topo montaria já com o `scrollY` que o teste anterior deixou, e uma
@@ -52,10 +58,14 @@ afterEach(() => {
   window.cancelAnimationFrame = cafOriginal
 })
 
-function montar(livro: string | null, posicao: { n: number; m: number } | null = null) {
+function montar(
+  livro: string | null,
+  posicao: { n: number; m: number } | null = null,
+  extra: { origemRotulo?: string | null; jornadaNome?: string | null } = {},
+) {
   act(() =>
     root.render(
-      <LeituraTopo livro={livro} posicao={posicao} onCompartilhar={vi.fn()} />,
+      <LeituraTopo livro={livro} posicao={posicao} onCompartilhar={vi.fn()} {...extra} />,
     ),
   )
 }
@@ -158,5 +168,67 @@ describe('LeituraTopo — o auto-ocultar contra o popover', () => {
     act(() => aa().click())
     await rolarPara(400)
     expect(header().className).toContain('top-hidden')
+  })
+})
+
+describe('LeituraTopo — chegou por uma referência cruzada', () => {
+  const botaoVoltar = () => container.querySelector<HTMLButtonElement>('button.leitura-top-voltar')
+  const mais = () => container.querySelector<HTMLButtonElement>('.leitura-top-voltar-mais')
+  const itens = () => [...container.querySelectorAll<HTMLButtonElement>('.pop-voltar-item')]
+
+  it('sem origem, o botão é o link de sempre e não há menu', () => {
+    montar('Marcos')
+    expect(container.querySelector('a.leitura-top-voltar')).not.toBeNull()
+    expect(mais()).toBeNull()
+  })
+
+  it('com origem, o botão principal nomeia a perícope de origem', () => {
+    mockSearch = 'via=ref&origem=7&ov=1%3A1'
+    montar('Marcos', null, { origemRotulo: 'Gênesis 1:1' })
+    expect(botaoVoltar()?.textContent).toContain('Gênesis 1:1')
+    expect(botaoVoltar()?.getAttribute('aria-label')).toBe('Voltar para Gênesis 1:1')
+    expect(container.querySelector('a.leitura-top-voltar')).toBeNull()
+  })
+
+  it('o toque principal desfaz a pilha de histórico quando a origem está atrás', () => {
+    mockSearch = 'via=ref&origem=7&ov=1%3A1'
+    mockState = { refOrigemIdx: 2 }
+    window.history.replaceState({ idx: 3 }, '')
+    montar('Marcos', null, { origemRotulo: 'Gênesis 1:1' })
+    act(() => botaoVoltar()!.click())
+    expect(mockNavigate).toHaveBeenCalledWith(-1)
+  })
+
+  it('sem como saber o histórico, volta pela URL focando o versículo de saída', () => {
+    mockSearch = 'via=ref&origem=7&ov=1%3A1'
+    window.history.replaceState(null, '')
+    montar('Marcos', null, { origemRotulo: 'Gênesis 1:1' })
+    act(() => botaoVoltar()!.click())
+    expect(mockNavigate).toHaveBeenCalledWith('/leitura/7?v=1%3A1')
+  })
+
+  it('o menu oferece a origem e o destino de sempre (livro)', () => {
+    mockSearch = 'via=ref&origem=7&ov=1%3A1'
+    montar('Marcos', null, { origemRotulo: 'Gênesis 1:1' })
+    act(() => mais()!.click())
+    expect(mais()?.getAttribute('aria-expanded')).toBe('true')
+    expect(itens().map((i) => i.textContent)).toEqual(['Gênesis 1:1', 'Marcos'])
+    act(() => itens()[1].click())
+    expect(mockNavigate).toHaveBeenCalledWith('/explorar?livro=Marcos')
+  })
+
+  it('com a jornada da origem (jid), o segundo destino é a jornada', () => {
+    mockSearch = 'via=ref&origem=7&ov=1%3A1&jid=j1'
+    montar('Marcos', null, { origemRotulo: 'Gênesis 1:1', jornadaNome: 'Salmos de Esperança' })
+    act(() => mais()!.click())
+    expect(itens().map((i) => i.textContent)).toEqual(['Gênesis 1:1', 'Jornada: Salmos de Esperança'])
+    act(() => itens()[1].click())
+    expect(mockNavigate).toHaveBeenCalledWith('/jornada')
+  })
+
+  it('sem o rótulo da origem (índice não carregou), ainda tem um nome honesto', () => {
+    mockSearch = 'via=ref&origem=7'
+    montar('Marcos')
+    expect(botaoVoltar()?.textContent).toContain('perícope de origem')
   })
 })

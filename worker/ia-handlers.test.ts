@@ -41,6 +41,24 @@ describe('ia-handlers montarPromptExplicacao', () => {
     expect(user).toContain('### Resenha')
     expect(user).toContain('### Reflexão')
   })
+
+  it('inclui referências cruzadas canônicas quando fornecidas', () => {
+    const trecho = 'No princípio era o Verbo...'
+    const refs = '1:1: Gênesis 1:1, 1 João 1:1; Provérbios 8:22'
+    const { user } = montarPromptExplicacao({
+      livro: 'João',
+      capituloInicio: 1,
+      versiculoInicio: 1,
+      capituloFim: 1,
+      versiculoFim: 1,
+      trechoTexto: trecho,
+      referencias: refs,
+    })
+
+    expect(user).toContain('Referências cruzadas canônicas associadas a este trecho:')
+    expect(user).toContain(refs)
+    expect(user).toContain('enriqueça a explicação conectando com as referências cruzadas fornecidas')
+  })
 })
 
 describe('ia-handlers recuperarChaveUsuario', () => {

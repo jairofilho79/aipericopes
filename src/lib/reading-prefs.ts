@@ -12,6 +12,8 @@ export type ReadingPrefs = {
   layout: ReadingLayout
   leadingStep: number
   measure: ReadingMeasure
+  /** Letrinhas de referência cruzada no texto bíblico. */
+  referencias: boolean
 }
 
 /** rem steps for biblical + prose text */
@@ -39,6 +41,7 @@ const DEFAULTS: ReadingPrefs = {
   layout: 'corrido',
   leadingStep: 1,
   measure: 'media',
+  referencias: true,
 }
 
 export function getReadingPrefs(): ReadingPrefs {
@@ -62,7 +65,9 @@ export function getReadingPrefs(): ReadingPrefs {
     const measure = MEASURE_OPTIONS.some((m) => m.id === parsed.measure)
       ? (parsed.measure as ReadingMeasure)
       : DEFAULTS.measure
-    return { sizeStep, font, layout, leadingStep, measure }
+    // Só um `false` explícito desliga: prefs antigas (sem o campo) ficam ligadas.
+    const referencias = parsed.referencias !== false
+    return { sizeStep, font, layout, leadingStep, measure, referencias }
   } catch {
     return { ...DEFAULTS }
   }
@@ -123,6 +128,13 @@ export function bumpReadingLeading(delta: number): ReadingPrefs {
 export function setReadingMeasure(measure: ReadingMeasure): ReadingPrefs {
   const prefs = getReadingPrefs()
   prefs.measure = measure
+  applyReadingPrefs(prefs)
+  return prefs
+}
+
+export function setReadingReferencias(referencias: boolean): ReadingPrefs {
+  const prefs = getReadingPrefs()
+  prefs.referencias = referencias
   applyReadingPrefs(prefs)
   return prefs
 }
