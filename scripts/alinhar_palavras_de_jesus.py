@@ -194,9 +194,14 @@ def obter_frases_blivre(item, b_text, arc_v):
     if norm_full == norm_fala:
         return [b_text]
     elif norm_full.endswith(norm_fala):
-        if ':' in b_text:
-            idx = b_text.find(':')
-            speech = b_text[idx+1:].strip()
+        idx_arc = arc_v.lower().rfind(fala[:10].lower().strip())
+        prefix_arc = arc_v[:idx_arc] if idx_arc != -1 else ''
+        n_colons = max(1, prefix_arc.count(':'))
+        pos = -1
+        for _ in range(n_colons):
+            pos = b_text.find(':', pos + 1)
+        if pos != -1:
+            speech = b_text[pos+1:].strip()
             if (speech.startswith('“') and speech.endswith('”')) or (speech.startswith('\"') and speech.endswith('\"')):
                 speech = speech[1:-1].strip()
             return [speech]
