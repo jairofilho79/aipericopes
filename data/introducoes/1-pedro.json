@@ -1,0 +1,30 @@
+{
+  "livro": "1 Pedro",
+  "slug": "1-pedro",
+  "abbrev": "1Pe",
+  "testamento": "nt",
+  "titulo_canonico": "Primeira Epístola Universal do Apóstolo Pedro",
+  "titulo_introducao": "Introdução à Primeira Epístola de Pedro",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "O título canônico consagra o nome grego Petros, termo equivalente ao aramaico Kefa, que significa “pedra” ou “rocha” — o nome profético conferido pelo próprio Senhor Jesus ao discípulo Simão no momento de sua confissão messiânica. A designação de epístola universal reflete seu alcance pastoral abrangente, destinada originalmente às comunidades espalhadas pelas províncias da Ásia Menor, a quem o apóstolo chama afetuosamente de peregrinos da dispersão e herdeiros eleitos da graça de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composta pelo apóstolo Pedro com a cooperação de Silvano por volta dos anos 63 a 64 da nossa era, a carta foi remetida a partir de “Babilônia”, designação simbólica utilizada pelos primeiros cristãos para identificar a capital do Império Romano. Os destinatários enfrentavam zombaria pública, calúnias e a hostilidade social de um império idólatra. O propósito teológico da epístola é infundir nos corações uma viva esperança fundamentada na ressurreição de Cristo. Pedro ensina que as provações presentes, longe de significarem abandono, funcionam como fornalha purificadora para demonstrar o valor inestimável da fé, exortando os crentes a viverem com santidade irrepreensível como nação santa e povo de propriedade exclusiva de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A carta se desenvolve em três movimentos de profunda consolação e discipulado. O primeiro movimento, do capítulo 1 ao capítulo 2 até o versículo 10, celebra a grandeza da salvação eterna — guardada nos céus pelo poder divino — e convoca a comunidade à sobriedade e reverência, lembrando que fomos resgatados pelo precioso sangue de Cristo para sermos sacerdócio real. O segundo movimento, do versículo 11 do capítulo 2 até o final do capítulo 3, orienta os cristãos sobre o testemunho público na sociedade: ensina a conduta digna diante das autoridades, a integridade nas relações de trabalho e a nobreza no lar, mostrando que suportar a aflição com mansidão é seguir as pegadas do Salvador. O terceiro movimento, nos capítulos 4 e 5, instrui os fiéis sobre o uso generoso dos dons espirituais em tempos de crise, renova o ânimo diante do fogo da provação e exorta os pastores ao cuidado humilde do rebanho, resistindo vigilantes ao adversário sob a mão soberana de Deus."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Primeira Epístola de Pedro nos assegura que a esperança cristã não é uma ilusão incerta, mas uma âncora viva e inabalável alicerçada na vitória do Cristo ressurreto."
+    }
+  ]
+}

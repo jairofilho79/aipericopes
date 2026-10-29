@@ -1,0 +1,30 @@
+{
+  "livro": "Miquéias",
+  "slug": "miqueias",
+  "abbrev": "Mq",
+  "testamento": "vt",
+  "titulo_canonico": "Miqueias",
+  "titulo_introducao": "Introdução ao Livro de Miquéias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "Quem é Semelhante ao Senhor?",
+      "texto": "Na língua hebraica, este livro leva o título de Mikhah, forma abreviada do nome Mikhayah, construído a partir de uma indagação reverente: “Quem é semelhante a Yahweh?”. A Septuaginta verteu o nome como Michaias e a Vulgata latina como Michaeas. Longe de ser apenas uma etiqueta biográfica, o próprio nome de Miquéias constitui o clímax teológico de sua obra, que encerra celebrando em tom jubiloso que nenhum deus se compara ao Senhor, o único que perdoa a iniquidade e lança todos os pecados de seu povo nas profundezas do mar."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, os Desafios das Vilas Rurais e o Propósito Teológico",
+      "texto": "Originário de Moresete-Gate, uma pequena aldeia agrícola localizada nas colinas férteis da Sefelá de Judá, Miquéias profetizou nos dias dos reis Jotão, Acaz e Ezequias, sendo contemporâneo do profeta Isaías na capital e de Oséias no norte. Ele testemunhou a marcha devastadora dos exércitos assírios, a terrível queda de Samaria em 722 a.C. e a ameaça iminente sobre Jerusalém. Vindo do interior rural, Miquéias sentia intensamente a dor dos camponeses espoliados por governantes gananciosos, juízes venais e falsos profetas que cobiçavam campos e expulsavam famílias indefesas de suas propriedades ancestrais. O propósito do livro é denunciar com santa intrepidez a corrupção social e a falsa segurança religiosa da liderança, articular as verdadeiras exigências da aliança divina e descortinar o alvorecer messiânico por meio de um Príncipe eterno que nascerá em uma vila humilde para pastorear o povo em perfeita paz."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Três Ciclos de Juízo e Esperança",
+      "texto": "O livro de Miquéias se organiza harmonicamente em três grandes ciclos oraculares, nos quais as advertências de juízo inevitável dão lugar a promessas radiantes de redenção. O primeiro ciclo, que compreende os capítulos 1 e 2, começa com o abalo das montanhas sob a descida de Deus para julgar Samaria e as cidades de Judá, repreende os ricos que planejam extorsão em seus leitos e encerra com o retrato de Deus como pastor que congrega o remanescente disperso. O segundo ciclo, abrangendo do capítulo 3 ao 5, confronta impiedosamente os magistrados e profetas que devoram o povo e anuncia a ruína de Sião, para em seguida desdobrar a visão deslumbrante do monte do Templo procurado por todas as nações e a profecia monumental de Belém-Efrata, de onde sairá o Guia eterno de Israel. O terceiro ciclo, formado pelos capítulos 6 e 7, apresenta o processo judicial formal de Deus contra a ingratidão do povo diante das testemunhas da criação, define o que o Senhor requer do ser humano — agir com justiça, amar a misericórdia e caminhar humildemente com Deus —, lamenta a dissolução moral e culmina em uma doxologia comovente à fidelidade pactual prometida a Abraão e Jacó."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Miquéias nos ensina que a religiosidade genuína se manifesta na prática da justiça, no amor à compaixão e no caminhar humilde com Deus, apontando com precisão para o Rei eterno nascido em Belém que traz libertação completa. Ao ler estas páginas, somos chamados a renovar nossa fé no Deus incomparável que perdoa os arrependidos e faz triunfar a sua fidelidade inabalável."
+    }
+  ]
+}

@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
 import type { BibleBook } from '../lib/bible-books'
 import type { FiltroLeitura, LivroProgresso } from '../lib/content'
 import type { ItemPericope } from '../lib/item-pericope'
-import { IconeTrocar } from './icones'
+import { livroSlug } from '../lib/livro-slug'
+import { IconeFones, IconeSetaDireita, IconeTrocar } from './icones'
 import ListaPericopes from './ListaPericopes'
 
 /** Cabeçalho e lista, a mesma forma de `RegistroAberto`: o formulário de
@@ -53,6 +55,26 @@ export default function LivroAberto({
           </button>
         </div>
       </div>
+
+      <Link
+        to={`/introducao/${livroSlug(livro.name)}`}
+        className="livro-intro-card"
+        aria-label={`Introdução ao Livro de ${livro.name}`}
+      >
+        <span className="livro-intro-icone" aria-hidden="true">
+          <IconeFones size={22} />
+        </span>
+        <span className="livro-intro-conteudo">
+          <span className="livro-intro-titulo">Introdução a {livro.name}</span>
+          <span className="livro-intro-desc">
+            Ouça a narração e conheça a origem, contexto histórico, estrutura e mensagem central
+          </span>
+        </span>
+        <span className="livro-intro-cta">
+          <span>Ouvir e ler</span>
+          <IconeSetaDireita size={16} />
+        </span>
+      </Link>
 
       <p className="peri-count">
         {itens.length} perícope{itens.length === 1 ? '' : 's'}

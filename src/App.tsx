@@ -14,6 +14,7 @@ import IaChave from './pages/IaChave'
 import IaExplicacoes from './pages/IaExplicacoes'
 import IaConversas from './pages/IaConversas'
 import IaChat from './pages/IaChat'
+import IntroducaoLivro from './pages/IntroducaoLivro'
 import { applyReadingPrefs, getReadingPrefs } from './lib/reading-prefs'
 import { getStoredTheme, resolveTheme } from './lib/theme'
 import { initSyncTriggers } from './lib/sync'
@@ -73,6 +74,7 @@ function Shell() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/leitura/:ordem" element={<Leitura />} />
+          <Route path="/introducao/:slug" element={<IntroducaoLivro />} />
           <Route path="/jornada/nova" element={<NovaJornada />} />
           <Route path="/jornada" element={<Jornada />} />
           <Route path="/explorar" element={<Explorar />} />

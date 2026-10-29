@@ -1,0 +1,30 @@
+{
+  "livro": "Cantares",
+  "slug": "cantares",
+  "abbrev": "Ct",
+  "testamento": "vt",
+  "titulo_canonico": "Cantares de Salomão",
+  "titulo_introducao": "Introdução ao Livro de Cantares de Salomão",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Cântico dos Cânticos e o Nome do Livro",
+      "texto": "No texto original hebraico, o livro leva o título de Šîr haš-Šîrîm — uma elegante construção gramatical superlativa que significa literalmente “O Cântico dos Cânticos”, isto é, o cântico mais excelso, belo e sublime de todos. A Septuaginta grega e a Vulgata latina preservaram essa mesma intensidade lírica ao nomeá-lo Asma Asmatōn e Canticum Canticorum, raiz das designações tradicionais em português, “Cantares de Salomão” e “Cântico dos Cânticos”. Tradicionalmente proclamado pelos judeus durante a celebração da Páscoa, este livro sagrado ergue-se no cânon bíblico como o hino supremo à pureza, à beleza e ao vigor do amor celebrado segundo a santa vontade do Criador."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Cenário Campestre e Propósito Teológico",
+      "texto": "Associado ao rei Salomão e enriquecido com imagens pastorais e campestres que contrastam o frescor das montanhas de Israel com a suntuosidade dos palácios reais, o livro resgata a bênção original do matrimônio celebrada no Éden. O seu propósito teológico e redentivo opõe-se tanto ao ascetismo rigorista — que despreza a afetividade humana — quanto à imoralidade permissiva que rebaixa o afeto a mero capricho efêmero. Cantares proclama que a atração mútua, a admiração poética e a fidelidade conjugal entre um homem e uma mulher procedem de Deus, constituindo uma faísca sagrada do amor divino que nem todas as torrentes das muitas águas podem extinguir."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "O livro é tecido como um diálogo poético polifônico, entrelaçando as vozes da donzela sulamita, de seu amado e do coro das filhas de Jerusalém em quatro movimentos encantadores. O primeiro movimento, do capítulo 1 ao capítulo 3 até o versículo 5, retrata os anseios mútuos do noivado, os elogios afetuosos da noiva e do esposo em meio à exuberância primaveril dos campos, reiterando o aviso solene para não despertar precipitadamente o amor até que ele queira. O segundo movimento, do capítulo 3 versículo 6 até o capítulo 5 versículo 1, descreve o solene cortejo nupcial, a consumação abençoada do casamento e os louvores do noivo à formosura irrepreensível de sua amada, acolhida como um jardim privativo e perfumado. O terceiro movimento, do capítulo 5 versículo 2 até o capítulo 8 versículo 4, retrata as dores passageiras da distância, a busca ardente na noite e a declaração jubilosa da incomparável distinção do amado, que conduz à reconciliação afetuosa e ao renovo da aliança mútua. O quarto movimento, do capítulo 8 versículo 5 ao 14, conduz os amantes de volta do deserto apoiados um no outro, culminando no hino imortal que declara ser o amor mais forte do que a própria morte e inextinguível pelos abismos do mar, convidando à comunhão contínua e sem fim."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Para além do elogio à santidade do amor conjugal, a revelação bíblica nos ensina a contemplar em Cantares o reflexo mais terno e apaixonado da aliança eterna de Deus com o seu povo, plenamente manifesta no amor de Cristo pela sua Igreja. Na cruz e na ressurreição, o divino Esposo entregou a própria vida para resgatar a sua amada com uma afeição invencível. Que estas páginas inspirem o leitor a celebrar a pureza das afeições humanas e a corresponder com todo o coração ao amor eterno do Redentor."
+    }
+  ]
+}

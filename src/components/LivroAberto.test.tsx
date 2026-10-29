@@ -75,4 +75,12 @@ describe('LivroAberto', () => {
     montar('nao-lidos', [ITENS[0]])
     expect(container.querySelector('.peri-count')?.textContent).toBe('1 perícope no recorte')
   })
+
+  it('exibe o card de convite para a Introdução do Livro apontando para /introducao/:slug', () => {
+    montar('todos')
+    const link = container.querySelector('a.livro-intro-card')
+    expect(link).not.toBeNull()
+    expect(link?.getAttribute('href')).toBe('/introducao/genesis')
+    expect(link?.textContent).toContain('Introdução a Gênesis')
+  })
 })

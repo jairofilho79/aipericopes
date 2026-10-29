@@ -1,0 +1,30 @@
+{
+  "livro": "Levítico",
+  "slug": "levitico",
+  "abbrev": "Lv",
+  "testamento": "vt",
+  "titulo_canonico": "O Terceiro Livro de Moisés chamado Levítico",
+  "titulo_introducao": "Introdução ao Livro de Levítico",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Chamado à Santidade e o Nome do Livro",
+      "texto": "Na Bíblia hebraica, este livro recebe o nome de Vayikra, que significa “E chamou”, extraído diretamente de sua primeira frase: “E chamou o SENHOR a Moisés, e falou com ele da tenda da congregação”. Este início é de extraordinária riqueza teológica: no encerramento de Êxodo, a glória do Altíssimo havia enchido o Tabernáculo de tal maneira que nem mesmo Moisés podia entrar; agora, em Levítico, o próprio Deus convoca o seu servo do interior do santuário para abrir o caminho de aproximação. O título em português, herdado da Septuaginta grega como Leueitikón e da Vulgata Latina como Leviticus, significa “concernente aos levitas”, destacando a tribo consagrada ao serviço e à guarda do sagrado. Contudo, longe de ser um mero compêndio cerimonial exclusivo dos sacerdotes, o livro constitui uma mensagem viva para toda a comunidade de Israel, respondendo ao dilema fundamental da fé: como pode um ser humano frágil, manchado pelo pecado, habitar em paz junto a um Deus de pureza e santidade absolutas?"
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Recebido e registrado por Moisés ao pé do monte Sinai — durante o período de cerca de um mês entre a ereção do Tabernáculo e a partida do arraial narrada em Números —, Levítico foi entregue a uma nação recém-saída de quatro séculos de paganismo egípcio, cercada por culturas idólatras e despida de instrução espiritual. O propósito teológico soberano do livro é ensinar a santidade divina e o caminho da expiação graciosa. Revela que o acesso a Deus não se obtém por caprichos ou esforço humano, mas pela iniciativa compassiva do Senhor, que estabelece o princípio da substituição pelo sangue: a vida do inocente oferecida em lugar da culpa do transgressor. O refrão que ecoa por todas as suas páginas — “Sede santos, porque eu, o Senhor vosso Deus, sou santo” — estabelece que a redenção deve transformar a totalidade da existência humana. Para o leitor do Novo Testamento, Levítico é o grande livro das sombras e figuras proféticas que encontram pleno cumprimento em Jesus Cristo, o verdadeiro Sumo Sacerdote e o Cordeiro imaculado que realizou uma expiação perfeita e definitiva."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro de Levítico está estruturado com admirável simetria e beleza em quatro grandes movimentos litúrgicos e doutrinários. O primeiro movimento, que abrange do capítulo 1 ao 7, estabelece as leis dos sacrifícios, delineando as cinco ofertas principais — o holocausto de consagração total, as ofertas de manjares de gratidão, a oferta pacífica de comunhão, e as ofertas pelo pecado e pela culpa —, apontando que o louvor e a expiação precedem qualquer aproximação ao Criador. O segundo movimento, nos capítulos 8 a 10, relata a solene investidura e consagração de Arão e de seus filhos ao sacerdócio, a gloriosa aceitação das primeiras oferendas pelo fogo celeste e a advertência cortante da morte de Nadabe e Abiú com fogo profano, lembrando que a santidade de Deus deve ser tratada com máxima reverência. O terceiro movimento, do capítulo 11 ao 16, trata da pureza ritual e moral em todas as dimensões da vida — na alimentação, na saúde e na ordem familiar —, culminando no ápice espiritual de todo o Pentateuco: o capítulo 16, que institui o Dia da Expiação, o Yom Kippur, onde o sangue aspergido no propiciatório e o bode emissário enviado ao deserto purificavam a nação inteira. O quarto movimento, do capítulo 17 ao 27, conhecido como o Código de Santidade, desdobra a retidão nas relações sociais, na justiça com o próximo e na moralidade diária, fixa o calendário das santas festividades de Israel — desde a Páscoa até os Tabernáculos —, introduz o descanso sabático da terra e o ano do Jubileu, concluindo com as bênçãos solenes da fidelidade e os votos de consagração ao Todo-Poderoso."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Levítico revela que a santidade de Deus não é uma barreira intransponível que afasta o homem para o desespero, mas um convite glorioso à comunhão, aberto pelo caminho gracioso da redenção e do perdão. Ao contemplarmos a beleza de seus altares e a solenidade do sacerdócio, somos direcionados a Cristo, que nos reconciliou para sempre com o Pai, e convocados a viver em santidade, justiça e reverência perante o Deus vivo."
+    }
+  ]
+}

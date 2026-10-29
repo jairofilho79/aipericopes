@@ -1,0 +1,30 @@
+{
+  "livro": "Provérbios",
+  "slug": "proverbios",
+  "abbrev": "Pv",
+  "testamento": "vt",
+  "titulo_canonico": "Provérbios de Salomão",
+  "titulo_introducao": "Introdução ao Livro de Provérbios",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Sabedoria Prática e o Nome do Livro",
+      "texto": "No cânon hebraico, o livro é denominado Mishlê Shelomōh, habitualmente simplificado para Mishlê. O termo hebraico mashal designa uma sentença condensada, uma comparação incisiva ou um provérbio que sintetiza em poucas e vigorosas palavras uma verdade fundamental para a condução da vida. As antigas versões grega e latina adotaram, respectivamente, Paroimiai e Proverbia, que legaram à nossa língua a palavra Provérbios. Mais do que meros conselhos de bom senso popular, o livro oferece a instrução inspirada da aliança divina, traduzindo os mandamentos de Deus para os dilemas diários da existência humana."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Tradição Real e Propósito Teológico",
+      "texto": "A autoria principal do livro remonta ao rei Salomão, monarca célebre pela sabedoria singular concedida pelo Senhor, que compôs milhares de sentenças e cânticos para instruir a corte e a nação no apogeu da monarquia israelita. A obra foi enriquecida por coleções adicionadas pelos homens do rei Ezequias e por palavras inspiradas de sábios como Agur e a mãe do rei Lemuel. O propósito teológico central de Provérbios é formar homens e mulheres retos, ensinando que a verdadeira sabedoria não nasce da inteligência humana autônoma, mas do temor do Senhor. O livro une a fé e a conduta cotidiana, demonstrando que nenhum aspecto do trabalho, da fala, do dinheiro, da família e da justiça escapa ao olhar soberano de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "O livro organiza-se com clareza em quatro movimentos complementares. O primeiro movimento, que se estende do capítulo 1 ao 9, funciona como um prólogo teológico no qual um pai afetuoso instrui seu filho a escolher a senda da vida, culminando em grandiosos poemas que personificam a Sabedoria divina como arquiteta do cosmos em contraste com os enganos mortais da insensatez. O segundo movimento, do capítulo 10 ao 24, reúne a vasta coletânea de aforismos salomônicos em dísticos paralelos e contrastantes, oferecendo orientações práticas sobre o uso da língua, a diligência, a honestidade e a pureza de coração. O terceiro movimento, dos capítulos 25 a 29, apresenta a valiosa seleção compilada pelos escribas do rei Ezequias, com ensinamentos preciosos sobre a dignidade do governo, as amizades e a temperança. O quarto movimento, nos capítulos 30 e 31, encerra o livro com as observações humildes de Agur acerca da majestade divina, as admoestações reais de Lemuel em defesa dos necessitados e o memorável poema acróstico da Mulher Virtuosa, retrato vivo do temor ao Senhor operando no lar e na sociedade."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Provérbios encontra sua consumação plena na pessoa de Jesus Cristo, que é a própria Sabedoria encarnada de Deus e em quem estão ocultos todos os tesouros do conhecimento. Ao percorrer estas páginas repletas de discernimento ético e espiritual, somos chamados a abandonar a loucura do pecado e a edificar a nossa casa sobre a rocha eterna do temor do Senhor."
+    }
+  ]
+}

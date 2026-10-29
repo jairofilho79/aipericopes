@@ -1,0 +1,30 @@
+{
+  "livro": "Mateus",
+  "slug": "mateus",
+  "abbrev": "Mt",
+  "testamento": "nt",
+  "titulo_canonico": "O Santo Evangelho segundo Mateus",
+  "titulo_introducao": "Introdução ao Santo Evangelho segundo Mateus",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e o Significado do Nome",
+      "texto": "O termo Evangelho procede do grego Euangelion, vocábulo formado pela junção de eu, que significa “bom” ou “alvissareiro”, e angelia, que significa “mensagem” ou “notícia”. No mundo greco-romano antigo, essa palavra designava o anúncio solene da vitória militar de um soberano ou a proclamação do nascimento de um herdeiro real. No Novo Testamento, porém, ganha um sentido infinitamente mais elevado: proclama a irrupção definitiva do Reino de Deus na história através de Jesus de Nazaré. O nome Mateus tem sua raiz no hebraico Mattityahu — ou no aramaico Mattai —, que expressa “dom de Javé” ou “dádiva de Deus”. Sob o título tradicional Segundo Mateus, este evangelho foi colocado providencialmente pela igreja primitiva na abertura do cânon neotestamentário, atuando como o portal de entrada solene e a ponte viva que conecta as profecias da Antiga Aliança à consumação do plano redentor."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "O testemunho uniforme da tradição cristã atribui a obra ao apóstolo Mateus, também chamado de Levi, o publicano que abandonou a coletoria de impostos em Cafarnaum ao ouvir o chamado soberano do Mestre. Composto provavelmente entre os anos 60 e 70 do primeiro século, o livro foi primariamente endereçado a cristãos de origem judaica, cuja fé era posta à prova pela rejeição das autoridades religiosas e pelas crescentes tensões com a sinagoga. O propósito teológico central de Mateus é demonstrar de maneira irrefutável que Jesus é o Messias prometido, o Filho de Abraão e o legítimo herdeiro do trono de Davi. Por meio da constante fórmula de cumprimento profético — “para que se cumprisse o que foi dito pelo Senhor por meio do profeta” —, o evangelista retrata Cristo como o novo e superior Moisés, o Mestre investido de suprema autoridade que interpreta perfeitamente a Lei e inaugura a justiça eterna do Reino dos Céus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Literários",
+      "texto": "A narrativa de Mateus é elaborada com notável mestria pedagógica em torno de cinco grandes discursos de ensino, habilmente entrelaçados a seções narrativas, em clara reminiscência dos cinco livros da Torá mosaica. O primeiro movimento, do capítulo 1 ao 4, apresenta a genealogia messiânica, a concepção pelo Espírito Santo, o batismo e a vitória na tentação no deserto, inaugurando o ministério público na Galileia. No segundo movimento, do capítulo 5 ao 10, resplandece o Sermão do Monte com a constituição ética do Reino, seguido por uma impressionante sequência de milagres e pelo comissionamento missionário dos doze apóstolos. O terceiro movimento, do capítulo 11 ao 18, retrata a crescente oposição dos líderes religiosos, as parábolas dos mistérios do Reino e as instruções fundamentais para a convivência, a humildade e o perdão na comunidade da igreja. Por fim, o quarto movimento, do capítulo 19 ao 28, registra a solene subida a Jerusalém, o confronto profético no templo, o discurso escatológico no monte das Oliveiras e o clímax da Paixão — culminando na gloriosa ressurreição e na Grande Comissão, em que o Cristo ressurreto envia seus discípulos para ensinar e batizar todas as nações."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Em Mateus, contemplamos a glória do Rei soberano que se fez servo para salvar o seu povo de seus pecados. Ele é o Emanuel, “Deus conosco”, cuja autoridade abrange o céu e a terra, permanecendo fielmente ao lado dos seus até a consumação dos séculos."
+    }
+  ]
+}

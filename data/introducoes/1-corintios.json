@@ -1,0 +1,30 @@
+{
+  "livro": "1 Coríntios",
+  "slug": "1-corintios",
+  "abbrev": "1Co",
+  "testamento": "nt",
+  "titulo_canonico": "Primeira Epístola do Apóstolo Paulo aos Coríntios",
+  "titulo_introducao": "Introdução à Primeira Epístola aos Coríntios",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Carta e a Metrópole Cosmopolita",
+      "texto": "Intitulada no grego como Pros Korinthious A — “Primeira aos Coríntios” —, a missiva foi enviada à congregação reunida em Corinto, o maior e mais próspero entreposto comercial da Grécia romana. Conhecida por sua opulência, vida cultural agitada e notória licenciosidade moral, a cidade abrigava uma igreja jovem, espiritualmente talentosa, mas profundamente vulnerável às pressões do ambiente pagão ao seu redor. O título apostólico preserva o documento que estabeleceu os alicerces fundamentais da ordem comunitária e da ética cristã em uma sociedade desprovida de absolutos morais."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Desafios Pastorais e Teologia da Cruz",
+      "texto": "Escrita por Paulo por volta dos anos 55 ou 56 d.C., durante seu frutífero ministério de quase três anos em Éfeso, a carta nasceu em resposta a relatórios alarmantes trazidos pelos domésticos de Cloé e a uma lista de dúvidas enviada pela própria comunidade. A igreja em Corinto encontrava-se dividida por facções sectárias que rivalizavam em torno de líderes humanos, tolerava escândalos graves de imoralidade, envolvia-se em disputas judiciais perante tribunais pagãos e transformara as reuniões do culto e o uso dos dons espirituais em palcos de exibição vaidosa. Paulo responde com autoridade pastoral, confrontando a soberba mundana com a teologia da cruz: a mensagem que parece loucura aos que perecem, mas que é o poder de Deus e a suprema sabedoria para os salvos."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Respostas Pastorais",
+      "texto": "O texto se divide com clareza em três grandes blocos de instrução pastoral. O primeiro bloco, do capítulo 1 ao 6, combate diretamente o orgulho intelectual, o partidarismo e a frouxidão moral, exigindo rigorosa santidade no corpo — santuário do Espírito Santo — e reconciliação entre os irmãos. O segundo bloco, do capítulo 7 ao 14, responde sistematicamente aos questionamentos práticos da comunidade sobre o matrimônio, o celibato, o uso responsável da liberdade diante de carnes sacrificadas a ídolos, a reverência devida na Ceia do Senhor e a ordem no exercício dos dons espirituais, coroado pelo incomparável hino ao amor no capítulo 13, sem o qual toda manifestação espiritual torna-se vazia. O terceiro bloco, nos capítulos 15 e 16, ergue a monumental defesa teológica da ressurreição física de Jesus como garantia irrevogável da vitória final sobre a morte, finalizando com diretrizes para a coleta dos necessitados e saudações carinhosas."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Primeira aos Coríntios ensina com fervor permanente que a verdadeira grandeza da Igreja não repousa no brilho da eloquência humana nem na ostentação de dons carismáticos, mas na pureza do caráter, na submissão ao senhorio de Cristo e no amor sacrificial que edifica o corpo."
+    }
+  ]
+}

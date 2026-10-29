@@ -1,0 +1,30 @@
+{
+  "livro": "Marcos",
+  "slug": "marcos",
+  "abbrev": "Mc",
+  "testamento": "nt",
+  "titulo_canonico": "O Santo Evangelho segundo Marcos",
+  "titulo_introducao": "Introdução ao Santo Evangelho segundo Marcos",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e o Significado do Nome",
+      "texto": "O título grego Kata Markon consagra o nome de João Marcos, figura proeminente na igreja primitiva cujo nome hebraico, Yochanan, proclama que “o Senhor é gracioso”, harmonizado ao sobrenome romano Marcos. O próprio livro abre suas linhas com uma declaração majestosa e concisa: “Princípio do Evangelho de Jesus Cristo, Filho de Deus”. Aqui, o termo Euangelion ressoa com o vigor de uma proclamação imperial e urgente, anunciando que uma nova era cósmica raiou para a história humana. Sendo o mais breve e dinâmico dos quatro relatos evangélicos, Marcos se distingue por seu ritmo vívido e impetuoso, marcado pela constante repetição do advérbio grego euthys — “imediatamente” —, conduzindo o leitor com firmeza em direção ao centro decisivo da missão redentora."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A unânime tradição dos primeiros séculos, corroborada pelo testemunho histórico de Papias de Hierápolis, assevera que Marcos compilou e transmitiu com fidelidade a pregação oral do apóstolo Pedro. Redigido para uma comunidade cristã gentílica em Roma durante a turbulenta década de 60 do primeiro século — quando a perseguição sob o imperador Nero ameaçava os fiéis com o martírio —, o evangelho explica cuidadosamente costumes judaicos e traduz expressões aramaicas para seus leitores. O propósito teológico central de Marcos é revelar Jesus como o Filho de Deus e o Servo Sofredor profetizado por Isaías. Em face da dor e da opressão mundana, o evangelista ensina que a majestade messiânica não se apoia no prestígio político ou na força terrena, mas no serviço humilde e voluntário: o Filho do Homem não veio para ser servido, mas para servir e dar a sua vida em resgate por muitos."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Literários",
+      "texto": "O evangelho se desenvolve com precisão dramática em dois atos fundamentais, divididos pela marcante confissão de fé em Cesareia de Filipe. O primeiro ato, do capítulo 1 ao capítulo 8, versículo 26, transcorre na Galileia e regiões vizinhas. Com traços vívidos e vigorosos, o texto relata o poder soberano de Jesus sobre espíritos imundos, enfermidades incuráveis, as forças da tempestade e a própria morte, despertando o assombro das multidões e a lenta compreensão dos discípulos. O segundo ato inaugura-se no capítulo 8, versículo 27, quando Pedro declara: “Tu és o Cristo”. A partir desse marco, Jesus assume resolutamente o caminho para Jerusalém, predizendo por três vezes sua morte e ressurreição e instruindo seus seguidores sobre o verdadeiro custo do discipulado. O clímax narrativo concentra-se na Semana da Paixão, do capítulo 11 ao 16: após as controvérsias no templo, a última ceia e o julgamento injusto, o Filho de Deus é erguido na cruz do Gólgota — onde um centurião romano exclama que ele era verdadeiramente o Filho de Deus —, desaguando na surpresa jubilosa do sepulcro vazio ao raiar da ressurreição."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Evangelho segundo Marcos nos coloca diante do mistério soberano da cruz: o Reino de Deus manifesta sua glória invencível na entrega humilde do Salvador, convidando cada ouvinte a negar-se a si mesmo, tomar a sua cruz e seguir os passos vitoriosos do Servo de Deus."
+    }
+  ]
+}

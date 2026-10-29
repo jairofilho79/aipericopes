@@ -1,0 +1,30 @@
+{
+  "livro": "Tiago",
+  "slug": "tiago",
+  "abbrev": "Tg",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola Universal do Apóstolo Tiago",
+  "titulo_introducao": "Introdução à Epístola de Tiago",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "O nome da carta deriva do grego Iakobos, a transliteração helenística do célebre nome hebraico Ya'akov — o patriarca Jacó, cujo significado histórico evoca “aquele que segura pelo calcanhar” ou “que Deus proteja”. No cânon sagrado, o livro é classificado tradicionalmente como uma epístola universal, pois sua mensagem não foi confinada a uma igreja local específica, mas endereçada às doze tribos dispersas pelo mundo greco-romano, representando todo o povo da nova aliança reunido sob o senhorio de Cristo."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "O autor é Tiago, conhecido na história da Igreja primitiva como Tiago, o Justo, irmão do Senhor Jesus segundo a carne e respeitado líder apostólico da congregação em Jerusalém. Escrita provavelmente entre os anos 45 e 50 da nossa era, esta é considerada uma das epístolas mais antigas do Novo Testamento. O propósito pastoral de Tiago era confrontar uma grave distorção prática: a crença equivocada de que a verdadeira fé poderia coexistir com uma vida infrutífera, com a negligência dos necessitados ou com uma conduta moral dissoluta. Com vigor profético e tonalidade sapiencial que ecoa o Sermão do Monte, Tiago demonstra que a genuína justificação pela fé não permanece teórica, mas se manifesta de maneira irrevogável em atos de misericórdia, integridade e obediência."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "O argumento de Tiago avança com intensidade prática através de três movimentos encadeados. O primeiro movimento, no capítulo 1, trata das provações da vida e da busca pela sabedoria que vem do alto, exortando os crentes a acolherem com mansidão a palavra divina e a serem praticantes dela, e não meros ouvintes enganados. O segundo movimento, que ocupa os capítulos 2 e 3, confronta a acepção de pessoas nas assembleias, declara solenemente que a fé sem obras é morta em si mesma e adverte com seriedade sobre o poder destrutivo da língua humana, contrastando a contenda terrena com a sabedoria pura e pacífica que desce dos céus. O terceiro movimento, nos capítulos 4 e 5, denuncia a soberba mundana e as armadilhas da riqueza egoísta, encorajando a paciência firme diante dos sofrimentos até a volta do Senhor, enquanto ressalta o poder curador da oração feita com fé e o valor redentor de restaurar o irmão que se desvia da verdade."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A epístola de Tiago ecoa como um espelho da alma, lembrando-nos de que a fé que salva é a mesma fé que transforma o viver e se expressa em compaixão viva e operante pelos vulneráveis."
+    }
+  ]
+}

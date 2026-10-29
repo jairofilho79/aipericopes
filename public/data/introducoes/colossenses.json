@@ -1,0 +1,30 @@
+{
+  "livro": "Colossenses",
+  "slug": "colossenses",
+  "abbrev": "Cl",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo aos Colossenses",
+  "titulo_introducao": "Introdução à Epístola aos Colossenses",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título da Carta e a Plenitude Divina",
+      "texto": "Registrada nos manuscritos gregos como Pros Kolossaeis — “Aos Colossenses” —, a carta foi dirigida à congregação de Colossos, cidade situada no vale do rio Lico, na província romana da Ásia. Embora Colossos houvesse perdido o prestígio econômico das vizinhas Laodiceia e Hierápolis, sua humilde igreja — evangelizada não diretamente por Paulo, mas por seu amado cooperador Epafras — tornou-se o endereço de uma das mais sublimes e cristalinas confissões da supremacia universal de Cristo já redigidas na história humana."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Ameaça Sincrética e a Primazia de Cristo",
+      "texto": "Escrita por Paulo durante sua primeira prisão em Roma, por volta dos anos 60 a 62 d.C., a epístola responde à visita de Epafras, que trouxera notícias preocupantes acerca de uma perigosa heresia que seduzia a comunidade. Essa falsa filosofia misturava tradições místicas judaicas, preceitos alimentares rigorosos, observância de luas novas, ascetismo corporal e a veneração mediadora de seres angelicais, rebaixando Jesus a uma mera emanação celestial entre tantas outras. Paulo refuta de modo categórico esse engodo doutrinário ao proclamar que em Cristo habita corporalmente toda a plenitude da divindade, tornando supérflua e prejudicial qualquer tentativa de suplementar a salvação com ritos e sabedorias puramente humanas."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Supremacia Cósmica e Vida Ressurreta",
+      "texto": "A estrutura da carta equilibra-se perfeitamente em dois movimentos teológicos fundamentais. O primeiro movimento, nos capítulos 1 e 2, erige a teologia cristológica suprema: apresenta o grandioso hino em que Cristo é aclamado como a imagem visível do Deus invisível, primogênito e criador de todas as realidades celestes e terrenas, cabeça da Igreja e reconciliador cósmico pelo sangue de sua cruz, desarmando na mesma cruz os principados e potestades e cancelando o documento de dívida que pesava contra nós. O segundo movimento, nos capítulos 3 e 4, transforma a soberania cósmica em discipulado vivo: instrui os salvos a buscarem as coisas do alto, despojando-se da velha roupagem de pecados carnais e vestindo-se das virtudes de Cristo — ternura, bondade, humildade e perdão —, regulando a santidade no lar cristão e recomendando a persistência vigilante na oração e o bom testemunho público."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Colossenses resplandece como um testemunho solene de que Cristo é tudo em todos: nele encontramos toda a sabedoria oculta, a redenção consumada e a plenitude da vida, dispensando com absoluta autoridade qualquer filosofia vã deste mundo."
+    }
+  ]
+}

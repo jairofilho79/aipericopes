@@ -1,0 +1,30 @@
+{
+  "livro": "2 Timóteo",
+  "slug": "2-timoteo",
+  "abbrev": "2Tm",
+  "testamento": "nt",
+  "titulo_canonico": "Segunda Epístola do Apóstolo Paulo a Timóteo",
+  "titulo_introducao": "Introdução à Segunda Epístola a Timóteo",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Testamento Espiritual do Apóstolo",
+      "texto": "Sob o título grego Pros Timotheon B — “Segunda a Timóteo” —, este documento sagrado representa o testamento espiritual, as últimas palavras e o cântico triunfal do apóstolo Paulo antes de seu martírio. Carregada de uma intensidade dramática e de uma ternura pastoral incomparáveis, a carta registra o momento solene em que o veterano pioneiro passa o facho inextinguível do ministério apostólico às mãos de seu jovem sucessor."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Prisão Neroniana e a Coroa da Justiça",
+      "texto": "Escrita em Roma por volta de 66 ou 67 d.C., durante a sanguinária perseguição deflagrada pelo imperador Nero, o cenário de Paulo não é mais a prisão domiciliar tolerante de anos anteriores, mas as entranhas escuras da prisão Mamertina. Acorrentado como um malfeitor e abandonado por quase todos os seus antigos conhecidos em face do terror imperial, o idoso apóstolo sabe que a sua execução com a espada é questão de semanas. Longe de sucumbir ao desespero ou à amargura, Paulo escreve a Timóteo com lucidez sublime e paixão ardente, suplicando-lhe que enfrente o medo e a perseguição, sofra as aflições como bom soldado de Cristo e mantenha imaculada a proclamação das Boas Novas."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Coragem, Transmissão da Verdade e a Despedida",
+      "texto": "A narrativa epistolar estrutura-se em quatro capítulos de tocante beleza e profundidade. No capítulo 1, Paulo evoca a fé sincera herdada pela família de Timóteo e o incita a reavivar a chama do dom divino com espírito de poder, amor e moderação, sem se envergonhar das cadeias do Evangelho. No capítulo 2, emprega as metáforas vívidas do soldado aguerrido, do atleta obediente às regras e do agricultor diligente, incumbindo Timóteo de transmitir o depósito da fé a homens fiéis que sejam capazes de instruir a outros. No capítulo 3, profetiza os tempos perigosos caracterizados pelo egoísmo e pela hipocrisia, exaltando a autoridade e a suficiência das Sagradas Escrituras, divinamente inspiradas para habilitar perfeitamente o homem de Deus. No capítulo 4, despede-se com o solene encargo diante de Deus e de Cristo para pregar a Palavra a tempo e a fora de tempo, entoa o célebre triunfo pessoal — “combati o bom combate, acabei a carreira, guardei a fé” —, e pede que Timóteo traga sua capa e os pergaminhos antes do rigor do inverno."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Segunda a Timóteo ressoa através dos séculos como um brado de lealdade inegociável ao Evangelho, assegurando que, ainda que os arautos da verdade sejam aprisionados ou ceifados, a Palavra de Deus jamais estará algemada."
+    }
+  ]
+}

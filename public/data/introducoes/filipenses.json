@@ -1,0 +1,30 @@
+{
+  "livro": "Filipenses",
+  "slug": "filipenses",
+  "abbrev": "Fp",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo aos Filipenses",
+  "titulo_introducao": "Introdução à Epístola aos Filipenses",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Epístola do Júbilo e a Colônia Europeia",
+      "texto": "Com o título grego Pros Philippēsious — “Aos Filipenses” —, esta epístola endereça-se à congregação de Filipos, ilustre colônia de cidadãos romanos na província da Macedônia e a primeira localidade em solo europeu a acolher a pregação do Evangelho pela voz de Paulo. O nome preserva a memória de uma comunidade profundamente amada pelo apóstolo, cuja lealdade, comunhão e generosidade permaneceram inabaláveis desde os dias em que a vendedora de púrpura Lídia e o carcereiro de Filipos creram no Senhor Jesus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Cadeias Imperiais e a Alegria Sobrenatural",
+      "texto": "Composta por volta de 61 ou 62 d.C., enquanto Paulo aguardava sob correntes em Roma a sentença de seu julgamento imperial, a carta foi motivada pela visita de Epafrodito, mensageiro filipense que arriscara a própria vida para levar um generoso socorro financeiro ao apóstolo encarcerado. Embora enfrentasse a privação da liberdade e as tensões causadas por opositores mesquinhos que pregavam por inveja, Paulo redige uma das cartas mais radiantes de todo o cânon bíblico. O tema central que pulsa em cada parágrafo é a alegria cristã — um regozijo sobrenatural e imutável que não deriva do conforto circunstancial, mas da união inseparável com a pessoa gloriosa de Cristo Jesus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "O livro desdobra-se em quatro capítulos de intensa afeição e riqueza doutrinária. No capítulo 1, Paulo expressa calorosa gratidão pelas orações dos filipenses, demonstra como suas correntes serviram para a propagação ousada da Palavra em todo o pretório e pronuncia seu memorável lema de vida: “para mim o viver é Cristo, e o morrer é lucro”. No capítulo 2, convoca a igreja à humildade e à concórdia através do inigualável cântico cristológico do esvaziamento e da soberana exaltação de Cristo, destacando os exemplos de devoção abnegada de Timóteo e Epafrodito. No capítulo 3, alerta severamente contra os falsos mestres legalistas, considerando toda a sua pretensa justiça terrena como esterco diante da sublimidade do conhecimento de Cristo e prosseguindo para o alvo da soberana vocação. No capítulo 4, oferece preciosas orientações pastorais para a reconciliação e a paz interior pela oração, ensinando o segredo do contentamento perfeito em qualquer situação por meio dAquele que nos fortalece."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Epístola aos Filipenses celebra o júbilo invencível da esperança cristã, revelando que a alma alicerçada em Jesus triunfa sobre cadeias, dores e adversidades, encontrando no Filho de Deus a sua suprema suficiência e felicidade eterna."
+    }
+  ]
+}

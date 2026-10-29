@@ -1,0 +1,30 @@
+{
+  "livro": "Eclesiastes",
+  "slug": "eclesiastes",
+  "abbrev": "Ec",
+  "testamento": "vt",
+  "titulo_canonico": "Livro do Eclesiastes ou Pregador",
+  "titulo_introducao": "Introdução ao Livro de Eclesiastes",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Voz do Pregador e o Nome do Livro",
+      "texto": "Na tradição judaica, o livro é conhecido pelo nome de seu autor: Qohelet — vocábulo hebraico oriundo do verbo qahal, que significa reunir ou convocar em assembleia. Qohelet é, portanto, o mestre, o pregador ou o orador oficial que congrega o povo de Deus para confrontá-lo com as realidades profundas da existência terrena. A tradução grega da Septuaginta verteu este título como Ekklēsiastēs, de onde derivou o nome latino e português Eclesiastes. Inserido no cânon das Escrituras entre os livros poéticos e lido tradicionalmente na Festa dos Tabernáculos, Eclesiastes atua como um antídoto indispensável contra as ilusões de um mundo marcado pela transitoriedade e pela finitude."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Reflexão Madura e Propósito Teológico",
+      "texto": "Identificado na abertura do texto como filho de Davi e rei em Jerusalém, o autor fala a partir da estatura e dos recursos excepcionais de Salomão no outono de sua trajetória terrena. Após examinar com rigor inabalável todas as realizações políticas, a opulência material, a busca pelo saber e os prazeres mais refinados da vida, o Pregador avalia tudo sob a ótica da existência vivida estritamente “debaixo do sol”. O propósito do livro não é induzir o leitor ao desespero cínico, mas quebrar as pretensões de autossuficiência do coração humano. Ao rotular os empreendimentos mundanos de névoa passageira — o célebre hevel hebraico —, o livro convida a humanidade a reconhecer os limites de sua sabedoria e a acolher a vida presente como dom gracioso das mãos divinas."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "A obra se desenvolve em quatro movimentos reflexivos e existenciais de extraordinária força poética. O primeiro movimento, nos capítulos 1 e 2, introduz a marcha cíclica da natureza e relata a investigação pessoal de Qohelet sobre o trabalho, a erudição humana e os prazeres suntuosos, revelando a futilidade de buscar a felicidade permanente longe do Criador. O segundo movimento, do capítulo 3 ao 6, abre com o clássico poema sobre o tempo determinado para cada estação debaixo do céu e a constatação de que Deus pôs a eternidade no coração humano, confrontando em seguida a opressão social, a solidão das riquezas e a necessidade de reverência perante Deus. O terceiro movimento, do capítulo 7 ao 11, oferece ensinamentos práticos para navegar com prudência em um mundo quebrado, exortando à sobriedade moral, à generosidade paciente e à aceitação da soberania insondável da providência divina. O quarto movimento, dos capítulos 11 e 12, convoca os jovens a se alegrarem na flor dos seus dias com responsabilidade moral, apresenta a belíssima alegoria poética sobre o envelhecimento e a morte física do corpo, e sela o livro com sua conclusão magistral: temer a Deus e guardar os seus mandamentos, pois todo ato será trazido a julgamento."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Eclesiastes remove a ilusão dos alicerces frágeis deste mundo para que os nossos pés encontrem descanso no Deus eterno. A resposta cabal para as inquietações do Pregador manifesta-se em Cristo Jesus, que venceu a futilidade da morte e ressuscitou para nos conceder uma esperança viva e incorruptível. Que a escuta destas palavras nos ensine a desfrutar com gratidão as dádivas de cada dia, vivendo sob a luz serena do julgamento e da graça de Deus."
+    }
+  ]
+}

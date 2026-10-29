@@ -1,0 +1,30 @@
+{
+  "livro": "2 Reis",
+  "slug": "2-reis",
+  "abbrev": "2Rs",
+  "testamento": "vt",
+  "titulo_canonico": "O Segundo Livro dos Reis",
+  "titulo_introducao": "Introdução ao Segundo Livro dos Reis",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Sendo a segunda parte do compêndio hebraico Melakhim, o livro prossegue a crônica dos monarcas que governaram os dois reinos irmãos a partir do século IX até o colapso de ambos no século VI a.C. Na Septuaginta, era denominado Quarto Livro dos Reinos. O título reafirma a continuidade do exame minucioso das dinastias à luz da santidade e da soberania do Deus vivo."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Finalizado durante o exílio na Babilônia — com sua nota conclusiva datada por volta de 560 a.C., relatando o indulto do rei Joaquim —, o texto responde à mais pungente pergunta dos cativos: “Por que nossa terra foi arrasada e o Templo do SENHOR destruído?”. O autor sagrado demonstra com clareza profética que a tragédia nacional não foi um sinal de fraqueza divina, mas o cumprimento cabal dos juízos alertados pelos profetas ao longo de séculos de apostasia. O propósito teológico é exaltar a justiça e a paciência de Deus, conclamando os exilados ao quebrantamento e à esperança na misericórdia prometida à descendência de Davi."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A obra se desenvolve através de dois grandes movimentos de queda e exílio. O primeiro movimento, do capítulo 1 ao 17, acompanha a história entrelaçada dos reinos divididos. Inicia-se com a partida arrebatadora de Elias aos céus em um redemoinho e a investidura de Eliseu, cujo ministério transborda de milagres misericordiosos e advertências aos soberanos. Segue-se a sangrenta expurgação de Jeú e a derrocada moral progressiva do Reino do Norte, culminando no terrível cerco de Samaria pelo exército assírio em 722 a.C. e na consequente dispersão das dez tribos. O segundo movimento, do capítulo 18 ao 25, focaliza o Reino do Sul, que resiste isoladamente. Destacam-se as sinceras reformas religiosas do rei Ezequias, miraculosamente livre do exército de Senaqueribe, e do jovem rei Josias, que renova a aliança ao reencontrar o rolo da Lei no Templo. Contudo, a iniquidade abominável do longo reinado de Manassés havia selado a condenação da nação, resultando nas invasões babilônicas sob Nabucodonosor, na destruição incendiária de Jerusalém e do Templo em 586 a.C. e na marcha desoladora de Judá para o cativeiro."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Segundo Livro dos Reis ergue-se como uma solene advertência contra o endurecimento do coração diante dos avisos divinos, revelando que a paciência do SENHOR é imensa, mas a sua santidade não tolera eternamente a rebelião. Todavia, ao registrar em suas linhas derradeiras que o herdeiro de Davi foi erguido do cárcere e honrado na corte da Babilônia, uma centelha indelével de esperança brilha nas cinzas, apontando para o triunfo final de Cristo — o Rei ressurreto que quebrou os grilhões do pecado e da morte para reinar eternamente."
+    }
+  ]
+}

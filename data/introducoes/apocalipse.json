@@ -1,0 +1,30 @@
+{
+  "livro": "Apocalipse",
+  "slug": "apocalipse",
+  "abbrev": "Ap",
+  "testamento": "nt",
+  "titulo_canonico": "Apocalipse do Apóstolo João",
+  "titulo_introducao": "Introdução ao Livro do Apocalipse",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Desvelar da Glória e o Título do Livro",
+      "texto": "O nome deste livro monumental provém do vocábulo grego Apokalypsis, formado pela preposição apó, indicando remoção, associada ao verbo kalypto, que significa “cobrir” ou “ocultar”. Seu significado etimológico fundamental expressa exatamente o ato de “retirar o véu”, descortinando e manifestando aquilo que antes permanecia encoberto ao olhar humano. Ao contrário do uso secular corriqueiro que associa a palavra a calamidades e desgraças cósmicas, o sentido bíblico é profundamente redentor e jubiloso: trata-se do desvelar glorioso da realeza, vitória e soberania absoluta de Jesus Cristo sobre todas as forças da história."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "O autor é o apóstolo João, desterrado na ilha de Patmos por causa da palavra de Deus e do testemunho fiel de Jesus Cristo, durante os anos de perseguição sob o reinado do imperador Domiciano, por volta do ano 95 da nossa era. Destinada originalmente às sete igrejas da província da Ásia, a obra falava a comunidades que sofriam as pressões do culto imperial e as seduções do conformismo pagão. O propósito do Espírito Santo ao entregar esta revelação não foi alimentar especulações cronológicas vazias, mas oferecer consolo inabalável à Igreja peregrina. O livro declara que os poderes arrogantes da terra têm dias contados e que o Cordeiro que foi morto já venceu, conduzindo a história à sua consumação triunfante."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A grandiosa profecia se desenrola em quatro movimentos panorâmicos de profunda riqueza simbólica. O primeiro movimento, nos capítulos 1 a 3, descortina a visão imponente de Cristo ressurreto e glorificado no meio dos sete candelabros de ouro, trazendo mensagens específicas às sete igrejas da Ásia para encorajá-las na fidelidade moral e doutrinária sob a promessa de recompensas celestiais. O segundo movimento, dos capítulos 4 a 11, introduz o leitor à liturgia da sala do trono celestial, onde o Cordeiro é proclamado digno de abrir o livro com sete selos, desencadeando a sucessão dramática dos selos e das trombetas que expõem o governo soberano de Deus e a perseverança do testemunho da igreja. O terceiro movimento, dos capítulos 12 a 19, desvenda a guerra espiritual invisível entre a Mulher, o Filho e o Dragão escarlate, retratando o embate contra as bestas opressoras, o derramar das taças da ira divina, o colapso irreversível de Babilônia e a entrada gloriosa do Rei dos reis em seu cavalo branco. O quarto movimento, dos capítulos 20 a 22, culmina no julgamento final do mal, na abolição definitiva da morte e na descida radiante da Nova Jerusalém — os novos céus e a nova terra onde Deus habita com seu povo redimido e não há mais luto nem dor —, encerrando as Escrituras com o clamor fervoroso do Espírito e da Noiva: Vem, Senhor Jesus!"
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Apocalipse coroa todo o cânon bíblico assegurando que a história não terminará em tragédia, mas no triunfo eterno de Deus e do seu Cordeiro sobre o pecado, a morte e o mal."
+    }
+  ]
+}

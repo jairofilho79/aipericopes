@@ -1,0 +1,30 @@
+{
+  "livro": "Juízes",
+  "slug": "juizes",
+  "abbrev": "Jz",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro dos Juízes",
+  "titulo_introducao": "Introdução ao Livro dos Juízes",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Na Bíblia hebraica, este livro é intitulado Shofetim, plural da palavra shofet, traduzido na Septuaginta grega como Kritai e na Vulgata latina como Iudices. Ao contrário dos magistrados modernos que atuam restritos a tribunais, os juízes bíblicos eram líderes carismáticos, libertadores militares e governantes suscitados pelo Espírito de Deus em momentos de extrema angústia nacional. O título reflete tanto a dignidade da liderança outorgada por Deus quanto o juízo soberano do SENHOR, que ora disciplinava a desobediência de Israel, ora agia com compaixão irresistível para livrar os seus filhos."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A tradição talmúdica atribui a compilação de Juízes ao profeta Samuel, que teria registrado esses anais na alvorada da monarquia em Israel. O livro abrange o sombrio intervalo de mais de três séculos entre o sepultamento de Josué e a coroação do primeiro rei, período marcado pela ausência de uma liderança central e por um ciclo recorrente de tragédia espiritual: o povo abandonava ao SENHOR para adorar os baalins, caía sob o jugo opressor de reis estrangeiros, clamava em desespero por socorro, e Deus enviava um libertador para restaurar a paz. O propósito teológico é demonstrar a devastação provocada pelo relativismo moral e pela infidelidade pactual, revelando em contrapartida a paciência incansável e a misericórdia redentora do SENHOR."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro está articulado em três partes fundamentais. A abertura, do capítulo 1 ao capítulo 3, versículo 6, expõe o fracasso das tribos em desocupar completamente Canaã e a trágica convivência com os cultos pagãos, plantando as sementes da apostasia. O corpo central, que se estende do capítulo 3, versículo 7, ao fim do capítulo 16, apresenta uma espiral descendente através de doze libertadores, destacando figuras memoráveis como Débora e Baraque, a prudência valorosa de Gideão, a dolorosa história de Jefté e os prodígios trágicos de Sansão — mostrando que até os instrumentos de libertação tornavam-se moralmente mais frágeis a cada geração. O epílogo, nos capítulos 17 a 21, mergulha nas trevas da decadência ética e civil, exemplificada pela idolatria tribal de Dã e pela guerra quase aniquiladora contra a tribo de Benjamim, arrematando com a constatação melancólica de que naqueles dias não havia rei em Israel e cada um fazia o que lhe parecia reto aos seus olhos."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro dos Juízes desmascara a falência do coração humano quando privado da direção de Deus, alertando que a independência moral conduz à ruína espiritual. Em meio ao caos dos tempos, ele clama silenciosamente pela vinda de um Rei perfeito e justo — Jesus Cristo —, cujo governo santo não apenas subjuga os inimigos externos, mas reina com justiça, perdão e paz eterna sobre o íntimo de cada crente."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "Sofonias",
+  "slug": "sofonias",
+  "abbrev": "Sf",
+  "testamento": "vt",
+  "titulo_canonico": "Sofonias",
+  "titulo_introducao": "Introdução ao Livro de Sofonias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "Aquele que o Senhor Escondeu",
+      "texto": "Na língua hebraica original, este livro é intitulado Tsefanyah, nome composto pela raiz verbal tsafan, que significa “esconder”, “abrigar” ou “guardar como tesouro”, associada ao nome divino Yahweh, significando expressamente “Yahweh escondeu” ou “O Senhor protegeu”. Conservado na Septuaginta grega e na Vulgata latina como Sophonias, o nome do profeta sintetiza a promessa graciosa que brilha no âmago de sua mensagem: em meio à tempestade do julgamento universal, aqueles que buscarem a mansidão e a justiça serão misericordiosamente escondidos e guardados pelo Senhor no dia de sua ira."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Reforma de Josias e a Purificação do Povo",
+      "texto": "Sofonias apresenta uma linhagem extraordinária e distinta: o livro traça sua ascendência por quatro gerações até o piedoso rei Ezequias, indicando que o profeta pertencia à aristocracia real de Jerusalém. Ele exerceu seu chamado profético durante o reinado de Josias em Judá, em meados da segunda metade do século 7 a.C., atuando nos anos iniciais que prepararam o solo espiritual para as grandes reformas de restauração religiosa em 622 a.C. Judá acabara de atravessar mais de meio século de apostasia devastadora sob os reinados tenebrosos de Manassés e Amom, nos quais o sincretismo idólatra ocupara as ruas da cidade santa: adorava-se a Baal, a Moloque e aos astros celestes nos terraços das casas, enquanto as autoridades cometiam violências e zombavam da justiça. O propósito do livro de Sofonias é anunciar a gravidade cósmica do iminente Dia do Senhor como um julgamento que varrerá toda a soberba e infidelidade, a fim de purificar um remanescente humilde e temente que celebrará o amor reconquistado de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e a Chegada do Dia do Senhor",
+      "texto": "A composição profética de Sofonias desenvolve-se com vigor literário em três movimentos sucessivos. O primeiro movimento, que preenche o capítulo 1, proclama o grande e amargo Dia do Senhor como um evento de quase des-criação da terra, desmascarando a letargia moral dos habitantes de Jerusalém que diziam em seus corações que o Senhor não faz bem nem mal, alertando que nem sua prata nem seu ouro os poderão livrar no dia do furor divino. O segundo movimento, que vai do início do capítulo 2 até o versículo 8 do capítulo 3, dirige uma convocação urgente ao arrependimento dos mansos da terra antes que o decreto se cumpra, estendendo oráculos de juízo contra as nações circunvizinhas — os filisteus no ocidente, os moabitas e amonitas no oriente, os etíopes no sul e a orgulhosa Assíria no norte —, para em seguida repreender a rebeldia dos juízes e sacerdotes de Jerusalém. O terceiro movimento, que abrange do versículo 9 até o final do capítulo 3, desdobra uma virada extraordinária de esperança: os lábios dos povos são purificados para invocarem o Senhor em uníssono, o remanescente aflito e humilde encontra repouso seguro, e Sião é convidada a entoar hinos de festa perante o Deus Todo-Poderoso que habita em seu meio, que silencia em seu amor e exulta sobre seu povo com cânticos de júbilo."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Sofonias declara que a justiça de Deus erradicará a arrogância da terra para estabelecer uma comunidade marcada pela humildade, retidão e confiança. Ao ler esta profecia, somos conduzidos ao refúgio seguro da graça divina e convidados a ouvir o próprio Deus celebrando com cânticos de alegria a redenção de seus filhos amados."
+    }
+  ]
+}

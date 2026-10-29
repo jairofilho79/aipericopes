@@ -1,0 +1,30 @@
+{
+  "livro": "Esdras",
+  "slug": "esdras",
+  "abbrev": "Ed",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Esdras",
+  "titulo_introducao": "Introdução ao Livro de Esdras",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Na Bíblia hebraica original, os livros de Esdras e Neemias integravam um único pergaminho denominado Ezra, termo que significa “Ajuda” ou “Auxílio”, sendo uma forma abreviada do nome teofórico Azaryahu, que declara “O SENHOR ajudou”. Na Septuaginta, a unidade foi preservada sob o nome de Esdras B; apenas na Vulgata latina de Jerônimo a obra foi bipartida em 1 e 2 Esdras, nomenclatura que as versões protestantes consagraram definitivamente como Esdras e Neemias. O título é uma proclamação permanente do socorro providencial de Deus, que ergueu seu povo abatido e o trouxe de volta das terras distantes do cativeiro."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "O livro é tradicionalmente atribuído ao próprio Esdras — descendente de Arão, sacerdote consagrado e escriba versado na Lei do SENHOR —, contendo memórias pessoais na primeira pessoa, registros oficiais em aramaico e crônicas históricas do século V a.C. A narrativa documenta o regresso da primeira caravana de cativos sob a liderança do príncipe Zorobabel em 538 a.C. e, décadas mais tarde, a chegada da segunda caravana conduzida por Esdras em 458 a.C., autorizada pelo imperador persa Artaxerxes I. O propósito teológico fundamental é demonstrar que Deus mantém a fidelidade inquebrantável à sua aliança, soberanamente movendo o coração de monarcas mundiais para cumprir o que anunciara pela boca de Jeremias: a restauração não dependia apenas da reconstrução física das pedras do santuário, mas sobretudo da renovação moral e da sujeição do coração à autoridade da Palavra sagrada."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro se organiza em dois grandes movimentos de restauração comunitária. O primeiro movimento, do capítulo 1 ao 6, abrange a restauração do santuário sob a liderança de Zorobabel e do sumo sacerdote Josué: o decreto emancipatório de Ciro, a longa marcha através do deserto, a reconstrução imediata do altar de sacrifícios entre lágrimas de júbilo e choro dos anciãos, os embates com os opositores locais que embargaram as obras e o encorajamento profético fulgurante de Ageu e Zacarias, que mobilizou a comunidade até a conclusão e consagração jubilosas do Segundo Templo. O segundo movimento, do capítulo 7 ao 10, salta cerca de seis décadas para relatar a missão espiritual de Esdras: o sacerdote devota sua vida para estudar, praticar e ensinar os preceitos divinos, viaja resguardado pela boa mão de Deus e confronta a gravíssima crise dos casamentos mistos com povos idólatras, derramando uma oração de quebrantamento e vergonha que comove toda a assembleia e culmina num arrependimento coletivo e na reafirmação da santidade pactual."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Esdras ensina com beleza e força que a verdadeira restauração operada por Deus começa no altar do coração e floresce no amor zeloso pelas Escrituras Sagradas. Ele nos lembra que a mão do SENHOR é benigna sobre todos os que o buscam, guiando-nos rumo ao sumo sacerdote definitivo — Jesus Cristo —, cuja graça nos purifica de toda mancha e nos congrega como povo santo, remido e consagrado à glória de Deus."
+    }
+  ]
+}

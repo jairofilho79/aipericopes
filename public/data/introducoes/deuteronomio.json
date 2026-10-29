@@ -1,0 +1,30 @@
+{
+  "livro": "Deuteronômio",
+  "slug": "deuteronomio",
+  "abbrev": "Dt",
+  "testamento": "vt",
+  "titulo_canonico": "O Quinto Livro de Moisés chamado Deuteronômio",
+  "titulo_introducao": "Introdução ao Livro de Deuteronômio",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "As Palavras da Aliança e o Nome do Livro",
+      "texto": "Na tradição do texto hebraico, o quinto e último livro do Pentateuco chama-se Devarim, que significa “Palavras” — extraído de sua frase de abertura: “Estas são as palavras que Moisés falou a todo o Israel além do Jordão”. Esse título original reflete com perfeição a natureza do livro: ele não é primariamente uma crônica de deslocamentos, mas o compêndio solene e comovente dos discursos de despedida pronunciados pelo idoso libertador às portas da Terra Prometida. O nome ocidental, “Deuteronômio”, provém da Septuaginta grega, que traduziu a expressão do capítulo 17 versículo 18 — “uma cópia desta lei” — como Deuteronómion, termo formado pelas palavras gregas deúteros (“segundo”) e nómos (“lei”). Incorporado pelo latim como Deuteronomium, o vocábulo chegou até nós, mas não deve ser entendido como uma segunda legislação diferente daquela recebida no Sinai, e sim como a sua reapresentação pastoral, sua renovação pactual e seu aprofundamento ético e espiritual, direcionados especificamente aos herdeiros da promessa."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Proferido e assentado por Moisés nos últimos dias de sua vida nas campinas de Moabe, pouco antes de sua morte contemplando a terra do alto do monte Nebo — tendo seu comovente epitáfio final sido anexado sob inspiração profética por seu sucessor Josué —, Deuteronômio destina-se à nova geração que não havia presenciado o terror do Sinai nem a libertação do Egito na idade adulta. O desafio crucial diante desse povo era a tentação do esquecimento: ao se estabelecerem em uma terra fértil, em casas fartas que não construíram e vinhas que não plantaram, corriam o perigo mortal de esquecer o Senhor e assimilar a idolatria cananeia. O propósito teológico culminante do livro é fundamentar o relacionamento com Deus no amor sincero e na gratidão pela redenção imerecida. Muito além de estatutos formais, Deuteronômio revela a espiritualidade do coração: o chamado imortal do Shemá — “Ouve, ó Israel: O SENHOR nosso Deus é o único SENHOR; amarás, pois, o SENHOR teu Deus de todo o teu coração, de toda a tua alma e de toda a tua força” —, que Jesus consagrou como o primeiro e maior de todos os mandamentos. O livro anuncia também a vinda do Profeta definitivo semelhante a Moisés e antecipa a circuncisão interior do coração que seria plenamente outorgada na Nova Aliança."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro de Deuteronômio está magistralmente articulado na forma dos antigos pactos do Oriente, desenvolvendo-se em quatro grandes discursos e um epílogo memorial. O primeiro discurso, do capítulo 1 ao 4, revisita a história da fidelidade de Deus desde o monte Horebe, rememorando as vitórias concedidas e alertando contra o perigo da incredulidade, culminando em um apelo vibrante para que Israel jamais se desvie das ordenanças celestiais. O segundo discurso, que vai do capítulo 5 ao 26 e forma o coração da obra, reedita o Decálogo com ênfase pastoral, introduz a proclamação sublime do amor exclusivo a Yahweh, adverte severamente contra a autossuficiência e a idolatria, e detalha minuciosamente a lei cívica e cerimonial, orientando o culto no santuário central e estabelecendo padrões de justiça social que protegem com zelo compassivo os mais vulneráveis — os órfãos, as viúvas, os levitas e os estrangeiros. O terceiro discurso, do capítulo 27 ao 30, conclui a ratificação formal da aliança com a ordenança das cerimônias nos montes Ebal e Gerizim, detalha de modo dramático as bênçãos abundantes da obediência e as terríveis maldições do desvio e do exílio, selando-se com a promessa da restauração graciosa e o célebre ultimato espiritual: “Pus diante de ti a vida e a morte; escolhe, pois, a vida”. Por fim, o quarto bloco, do capítulo 31 ao 34, abrange os atos finais da vida de Moisés: a transmissão formal da liderança a Josué, a entrega solene do livro da Lei aos sacerdotes, o profético Cântico de Moisés, as bênçãos paternais distribuídas sobre cada uma das tribos e a narrativa emocionante de sua morte solitária e sepultamento na presença de Deus no monte Nebo."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Deuteronômio ensina que a verdadeira obediência a Deus não nasce do medo servil, mas do amor ardente que transborda de um coração grato pelo resgate. Foi das palavras preciosas deste livro que o Messias retirou a espada das Escrituras para vencer as tentações no deserto. Somos chamados hoje a ouvir a voz do Senhor, a guardar suas palavras na mente e no coração e a escolher a vida verdadeira que dimana de sua eterna comunhão."
+    }
+  ]
+}

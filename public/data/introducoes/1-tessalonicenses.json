@@ -1,0 +1,30 @@
+{
+  "livro": "1 Tessalonicenses",
+  "slug": "1-tessalonicenses",
+  "abbrev": "1Ts",
+  "testamento": "nt",
+  "titulo_canonico": "Primeira Epístola do Apóstolo Paulo aos Tessalonicenses",
+  "titulo_introducao": "Introdução à Primeira Epístola aos Tessalonicenses",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Primeira Missiva e o Alvorecer Epistolar",
+      "texto": "Intitulada no grego primitivo como Pros Thessalonikeis A — “Primeira aos Tessalonicenses” —, esta correspondência foi remetida aos irmãos de Tessalônica, centro administrativo e porto mais influente da província da Macedônia. Reconhecida pela quase totalidade dos historiadores como o primeiro escrito preservado da pena de Paulo e uma das páginas mais antigas de todo o Novo Testamento, a carta guarda o calor e a pureza incontaminada do primeiro amor da comunidade cristã primitiva."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Perseguição e a Bendita Esperança",
+      "texto": "Redigida por Paulo a partir de Corinto por volta do ano 50 ou 51 d.C., acompanhado por Silas e Timóteo, a epístola decorre do retorno alvissareiro de Timóteo, que fora enviado a Tessalônica para averiguar se a congregação havia resistido à intensa fúria perseguidora. O apóstolo tivera de deixar a cidade às pressas poucos meses antes, sob grave perigo de morte. A notícia de que a comunidade permanecia inabalável na fé produziu imensa gratidão em seu coração; contudo, os crentes enfrentavam inquietações quanto ao destino espiritual dos irmãos que haviam falecido antes da esperada vinda triunfal de Jesus. Paulo escreve para encorajá-los a perseverar na santidade e para descortinar os consoladores mistérios da parousia — o glorioso retorno do Senhor."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Gratidão Pastoral e Instrução Profética",
+      "texto": "O texto organiza-se harmonicamente em dois grandes momentos pastorais. O primeiro momento, do capítulo 1 ao 3, é repleto de afeto maternal e cuidado paternal: Paulo relembra seu ministério desinteressado e sacrificial entre eles, louva o testemunho resplandecente da igreja — que abandonara os ídolos para servir ao Deus vivo —, e compartilha a profunda alegria de saber da sua firmeza espiritual em meio ao fogo das tribulações. O segundo momento, nos capítulos 4 e 5, concentra-se nas exortações morais e doutrinárias: o apóstolo adverte contra a impureza sexual comum ao paganismo, exorta ao trabalho digno e ao amor mútuo, e dissipa a tristeza dos enlutados com a revelação majestosa de que os mortos em Cristo ressuscitarão primeiro e os vivos serão arrebatados para encontrar o Senhor nos ares, conclamando todos a viverem vigilantes como filhos da luz."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Primeira aos Tessalonicenses infunde ânimo e serenidade ao povo peregrino de Deus, proclamando que a nossa firme esperança culmina na vitória da ressurreição e na gloriosa manifestação de Cristo, nosso libertador da ira vindoura."
+    }
+  ]
+}

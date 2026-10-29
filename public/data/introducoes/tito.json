@@ -1,0 +1,30 @@
+{
+  "livro": "Tito",
+  "slug": "tito",
+  "abbrev": "Tt",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo a Tito",
+  "titulo_introducao": "Introdução à Epístola a Tito",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Epístola Pastoral à Ilha de Creta",
+      "texto": "Designada na literatura canônica grega como Pros Titon — “A Tito” —, esta carta completa o tríptico das epístolas pastorais. O destinatário, Tito, era um cristão de origem gentílica que se convertera pelo ministério de Paulo e se tornara um de seus assessores e solucionadores de crises mais eficientes e de confiança incondicional, atuando com êxito na restauração da paz na igreja de Corinto."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Cultura Cretense e a Ordem Eclesial",
+      "texto": "Redigida por volta dos anos 63 a 65 d.C., logo após a libertação da primeira prisão em Roma e provavelmente a partir da Macedônia, a epístola é endereçada a Tito na ilha de Creta. Os cretenses enfrentavam no mundo helênico uma notória fama de desonestidade, indolência e dissolução moral, como atestado pelo próprio poeta local Epimênides. As recém-formadas congregações cretenses achavam-se desordenadas e sujeitas aos ataques de impostores gananciosos que ensinavam mitos judaicos por lucro vil. A missão confiada a Tito era imensa: organizar as comunidades, consagrar presbíteros maduros em cada cidade e provar que a graça soberana de Deus tem o poder real de transformar a conduta dos homens e restaurar a santidade no seio da sociedade corrompida."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Liderança, Santidade Prática e a Graça Salvadora",
+      "texto": "A carta desenvolve seu propósito em três capítulos compactos e incisivos. No capítulo 1, Paulo descreve o perfil moral, familiar e espiritual que deve qualificar os presbíteros, homens capazes de reter a palavra fiel para edificar com sã doutrina e tapar a boca de mestres subversivos que causam estrago nas famílias. No capítulo 2, delineia a pedagogia cristã para os diferentes grupos — idosos, idosas, moças, rapazes e servos —, coroando essas instruções práticas com a monumental proclamação teológica de que a graça de Deus se manifestou trazendo salvação a todos os homens, educando-nos a renegar a impiedade e a viver de maneira sóbria, justa e piedosa enquanto aguardamos a bendita esperança da glória de nosso grande Deus e Salvador Jesus Cristo. No capítulo 3, reforça a submissão cívica e a bondade para com todos, recorda o milagre da regeneração pelo lavar do Espírito Santo mediante a misericórdia de Deus, e exige dedicação incansável às boas obras, evitando contendas estéreis."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Epístola a Tito proclama a indissociável harmonia entre a verdade teológica e a conduta ética, ensinando que a graça de Deus purifica para Si um povo exclusivamente seu, zeloso de boas obras e resplandecente no mundo."
+    }
+  ]
+}

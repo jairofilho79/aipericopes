@@ -1,0 +1,30 @@
+{
+  "livro": "Números",
+  "slug": "numeros",
+  "abbrev": "Nm",
+  "testamento": "vt",
+  "titulo_canonico": "O Quarto Livro de Moisés chamado Números",
+  "titulo_introducao": "Introdução ao Livro de Números",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Peregrinação no Deserto e o Nome do Livro",
+      "texto": "Na tradição judaica, o quarto livro do Pentateuco intitula-se Bemidbar, que significa “No deserto” — extraído da expressão inicial que situa o cenário da revelação: “Falou o SENHOR a Moisés no deserto do Sinai”. Essa denominação hebraica sintetiza com precisão a essência da obra: a dolorosa, mas pedagógica jornada de quase quarenta anos de Israel pelo ermo árido, da montanha da aliança até as planícies fronteiriças da Terra Prometida. Já nas versões grega da Septuaginta e latina da Vulgata, o livro recebeu o título de Arithmoí e Numeri, vertido para o português como “Números”. Essa designação clássica fundamenta-se nos dois grandes recenseamentos ordenados por Deus: a contagem militar da geração libertada do Egito, registrada no capítulo 1, e a contagem da nova geração que se prepara para cruzar o rio Jordão, no capítulo 26. Longe de ser um catálogo burocrático de dados, o livro evidencia que Deus conhece cada um dos seus servos pelo nome, preserva com fidelidade incondicional o seu rebanho no deserto e disciplina a desobediência para formar um povo santo."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composto sob a autoridade e liderança profética de Moisés, o livro de Números registra os diários de marcha e as instruções reveladas durante o longo período de provação em que toda uma geração foi forjada e provada. O público original enfrentava a mais severa crise existencial de sua história: a tentação constante de duvidar da bondade de Deus diante da sede, do cansaço e do medo, sonhando ilusoriamente com a segurança da escravidão egípcia. O propósito teológico central é contrastar a fidelidade inabalável do Senhor com a incredulidade recorrente do coração humano. Números ensina que a bênção da promessa divina exige a resposta da fé e da obediência reverente; a murmuração e a rebeldia conduzem ao declínio e à perda da herança, mas o plano redentor de Deus jamais pode ser frustrado pelas fraquezas humanas. Por meio de sinais majestosos — como a nuvem de glória que guia os passos, a serpente de bronze levantada na haste para curar os picados pelo veneno e a misteriosa profecia de Balaão sobre o Cetro e a Estrela de Jacó —, o texto projeta sua luz diretamente para a redenção consumada em Jesus Cristo."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A história de Números é construída em três movimentos geográficos e espirituais claramente delineados. O primeiro movimento, do capítulo 1 ao 10, transcorre ainda no Sinai e narra a meticulosa organização do povo de Deus: o recenseamento dos guerreiros aptos, o posicionamento harmonioso das doze tribos em torno do Tabernáculo, a consagração especial dos levitas como guardiões da tenda sagrada e o soar estrondoso das trombetas de prata que anunciam o início triunfante da marcha. O segundo movimento, do capítulo 11 ao 20, relata a tragédia da geração incrédula durante o deslocamento pelo deserto: inicia-se com as queixas egoístas por alimento no arraial, passa pela oposição invejosa contra Moisés e explode na crise decisiva de Cades-Barneia, onde, tomados de pavor pelo relatório dos espias sobre as cidades fortificadas, os israelitas se recusam a confiar no Senhor, recebendo a sentença de vaguear quarenta anos até que aquela geração perecesse; este bloco abrange ainda o levante rebelde de Corá e seus partidários, a confirmação miraculosa da vara florescida de Arão e o doloroso tropeço de Moisés nas águas de Meribá. O terceiro movimento, do capítulo 21 ao 36, celebra o renascimento da esperança com a nova geração nas planícies de Moabe: testemunhamos a vitória espiritual por meio da serpente de bronze, a libertação providencial contra as conspirações de Balaque e os oráculos de bênção irresistível proferidos por Balaão, o segundo censo militar que comprova a sobrevivência numerosa do povo, a sucessão pacífica de Moisés por Josué, a partilha preliminar das terras a leste do Jordão e os preparativos finais para a conquista da herança cananeia."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Números demonstra que nenhuma aridez de deserto e nenhuma fraqueza humana são capazes de anular as promessas de Deus para com o seu povo. O Senhor que sustentou Israel com o pão do céu e a água da rocha é o mesmo Pastor compassivo que hoje nos guia e nos disciplina, chamando-nos a caminhar por fé, sem murmuração, fixando os olhos na Estrela da manhã e marchando resolutos rumo à herança eterna."
+    }
+  ]
+}

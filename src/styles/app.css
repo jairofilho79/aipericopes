@@ -6395,3 +6395,393 @@ fieldset.jornada-campo {
 .pop-voltar-item:hover {
   background: color-mix(in srgb, var(--ink) 5%, transparent);
 }
+
+/* ── Card de Convite para Introdução do Livro (Explorar / LivroAberto) ──── */
+.livro-intro-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0.85rem 0 1rem;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.04);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.livro-intro-card:hover {
+  background: color-mix(in srgb, var(--accent) 14%, var(--paper));
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.livro-intro-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.livro-intro-icone {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+}
+
+.livro-intro-conteudo {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.livro-intro-titulo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.livro-intro-desc {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.livro-intro-cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+@media (max-width: 540px) {
+  .livro-intro-cta span {
+    display: none;
+  }
+}
+
+/* ── Página de Introdução dos Livros Bíblicos ───────────────────────────── */
+.introducao-pagina {
+  width: 100%;
+  max-width: var(--read-measure, var(--measure));
+  margin-inline: auto;
+  background: var(--paper);
+  padding: 1.1rem 1.25rem 3rem;
+  border-radius: 8px;
+}
+
+.introducao-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+}
+
+.introducao-cta-topo {
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  min-height: 2.4rem;
+}
+
+.introducao-header {
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.introducao-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.introducao-meta-sep {
+  opacity: 0.5;
+}
+
+.introducao-titulo-canonico {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.introducao-subtitulo-obra {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Player embutido da introdução */
+.introducao-player-secao {
+  margin: 1.5rem 0 2.25rem;
+}
+
+.introducao-player-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 95%, transparent);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.introducao-player-card.player-tocando {
+  border-color: var(--candle);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--candle) 15%, transparent);
+}
+
+.introducao-player-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+}
+
+.introducao-player-tag {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.introducao-player-alvo {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.introducao-player-tempo {
+  flex: none;
+  display: inline-flex;
+  gap: 0.25em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.introducao-tempo-sep {
+  opacity: 0.5;
+}
+
+.introducao-player-barra {
+  margin: 0;
+}
+
+.introducao-player-controles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: -0.25rem;
+}
+
+.introducao-sem-audio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--line);
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.introducao-sem-audio-icone {
+  color: var(--muted);
+  display: flex;
+}
+
+.introducao-sem-audio p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ── Blocos de Conteúdo ─────────────────────────────────────────────────── */
+.introducao-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.85rem;
+}
+
+.introducao-bloco {
+  position: relative;
+  isolation: isolate;
+  padding: 1.25rem 1.45rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.introducao-bloco.secao-ativa {
+  border-color: var(--candle);
+  background: color-mix(in srgb, var(--candle-fundo) 60%, var(--paper));
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--candle) 12%, transparent);
+}
+
+.introducao-bloco-cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.introducao-bloco-numero {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.introducao-bloco-titulo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.introducao-bloco-titulo-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.introducao-bloco-titulo {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.introducao-bloco-titulo-btn.heading-speaking .introducao-bloco-titulo,
+.introducao-bloco-titulo.heading-speaking {
+  color: var(--candle);
+}
+
+.introducao-bloco-texto {
+  font-family: var(--font-body);
+  font-size: var(--read-size);
+  line-height: 1.7;
+  color: var(--read-ink);
+}
+
+.introducao-bloco-texto p {
+  margin: 0;
+}
+
+/* ── Rodapé com CTA de Início da Leitura ────────────────────────────────── */
+.introducao-rodape {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.introducao-rodape-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  background: color-mix(in srgb, var(--accent) 6%, var(--paper));
+}
+
+.introducao-rodape-icone {
+  display: inline-grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  margin-bottom: 1rem;
+}
+
+.introducao-rodape-titulo {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.4rem;
+  color: var(--ink);
+}
+
+.introducao-rodape-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 28rem;
+  margin: 0 0 1.35rem;
+  line-height: 1.45;
+}
+
+.introducao-cta-grande {
+  padding: 0.85rem 1.75rem;
+  font-size: 1.05rem;
+  min-height: 3rem;
+  border-radius: 12px;
+}
+
+.introducao-rodape-voltar {
+  display: flex;
+  justify-content: center;
+}
+
+.introducao-erro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  gap: 1rem;
+}
+

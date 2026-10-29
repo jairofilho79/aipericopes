@@ -1,0 +1,30 @@
+{
+  "livro": "1 Crônicas",
+  "slug": "1-cronicas",
+  "abbrev": "1Cr",
+  "testamento": "vt",
+  "titulo_canonico": "O Primeiro Livro das Crônicas",
+  "titulo_introducao": "Introdução ao Primeiro Livro das Crônicas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "No cânon hebraico, os livros de 1 e 2 Crônicas formavam um único tomo intitulado Divrei HaYamim, expressão hebraica que traduz “Os Acontecimentos dos Dias” ou “Os Anais dos Tempos”. A Septuaginta grega dividiu o livro em duas seções denominadas Paraleipomena, significando “coisas deixadas de lado” ou “suplementos”, como se fossem apenas um adendo a Samuel e Reis. Foi Jerônimo, ao compor a Vulgata no século IV, quem sugeriu que a obra merecia o nobre título de Crônica de toda a história divina, de onde surgiu o nome Crônicas, refletindo a visão panorâmica e teológica dos desígnios redentores de Deus ao longo das gerações."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A tradição judaica associa a compilação sacerdotal da obra à mão de Esdras, o escriba, por volta do final do século V a.C. Escrito para a pequena e empobrecida comunidade de judeus que retornara das ruínas do exílio babilônico na província persa de Judá, o livro atende a uma profunda necessidade de identidade: o povo precisava saber se a aliança de Deus com eles ainda permanecia viva e se o Templo reconstruído ainda era o lugar da habitação da glória celestial. O propósito teológico não é mera repetição de fatos, mas uma releitura espiritual do passado sob um prisma sacerdotal: reafirma que a adoração pura, o ministério do louvor levítico e a linhagem messiânica de Davi continuam sendo o coração inabalável dos planos de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro é construído sobre dois grandes alicerces literários e históricos. O primeiro alicerce, do capítulo 1 ao 9, apresenta uma impressionante linhagem genealógica que conecta o remanescente pós-exílico desde as origens em Adão, passando por Abraão, pelas doze tribos patriarcais e concentrando-se com zelo nas tribos de Judá e de Levi. Essas listas provavam aos repatriados que eles eram os legítimos herdeiros das promessas eternas da aliança. O segundo alicerce, do capítulo 10 ao 29, dedica-se integralmente à vida e às realizações do rei Davi. Após recordar a morte fúnebre de Saul, o cronista retrata Davi como o grande organizador do culto de Israel: conquista a fortaleza de Sião, lidera a festiva translação da Arca da Aliança para Jerusalém com salmos e trombetas, recebe o pacto da dinastia eterna e devota seus melhores esforços para ajuntar tesouros, desenhar a planta do Templo e organizar os turnos de sacerdotes, cantores e porteiros, transferindo solenemente o cetro a seu filho Salomão com uma magistral oração de bênção perante a assembleia."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Primeiro Livro das Crônicas proclama que a vocação suprema do povo de Deus é a adoração reverente e cheia de júbilo. Ao revelar que do SENHOR é a grandeza, o poder, a glória, a vitória e a majestade, o livro fortalece nossa certeza de que os propósitos da graça divina jamais falham, guiando-nos até Jesus Cristo — o Verdadeiro Templo e o Pastor eterno, em quem todas as linhagens e promessas encontram o seu pleno e glorioso cumprimento."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "Habacuque",
+  "slug": "habacuque",
+  "abbrev": "Hc",
+  "testamento": "vt",
+  "titulo_canonico": "Habacuque",
+  "titulo_introducao": "Introdução ao Livro de Habacuque",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "Aquele que Abraça e Luta em Oração",
+      "texto": "Na língua hebraica, este livro leva o título de Chavaqquq, nome derivado da raiz verbal chavaq, que expressa o ato de “abraçar”, “enlaçar” ou “lutar corpo a corpo”, podendo ser traduzido como “aquele que abraça” ou “o que se apega firmemente”. Preservado na Septuaginta como Ambakoum e na Vulgata como Habacuc, o nome evoca a postura ímpar do profeta: aquele que, em meio à perplexidade diante do sofrimento e dos mistérios da providência divina, não foge de Deus, mas se agarra ao Senhor em oração persistente até alcançar resposta e renovação espiritual."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Dilema Histórico e a Fé Inabalável",
+      "texto": "Descrito simplesmente como profeta, Habacuque provavelmente exercia funções litúrgicas ligadas à música do Templo de Jerusalém, como sugere a oração cantada que encerra a sua obra. Seu ministério transcorreu no Reino de Judá nos anos finais do século 7 a.C., por volta de 605 a.C., sob o conturbado reinado de Jeoaquim, quando o recém-surgido Império Babilônico começava a se impor como o grande poder devastador do Oriente. Diferente dos demais profetas que transmitiam mensagens de Deus para o povo, Habacuque protagoniza um diálogo audacioso com o Criador, levando as angústias do povo até a presença divina. Diante da corrupção e impunidade que assolavam Judá, ele pergunta por que Deus tolera a iniquidade; e quando o Senhor revela que usará os caldeus como instrumento de correção, o profeta é tomado de espanto: como pode um Deus santíssimo utilizar um povo ainda mais ímpio para punir uma nação menos perversa? O propósito do livro é ensinar a teodiceia da confiança: demonstrar que, mesmo quando os caminhos de Deus parecem incompreensíveis, o justo deve viver não pelas circunstâncias visíveis, mas pela fidelidade e fé permanente no caráter de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e a Jornada da Perplexidade ao Louvor",
+      "texto": "A obra de Habacuque traça uma comovente peregrinação espiritual estruturada em três momentos progressivos. No primeiro momento, que abrange todo o capítulo 1, testemunhamos o duplo lamento de Habacuque e as surpreendentes respostas divinas, onde a queixa contra a desordem ética em Judá dá lugar à perplexidade diante do avanço aterrador da cavalaria caldeia. No segundo momento, no capítulo 2, o profeta assume seu posto de guarda sobre a torre de vigília para esperar o parecer do Senhor; Deus ordena que a visão seja registrada com clareza em tábuas para que se possa ler correndo, pronuncia o princípio áureo de que o justo viverá pela sua fé e desfere cinco ais proféticos que desnudam a cobiça, a opressão, a embriaguez e a idolatria dos conquistadores pagãos. No terceiro momento, no capítulo 3, a ansiedade do profeta deságua em um dos mais esplêndidos salmos de toda a Bíblia: uma oração litúrgica que contempla a teofania divina marchando em glória cósmica desde o monte Parã para a libertação de seu povo, culminando na triunfante e inabalável confissão de que, mesmo que a figueira não floresça e falte o gado nos currais, o profeta exultará no Deus de sua salvação."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Habacuque nos ensina que a fé bíblica não é ausência de dúvidas, mas a decisão firme de confiar na soberania de Deus quando as respostas demoram. Embalados por sua revelação imortal de que o justo viverá pela fé, aprendemos a encontrar em Deus nossa força suprema, capazes de caminhar seguros pelas alturas da esperança."
+    }
+  ]
+}

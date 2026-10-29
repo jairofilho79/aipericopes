@@ -1,0 +1,30 @@
+{
+  "livro": "Amós",
+  "slug": "amos",
+  "abbrev": "Am",
+  "testamento": "vt",
+  "titulo_canonico": "Amós",
+  "titulo_introducao": "Introdução ao Livro de Amós",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Portador de Fardos e a Justiça de Deus",
+      "texto": "Em hebraico, o nome do livro é ‘Amos, vocábulo derivado da raiz verbal que significa “carregar um peso” ou “sustentar um fardo”, traduzindo-se comumente como “carregador de fardos”. Mantido fielmente pela tradição grega da Septuaginta e pela Vulgata latina, esse título reflete perfeitamente a vocação do profeta: sustentar a pesada incumbência de entregar os oráculos solenes do julgamento de Deus perante uma sociedade orgulhosa e autossuficiente."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Realidade Social e o Rugido de Sião",
+      "texto": "Amós não provinha de linhagens proféticas nem das escolas da nobreza de seu tempo: era um homem humilde do campo, criador de ovelhas e cultivador de sicômoros na aldeia de Tecoa, no deserto de Judá. Por volta do ano 760 a.C., Deus o comissionou para atravessar a fronteira e confrontar os centros de poder do Reino do Norte durante a era de grande opulência e expansão militar sob o rei Jeroboão 2º. Sob uma aparência faustosa de religiosidade e palácios revestidos de marfim, a elite de Samaria oprimia os pobres, pervertia os tribunais e vendia o necessitado por um par de sandálias. O propósito do livro de Amós é proclamar que Yahweh não é uma divindade tutelar confinada a rituais vazios, mas o Soberano do universo cuja santidade requer incontornável integridade ética, justiça social e fidelidade à aliança."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Grandes Blocos de Advertência",
+      "texto": "A obra de Amós é estruturada com apuro literário e clareza arquitetônica em três atos principais. O primeiro ato, contido nos capítulos 1 e 2, apresenta uma sequência de julgamentos sobre as nações vizinhas que circundavam Israel, empregando o padrão poético de sucessivas transgressões para desarmar a audiência, antes de desferir o golpe profético decisivo sobre a própria nação israelita. O segundo ato, que compreende do capítulo 3 ao 6, reúne três sermões diretos de advertência que desmascaram o luxo indiferente dos ricos, denunciam a hipocrisia cúltica dos altares de Betel e alertam contra o autoengano dos que confiam em sua segurança terrena. O terceiro ato, que vai do capítulo 7 ao 9, registra cinco visões dramáticas de destruição irrevogável — os gafanhotos, o fogo, o prumo, o cesto de frutas de verão e o Senhor junto ao altar —, culminando no vislumbre messiânico da restauração da cabana caída de Davi, na qual todas as nações serão abençoadas com frutificação perpétua."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A voz de Amós ecoa através dos séculos com uma exigência inegociável: corra a justiça como as águas, e a retidão como um ribeiro caudaloso. Ao mergulhar nesta proclamação vigorosa, somos desafiados a rejeitar qualquer religiosidade superficial e a buscar o Deus vivo que defende o fraco e estabelece a verdadeira justiça no mundo."
+    }
+  ]
+}

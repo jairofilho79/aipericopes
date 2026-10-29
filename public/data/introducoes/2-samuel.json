@@ -1,0 +1,30 @@
+{
+  "livro": "2 Samuel",
+  "slug": "2-samuel",
+  "abbrev": "2Sm",
+  "testamento": "vt",
+  "titulo_canonico": "O Segundo Livro de Samuel",
+  "titulo_introducao": "Introdução ao Segundo Livro de Samuel",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Como segunda parte da grande narrativa hebraica de Shemuel, o livro conserva no cânon cristão o nome de Samuel por razões históricas e de continuidade profética, embora o profeta já houvesse falecido antes dos eventos aqui descritos. Na Septuaginta, era conhecido como o Segundo Livro dos Reinos. O foco absoluto de sua mensagem é o reinado singular de Davi, aquele que fora ungido pelo profeta e em cuja descendência repousa a esperança messiânica da aliança de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composto a partir das memórias dos profetas Natã e Gade, o livro abrange as quatro décadas do século X a.C. em que Davi ocupou o trono. Seu objetivo teológico primordial é documentar o estabelecimento da Aliança Davídica no capítulo 7, quando Deus promete ao rei uma dinastia inabalável e um trono perpétuo. Com uma honestidade crua e sem paralelos na literatura da antiguidade, o texto sagrado não mascara nem suaviza os graves pecados de seu protagonista: o adultério com Bate-Seba e o homicídio de Urias são severamente julgados. O livro ensina que o perdão de Deus é abundante para o coração verdadeiramente arrependido, mas as consequências terrenas do pecado ecoam com severidade até mesmo sobre a casa dos reis."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A narrativa se divide com precisão cirúrgica em duas seções fundamentais, coroadas por um apêndice teológico. A primeira seção, do capítulo 1 ao 10, relata a ascensão triunfal de Davi: o pranto comovente pela morte de Saul e Jônatas, o reinado inicial em Hebrom sobre a tribo de Judá, a unificação política de todo o Israel, a conquista estratégica de Jerusalém como nova capital, a subida exultante da Arca da Aliança e a grandiosa aliança divina assegurando a perpetuidade de seu trono. A segunda seção, do capítulo 11 ao 20, principia com a trágica transgressão moral do rei, desencadeando uma torrente de dramas familiares e comoções políticas: a vergonha na corte real, a conspiração armada de seu filho Absalão, a fuga humilhante de Davi pelo monte das Oliveiras, a guerra civil e o lamento devastador do pai pela morte do filho rebelde. O apêndice final, dos capítulos 21 a 24, sintetiza o reinado através de feitos memoráveis, salmos de libertação, a lista de guerreiros valentes e o episódio do censo indevido, culminando na compra da eira de Araúna — o solo sagrado onde mais tarde se ergueria o Templo de Deus."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Segundo Livro de Samuel proclama que a graça e a aliança de Deus transcendem todas as imperfeições humanas. Diante das glórias e das fraquezas do maior monarca de Israel, o texto direciona nosso olhar para além dos reinos terrenos, apontando infalivelmente para o bendito Filho de Davi, Jesus Cristo — o Rei sem pecado, cujo trono é estabelecido para todo o sempre em justiça, retidão e santidade inquestionável."
+    }
+  ]
+}

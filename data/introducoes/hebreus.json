@@ -1,0 +1,30 @@
+{
+  "livro": "Hebreus",
+  "slug": "hebreus",
+  "abbrev": "Hb",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola aos Hebreus",
+  "titulo_introducao": "Introdução à Epístola aos Hebreus",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "Nos manuscritos gregos mais antigos, este magnífico escrito é intitulado simplesmente Pros Hebraious, que se traduz por “Aos Hebreus”. O vocábulo remonta ao hebraico Ivrî, designando os descendentes de Abraão como aqueles que “atravessaram” o grande rio rumo à terra prometida. No contexto do Novo Testamento, essa designação identifica os cristãos de origem judaica — homens e mulheres profundamente enraizados nas Escrituras do Antigo Pacto e nas solenes liturgias do Templo de Jerusalém —, mas que se viam tentados a retroceder em meio às pressões e hostilidades sociais de sua época."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A autoria humana da epístola permanece como um dos mistérios mais reverenciados da história canônica. Desde os primeiros séculos, como bem registrou Orígenes, apenas Deus sabe ao certo quem escreveu cada linha, embora tradições respeitáveis tenham sugerido o apóstolo Paulo ou colaboradores íntimos como Barnabé, Apolo e Lucas. Redigida provavelmente antes da destruição do Templo no ano 70 da nossa era — uma vez que os sacrifícios levíticos são descritos como ainda vigentes —, a carta tinha o objetivo urgente de firmar os crentes vacilantes. O propósito do Espírito Santo é proclamar a supremacia absoluta e incomparável de Jesus Cristo: Ele é a revelação definitiva de Deus, muito superior aos anjos, a Moisés e ao sacerdócio levítico, exercendo para todo o sempre um sumo sacerdócio perfeito segundo a ordem de Melquisedeque."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "O livro se desenvolve em três grandes movimentos teológicos e pastorais. No primeiro movimento, que abrange do capítulo 1 ao 4, o autor descortina a glória da pessoa do Filho — o resplendor da glória divina e a expressa imagem de sua substância —, advertindo a não negligenciar tão grande salvação e convidando o povo ao descanso prometido por Deus. No segundo movimento, do capítulo 5 ao 10, adentramos o coração teológico da obra: a superioridade do sumo sacerdócio eterno de Cristo, a inauguração da Nova Aliança profetizada em Jeremias e a eficácia definitiva de seu sacrifício no santuário celestial, selado de uma vez por todas com o seu próprio sangue redentor. No terceiro movimento, do capítulo 11 ao 13, somos introduzidos à inspiradora galeria dos heróis da fé, chamados a correr com perseverança a carreira proposta, fixando os olhos em Jesus, autor e consumador da nossa fé, enquanto praticamos o amor fraternal e a santidade inabalável."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Hebreus proclama que em Jesus Cristo todas as sombras e figuras do passado encontraram seu cumprimento pleno e eterno: Nele possuímos uma âncora firme para a alma e livre acesso ao trono da graça."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "Joel",
+  "slug": "joel",
+  "abbrev": "Jl",
+  "testamento": "vt",
+  "titulo_canonico": "Joel",
+  "titulo_introducao": "Introdução ao Livro de Joel",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome e a Soberania Divina",
+      "texto": "Na língua hebraica original, o título deste livro é Yo’el, uma poderosa confissão de fé formada pela união do nome pactual de Deus, Yahweh, com a palavra El, significando expressamente “O Senhor é Deus”. Preservado com precisão semelhante na Septuaginta grega e na Vulgata latina, o nome do profeta sintetiza a convicção central de toda a sua mensagem: no centro das convulsões naturais e dos juízos históricos, nenhuma outra potência cósmica governa os destinos do mundo senão o Deus verdadeiro e soberano de Israel."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Crise dos Gafanhotos e o Propósito Teológico",
+      "texto": "Identificado como filho de Petuel, Joel profetizou no Reino de Judá, concentrando seu olhar sobre Jerusalém, os sacerdotes e as cerimônias solenes do santuário. A ocasião histórica foi uma calamidade estarrecedora: sucessivas levas de gafanhotos vorazes, somadas a uma seca implacável, arrasaram os campos, extinguindo as colheitas e interrompendo até as ofertas diárias de trigo e vinho no Templo. Joel foi inspirado pelo Espírito Santo a discernir que aquela tragédia ecológica era uma trombeta de advertência para a chegada de algo muito maior: o iminente e temível “Dia do Senhor”. O propósito do livro não é apenas provocar lamentação pela perda material, mas convocar os governantes, sacerdotes e povo a um arrependimento interior radical — rasgando os corações e não as vestes —, revelando a transição do juízo temporal para a promessa gloriosa da efusão do Espírito de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e o Desdobramento do Dia do Senhor",
+      "texto": "A composição profética de Joel se divide em duas partes complementares e intensas. A primeira parte, que vai do capítulo 1 até o versículo 17 do capítulo 2, descreve com vivacidade poética a escuridão da praga invasora como um exército irresistível sobre a terra, culminando no chamado urgente a um jejum solene entre o pórtico e o altar, onde os sacerdotes choram pedindo compaixão pela herança divina. A segunda parte, que se inicia no versículo 18 do capítulo 2 e se estende até o capítulo 3, marca a intervenção misericordiosa de Deus em favor de seu povo. O Senhor restitui os anos consumidos pelo gafanhoto, promete derramar o Seu Espírito Santo sobre toda a humanidade — filhos, filhas, jovens e anciãos — e convoca as nações pagãs ao Vale de Josafá para o julgamento definitivo, estabelecendo a vitória eterna e a santidade inabalável de Sião."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Joel nos ensina que o Dia do Senhor traz julgamento severo sobre o pecado, mas abre as portas da redenção eterna a todo aquele que invocar o nome do Senhor. Esta profecia antecipa a descida do Espírito Santo em Pentecostes e nos conclama a acolher com temor reverente a promessa divina de renovação e esperança."
+    }
+  ]
+}

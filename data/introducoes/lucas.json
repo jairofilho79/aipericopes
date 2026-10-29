@@ -1,0 +1,30 @@
+{
+  "livro": "Lucas",
+  "slug": "lucas",
+  "abbrev": "Lc",
+  "testamento": "nt",
+  "titulo_canonico": "O Santo Evangelho segundo Lucas",
+  "titulo_introducao": "Introdução ao Santo Evangelho segundo Lucas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e o Significado do Nome",
+      "texto": "Designado historicamente pelo título grego Kata Loukan, este evangelho leva o nome de Lucas, forma helenizada originada da raiz latina lux, que traduz a ideia de “luz” ou “luminoso”. Sendo o primeiro volume de uma monumental obra em duas partes completada pelo livro de Atos dos Apóstolos, Lucas abre seu escrito com um elegante prólogo no mais refinado grego helenístico, atestando seu minucioso compromisso com a investigação histórica e o testemunho ocular dos fatos. Nele, o termo Euangelion ressoa como um canto jubiloso de libertação universal: são as boas-novas de graça que consolam o povo de Israel e brilham como luz redentora para iluminar todas as nações da terra."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Lucas, carinhosamente chamado pelo apóstolo Paulo de “o médico amado”, é o único escritor gentio de todo o Novo Testamento. Escrevendo por volta dos anos 70 a 80 da nossa era e dedicando sua narrativa ao “excelentíssimo Teófilo” — nome que significa “amigo de Deus” —, o evangelista compôs sua obra para consolidar a certeza histórica e espiritual da fé cristã no mundo greco-romano. Seu propósito teológico primordial é exaltar Jesus como o “Filho do Homem”, o Salvador compassivo e perfeito de toda a humanidade. Com extraordinária sensibilidade pastoral, Lucas evidencia o ministério consolador do Espírito Santo, a perseverança na oração, a alegria contagiante da salvação e o coração acolhedor de Deus estendido preferencialmente aos desamparados e marginalizados da sociedade: as mulheres, os pobres, os enfermos, os samaritanos e os pecadores arrependidos."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Literários",
+      "texto": "A narrativa lucana desdobra-se em três grandes movimentos coordenados em torno de uma memorável jornada geográfica e teológica. O primeiro movimento, do capítulo 1 ao capítulo 4, versículo 13, abrange os anúncios da natividade de João Batista e de Jesus — coroados por cânticos poéticos de louvor —, a genealogia que retrocede até Adão para enfatizar o vínculo fraternal de Cristo com toda a raça humana, e o triunfo na tentação do deserto. O segundo movimento, do capítulo 4, versículo 14 ao capítulo 9, versículo 50, estabelece o ministério na Galileia, onde Jesus proclama na sinagoga de Nazaré a libertação dos cativos e o ano aceitável do Senhor, manifestando poder e amor através de curas e ensinos. O terceiro movimento abrange a célebre “Narrativa da Viagem”, do capítulo 9, versículo 51 ao capítulo 19, versículo 27: Jesus firma resolutamente o seu rosto para ir a Jerusalém, presenteando-nos pelo caminho com as inesquecíveis parábolas da graça, como o Bom Samaritano, a Dracma Perdida e o Filho Pródigo. A obra alcança seu ápice do capítulo 19, versículo 28 até o capítulo 24, com a entrada triunfal, a crucificação redentora, a emocionante revelação do Senhor aos discípulos na estrada de Emaús e a exaltação na ascensão aos céus, encerrando com a igreja louvando jubilosamente a Deus no templo."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Evangelho segundo Lucas proclama com ternura e majestade o coração do Pai: o Filho do Homem veio expressamente para buscar e salvar o que estava perdido, acolhendo a todos nós no banquete eterno de sua reconciliação e graça infinita."
+    }
+  ]
+}

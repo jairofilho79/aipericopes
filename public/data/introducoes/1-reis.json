@@ -1,0 +1,30 @@
+{
+  "livro": "1 Reis",
+  "slug": "1-reis",
+  "abbrev": "1Rs",
+  "testamento": "vt",
+  "titulo_canonico": "O Primeiro Livro dos Reis",
+  "titulo_introducao": "Introdução ao Primeiro Livro dos Reis",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Na Bíblia hebraica, os livros de 1 e 2 Reis formavam originalmente uma só obra denominada Melakhim, plural hebraico que significa literalmente “Reis”. A divisão em dois volumes surgiu na tradução grega da Septuaginta, onde figuravam sob o título de Terceiro e Quarto Livros dos Reinos, designação assimilada no latim da Vulgata e fixada como 1 e 2 Reis. O título define o horizonte da obra: um registro detalhado da liderança política de Israel e Judá, avaliada com extremo rigor sob a perspectiva da lealdade ao pacto de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A tradição rabínica atribui a compilação de Reis ao profeta Jeremias, que teria coligido anais oficiais e memórias proféticas durante os anos derradeiros que antecederam o cativeiro de Judá. Escrito a partir de uma sólida teologia da aliança — em perfeita sintonia com os preceitos do Deuteronômio —, o livro avalia a conduta de cada soberano não por suas conquistas militares ou opulência material, mas por sua fidelidade exclusiva ao SENHOR e ao culto no Templo de Jerusalém. O propósito teológico é demonstrar que o declínio e a subsequente fratura da monarquia foram provocados diretamente pelo veneno da idolatria e pelo abandono dos mandamentos sagrados."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro está edificado sobre duas grandes épocas históricas. A primeira parte, do capítulo 1 ao 11, celebra o esplendor e a tragédia da monarquia unida sob Salomão: a consolidação do trono, o dom sobrenatural da sabedoria, a suntuosa edificação e dedicação solene do Templo em Sião, o prestígio internacional perante soberanos como a rainha de Sabá e, dolorosamente, o desvio espiritual de Salomão em sua velhice, seduzido pelos altares pagãos de suas consortes estrangeiras. A segunda parte, do capítulo 12 ao 22, relata o trágico cisma nacional sob a insensatez de Roboão e o golpe de Jeroboão, fraturando o reino em Israel ao norte e Judá ao sul. Nesta seção de instabilidade e pecado idolátrico em Samaria, ergue-se com autoridade estarrecedora o profeta Elias, que confronta a corte corrupta de Acabe e Jezabel, faz descer fogo do céu no cume do monte Carmelo, desmascara os falsos sacerdotes de Baal e ouve a voz mansa e delicada de Deus no monte Horebe, revelando que o SENHOR preservava sete mil fiéis cujos joelhos não se dobraram à apostasia."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Primeiro Livro dos Reis ensina solenemente que a sabedoria humana e a prosperidade terrena são efêmeras quando a devoção a Deus se desvanece. Mesmo em meio à ruína dos palácios e à infidelidade dos reis, a Palavra do SENHOR subsiste imutável e soberana, mantendo viva a chama da aliança davídica e antecipando Cristo Jesus — Aquele que é infinitamente maior do que Salomão e cujo reino de santidade e verdade jamais passará."
+    }
+  ]
+}

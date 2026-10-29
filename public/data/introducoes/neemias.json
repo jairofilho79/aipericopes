@@ -1,0 +1,30 @@
+{
+  "livro": "Neemias",
+  "slug": "neemias",
+  "abbrev": "Ne",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Neemias",
+  "titulo_introducao": "Introdução ao Livro de Neemias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "No texto sagrado hebraico, o livro leva o nome de seu líder e autor primordial, Nehemyah, vocábulo composto pelas raízes hebraicas que significam “O SENHOR consola” ou “Consolação de Deus”. Após séculos circulando associado indissoluvelmente a Esdras, o texto ganhou individualidade plena na tradição canônica ocidental. O nome de Neemias reflete com perfeição o ministério de sua vida: um bálsamo de consolo prático e revigoramento para um povo humilhado, cuja capital jazia desprotegida e exposta ao desprezo de seus vizinhos."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composto predominantemente a partir das memórias confessionais de Neemias escritas na primeira pessoa do singular — permeadas por orações espontâneas e marcantes —, o livro relata os acontecimentos transcorridos na segunda metade do século V a.C., por volta de 445 a.C. Neemias era o prestigiado copeiro oficial do imperador Artaxerxes I no palácio imperial de Susã; ao ser informado do opróbrio em que viviam os repatriados, cujos muros de Jerusalém estavam arruinados e cujas portas haviam sido consumidas pelo fogo, ele chora, jejua e abandona a opulência da corte para assumir o governo da província. O propósito teológico central é ilustrar a soberana cooperação entre a oração incessante e a ação diligente, provando que a proteção do SENHOR circunda os seus servos quando eles se unem para edificar a obra divina em meio à zombaria, hostilidade e pressões inimigas."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro está dividido com notável clareza em duas fases que retratam a restauração externa das defesas e a renovação interna da aliança. A primeira fase, do capítulo 1 ao 7, descreve a comoção e o envio de Neemias a Jerusalém, a inspeção noturna sigilosa dos escombros, a convocação ardorosa do povo e a admirável estratégia de reconstrução dos muros, onde as famílias labutavam com uma mão segurando a ferramenta e a outra empunhando a arma, sobrepujando o escárnio e as emboscadas de Sambalate e Tobias até que a muralha foi concluída na impressionante marca de 52 dias. A segunda fase, do capítulo 8 ao 13, retrata a edificação moral da sociedade: Esdras ergue-se na praça da Porta das Águas para ler e explicar a Lei ao povo, que chora ao ouvir a Palavra e depois se alegra na celebração da Festa dos Tabernáculos; segue-se uma oração histórica sublime de arrependimento, o solene compromisso firmado em documento escrito, a dedicação jubiloso-coral dos muros e as reformas corajosas de Neemias para restaurar os dízimos sagrados, a reverência devida ao dia de sábado e a pureza familiar do remanescente."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Neemias ecoa a declaração triunfante que animou os construtores desfalecidos: a alegria do SENHOR é a vossa força. Ele nos convoca a uma liderança íntegra, altruísta e perseverante diante das afrontas, revelando que a verdadeira cidadania do povo de Deus repousa na comunhão santa com o Criador e apontando para a Nova Jerusalém celestial, cujos muros inexpugnáveis e portas de louvor são eternamente preservados pelo Rei Jesus."
+    }
+  ]
+}

@@ -837,7 +837,7 @@ export function IconePausa() {
 }
 
 /** Seta em arco com o "10" dentro — a convenção que todo player já usa. */
-function IconeSalto({ direcao }: { direcao: 'tras' | 'frente' }) {
+export function IconeSalto({ direcao }: { direcao: 'tras' | 'frente' }) {
   return (
     <svg
       viewBox="0 0 24 24"

@@ -1,0 +1,30 @@
+{
+  "livro": "2 João",
+  "slug": "2-joao",
+  "abbrev": "2Jo",
+  "testamento": "nt",
+  "titulo_canonico": "Segunda Epístola do Apóstolo João",
+  "titulo_introducao": "Introdução à Segunda Epístola de João",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "Ligada à memória sagrada de João — Ioannes, “a graça de Deus” —, esta breve correspondência traz o autor autodenominando-se Presbyteros, o Ancião ou Presbítero, demonstrando a autoridade pastoral e a ternura venerável de um dos últimos sobreviventes do colégio apostólico. A destinatária declarada é “a senhora eleita e seus filhos”, bela figura que a igreja primitiva consagrou como uma reverente personificação da congregação local e dos crentes que a compunham."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composta pelo apóstolo João no mesmo horizonte de sua primeira epístola, perto do encerramento do primeiro século, esta carta enfrenta uma situação pastoral decisiva: a circulação de pregadores ambulantes que propagavam doutrinas enganosas sobre a pessoa de Jesus. O propósito divino de 2 João é preservar a pureza da igreja mediante a união indissolúvel entre a verdade e o amor. O apóstolo adverte com carinho e sobriedade que o amor cristão autêntico não pode se transformar em ingenuidade condescendente, instruindo a congregação a não dar acolhida em suas casas nem saudar mestres heréticos que negavam a encarnação de Jesus Cristo."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "Composta por apenas 13 versículos, a carta articula sua exortação em um movimento contínuo e equilibrado. Inicia-se com uma calorosa bênção apostólica em graça, misericórdia e paz, manifestando a alegria sincera do apóstolo ao saber que os filhos da comunidade caminhavam na verdade. Em seguida, João renova o mandamento de amarmos uns aos outros segundo os preceitos de Deus, para então desferir sua advertência crucial contra os enganadores que vagueiam pelo mundo, conclamando a comunidade a não perder o galardão do trabalho cristão e a permanecer firme na doutrina de Cristo, encerrando com o anseio afetuoso de dialogar pessoalmente para que a alegria de todos seja completa."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Segunda Epístola de João ensina que a verdade sem amor se enrijece, mas o amor sem a verdade se corrompe: ambos devem caminhar juntos no coração daquele que segue a Cristo."
+    }
+  ]
+}

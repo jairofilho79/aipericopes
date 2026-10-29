@@ -1,0 +1,30 @@
+{
+  "livro": "2 Crônicas",
+  "slug": "2-cronicas",
+  "abbrev": "2Cr",
+  "testamento": "vt",
+  "titulo_canonico": "O Segundo Livro das Crônicas",
+  "titulo_introducao": "Introdução ao Segundo Livro das Crônicas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Como segunda parte da obra hebraica Divrei HaYamim, o Segundo Livro das Crônicas dá sequência imediata aos acontecimentos dos dias, estendendo-se da glória do reinado de Salomão até a ordem de restauração emitida pelo imperador Ciro da Pérsia. Na Septuaginta, constava como a segunda seção dos Paraleipomena. Seu título em português celebra a crônica sagrada dos reis de Judá que preservaram a tocha da aliança em torno da Casa do SENHOR."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Também compilado pelo círculo de Esdras na era pós-exílica, o livro opta propositalmente por silenciar a história do Reino do Norte após a cisão das dez tribos, focalizando com exclusividade a dinastia de Davi e o Templo de Jerusalém. O propósito teológico central é inculcar na mente dos repatriados a realidade da intervenção divina imediata na história: buscar ao SENHOR de coração produz vitória, estabilidade e refrigério; abandonar o seu altar gera julgamento, fraqueza e desterro. A famosa declaração divina presente no capítulo 7 resume o âmago doutrinário do livro: se o meu povo, que se chama pelo meu nome, se humilhar, orar, buscar a minha face e se converter dos seus maus caminhos, Deus ouvirá dos céus, perdoará os seus pecados e sarará a sua terra."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro está estruturado com elegância em dois blocos narrativos complementares. O primeiro bloco, do capítulo 1 ao 9, é inteiramente consagrado à magnificência do governo de Salomão: seu anseio por sabedoria divina acima das riquezas, a construção esmerada do santuário sobre o monte Moriá, a oração tocante de dedicação e a descida dramática do fogo dos céus que consumiu as ofertas enquanto a glória do SENHOR enchia a Casa, fechando com a reverência dos reis da terra à sua glória. O segundo bloco, do capítulo 10 ao 36, percorre a trajetória da linhagem davídica no trono de Jerusalém, dando imenso destaque aos períodos de avivamento e reforma religiosa sob governantes piedosos — em especial as orações de fé de Asa e Josafá, a espetacular purificação do Templo e restauração da Páscoa sob Ezequias, e o comovente quebrantamento nacional promovido por Josias. A obra conclui narrando a persistente rebeldia dos últimos monarcas, a derrocada babilônica e o silêncio do sábado da terra durante os setenta anos de exílio, culminando de súbito na proclamação libertadora de Ciro, rei da Pérsia, autorizando o povo a retornar e reedificar o Templo do Deus dos céus."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Segundo Livro das Crônicas é um testemunho radiante de esperança e arrependimento, assegurando que nenhum pecado ou destruição humana é maior do que a misericórdia de Deus quando há confissão e busca sincera. Ao terminar com um decreto real que conclama os exilados a subir e reconstruir Sião, o livro convida cada geração a voltar-se para o SENHOR, apontando profeticamente para o Salvador Jesus Cristo, que restaurou para sempre o nosso acesso à comunhão celestial e sarou a nossa alma ferida."
+    }
+  ]
+}

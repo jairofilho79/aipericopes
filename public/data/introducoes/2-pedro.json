@@ -1,0 +1,30 @@
+{
+  "livro": "2 Pedro",
+  "slug": "2-pedro",
+  "abbrev": "2Pe",
+  "testamento": "nt",
+  "titulo_canonico": "Segunda Epístola Universal do Apóstolo Pedro",
+  "titulo_introducao": "Introdução à Segunda Epístola de Pedro",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "Esta segunda epístola preserva o nome grego Petros — Pedro —, o apóstolo rochoso de Cristo, abrindo seu texto com a dupla menção de Simão Pedro, que homenageia a herança hebraica original Shimon juntamente com a identidade apostólica dada pelo Senhor. Dirigida como carta universal a todos os que receberam fé de igual preciosidade pela justiça do nosso Deus e Salvador Jesus Cristo, ela funciona como um testamento espiritual canônico para resguardar a Igreja contra os perigos internos da apostasia."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Escrita pelo apóstolo Pedro pouco antes de seu martírio em Roma, por volta dos anos 65 a 67 da nossa era, a epístola traz o peso e a solenidade das últimas instruções apostólicas de quem sabia estar próximo o momento de desarmar sua tenda terrena. O cenário exigia firmeza inegociável: falsos mestres infiltravam-se nas congregações, promovendo o relativismo moral sob o pretexto de liberdade e zombando abertamente da promessa da segunda vinda de Cristo. O propósito teológico de Pedro é ancorar a Igreja no pleno conhecimento da verdade, afirmando a autoridade divina das Escrituras proféticas inspiradas pelo Espírito Santo e a fidelidade absoluta dos decretos divinos."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "O texto articula sua advertência pastoral através de três movimentos precisos. No primeiro movimento, que corresponde ao capítulo 1, Pedro exalta as divinas promessas pelas quais nos tornamos participantes da natureza divina, conclamando os crentes a somarem à sua fé uma cadeia ininterrupta de virtudes espirituais — a sabedoria, o domínio próprio, a piedade e o amor fraterno —, evocando sua própria condição de testemunha ocular da glória de Cristo na Transfiguração para selar a autoridade da profecia bíblica. No segundo movimento, no capítulo 2, o apóstolo expõe com rigor a soberba, a devassidão e a cobiça dos mestres heréticos, resgatando os juízos históricos sobre os anjos rebeldes, a geração do dilúvio e as cidades de Sodoma para garantir que Deus sabe punir os corruptores e livrar da tentação os piedosos. No terceiro movimento, no capítulo 3, Pedro desmascara os escarnecedores dos últimos dias, elucida que a aparente demora do Senhor é paciência para com a humanidade, e descortina a solene consumação em que este mundo presente será renovado pelo fogo para dar lugar a novos céus e nova terra, onde habita a justiça."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Segunda Epístola de Pedro nos convoca a vigiar com firmeza, rejeitando o engano dos ímpios e crescendo incessantemente na graça e no conhecimento de nosso Senhor e Salvador Jesus Cristo."
+    }
+  ]
+}

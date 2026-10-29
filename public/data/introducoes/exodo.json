@@ -1,0 +1,30 @@
+{
+  "livro": "Êxodo",
+  "slug": "exodo",
+  "abbrev": "Êx",
+  "testamento": "vt",
+  "titulo_canonico": "O Segundo Livro de Moisés chamado Êxodo",
+  "titulo_introducao": "Introdução ao Livro de Êxodo",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Redenção do Cativeiro e o Nome do Livro",
+      "texto": "Na tradição hebraica, este livro é conhecido como Ve’elleh Shemot — ou simplesmente Shemot, que significa “Nomes” —, tomando como título as primeiras palavras do texto sagrado: “Estes são os nomes dos filhos de Israel que entraram no Egito”. Essa abertura conecta a narrativa diretamente ao final de Gênesis, revelando a continuidade inquebrantável da aliança: a pequena família patriarcal de setenta pessoas multiplicou-se em meio às adversidades até se tornar uma multidão numerosa. O nome pelo qual o conhecemos em português, “Êxodo”, foi consagrado pela tradução grega da Septuaginta e preservado pela Vulgata Latina, derivado do termo grego que expressa “saída”, “marcha” ou “partida”. Muito mais do que uma fuga geográfica da tirania dos faraós, Êxodo retrata o ato inaugural da redenção bíblica, no qual o Deus altíssimo arranca o seu povo da escravidão com mão poderosa para transformá-lo em uma nação livre, santa e sacerdotal."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A autoria de Êxodo é tradicionalmente atribuída a Moisés, o pastor e profeta que foi testemunha ocular dos acontecimentos e mediador oficial da Antiga Aliança, conforme o testemunho contínuo de toda a Escritura. Redigido durante a peregrinação pelo deserto para instruir os hebreus libertos do Egito, o livro abordava a profunda crise de identidade de uma comunidade que vivera séculos sob a opressão politeísta e que precisava agora aprender a confiar no único Deus verdadeiro. O propósito teológico central de Êxodo é revelar o caráter de Yahweh — o Deus fiel que se apresenta na sarça ardente como “EU SOU O QUE SOU”, que julga os ídolos das nações e redime os seus escolhidos não por mérito humano, mas por amor à sua aliança. A salvação aqui descrita não se esgota no livramento físico do jugo da servidão, mas alcança o seu propósito supremo na adoração e na presença: Deus resgata o seu povo para habitar no meio dele, prefigurando a redenção eterna e a encarnação consumada em Jesus Cristo."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A narrativa de Êxodo desenrola-se em três grandes atos magistrais. O primeiro ato, que vai do capítulo 1 ao 18, descreve o drama do cativeiro no Egito, o nascimento providencial de Moisés, o confronto épico com Faraó por meio dos dez juízos das pragas, a instituição solene da Páscoa com o sangue do cordeiro e a espetacular travessia do Mar Vermelho, que conduz os libertos pelo deserto sob o sustento diário do maná e da água da rocha. O segundo ato, do capítulo 19 ao 24, transporta a congregação até o sopé do monte Sinai envolto em fumaça e trovões, onde o Senhor proclama os Dez Mandamentos, entrega os estatutos da justiça comunitária e sela formalmente o pacto em uma aliança aspergida com sangue. Por fim, o terceiro ato, do capítulo 25 ao 40, concentra-se no santuário da habitação divina: recebem-se os padrões celestiais do Tabernáculo e das vestes sacerdotais; enfrenta-se a grave crise da idolatria do bezerro de ouro, superada pela intercessão ardente de Moisés; e culmina-se com a consagração da tenda sagrada, momento em que a nuvem e a glória do Senhor enchem o lugar santo, comprovando que o Criador habita visivelmente com o seu povo."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Êxodo proclama que o Senhor é o Redentor soberano que ouve o clamor dos abatidos, desarma os impérios deste mundo e convoca os libertos para uma vida de adoração, santidade e comunhão. Ao contemplar o cordeiro pascal imaculado e o santuário que desce ao meio dos homens, somos convidados a seguir a marcha da libertação e a adorar o Deus que faz de nós sua habitação viva."
+    }
+  ]
+}

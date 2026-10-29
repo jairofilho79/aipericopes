@@ -1,0 +1,30 @@
+{
+  "livro": "Malaquias",
+  "slug": "malaquias",
+  "abbrev": "Ml",
+  "testamento": "vt",
+  "titulo_canonico": "Malaquias",
+  "titulo_introducao": "Introdução ao Livro de Malaquias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Meu Mensageiro e o Guardião da Aliança",
+      "texto": "Na língua hebraica, este livro leva o título de Mal’akhi, palavra formada pelo substantivo mal’akh, que significa “mensageiro” ou “anjo”, acrescido do pronome possessivo de primeira pessoa, resultando em “Meu Mensageiro”. Vertecido na Septuaginta como Malachias e na Vulgata latina sob forma análoga, o próprio nome do profeta antecipa o cerne de sua revelação no capítulo 3: o anúncio do mensageiro precursor que preparará o caminho diante do Senhor e a chegada incontornável do Mensageiro da Aliança, no qual o povo fiel se compraz."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Ceticismo Espiritual e o Propósito Teológico",
+      "texto": "Malaquias é o último profeta do Antigo Testamento, selando a era profética de Israel em meados do século 5 a.C., por volta de 430 a.C., durante ou imediatamente após as reformas conduzidas por Esdras e Neemias na província persa de Judá. O Templo de Jerusalém já fora reerguido há quase um século e o ritual sacrificial encontrava-se em pleno funcionamento, mas o fervor e as expectativas messiânicas haviam se dissipado em uma perigosa apatia espiritual. O povo e seus líderes mergulharam em um ceticismo dissimulado: questionavam o amor de Deus, ofereciam animais doentes e defeituosos no altar sagrado, repudiavam com injustiça as esposas da sua mocidade para contrair casamentos idólatras e sonegavam com cinismo os dízimos e ofertas da Casa do Senhor. O propósito teológico de Malaquias é empregar um método disputativo original — marcado por sucessivos confrontos entre a palavra divina, a objeção descarada dos interlocutores e a resposta refutadora do profeta — para despertar a santidade sacerdotal, restaurar a integridade familiar e acender a esperança no grande Dia do Senhor."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Seis Diálogos da Aliança",
+      "texto": "O livro de Malaquias articula-se com agudeza retórica em seis controvérsias ou debates pactualmente decisivos. O primeiro debate, que abre o capítulo 1, reafirma o amor soberano e eletivo de Deus por Jacó diante do destino de Esaú. O segundo debate, que vai do versículo 6 do capítulo 1 até o versículo 9 do capítulo 2, repreende com severidade os sacerdotes que desprezam a mesa do Senhor com sacrifícios cegos e impuros, contrastando sua desonra com a promessa de que o nome de Yahweh será venerado e engrandecido entre todas as nações da terra. O terceiro debate, que ocupa os versículos 10 a 16 do capítulo 2, condena a quebra da fidelidade pactual no matrimônio, denunciando a traição conjugal e o divórcio que enche o altar de lágrimas. O quarto debate, do versículo 17 do capítulo 2 até o versículo 5 do capítulo 3, responde ao ceticismo daqueles que perguntavam onde estava o Deus da justiça, prometendo que o Senhor virá subitamente ao seu templo precedido por seu mensageiro, atuando como fogo do refinador e sabão dos lavandeiros. O quinto debate, nos versículos 6 a 12 do capítulo 3, desafia o povo a retornar para Deus com sinceridade, corrigindo a desonestidade financeira ao trazer todos os dízimos à casa do tesouro, assegurando que as comportas dos céus se abrirão em bênção sem medida. O sexto debate, que encerra o livro dos versículos 13 do capítulo 3 até o capítulo 4, confronta as murmurações arrogantes dos ímpios, descreve o livro de memórias escrito diante de Deus para os que o temem e proclama o contraste final entre a queima dos soberbos como palha e o raiar glorioso do Sol da Justiça para os justos, com cura em seus raios, concluindo o cânon com a lembrança da Lei de Moisés e a promessa da vinda do profeta Elias para converter os corações dos pais aos filhos e dos filhos aos pais."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Malaquias encerra as páginas do Antigo Testamento com um chamado pungente à reverência, à santidade na adoração e à fidelidade no lar, reafirmando que o amor de Deus permanece inabalável através das eras. Ao findar esta profecia, os olhos da fé são apontados para o horizonte da esperança, aguardando o nascer do Sol da Justiça que dissipa todas as trevas e inaugura a redenção eterna em Jesus Cristo."
+    }
+  ]
+}

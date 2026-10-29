@@ -1,0 +1,1919 @@
+{
+  "livro": "Gênesis",
+  "slug": "genesis",
+  "abbrev": "Gn",
+  "testamento": "vt",
+  "titulo_canonico": "O Primeiro Livro de Moisés chamado Gênesis",
+  "titulo_introducao": "Introdução ao Livro de Gênesis",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Portal das Escrituras e o Nome do Livro",
+      "texto": "Na tradição hebraica, este livro é chamado de Bereshit, que significa simplesmente “No princípio” — exatamente a primeira palavra com que o texto sagrado se inicia. O nome pelo qual o conhecemos em português, “Gênesis”, vem da antiga tradução grega e expressa “origem”, “nascimento” ou “geração”. Como portal de entrada de toda a Bíblia, Gênesis estabelece os fundamentos da revelação divina: narra a criação do universo, a formação da humanidade e o surgimento do plano redentor de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Tradicionalmente atribuído a Moisés como o primeiro tomo do Pentateuco, o propósito central de Gênesis não é apenas relatar o princípio do mundo material, mas revelar quem é Deus e como Ele se relaciona com a sua criação. Diante dos mitos do mundo antigo, o livro proclama um Deus único, soberano e pessoal, que cria todas as coisas com a força de sua palavra. De modo sóbrio e transparente, o texto descreve tanto a dignidade do ser humano quanto a tragédia da queda no pecado, apresentando desde o início a promessa da graça divina."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro se desenvolve em dois grandes atos literários. O primeiro ato, que vai do capítulo 1 ao 11, abrange as origens universais. Nele contemplamos a perfeição da criação, o drama do Éden, a primeira descendência humana, o julgamento e o recomeço pelas águas do dilúvio com Noé, e a dispersão dos povos na torre de Babel. O segundo ato, do capítulo 12 ao 50, concentra-se na história da aliança e nos patriarcas de Israel. Acompanhamos o chamado de fé de Abraão, a promessa transmitida a Isaque, as transformações na vida de Jacó — pai dos chefes das doze tribos — e, por fim, a emocionante jornada de José, cuja providência divina prepara a sobrevivência e a descida do povo escolhido para o Egito."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Em cada página de Gênesis, aprendemos que a história humana não está entregue ao acaso: o mesmo Deus que ordenou que a luz brilhasse nas trevas é aquele que conduz as gerações com justiça, soberania e fidelidade inabalável."
+    }
+  ],
+  "audio": {
+    "arquivo": "genesis.m4a",
+    "duracao_segundos": 154.48,
+    "duracao_minutos": 3,
+    "voz": "Algenib",
+    "modelo": "gemini-3.8-flash-tts",
+    "unidades": [
+      {
+        "i": 0,
+        "id": "cabecalho",
+        "subtitulo": "O Primeiro Livro de Moisés chamado Gênesis",
+        "texto": "O Primeiro Livro de Moisés chamado Gênesis. Introdução ao Livro de Gênesis.",
+        "inicio": 0,
+        "dur": 6.52,
+        "palavras": [
+          {
+            "t": "O",
+            "i": 0.261,
+            "d": 0.02
+          },
+          {
+            "t": "Primeiro",
+            "i": 0.341,
+            "d": 0.502
+          },
+          {
+            "t": "Livro",
+            "i": 0.983,
+            "d": 0.301
+          },
+          {
+            "t": "de",
+            "i": 1.324,
+            "d": 0.08
+          },
+          {
+            "t": "Moisés",
+            "i": 1.444,
+            "d": 0.462
+          },
+          {
+            "t": "chamado",
+            "i": 2.267,
+            "d": 0.501
+          },
+          {
+            "t": "Gênesis.",
+            "i": 3.069,
+            "d": 0.542
+          },
+          {
+            "t": "Introdução",
+            "i": 4.273,
+            "d": 0.662
+          },
+          {
+            "t": "ao",
+            "i": 5.176,
+            "d": 0.1
+          },
+          {
+            "t": "Livro",
+            "i": 5.356,
+            "d": 0.241
+          },
+          {
+            "t": "de",
+            "i": 5.637,
+            "d": 0.06
+          },
+          {
+            "t": "Gênesis.",
+            "i": 5.758,
+            "d": 0.441
+          }
+        ]
+      },
+      {
+        "i": 1,
+        "id": "etimologia",
+        "subtitulo": "O Portal das Escrituras e o Nome do Livro",
+        "texto": "O Portal das Escrituras e o Nome do Livro. Na tradição hebraica, este livro é chamado de Bereshit, que significa simplesmente “No princípio” — exatamente a primeira palavra com que o texto sagrado se inicia. O nome pelo qual o conhecemos em português, “Gênesis”, vem da antiga tradução grega e expressa “origem”, “nascimento” ou “geração”. Como portal de entrada de toda a Bíblia, Gênesis estabelece os fundamentos da revelação divina: narra a criação do universo, a formação da humanidade e o surgimento do plano redentor de Deus.",
+        "inicio": 7.12,
+        "dur": 38,
+        "palavras": [
+          {
+            "t": "O",
+            "i": 7.38,
+            "d": 0.02
+          },
+          {
+            "t": "Portal",
+            "i": 7.48,
+            "d": 0.46
+          },
+          {
+            "t": "das",
+            "i": 8.0,
+            "d": 0.121
+          },
+          {
+            "t": "Escrituras",
+            "i": 8.161,
+            "d": 0.76
+          },
+          {
+            "t": "e",
+            "i": 9.121,
+            "d": 0.02
+          },
+          {
+            "t": "o",
+            "i": 9.241,
+            "d": 0.02
+          },
+          {
+            "t": "Nome",
+            "i": 9.441,
+            "d": 0.28
+          },
+          {
+            "t": "do",
+            "i": 9.761,
+            "d": 0.06
+          },
+          {
+            "t": "Livro.",
+            "i": 9.881,
+            "d": 0.281
+          },
+          {
+            "t": "Na",
+            "i": 11.102,
+            "d": 0.08
+          },
+          {
+            "t": "tradição",
+            "i": 11.242,
+            "d": 0.38
+          },
+          {
+            "t": "hebraica,",
+            "i": 11.642,
+            "d": 0.441
+          },
+          {
+            "t": "este",
+            "i": 12.323,
+            "d": 0.2
+          },
+          {
+            "t": "livro",
+            "i": 12.563,
+            "d": 0.22
+          },
+          {
+            "t": "é",
+            "i": 12.803,
+            "d": 0.02
+          },
+          {
+            "t": "chamado",
+            "i": 12.883,
+            "d": 0.38
+          },
+          {
+            "t": "de",
+            "i": 13.323,
+            "d": 0.1
+          },
+          {
+            "t": "Bereshit,",
+            "i": 13.723,
+            "d": 0.561
+          },
+          {
+            "t": "que",
+            "i": 14.744,
+            "d": 0.08
+          },
+          {
+            "t": "significa",
+            "i": 14.864,
+            "d": 0.5
+          },
+          {
+            "t": "simplesmente",
+            "i": 15.504,
+            "d": 0.601
+          },
+          {
+            "t": "“No",
+            "i": 16.565,
+            "d": 0.1
+          },
+          {
+            "t": "princípio”",
+            "i": 16.745,
+            "d": 0.58
+          },
+          {
+            "t": "—",
+            "i": 17.325,
+            "d": 0.0
+          },
+          {
+            "t": "exatamente",
+            "i": 18.046,
+            "d": 0.8
+          },
+          {
+            "t": "a",
+            "i": 18.886,
+            "d": 0.02
+          },
+          {
+            "t": "primeira",
+            "i": 19.026,
+            "d": 0.501
+          },
+          {
+            "t": "palavra",
+            "i": 19.587,
+            "d": 0.52
+          },
+          {
+            "t": "com",
+            "i": 20.167,
+            "d": 0.12
+          },
+          {
+            "t": "que",
+            "i": 20.327,
+            "d": 0.08
+          },
+          {
+            "t": "o",
+            "i": 20.447,
+            "d": 0.02
+          },
+          {
+            "t": "texto",
+            "i": 20.547,
+            "d": 0.26
+          },
+          {
+            "t": "sagrado",
+            "i": 20.887,
+            "d": 0.44
+          },
+          {
+            "t": "se",
+            "i": 21.388,
+            "d": 0.06
+          },
+          {
+            "t": "inicia.",
+            "i": 21.488,
+            "d": 0.3
+          },
+          {
+            "t": "O",
+            "i": 22.968,
+            "d": 0.02
+          },
+          {
+            "t": "nome",
+            "i": 23.068,
+            "d": 0.241
+          },
+          {
+            "t": "pelo",
+            "i": 23.369,
+            "d": 0.18
+          },
+          {
+            "t": "qual",
+            "i": 23.589,
+            "d": 0.18
+          },
+          {
+            "t": "o",
+            "i": 23.809,
+            "d": 0.02
+          },
+          {
+            "t": "conhecemos",
+            "i": 23.849,
+            "d": 0.54
+          },
+          {
+            "t": "em",
+            "i": 24.409,
+            "d": 0.06
+          },
+          {
+            "t": "português,",
+            "i": 24.509,
+            "d": 0.46
+          },
+          {
+            "t": "“Gênesis”,",
+            "i": 25.29,
+            "d": 0.48
+          },
+          {
+            "t": "vem",
+            "i": 26.19,
+            "d": 0.12
+          },
+          {
+            "t": "da",
+            "i": 26.35,
+            "d": 0.06
+          },
+          {
+            "t": "antiga",
+            "i": 26.47,
+            "d": 0.36
+          },
+          {
+            "t": "tradução",
+            "i": 26.89,
+            "d": 0.421
+          },
+          {
+            "t": "grega",
+            "i": 27.371,
+            "d": 0.32
+          },
+          {
+            "t": "e",
+            "i": 27.891,
+            "d": 0.02
+          },
+          {
+            "t": "expressa",
+            "i": 27.971,
+            "d": 0.46
+          },
+          {
+            "t": "“origem”,",
+            "i": 28.611,
+            "d": 0.421
+          },
+          {
+            "t": "“nascimento”",
+            "i": 29.292,
+            "d": 0.62
+          },
+          {
+            "t": "ou",
+            "i": 30.132,
+            "d": 0.1
+          },
+          {
+            "t": "“geração”.",
+            "i": 30.452,
+            "d": 0.421
+          },
+          {
+            "t": "Como",
+            "i": 31.853,
+            "d": 0.18
+          },
+          {
+            "t": "portal",
+            "i": 32.133,
+            "d": 0.46
+          },
+          {
+            "t": "de",
+            "i": 32.653,
+            "d": 0.06
+          },
+          {
+            "t": "entrada",
+            "i": 32.774,
+            "d": 0.46
+          },
+          {
+            "t": "de",
+            "i": 33.294,
+            "d": 0.08
+          },
+          {
+            "t": "toda",
+            "i": 33.554,
+            "d": 0.28
+          },
+          {
+            "t": "a",
+            "i": 33.894,
+            "d": 0.02
+          },
+          {
+            "t": "Bíblia,",
+            "i": 33.974,
+            "d": 0.3
+          },
+          {
+            "t": "Gênesis",
+            "i": 34.594,
+            "d": 0.441
+          },
+          {
+            "t": "estabelece",
+            "i": 35.075,
+            "d": 0.6
+          },
+          {
+            "t": "os",
+            "i": 35.715,
+            "d": 0.06
+          },
+          {
+            "t": "fundamentos",
+            "i": 35.875,
+            "d": 0.761
+          },
+          {
+            "t": "da",
+            "i": 36.656,
+            "d": 0.08
+          },
+          {
+            "t": "revelação",
+            "i": 36.796,
+            "d": 0.56
+          },
+          {
+            "t": "divina:",
+            "i": 37.396,
+            "d": 0.36
+          },
+          {
+            "t": "narra",
+            "i": 38.517,
+            "d": 0.32
+          },
+          {
+            "t": "a",
+            "i": 38.897,
+            "d": 0.02
+          },
+          {
+            "t": "criação",
+            "i": 38.977,
+            "d": 0.44
+          },
+          {
+            "t": "do",
+            "i": 39.437,
+            "d": 0.06
+          },
+          {
+            "t": "universo,",
+            "i": 39.537,
+            "d": 0.54
+          },
+          {
+            "t": "a",
+            "i": 40.357,
+            "d": 0.021
+          },
+          {
+            "t": "formação",
+            "i": 40.478,
+            "d": 0.62
+          },
+          {
+            "t": "da",
+            "i": 41.138,
+            "d": 0.06
+          },
+          {
+            "t": "humanidade",
+            "i": 41.238,
+            "d": 0.6
+          },
+          {
+            "t": "e",
+            "i": 42.238,
+            "d": 0.02
+          },
+          {
+            "t": "o",
+            "i": 42.319,
+            "d": 0.02
+          },
+          {
+            "t": "surgimento",
+            "i": 42.439,
+            "d": 0.68
+          },
+          {
+            "t": "do",
+            "i": 43.179,
+            "d": 0.06
+          },
+          {
+            "t": "plano",
+            "i": 43.359,
+            "d": 0.3
+          },
+          {
+            "t": "redentor",
+            "i": 43.699,
+            "d": 0.481
+          },
+          {
+            "t": "de",
+            "i": 44.26,
+            "d": 0.06
+          },
+          {
+            "t": "Deus.",
+            "i": 44.38,
+            "d": 0.24
+          }
+        ]
+      },
+      {
+        "i": 2,
+        "id": "contexto",
+        "subtitulo": "Autoria e Propósito Teológico",
+        "texto": "Autoria e Propósito Teológico. Tradicionalmente atribuído a Moisés como o primeiro tomo do Pentateuco, o propósito central de Gênesis não é apenas relatar o princípio do mundo material, mas revelar quem é Deus e como Ele se relaciona com a sua criação. Diante dos mitos do mundo antigo, o livro proclama um Deus único, soberano e pessoal, que cria todas as coisas com a força de sua palavra. De modo sóbrio e transparente, o texto descreve tanto a dignidade do ser humano quanto a tragédia da queda no pecado, apresentando desde o início a promessa da graça divina.",
+        "inicio": 45.72,
+        "dur": 38.56,
+        "palavras": [
+          {
+            "t": "Autoria",
+            "i": 46.02,
+            "d": 0.64
+          },
+          {
+            "t": "e",
+            "i": 46.881,
+            "d": 0.02
+          },
+          {
+            "t": "Propósito",
+            "i": 46.961,
+            "d": 0.7
+          },
+          {
+            "t": "Teológico.",
+            "i": 47.741,
+            "d": 0.56
+          },
+          {
+            "t": "Tradicionalmente",
+            "i": 48.922,
+            "d": 0.82
+          },
+          {
+            "t": "atribuído",
+            "i": 49.782,
+            "d": 0.48
+          },
+          {
+            "t": "a",
+            "i": 50.302,
+            "d": 0.02
+          },
+          {
+            "t": "Moisés",
+            "i": 50.382,
+            "d": 0.461
+          },
+          {
+            "t": "como",
+            "i": 51.063,
+            "d": 0.16
+          },
+          {
+            "t": "o",
+            "i": 51.263,
+            "d": 0.02
+          },
+          {
+            "t": "primeiro",
+            "i": 51.323,
+            "d": 0.44
+          },
+          {
+            "t": "tomo",
+            "i": 51.863,
+            "d": 0.26
+          },
+          {
+            "t": "do",
+            "i": 52.163,
+            "d": 0.08
+          },
+          {
+            "t": "Pentateuco,",
+            "i": 52.303,
+            "d": 0.581
+          },
+          {
+            "t": "o",
+            "i": 53.324,
+            "d": 0.02
+          },
+          {
+            "t": "propósito",
+            "i": 53.404,
+            "d": 0.54
+          },
+          {
+            "t": "central",
+            "i": 53.984,
+            "d": 0.4
+          },
+          {
+            "t": "de",
+            "i": 54.425,
+            "d": 0.06
+          },
+          {
+            "t": "Gênesis",
+            "i": 54.585,
+            "d": 0.48
+          },
+          {
+            "t": "não",
+            "i": 55.185,
+            "d": 0.1
+          },
+          {
+            "t": "é",
+            "i": 55.325,
+            "d": 0.02
+          },
+          {
+            "t": "apenas",
+            "i": 55.385,
+            "d": 0.36
+          },
+          {
+            "t": "relatar",
+            "i": 55.805,
+            "d": 0.48
+          },
+          {
+            "t": "o",
+            "i": 56.346,
+            "d": 0.02
+          },
+          {
+            "t": "princípio",
+            "i": 56.406,
+            "d": 0.64
+          },
+          {
+            "t": "do",
+            "i": 57.106,
+            "d": 0.08
+          },
+          {
+            "t": "mundo",
+            "i": 57.246,
+            "d": 0.24
+          },
+          {
+            "t": "material,",
+            "i": 57.526,
+            "d": 0.4
+          },
+          {
+            "t": "mas",
+            "i": 58.347,
+            "d": 0.16
+          },
+          {
+            "t": "revelar",
+            "i": 58.567,
+            "d": 0.4
+          },
+          {
+            "t": "quem",
+            "i": 59.167,
+            "d": 0.24
+          },
+          {
+            "t": "é",
+            "i": 59.487,
+            "d": 0.02
+          },
+          {
+            "t": "Deus",
+            "i": 59.627,
+            "d": 0.28
+          },
+          {
+            "t": "e",
+            "i": 60.208,
+            "d": 0.02
+          },
+          {
+            "t": "como",
+            "i": 60.388,
+            "d": 0.26
+          },
+          {
+            "t": "Ele",
+            "i": 60.688,
+            "d": 0.12
+          },
+          {
+            "t": "se",
+            "i": 60.868,
+            "d": 0.06
+          },
+          {
+            "t": "relaciona",
+            "i": 60.988,
+            "d": 0.52
+          },
+          {
+            "t": "com",
+            "i": 61.568,
+            "d": 0.1
+          },
+          {
+            "t": "a",
+            "i": 61.728,
+            "d": 0.02
+          },
+          {
+            "t": "sua",
+            "i": 61.828,
+            "d": 0.16
+          },
+          {
+            "t": "criação.",
+            "i": 62.028,
+            "d": 0.421
+          },
+          {
+            "t": "Diante",
+            "i": 63.209,
+            "d": 0.32
+          },
+          {
+            "t": "dos",
+            "i": 63.569,
+            "d": 0.14
+          },
+          {
+            "t": "mitos",
+            "i": 63.789,
+            "d": 0.321
+          },
+          {
+            "t": "do",
+            "i": 64.15,
+            "d": 0.08
+          },
+          {
+            "t": "mundo",
+            "i": 64.29,
+            "d": 0.2
+          },
+          {
+            "t": "antigo,",
+            "i": 64.55,
+            "d": 0.4
+          },
+          {
+            "t": "o",
+            "i": 65.39,
+            "d": 0.02
+          },
+          {
+            "t": "livro",
+            "i": 65.49,
+            "d": 0.28
+          },
+          {
+            "t": "proclama",
+            "i": 65.83,
+            "d": 0.481
+          },
+          {
+            "t": "um",
+            "i": 66.371,
+            "d": 0.06
+          },
+          {
+            "t": "Deus",
+            "i": 66.491,
+            "d": 0.26
+          },
+          {
+            "t": "único,",
+            "i": 66.971,
+            "d": 0.34
+          },
+          {
+            "t": "soberano",
+            "i": 67.631,
+            "d": 0.601
+          },
+          {
+            "t": "e",
+            "i": 68.412,
+            "d": 0.02
+          },
+          {
+            "t": "pessoal,",
+            "i": 68.532,
+            "d": 0.48
+          },
+          {
+            "t": "que",
+            "i": 69.372,
+            "d": 0.08
+          },
+          {
+            "t": "cria",
+            "i": 69.532,
+            "d": 0.24
+          },
+          {
+            "t": "todas",
+            "i": 69.993,
+            "d": 0.32
+          },
+          {
+            "t": "as",
+            "i": 70.353,
+            "d": 0.1
+          },
+          {
+            "t": "coisas",
+            "i": 70.533,
+            "d": 0.44
+          },
+          {
+            "t": "com",
+            "i": 71.053,
+            "d": 0.1
+          },
+          {
+            "t": "a",
+            "i": 71.193,
+            "d": 0.02
+          },
+          {
+            "t": "força",
+            "i": 71.373,
+            "d": 0.36
+          },
+          {
+            "t": "de",
+            "i": 71.794,
+            "d": 0.06
+          },
+          {
+            "t": "sua",
+            "i": 71.914,
+            "d": 0.14
+          },
+          {
+            "t": "palavra.",
+            "i": 72.094,
+            "d": 0.4
+          },
+          {
+            "t": "De",
+            "i": 73.314,
+            "d": 0.08
+          },
+          {
+            "t": "modo",
+            "i": 73.434,
+            "d": 0.22
+          },
+          {
+            "t": "sóbrio",
+            "i": 73.795,
+            "d": 0.38
+          },
+          {
+            "t": "e",
+            "i": 74.195,
+            "d": 0.02
+          },
+          {
+            "t": "transparente,",
+            "i": 74.275,
+            "d": 0.62
+          },
+          {
+            "t": "o",
+            "i": 75.255,
+            "d": 0.02
+          },
+          {
+            "t": "texto",
+            "i": 75.335,
+            "d": 0.24
+          },
+          {
+            "t": "descreve",
+            "i": 75.616,
+            "d": 0.5
+          },
+          {
+            "t": "tanto",
+            "i": 76.276,
+            "d": 0.28
+          },
+          {
+            "t": "a",
+            "i": 76.596,
+            "d": 0.04
+          },
+          {
+            "t": "dignidade",
+            "i": 76.696,
+            "d": 0.62
+          },
+          {
+            "t": "do",
+            "i": 77.356,
+            "d": 0.06
+          },
+          {
+            "t": "ser",
+            "i": 77.496,
+            "d": 0.121
+          },
+          {
+            "t": "humano",
+            "i": 77.637,
+            "d": 0.32
+          },
+          {
+            "t": "quanto",
+            "i": 78.197,
+            "d": 0.22
+          },
+          {
+            "t": "a",
+            "i": 78.457,
+            "d": 0.02
+          },
+          {
+            "t": "tragédia",
+            "i": 78.557,
+            "d": 0.64
+          },
+          {
+            "t": "da",
+            "i": 79.237,
+            "d": 0.08
+          },
+          {
+            "t": "queda",
+            "i": 79.417,
+            "d": 0.241
+          },
+          {
+            "t": "no",
+            "i": 79.698,
+            "d": 0.08
+          },
+          {
+            "t": "pecado,",
+            "i": 79.818,
+            "d": 0.42
+          },
+          {
+            "t": "apresentando",
+            "i": 80.678,
+            "d": 0.7
+          },
+          {
+            "t": "desde",
+            "i": 81.499,
+            "d": 0.32
+          },
+          {
+            "t": "o",
+            "i": 81.859,
+            "d": 0.02
+          },
+          {
+            "t": "início",
+            "i": 81.899,
+            "d": 0.36
+          },
+          {
+            "t": "a",
+            "i": 82.579,
+            "d": 0.02
+          },
+          {
+            "t": "promessa",
+            "i": 82.659,
+            "d": 0.52
+          },
+          {
+            "t": "da",
+            "i": 83.219,
+            "d": 0.06
+          },
+          {
+            "t": "graça",
+            "i": 83.34,
+            "d": 0.28
+          },
+          {
+            "t": "divina.",
+            "i": 83.66,
+            "d": 0.34
+          }
+        ]
+      },
+      {
+        "i": 3,
+        "id": "estrutura",
+        "subtitulo": "Estrutura e Grandes Blocos Históricos",
+        "texto": "Estrutura e Grandes Blocos Históricos. O livro se desenvolve em dois grandes atos literários. O primeiro ato, que vai do capítulo 1 ao 11, abrange as origens universais. Nele contemplamos a perfeição da criação, o drama do Éden, a primeira descendência humana, o julgamento e o recomeço pelas águas do dilúvio com Noé, e a dispersão dos povos na torre de Babel. O segundo ato, do capítulo 12 ao 50, concentra-se na história da aliança e nos patriarcas de Israel. Acompanhamos o chamado de fé de Abraão, a promessa transmitida a Isaque, as transformações na vida de Jacó — pai dos chefes das doze tribos — e, por fim, a emocionante jornada de José, cuja providência divina prepara a sobrevivência e a descida do povo escolhido para o Egito.",
+        "inicio": 84.88,
+        "dur": 51.44,
+        "palavras": [
+          {
+            "t": "Estrutura",
+            "i": 85.24,
+            "d": 0.7
+          },
+          {
+            "t": "e",
+            "i": 86.12,
+            "d": 0.02
+          },
+          {
+            "t": "Grandes",
+            "i": 86.281,
+            "d": 0.42
+          },
+          {
+            "t": "Blocos",
+            "i": 86.761,
+            "d": 0.32
+          },
+          {
+            "t": "Históricos.",
+            "i": 87.101,
+            "d": 0.56
+          },
+          {
+            "t": "O",
+            "i": 88.421,
+            "d": 0.02
+          },
+          {
+            "t": "livro",
+            "i": 88.521,
+            "d": 0.281
+          },
+          {
+            "t": "se",
+            "i": 88.862,
+            "d": 0.08
+          },
+          {
+            "t": "desenvolve",
+            "i": 88.982,
+            "d": 0.56
+          },
+          {
+            "t": "em",
+            "i": 89.562,
+            "d": 0.06
+          },
+          {
+            "t": "dois",
+            "i": 89.762,
+            "d": 0.26
+          },
+          {
+            "t": "grandes",
+            "i": 90.102,
+            "d": 0.4
+          },
+          {
+            "t": "atos",
+            "i": 90.602,
+            "d": 0.22
+          },
+          {
+            "t": "literários.",
+            "i": 90.882,
+            "d": 0.521
+          },
+          {
+            "t": "O",
+            "i": 92.183,
+            "d": 0.02
+          },
+          {
+            "t": "primeiro",
+            "i": 92.243,
+            "d": 0.3
+          },
+          {
+            "t": "ato,",
+            "i": 92.643,
+            "d": 0.22
+          },
+          {
+            "t": "que",
+            "i": 93.043,
+            "d": 0.08
+          },
+          {
+            "t": "vai",
+            "i": 93.163,
+            "d": 0.1
+          },
+          {
+            "t": "do",
+            "i": 93.283,
+            "d": 0.06
+          },
+          {
+            "t": "capítulo",
+            "i": 93.363,
+            "d": 0.4
+          },
+          {
+            "t": "1",
+            "i": 93.964,
+            "d": 0.08
+          },
+          {
+            "t": "ao",
+            "i": 94.304,
+            "d": 0.1
+          },
+          {
+            "t": "11,",
+            "i": 94.504,
+            "d": 0.28
+          },
+          {
+            "t": "abrange",
+            "i": 95.184,
+            "d": 0.36
+          },
+          {
+            "t": "as",
+            "i": 95.584,
+            "d": 0.08
+          },
+          {
+            "t": "origens",
+            "i": 95.724,
+            "d": 0.44
+          },
+          {
+            "t": "universais.",
+            "i": 96.204,
+            "d": 0.621
+          },
+          {
+            "t": "Nele",
+            "i": 97.585,
+            "d": 0.24
+          },
+          {
+            "t": "contemplamos",
+            "i": 98.045,
+            "d": 0.58
+          },
+          {
+            "t": "a",
+            "i": 98.685,
+            "d": 0.02
+          },
+          {
+            "t": "perfeição",
+            "i": 98.765,
+            "d": 0.641
+          },
+          {
+            "t": "da",
+            "i": 99.466,
+            "d": 0.08
+          },
+          {
+            "t": "criação,",
+            "i": 99.606,
+            "d": 0.44
+          },
+          {
+            "t": "o",
+            "i": 100.426,
+            "d": 0.02
+          },
+          {
+            "t": "drama",
+            "i": 100.566,
+            "d": 0.32
+          },
+          {
+            "t": "do",
+            "i": 100.946,
+            "d": 0.06
+          },
+          {
+            "t": "Éden,",
+            "i": 101.106,
+            "d": 0.26
+          },
+          {
+            "t": "a",
+            "i": 101.867,
+            "d": 0.02
+          },
+          {
+            "t": "primeira",
+            "i": 101.947,
+            "d": 0.48
+          },
+          {
+            "t": "descendência",
+            "i": 102.467,
+            "d": 0.58
+          },
+          {
+            "t": "humana,",
+            "i": 103.067,
+            "d": 0.34
+          },
+          {
+            "t": "o",
+            "i": 103.967,
+            "d": 0.02
+          },
+          {
+            "t": "julgamento",
+            "i": 104.047,
+            "d": 0.601
+          },
+          {
+            "t": "e",
+            "i": 104.808,
+            "d": 0.02
+          },
+          {
+            "t": "o",
+            "i": 104.868,
+            "d": 0.02
+          },
+          {
+            "t": "recomeço",
+            "i": 104.948,
+            "d": 0.54
+          },
+          {
+            "t": "pelas",
+            "i": 105.548,
+            "d": 0.28
+          },
+          {
+            "t": "águas",
+            "i": 105.948,
+            "d": 0.24
+          },
+          {
+            "t": "do",
+            "i": 106.228,
+            "d": 0.06
+          },
+          {
+            "t": "dilúvio",
+            "i": 106.348,
+            "d": 0.461
+          },
+          {
+            "t": "com",
+            "i": 106.849,
+            "d": 0.12
+          },
+          {
+            "t": "Noé,",
+            "i": 107.009,
+            "d": 0.2
+          },
+          {
+            "t": "e",
+            "i": 107.869,
+            "d": 0.02
+          },
+          {
+            "t": "a",
+            "i": 107.949,
+            "d": 0.02
+          },
+          {
+            "t": "dispersão",
+            "i": 108.029,
+            "d": 0.7
+          },
+          {
+            "t": "dos",
+            "i": 108.789,
+            "d": 0.12
+          },
+          {
+            "t": "povos",
+            "i": 108.989,
+            "d": 0.381
+          },
+          {
+            "t": "na",
+            "i": 109.45,
+            "d": 0.08
+          },
+          {
+            "t": "torre",
+            "i": 109.65,
+            "d": 0.22
+          },
+          {
+            "t": "de",
+            "i": 109.91,
+            "d": 0.06
+          },
+          {
+            "t": "Babel.",
+            "i": 110.01,
+            "d": 0.28
+          },
+          {
+            "t": "O",
+            "i": 111.29,
+            "d": 0.02
+          },
+          {
+            "t": "segundo",
+            "i": 111.35,
+            "d": 0.3
+          },
+          {
+            "t": "ato,",
+            "i": 111.73,
+            "d": 0.201
+          },
+          {
+            "t": "do",
+            "i": 112.151,
+            "d": 0.06
+          },
+          {
+            "t": "capítulo",
+            "i": 112.251,
+            "d": 0.42
+          },
+          {
+            "t": "12",
+            "i": 112.791,
+            "d": 0.3
+          },
+          {
+            "t": "ao",
+            "i": 113.131,
+            "d": 0.06
+          },
+          {
+            "t": "50,",
+            "i": 113.251,
+            "d": 0.46
+          },
+          {
+            "t": "concentra-se",
+            "i": 114.171,
+            "d": 0.561
+          },
+          {
+            "t": "na",
+            "i": 114.772,
+            "d": 0.06
+          },
+          {
+            "t": "história",
+            "i": 114.852,
+            "d": 0.46
+          },
+          {
+            "t": "da",
+            "i": 115.332,
+            "d": 0.08
+          },
+          {
+            "t": "aliança",
+            "i": 115.452,
+            "d": 0.52
+          },
+          {
+            "t": "e",
+            "i": 116.172,
+            "d": 0.02
+          },
+          {
+            "t": "nos",
+            "i": 116.252,
+            "d": 0.12
+          },
+          {
+            "t": "patriarcas",
+            "i": 116.412,
+            "d": 0.6
+          },
+          {
+            "t": "de",
+            "i": 117.053,
+            "d": 0.04
+          },
+          {
+            "t": "Israel.",
+            "i": 117.153,
+            "d": 0.34
+          },
+          {
+            "t": "Acompanhamos",
+            "i": 118.273,
+            "d": 0.64
+          },
+          {
+            "t": "o",
+            "i": 118.973,
+            "d": 0.02
+          },
+          {
+            "t": "chamado",
+            "i": 119.053,
+            "d": 0.48
+          },
+          {
+            "t": "de",
+            "i": 119.593,
+            "d": 0.061
+          },
+          {
+            "t": "fé",
+            "i": 119.834,
+            "d": 0.14
+          },
+          {
+            "t": "de",
+            "i": 120.074,
+            "d": 0.06
+          },
+          {
+            "t": "Abraão,",
+            "i": 120.194,
+            "d": 0.34
+          },
+          {
+            "t": "a",
+            "i": 121.054,
+            "d": 0.02
+          },
+          {
+            "t": "promessa",
+            "i": 121.114,
+            "d": 0.44
+          },
+          {
+            "t": "transmitida",
+            "i": 121.614,
+            "d": 0.601
+          },
+          {
+            "t": "a",
+            "i": 122.275,
+            "d": 0.02
+          },
+          {
+            "t": "Isaque,",
+            "i": 122.335,
+            "d": 0.46
+          },
+          {
+            "t": "as",
+            "i": 123.295,
+            "d": 0.08
+          },
+          {
+            "t": "transformações",
+            "i": 123.415,
+            "d": 0.74
+          },
+          {
+            "t": "na",
+            "i": 124.195,
+            "d": 0.06
+          },
+          {
+            "t": "vida",
+            "i": 124.295,
+            "d": 0.16
+          },
+          {
+            "t": "de",
+            "i": 124.515,
+            "d": 0.06
+          },
+          {
+            "t": "Jacó",
+            "i": 124.615,
+            "d": 0.261
+          },
+          {
+            "t": "—",
+            "i": 124.876,
+            "d": 0.0
+          },
+          {
+            "t": "pai",
+            "i": 125.376,
+            "d": 0.16
+          },
+          {
+            "t": "dos",
+            "i": 125.576,
+            "d": 0.14
+          },
+          {
+            "t": "chefes",
+            "i": 125.816,
+            "d": 0.34
+          },
+          {
+            "t": "das",
+            "i": 126.196,
+            "d": 0.14
+          },
+          {
+            "t": "doze",
+            "i": 126.416,
+            "d": 0.24
+          },
+          {
+            "t": "tribos",
+            "i": 126.696,
+            "d": 0.36
+          },
+          {
+            "t": "—",
+            "i": 127.056,
+            "d": 0.0
+          },
+          {
+            "t": "e,",
+            "i": 127.537,
+            "d": 0.02
+          },
+          {
+            "t": "por",
+            "i": 127.617,
+            "d": 0.12
+          },
+          {
+            "t": "fim,",
+            "i": 127.777,
+            "d": 0.16
+          },
+          {
+            "t": "a",
+            "i": 128.357,
+            "d": 0.02
+          },
+          {
+            "t": "emocionante",
+            "i": 128.477,
+            "d": 0.86
+          },
+          {
+            "t": "jornada",
+            "i": 129.377,
+            "d": 0.48
+          },
+          {
+            "t": "de",
+            "i": 129.918,
+            "d": 0.06
+          },
+          {
+            "t": "José,",
+            "i": 130.038,
+            "d": 0.26
+          },
+          {
+            "t": "cuja",
+            "i": 130.818,
+            "d": 0.24
+          },
+          {
+            "t": "providência",
+            "i": 131.098,
+            "d": 0.5
+          },
+          {
+            "t": "divina",
+            "i": 131.638,
+            "d": 0.4
+          },
+          {
+            "t": "prepara",
+            "i": 132.198,
+            "d": 0.501
+          },
+          {
+            "t": "a",
+            "i": 132.739,
+            "d": 0.02
+          },
+          {
+            "t": "sobrevivência",
+            "i": 132.819,
+            "d": 0.76
+          },
+          {
+            "t": "e",
+            "i": 133.879,
+            "d": 0.02
+          },
+          {
+            "t": "a",
+            "i": 133.939,
+            "d": 0.04
+          },
+          {
+            "t": "descida",
+            "i": 133.999,
+            "d": 0.44
+          },
+          {
+            "t": "do",
+            "i": 134.479,
+            "d": 0.08
+          },
+          {
+            "t": "povo",
+            "i": 134.619,
+            "d": 0.2
+          },
+          {
+            "t": "escolhido",
+            "i": 134.859,
+            "d": 0.461
+          },
+          {
+            "t": "para",
+            "i": 135.36,
+            "d": 0.14
+          },
+          {
+            "t": "o",
+            "i": 135.52,
+            "d": 0.02
+          },
+          {
+            "t": "Egito.",
+            "i": 135.6,
+            "d": 0.32
+          }
+        ]
+      },
+      {
+        "i": 4,
+        "id": "mensagem",
+        "subtitulo": "Mensagem Central",
+        "texto": "Mensagem Central. Em cada página de Gênesis, aprendemos que a história humana não está entregue ao acaso: o mesmo Deus que ordenou que a luz brilhasse nas trevas é aquele que conduz as gerações com justiça, soberania e fidelidade inabalável.",
+        "inicio": 136.92,
+        "dur": 17.56,
+        "palavras": [
+          {
+            "t": "Mensagem",
+            "i": 137.22,
+            "d": 0.661
+          },
+          {
+            "t": "Central.",
+            "i": 137.961,
+            "d": 0.401
+          },
+          {
+            "t": "Em",
+            "i": 139.082,
+            "d": 0.081
+          },
+          {
+            "t": "cada",
+            "i": 139.283,
+            "d": 0.24
+          },
+          {
+            "t": "página",
+            "i": 139.643,
+            "d": 0.401
+          },
+          {
+            "t": "de",
+            "i": 140.084,
+            "d": 0.08
+          },
+          {
+            "t": "Gênesis,",
+            "i": 140.224,
+            "d": 0.5
+          },
+          {
+            "t": "aprendemos",
+            "i": 141.145,
+            "d": 0.52
+          },
+          {
+            "t": "que",
+            "i": 141.705,
+            "d": 0.101
+          },
+          {
+            "t": "a",
+            "i": 141.866,
+            "d": 0.02
+          },
+          {
+            "t": "história",
+            "i": 141.906,
+            "d": 0.34
+          },
+          {
+            "t": "humana",
+            "i": 142.266,
+            "d": 0.401
+          },
+          {
+            "t": "não",
+            "i": 142.787,
+            "d": 0.14
+          },
+          {
+            "t": "está",
+            "i": 142.967,
+            "d": 0.16
+          },
+          {
+            "t": "entregue",
+            "i": 143.187,
+            "d": 0.381
+          },
+          {
+            "t": "ao",
+            "i": 143.608,
+            "d": 0.04
+          },
+          {
+            "t": "acaso:",
+            "i": 143.688,
+            "d": 0.42
+          },
+          {
+            "t": "o",
+            "i": 144.749,
+            "d": 0.02
+          },
+          {
+            "t": "mesmo",
+            "i": 144.909,
+            "d": 0.361
+          },
+          {
+            "t": "Deus",
+            "i": 145.37,
+            "d": 0.24
+          },
+          {
+            "t": "que",
+            "i": 145.67,
+            "d": 0.08
+          },
+          {
+            "t": "ordenou",
+            "i": 145.79,
+            "d": 0.421
+          },
+          {
+            "t": "que",
+            "i": 146.271,
+            "d": 0.08
+          },
+          {
+            "t": "a",
+            "i": 146.391,
+            "d": 0.02
+          },
+          {
+            "t": "luz",
+            "i": 146.511,
+            "d": 0.18
+          },
+          {
+            "t": "brilhasse",
+            "i": 146.751,
+            "d": 0.561
+          },
+          {
+            "t": "nas",
+            "i": 147.352,
+            "d": 0.16
+          },
+          {
+            "t": "trevas",
+            "i": 147.552,
+            "d": 0.421
+          },
+          {
+            "t": "é",
+            "i": 148.393,
+            "d": 0.02
+          },
+          {
+            "t": "aquele",
+            "i": 148.453,
+            "d": 0.28
+          },
+          {
+            "t": "que",
+            "i": 148.794,
+            "d": 0.1
+          },
+          {
+            "t": "conduz",
+            "i": 148.994,
+            "d": 0.42
+          },
+          {
+            "t": "as",
+            "i": 149.474,
+            "d": 0.06
+          },
+          {
+            "t": "gerações",
+            "i": 149.554,
+            "d": 0.581
+          },
+          {
+            "t": "com",
+            "i": 150.195,
+            "d": 0.14
+          },
+          {
+            "t": "justiça,",
+            "i": 150.395,
+            "d": 0.601
+          },
+          {
+            "t": "soberania",
+            "i": 151.316,
+            "d": 0.641
+          },
+          {
+            "t": "e",
+            "i": 152.438,
+            "d": 0.02
+          },
+          {
+            "t": "fidelidade",
+            "i": 152.578,
+            "d": 0.721
+          },
+          {
+            "t": "inabalável.",
+            "i": 153.419,
+            "d": 0.701
+          }
+        ]
+      }
+    ]
+  }
+}

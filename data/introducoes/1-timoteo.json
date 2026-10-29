@@ -1,0 +1,30 @@
+{
+  "livro": "1 Timóteo",
+  "slug": "1-timoteo",
+  "abbrev": "1Tm",
+  "testamento": "nt",
+  "titulo_canonico": "Primeira Epístola do Apóstolo Paulo a Timóteo",
+  "titulo_introducao": "Introdução à Primeira Epístola a Timóteo",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Início das Epístolas Pastorais",
+      "texto": "Encabeçada na literatura neotestamentária grega como Pros Timotheon A — “Primeira a Timóteo” —, a missiva inaugura o prestigioso grupo canônico das cartas pastorais. O nome do destinatário, Timóteo, composto pelos termos gregos timē (“honra”) e theos (“Deus”), expressa “aquele que honra a Deus”. Filho de pai grego e mãe judia crente, Timóteo convertera-se no início das viagens de Paulo em Listra, tornando-se o seu mais estimado companheiro de ministério e seu verdadeiro filho na fé."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Desafio Efésio e a Casa de Deus",
+      "texto": "Redigida por volta dos anos 63 a 65 d.C., após o apóstolo ter sido libertado de seu primeiro confinamento em Roma e enquanto transitava pela Macedônia, a carta dirige-se a Timóteo, que fora deixado em Éfeso para cuidar daquela influente comunidade. A igreja efésia encontrava-se ameaçada por mestres arrogantes que promoviam fábulas judaicas, genealogias sem fim, especulações vazias e um ascetismo doentio que proibia o casamento e certos alimentos. O objetivo de Paulo não era meramente exortar um jovem obreiro, mas fornecer um código apostólico permanente sobre a ordem, o governo e a conduta que devem reger a Igreja do Deus vivo — coluna e baluarte da verdade."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Ordem Litúrgica, Liderança e Deveres Pastorais",
+      "texto": "O livro articula-se com sabedoria em três movimentos práticos e teológicos. O primeiro movimento, nos capítulos 1 e 2, confronta com rigor os falsos mestres, reafirma a função legítima da Lei moral à luz do glorioso Evangelho da graça — que redimiu Paulo, o principal dos pecadores —, e estabelece a prioridade da oração universal por governantes e cidadãos, delineando a postura modesta e reverente no culto comunitário. O segundo movimento, nos capítulos 3 e 4, fixa os requisitos espirituais e o ilibado caráter moral para os cargos de presbíteros e diáconos, alertando para a apostasia dos últimos tempos e ensinando Timóteo a exercitar-se na verdadeira piedade e na leitura pública das Escrituras. O terceiro movimento, nos capítulos 5 e 6, traz diretrizes sensíveis para a assistência pastoral às viúvas, a honra devida aos presbíteros que labutam na pregação, as advertências contra a ganância e a cilada do amor ao dinheiro, encerrando com o solene mandato de combater o bom combate da fé e guardar o sagrado depósito do Evangelho."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Primeira a Timóteo adverte que a pureza doutrinária é inseparável da integridade de vida, exortando os líderes de todas as gerações a pastorearem o rebanho com amor puro, boa consciência e fé sem fingimento."
+    }
+  ]
+}

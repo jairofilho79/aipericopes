@@ -1,0 +1,30 @@
+{
+  "livro": "Obadias",
+  "slug": "obadias",
+  "abbrev": "Ob",
+  "testamento": "vt",
+  "titulo_canonico": "Obadias",
+  "titulo_introducao": "Introdução ao Livro de Obadias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Servo do Senhor e a Mensagem das Alturas",
+      "texto": "Na tradição hebraica, este livro leva o nome de ‘Ovadyah, termo que resulta da junção de ‘eved, que significa “servo” ou “adorador”, com o nome sagrado de Yahweh, significando literalmente “Servo do Senhor”. Traduzido na Septuaginta como Obdiou e na Vulgata latina como Abdias, o nome do autor representa a mais nobre identidade nas Escrituras: um mensageiro que apaga a própria figura para deixar ressoar com integridade soberana a voz dAquele a quem serve."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Conflito com Edom e a Justiça Pactual",
+      "texto": "Sendo o livro mais breve de todo o Antigo Testamento, contendo apenas vinte e um versículos, a obra não traz dados biográficos detalhados de seu autor, concentrando-se inteiramente no peso profético confiado por Deus. O contexto mais provável situa-se logo após a dolorosa queda e destruição de Jerusalém em 586 a.C. pelos babilônios. Naquela hora de angústia extrema, os edomitas — descendentes de Esaú e, portanto, nação aparentada a Israel — agiram com infame perfídia: celebraram a ruína de seus irmãos de sangue, pilharam os despojos dos indefesos e bloquearam as encruzilhadas para capturar os fugitivos de Judá e entregá-los aos algozes caldeus. Abrigados no alto das impenetráveis falésias de rocha de Seir, os edomitas julgavam-se intocáveis. O propósito teológico de Obadias é denunciar a soberba mortal das nações arrogantes, confortar o remanescente ferido com a certeza da justiça divina e declarar que o tribunal de Deus punirá a traição e restabelecerá a herança prometida."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e o Movimento do Juízo à Restauração",
+      "texto": "Apesar de sua brevidade, o livro exibe uma estrutura dinâmica dividida em três movimentos temáticos interligados. No primeiro movimento, que abrange dos versículos 1 a 9, Deus confronta o orgulho ilusório de Edom, garantindo que, ainda que ele monte o seu ninho nas alturas entre as estrelas, dali o Senhor o precipitará ao chão. No segundo movimento, que vai dos versículos 10 a 14, o profeta formula a acusação moral contra a indiferença e a violência de Edom no dia da calamidade de seu irmão Jacó, enumerando com intensidade a vileza do escárnio e da cumplicidade na desgraça alheia. No terceiro movimento, dos versículos 15 a 21, o horizonte se alarga para além das fronteiras de Seir: o julgamento de Edom é revelado como uma amostra do grande Dia do Senhor sobre todos os povos, no qual cada um colherá o que plantou, enquanto o Monte Sião se tornará lugar de santidade, refúgio e vitória final, culminando na solene declaração de que o Reino pertencerá ao Senhor."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Obadias adverte severamente contra a presunção e a maldade praticada contra o próximo, assegurando que nenhuma fortaleza humana pode deter o justo juízo de Deus. Ao escutar seus versículos, somos confortados pela promessa inabalável de que a fidelidade divina socorre os abatidos e de que o Senhor reinará para sempre em santidade e glória."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "3 João",
+  "slug": "3-joao",
+  "abbrev": "3Jo",
+  "testamento": "nt",
+  "titulo_canonico": "Terceira Epístola do Apóstolo João",
+  "titulo_introducao": "Introdução à Terceira Epístola de João",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "Intitulada com o nome de João — Ioannes —, o Ancião reverenciado pelas igrejas da Ásia, esta carta representa a mais pessoal e intimista das epístolas joaninas. O destinatário explícito é o amado Gaio — nome romano comum na época —, a quem o autor devota profundo apreço espiritual, louvando seu testemunho de fidelidade e manifestando votos de saúde integral para seu corpo e sua alma."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composta no final do primeiro século pelo apóstolo João, a carta descortina o funcionamento prático das congregações apostólicas e as tentações da liderança local. Enquanto 2 João tratava da cautela necessária contra os falsos mestres, 3 João aborda o dever sagrado da generosidade para com os obreiros legítimos da verdade que viajavam dedicados à pregação do Evangelho. O propósito teológico é encorajar a hospitalidade sacrificial como forma de cooperação com a verdade de Deus e confrontar o autoritarismo vaidoso de líderes locais como Diótrefes, que buscava primazia egoísta, feria a comunhão apostólica e rejeitava os irmãos com arrogância tirânica."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "Distribuída em um movimento límpido de 14 versículos, a carta constrói seu argumento no contraste vivo entre três figuras da igreja primitiva. De início, o apóstolo celebra o caráter de Gaio, afirmando não haver júbilo maior do que ver seus filhos andando na verdade, elogiando sua prática exemplar de acolher e suprir os missionários itinerantes. Logo após, repreende com severidade a conduta perversa de Diótrefes, advertindo contra a imitação do mal. Por fim, exalta a integridade de Demétrio, cujo testemunho é abonado pela própria verdade e pela palavra apostólica, concluindo o diálogo com votos de paz pessoal e afeto mútuo."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Terceira Epístola de João destaca a beleza sublime do serviço humilde e a dignidade de apoiar com fidelidade e amor aqueles que trabalham na proclamação do Evangelho."
+    }
+  ]
+}

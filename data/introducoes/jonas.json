@@ -1,0 +1,30 @@
+{
+  "livro": "Jonas",
+  "slug": "jonas",
+  "abbrev": "Jn",
+  "testamento": "vt",
+  "titulo_canonico": "Jonas",
+  "titulo_introducao": "Introdução ao Livro de Jonas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Pomba e o Mandato de Compaixão",
+      "texto": "O título hebraico deste livro é Yonah, palavra que significa literalmente “pomba”. Conhecido na versão grega da Septuaginta e na Vulgata latina como Ionas, o nome cria um expressivo e deliberado contraste com a personalidade do personagem: enquanto a pomba evoca a mansidão e a docilidade da mensageira que retorna fielmente, Jonas se revela um homem hesitante, resistente e em constante conflito com o coração misericordioso do Deus que o comissionou."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Grande Nínive e a Graça Universal",
+      "texto": "Identificado como filho de Amitai e natural de Gate-Hefer, na Galileia, Jonas é um profeta histórico cuja atuação pública sob o reinado próspero de Jeroboão 2º em Israel é atestada pelo Segundo Livro dos Reis. Todavia, a obra que leva seu nome é singular na biblioteca profética: em vez de reunir discursos oraculares, constrói uma narrativa dramática e biográfica de seu envio missionário à imensa e temida cidade de Nínive, capital imperial da Assíria. Conhecida por sua crueldade e violência sanguinária em todo o Oriente Próximo, Nínive era a maior inimiga do povo de Israel. Diante da ordem de clamar contra ela, Jonas embarcou em fuga rumo a Társis, no limite ocidental do mar Mediterrâneo. Não fugiu por covardia, mas pela relutância em ver o favor divino estendido a pagãos cruéis, pois sabia que o Senhor é tardio em irar-se e sublime em bondade. O propósito teológico do livro é romper o exclusivismo espiritual, ensinando que a graça redentora de Deus não é patrimônio privado de uma etnia, mas alcança com soberana compaixão qualquer pessoa que se arrependa."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Grandes Episódios do Livro",
+      "texto": "A narrativa de Jonas é composta por dois grandes atos simétricos de duas cenas cada, marcados pelo confronto entre a vontade de Deus e o coração do profeta. O primeiro ato, englobando os capítulos 1 e 2, narra a desobediência e a primeira comissão: a violenta tempestade no mar, a piedade surpreendente dos marinheiros pagãos que temem a Yahweh, o profeta atirado às profundezas e o maravilhoso resgate pelo grande peixe preparado por Deus, de cujo ventre Jonas entoa um salmo de gratidão e salvação. O segundo ato, formado pelos capítulos 3 e 4, apresenta a segunda oportunidade do profeta: a curta e incisiva proclamação de advertência nas ruas de Nínive, a extraordinária conversão coletiva da metrópole assíria — desde o rei em seu trono até o gado nos pastos —, seguida pela irritação inconformada de Jonas sob o sol ardente, onde Deus usa uma planta, um verme e o vento oriental para ministrar ao profeta a inesgotável compaixão divina pelas vidas humanas e até pelos animais."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Jonas testemunha que a misericórdia de Deus é infinitamente mais larga do que os preconceitos humanos, triunfando soberanamente sobre o juízo. Apontando para o sinal maior da ressurreição de Cristo ao terceiro dia, a história nos convida a abandonar toda amargura e a contemplar o Criador que busca com infinito amor a salvação dos perdidos."
+    }
+  ]
+}

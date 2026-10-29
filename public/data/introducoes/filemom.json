@@ -1,0 +1,30 @@
+{
+  "livro": "Filemom",
+  "slug": "filemom",
+  "abbrev": "Fm",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo a Filemom",
+  "titulo_introducao": "Introdução à Epístola a Filemom",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Carta Íntima e o Poder do Amor Fraternal",
+      "texto": "Com o cabeçalho grego Pros Philēmona — “A Filemom” —, esta é a mais concisa de todas as cartas canônicas do apóstolo Paulo e a única de cunho estritamente privado preservada nas Escrituras. O nome do destinatário, Filemom, deriva do verbo grego phileō (“amar”) e significa apropriadamente “amável” ou “afetuoso”, refletindo com perfeição a atmosfera de carinho fraternal, ternura e reconciliação que envolve cada frase deste tesouro neotestamentário."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Drama de Onésimo e a Graça que Redime",
+      "texto": "Redigida por Paulo por volta dos anos 60 a 62 d.C., durante seu primeiro encarceramento em Roma, e enviada juntamente com a Epístola aos Colossenses, a carta aborda um delicado drama humano e social. Onésimo, um escravo pertencente a Filemom — cristão abastado cuja casa sediava uma congregação em Colossos —, havia fugido e provavelmente furtado bens de seu senhor. Na imensa Roma, pelo desígnio misterioso da providência divina, o fugitivo entrou em contato com o apóstolo prisioneiro e converteu-se genuinamente a Cristo. Paulo o devolve ao seu senhor terreno, mas recusa-se a usar de ordens apostólicas autoritárias; em vez disso, apela ao amor fraternal para que Filemom o acolha não mais sob a ótica da servidão antiga, mas como um irmão amado em Cristo, transformando radicalmente as relações de poder da sociedade greco-romana pela força do Evangelho."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Intercessão Pastoral e Reconciliação em Três Atos",
+      "texto": "Composta por apenas vinte e cinco versículos em um único capítulo, a carta apresenta uma estrutura retórica impecável dividida em três movimentos harmoniosos. O primeiro movimento, dos versículos 1 a 7, abre com afetuosas saudações à família de Filemom e à igreja local, elogiando sua fé vibrante e o amor com que confortara o coração dos santos. O segundo movimento, dos versículos 8 a 16, desenvolve a comovente intercessão apostólica: Paulo roga por Onésimo — seu próprio filho gerado nas prisões —, recorrendo ao significativo trocadilho com o nome Onésimo (que significa “útil”), que outrora fora inútil, mas agora tornara-se precioso para ambos, conclamando Filemom a recebê-lo de coração aberto. O terceiro movimento, dos versículos 17 a 25, oferece a garantia de que Paulo assumirá qualquer dívida deixada pelo servo, expressa confiança irrestrita na generosidade de Filemom e encerra com bênçãos e saudações carinhosas dos companheiros de prisão."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Epístola a Filemom revela a beleza sublime da reconciliação cristã na prática, demonstrando que o Evangelho tem o poder transformador de curar as feridas mais dolorosas e unir pessoas separadas por abismos sociais na dignidade eterna de irmãos em Cristo."
+    }
+  ]
+}

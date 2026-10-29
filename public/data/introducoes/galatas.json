@@ -1,0 +1,30 @@
+{
+  "livro": "Gálatas",
+  "slug": "galatas",
+  "abbrev": "Gl",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo aos Gálatas",
+  "titulo_introducao": "Introdução à Epístola aos Gálatas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Carta Magna da Liberdade Cristã",
+      "texto": "Encabeçada nos manuscritos gregos como Pros Galatas — “Aos Gálatas” —, a epístola foi remetida às congregações de uma província romana da Ásia Menor cuja população incluía descendentes de povos celtas que haviam migrado séculos antes. Conhecida na história da Igreja como a Magna Carta da liberdade cristã, esta carta representa o brado apostólico definitivo contra o legalismo religioso, afirmando que nenhum ritual ou preceito humano tem poder de completar ou substituir a obra perfeita consumada pelo Redentor na cruz."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Perigo Judaizante e a Graça Inegociável",
+      "texto": "Escrita por volta dos anos 48 ou 49 d.C. — logo após a primeira viagem missionária de Paulo e antes ou por ocasião do Concílio de Jerusalém —, a epístola nasceu em um momento de extrema urgência teológica. Mestres judaizantes haviam invadido as congregações da Galácia, ensinando que a fé em Jesus não bastava: para serem plenamente aceitos por Deus, os crentes gentios precisavam ser circuncidados e submeter-se ao jugo da Lei mosaica. Diante dessa ameaça direta à essência da salvação, Paulo reage com santa veemência, omitindo as habituais ações de graças para declarar que qualquer acréscimo de obras meritórias anula a cruz e transforma o Evangelho em um falso evangelho digno de anátema."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Teológica e Tríplice Movimento",
+      "texto": "O argumento paulino articula-se com rigor magistral em três blocos de dois capítulos. O primeiro bloco, nos capítulos 1 e 2, é de natureza histórico-autobiográfica: Paulo defende a origem divina de seu apostolado, recebido diretamente pela revelação de Jesus Cristo e validado fraternalmente pelos líderes da igreja em Jerusalém, relatando inclusive sua firme repreensão a Pedro em Antioquia pela integridade da fé. O segundo bloco, nos capítulos 3 e 4, constitui o cerne teológico da carta: mediante profusa argumentação bíblica, demonstra que a justificação ocorre unicamente pela fé, tornando os crentes verdadeiros herdeiros da promessa feita a Abraão e libertando-os da custódia transitória da Lei. O terceiro bloco, nos capítulos 5 e 6, desdobra a ética sublime da liberdade: liberto da servidão legalista, o crente é advertido contra a libertinagem carnal e convidado a andar no Espírito, gerando seu fruto bendito de amor, alegria e paz, enquanto carrega no corpo as marcas de Jesus."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Epístola aos Gálatas afirma com autoridade imutável que Cristo nos libertou para que sejamos verdadeiramente livres: nenhuma obra humana pode justificar o pecador, cabendo-nos repousar com gratidão e intrepidez unicamente na graça que emana da cruz redentora."
+    }
+  ]
+}

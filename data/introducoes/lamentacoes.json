@@ -1,0 +1,30 @@
+{
+  "livro": "Lamentações",
+  "slug": "lamentacoes",
+  "abbrev": "Lm",
+  "testamento": "vt",
+  "titulo_canonico": "Lamentações de Jeremias",
+  "titulo_introducao": "Introdução ao Livro de Lamentações",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Canto Fúnebre e o Nome do Livro",
+      "texto": "Na Bíblia hebraica, este pungente poema recebe como título sua primeira palavra, Eikhah, uma exclamação carregada de dor e espanto que pode ser traduzida como “Como!”, o tradicional clamor que introduzia os cantos fúnebres do antigo Israel: “Como jaz solitária a cidade outrora tão cheia de povo!”. Na literatura rabínica e no Talmude, o livro é também designado como Qinot, que significa “Lamentos” ou “Elegias fúnebres”. A Septuaginta grega adotou o termo Threnoi, que deu lugar ao título latino Lamentationes na Vulgata, consagrando na tradição bíblica o nome “Lamentações de Jeremias”. Canonicamente integrado aos cinco rolos sagrados das festas judaicas, o texto é lido anualmente no dia do jejum em memória da queda de Jerusalém e da destruição do santuário."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A tradição canônica unânime, preservada na versão grega dos Setenta e ratificada pelos Pais da Igreja e pelos escritores bíblicos, atribui estes cinco poemas à pena comovida do profeta Jeremias, testemunha ocular da tomada, saque e incêndio de Jerusalém pelas hostes do imperador Nabucodonosor no ano 586 antes de Cristo. Diante de escombros ainda fumegantes, da ruína do templo de Salomão e da deportação em massa do povo da promessa, o autor não busca subterfúgios nem desculpas vazias. O propósito teológico central de Lamentações é dar vazão sincera ao luto de uma nação dilacerada, ensinando que o julgamento sofrido não decorreu de um fracasso divino, mas da mais rigorosa justiça do Senhor contra a rebelião persistente de seu povo; contudo, mesmo sob a cinza da aflição, o livro ancora a alma na esperança inabalável da fidelidade do Criador."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A estrutura literária do livro constitui uma verdadeira obra-prima da poesia hebraica, construída em cinco cânticos independentes, quatro dos quais elaborados com o rigor técnico de acrósticos que percorrem sequencialmente as vinte e duas letras do alfabeto. O primeiro cântico, no capítulo 1, descreve Sião personificada como uma nobre viúva abandonada e em prantos, reconhecendo a amargura de seu pecado e a perda de todas as suas grandezas. O segundo cântico, no capítulo 2, foca na ira santa do próprio Deus, revelando que a derrocada das muralhas e dos palácios reais foi executada pela soberana justiça da aliança. O terceiro cântico, no capítulo 3, ergue-se como o pináculo poético e teológico da obra: o autor fala na pessoa de um homem provado pela dor extrema, mas atinge das profundezas o ápice da fé bíblica ao declarar que as misericórdias do SENHOR são a causa de não sermos consumidos, renovando-se a cada manhã em sublime fidelidade. O quarto cântico, no capítulo 4, contrasta a beleza reluzente do passado dourado de Jerusalém com a escória aterradora da fome durante o cerco militar. Por fim, o quinto cântico, no capítulo 5, deixa de lado o acróstico para converter-se em uma comovente oração comunitária, onde o povo suplica ao Rei soberano que os reconduza a si e renove os seus dias."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Lamentações revela que a fé bíblica não foge da dor nem disfarça as feridas da alma, mas leva o sofrimento humano para a presença de um Deus justo, cuja compaixão jamais se esgota e cuja fidelidade se renova a cada amanhecer. Sob a luz do Novo Testamento, os gemidos de Sião encontram seu eco supremo em Cristo Jesus, o Homem de dores que chorou sobre Jerusalém e tomou sobre Si o cálice da amargura no Calvário, transformando o nosso pranto em esperança de redenção eterna. Que a escuta e a meditação nestes cânticos sagrados ensinem o nosso coração a lamentar o pecado com honestidade e a descansar na soberana graça do Redentor."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "Salmos",
+  "slug": "salmos",
+  "abbrev": "Sl",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro dos Salmos",
+  "titulo_introducao": "Introdução ao Livro dos Salmos",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Saltério e o Cântico de Louvor",
+      "texto": "Na Bíblia hebraica, esta sagrada antologia recebe o título de Tehillîm, que significa literalmente “Louvores” ou “Cânticos de Exaltação”. Embora o livro acolha os mais dolorosos lamentos e gritos de socorro da alma, seu nome hebraico sintetiza o destino final de toda oração verdadeira: converter a dor em adoração e tributar honra ao Senhor. A designação em língua portuguesa origina-se da Septuaginta grega, que utilizou Psalmoi para descrever composições poéticas entoadas ao som de instrumentos de corda, termo que deu origem à palavra latina Psalterium. O Saltério é o santuário oracional e litúrgico das Escrituras, acolhendo em seus versos cada pulsar do coração humano na presença de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Culto Comunitário e Propósito Teológico",
+      "texto": "Composto ao longo de cerca de um milênio — desde o cântico de Moisés no deserto até os hinos do retorno pós-exílico de Babilônia —, o Saltério tem como figura central o rei Davi, o doce salmista de Israel, a quem são atribuídos mais de setenta poemas nascidos de suas fugas no deserto, de suas vitórias no trono e de sua humilde penitência perante o Todo-Poderoso. A coletânea também reúne composições inspiradas dos filhos de Coré, de Asafe, de Salomão e de outros sábios do templo. O propósito redentivo dos Salmos é ensinar o povo da aliança a orar, expressando com absoluta sinceridade tanto o júbilo incontido quanto o abatimento mais profundo, sempre alicerçado na fidelidade inabalável de Yahweh, o Rei soberano de toda a terra."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Cinco Livros",
+      "texto": "Composto por cento e cinquenta salmos, o livro foi cuidadosamente estruturado em cinco grandes seções literárias, espelhando os cinco livros da Lei de Moisés e concluindo cada bloco com uma solene bênção de louvor. O primeiro livro, dos Salmos 1 a 41, abre com o contraste entre a vereda do justo que medita na Palavra e o caminho do ímpio, concentrando orações davídicas de refúgio e confiança pessoal em meio à perseguição. O segundo livro, dos Salmos 42 a 72, inicia com o anseio pela presença viva de Deus e conclui com a maravilhosa oração profética pelo reinado universal do Filho de Deus. O terceiro livro, dos Salmos 73 a 89, mergulha em tempos de provação comunitária e na angústia pelo aparente colapso da aliança davídica após a ruína do templo. O quarto livro, dos Salmos 90 a 106, responde à crise do exílio erguendo os olhos para a eternidade do Criador e proclamando que o Senhor reina sobre toda a história. O quinto e último livro, dos Salmos 107 a 150, celebra a redenção, reúne os cânticos de romagem dos peregrinos que subiam a Sião e culmina na monumental doxologia final, onde tudo o que tem fôlego é convocado a louvar ao Senhor."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Ao longo de todo o Saltério resplandece o mistério e a glória de Jesus Cristo — o Ungido prometido cantado no Salmo 2, o Justo crucificado que brada no Salmo 22, o Bom Pastor do Salmo 23 e o Sacerdote eterno e Rei vitorioso do Salmo 110. Que a leitura e a escuta destes salmos sagrados ensinem os nossos lábios a suplicar com verdade, a descansar na providência divina e a entoar louvores ao Deus que ouve a nossa oração."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "livro": "Judas",
+  "slug": "judas",
+  "abbrev": "Jd",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola Universal do Apóstolo Judas",
+  "titulo_introducao": "Introdução à Epístola de Judas",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "O título da carta traz o nome hebraico Yehudah — Judas —, cujo sentido evoca o louvor sincero que sobe a Deus. O escritor se apresenta com notável humildade como servo de Jesus Cristo e irmão de Tiago, vínculo fraternal que aponta para sua condição de irmão do próprio Salvador segundo a linhagem de Maria e José. Abrindo mão de ostentar laços terrenos de parentesco com o Mestre, Judas prefere proclamar sua honra suprema: ser um servo leal a serviço do Senhor ressurreto."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Escrita provavelmente entre os anos 65 e 80 da nossa era, esta epístola universal nasceu de uma santa urgência pastoral. O autor planejava escrever com calma a respeito da salvação compartilhada por todos os santos, mas viu-se impelido pelo Espírito a soar um alarme vigoroso: indivíduos corruptores e ímpios haviam se infiltrado secretamente nas congregações, pervertendo a graça de Deus em devassidão desenfreada e rejeitando a autoridade do nosso único Soberano e Senhor Jesus Cristo. O propósito de Judas é convocar a Igreja a batalhar ardentemente pela fé que uma vez por todas foi confiada aos crentes, sustentando a integridade moral da comunidade diante da apostasia crescente."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "Composta por 25 versículos densos e eloquentes, a mensagem se articula em um único movimento de corajosa advertência e consolo espiritual. Inicialmente, o texto conclama os fiéis à defesa tenaz do patrimônio da fé e resgata três juízos históricos incontestáveis — o povo rebelde destruído no deserto após a saída do Egito, os anjos caídos retidos em trevas e as cidades pervertidas de Sodoma e Gomorra — para demonstrar a certeza da punição divina sobre a impiedade. Em seguida, recorrendo a ricas metáforas cósmicas e naturais, retrata a hipocrisia e a esterilidade dos falsos mestres, descrevendo-os como nuvens sem chuva sopradas pelos ventos e ondas bravias que espumam suas próprias torpezas. Por fim, Judas exorta a igreja a se edificar na santíssima fé, orando no Espírito Santo e resgatando os vacilantes com compaixão e temor, concluindo com uma das mais gloriosas doxologias do Novo Testamento em honra Àquele que é poderoso para nos guardar de tropeçar."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A epístola de Judas proclama que a verdadeira graça divina não tolera a conivência com o pecado, convocando o povo eleito a guardar-se firme no amor de Deus enquanto aguarda a vida eterna."
+    }
+  ]
+}

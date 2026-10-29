@@ -1,0 +1,30 @@
+{
+  "livro": "1 João",
+  "slug": "1-joao",
+  "abbrev": "1Jo",
+  "testamento": "nt",
+  "titulo_canonico": "Primeira Epístola Universal do Apóstolo João",
+  "titulo_introducao": "Introdução à Primeira Epístola de João",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e Significado Etimológico",
+      "texto": "O título consagra o nome grego Ioannes, oriundo do hebraico Yohanan, cujo significado ecoa como um cântico: “Yahweh é gracioso” ou “o Senhor manifestou sua graça”. Embora a carta dispense o cabeçalho epistolar convencional — abrindo-se com a majestade de um manifesto apostólico e uma confissão teológica —, ela foi recebida no cânon como uma epístola universal destinada a fortificar a comunhão, a santidade e o amor divino em todas as igrejas de Cristo."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A tradição canônica unânime atribui este texto ao apóstolo João, o discípulo amado que testemunhara de perto a vida, morte e ressurreição de Cristo, escrevendo provavelmente de Éfeso nas últimas décadas do primeiro século. A comunidade cristã sofria a infiltração de heresias proto-gnósticas e docetistas, que negavam a humanidade real de Jesus e ensinavam que a conduta do corpo em nada afetava a comunhão com o divino. O propósito redentivo de João é reafirmar a encarnação verdadeira do Filho de Deus e devolver aos crentes a certeza da salvação. Ele estabelece três provas inseparáveis de vida regenerada: a pureza doutrinária que confessa Cristo vindo em carne, a obediência santa aos mandamentos e o amor sincero e sacrificial pelos irmãos."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "O texto se desenvolve em três movimentos teológicos que se alternam e aprofundam como círculos concêntricos de verdade. O primeiro movimento, nos capítulos 1 e 2, proclama a realidade histórica do Verbo da vida que os olhos viram e as mãos apalparam; declara que Deus é luz e convida à confissão de pecados com a confiança em Cristo como nosso Advogado perante o Pai, alertando a juventude da fé contra o fascínio e os desejos passageiros deste mundo. O segundo movimento, nos capítulos 3 e 4, revela o grandioso privilégio de sermos chamados filhos de Deus, desafia os crentes a amarem não com palavras vazias, mas em ações e em verdade, e apresenta o discernimento dos espíritos, culminando na luminosa declaração de que Deus é amor e quem permanece no amor permanece em Deus. O terceiro movimento, no capítulo 5, sintetiza o poder da fé que vence o mundo, apoia-se no testemunho unânime do Espírito, da água e do sangue, e coroa o escrito com a plena convicção da vida eterna concedida àquele que possui o Filho de Deus."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Primeira Epístola de João proclama que a comunhão autêntica com Deus exige luz na doutrina, pureza na caminhada e amor genuíno na convivência com o próximo."
+    }
+  ]
+}

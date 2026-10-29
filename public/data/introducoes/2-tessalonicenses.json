@@ -1,0 +1,30 @@
+{
+  "livro": "2 Tessalonicenses",
+  "slug": "2-tessalonicenses",
+  "abbrev": "2Ts",
+  "testamento": "nt",
+  "titulo_canonico": "Segunda Epístola do Apóstolo Paulo aos Tessalonicenses",
+  "titulo_introducao": "Introdução à Segunda Epístola aos Tessalonicenses",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Continuidade Epistolar e a Sobriedade Profética",
+      "texto": "Conhecida nos manuscritos gregos como Pros Thessalonikeis B — “Segunda aos Tessalonicenses” —, esta missiva representa a pronta continuidade pastoral de Paulo para com os crentes da capital macedônia. Enviada poucos meses após a primeira epístola, a carta reafirma a autoridade apostólica e serve como corretivo profético indispensável para salvaguardar a estabilidade emocional, teológica e prática da congregação."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Falso Alarme e o Dia do Senhor",
+      "texto": "Composta por volta dos anos 51 ou 52 d.C., também durante a permanência de Paulo em Corinto, a carta foi motivada por um estado de comoção e tumulto teológico na igreja de Tessalônica. Relatos orais distorcidos e cartas falsamente atribuídas ao apóstolo haviam disseminado o pânico de que o “Dia do Senhor” já havia chegado. Essa confusão gerou apatia e indisciplina: alguns membros abandonaram o sustento diário pelo trabalho e passaram a viver como desordeiros curiosos, alegando uma iminência espiritual equivocada. Paulo intervém com autoridade para assegurar que a justiça divina vindicará os santos e para instruir que a consumação final será precedida por eventos proféticos bem delineados, requerendo perseverança e labor disciplinado."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Consolo, Revelação e Disciplina Prática",
+      "texto": "A carta divide-se em três capítulos breves, densos e complementares. No capítulo 1, Paulo enaltece o progresso admirável da fé e do amor comunitário sob intensa perseguição, consolando os corações aflitos com a certeza do justo juízo divino, que trará alívio aos fiéis e retribuição aos que rejeitam a Deus na manifestação gloriosa de Jesus com seus anjos em labaredas de fogo. No capítulo 2, desfaz o engano escatológico demonstrando que aquele Dia não virá sem que antes ocorra a apostasia e se manifeste o homem da iniquidade, o filho da perdição, a quem o Senhor Jesus destruirá pelo sopro de sua boca, instando os crentes a se apegarem às tradições ensinadas. No capítulo 3, conclama à oração pelo avanço do Evangelho e ordena rigorosa disciplina eclesial contra a indolência, reiterando a máxima prática: “se alguém não quer trabalhar, também não coma”, encerrando com a bênção da paz divina."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Segunda aos Tessalonicenses conclama a Igreja a manter os olhos fitos na vitória definitiva do Cordeiro, sem jamais abandonar a sobriedade espiritual, a disciplina moral e o labor diário no serviço do Reino."
+    }
+  ]
+}

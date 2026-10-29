@@ -1,0 +1,30 @@
+{
+  "livro": "Ester",
+  "slug": "ester",
+  "abbrev": "Et",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Ester",
+  "titulo_introducao": "Introdução ao Livro de Ester",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "No cânon hebraico, este tesouro literário é conhecido como Megillat Ester, o “Rolo de Ester”, lido anualmente com grande júbilo na festividade judaica de Purim. A protagonista possuía originalmente o belo nome semítico Hadassah, que significa “murta” — um arbusto aromático verdejante e perfumado —, mas adotou na corte persa o nome Ester, associado à palavra persa stara, que significa “estrela”, ou alusivo à deusa Ishtar. Preservado na Septuaginta grega e na Vulgata latina sob a forma Esther, o título consagra a jovem órfã cuja bravura, beleza e discernimento resplandeceram como uma estrela salvadora em meio à noite mais escura enfrentada pela diáspora judaica."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Composto por um autor anônimo de aguçado conhecimento das minúcias da corte imperial de Susã no século V a.C. — sob o reinado do soberano persa Xerxes I, o Assuero bíblico —, o livro tem uma característica ímpar em toda a Bíblia: o nome sagrado de Deus não é expressamente mencionado uma única vez em seu texto hebraico. Longe de representar secularismo, esse extraordinário recurso literário constitui a maior afirmação teológica da obra: a doutrina da providência soberana de Deus. Mesmo quando invisível aos olhos e em silêncio nas cortes pagãs, Deus rege com absoluta precisão os acontecimentos humanos, orquestrando banquetes extravagantes, a insônia providencial de um rei e a audácia de uma rainha judia para anular os decretos de morte e preservar a semente da aliança."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A narrativa se constrói como uma obra-prima de tensão dramática e irônica reviravolta de destinos. No início, dos capítulos 1 a 3, a rainha Vasti é repudiada por desobedecer ao rei, Ester é escolhida e coroada após um minucioso processo de seleção na cidadela de Susã, e seu tutor Mardoqueu descobre uma conspiração letal contra o imperador. Contudo, ergue-se o ambicioso primeiro-ministro Hamã, o agagita, que, inflamado de cólera pela recusa de Mardoqueu em prostrar-se perante ele, compra a assinatura de um edito imperial para o extermínio sistemático de todos os judeus do império, determinando o dia fatídico pelo lançamento da sorte, o pur. No centro da narrativa, dos capítulos 4 e 5, Mardoqueu conclama Ester à coragem com o célebre desafio: quem sabe se não foi para uma ocasião como esta que chegaste ao reino? Após jejuar e orar com suas servas, Ester declara com fé inabalável: se perecer, pereci, e se apresenta diante do rei sem ser convocada, convidando o soberano e o vilão a dois banquetes consecutivos. O clímax e o desfecho, dos capítulos 6 a 10, operam uma impressionante inversão da sorte: na noite em que o rei perde o sono, os registros dos méritos de Mardoqueu são lidos, e o humilhado Hamã é forçado a homenagear seu adversário em praça pública; no segundo banquete, Ester desmascara a nefasta trama, e Hamã é enforcado na mesmíssima forca de vinte e cinco metros que mandara erguer para Mardoqueu; um novo decreto régio autoriza os judeus a se defenderem vitoriosamente de seus algozes, e a salvação do povo é consagrada para todo o sempre com o banquete e a alegria das festas de Purim."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Ester proclama vigorosamente que os caminhos e o destino do povo de Deus não estão entregues aos caprichos de governantes ímpios nem ao acaso da sorte terrena. A providência divina vela em silêncio para cumprir suas promessas, transformando o luto iminente em triunfo incontestável e apontando para Cristo Jesus — o Salvador perfeito que intercedeu por nós e entregou sua vida para que fôssemos resgatados do decreto inapelável da morte eterna."
+    }
+  ]
+}

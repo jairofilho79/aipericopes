@@ -1,0 +1,30 @@
+{
+  "livro": "Isaías",
+  "slug": "isaias",
+  "abbrev": "Is",
+  "testamento": "vt",
+  "titulo_canonico": "Isaías",
+  "titulo_introducao": "Introdução ao Livro de Isaías",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Príncipe dos Profetas e o Nome do Livro",
+      "texto": "Na tradição hebraica, este livro leva o nome de seu autor, Yeshayahu, uma poderosa combinação do verbo yasha — que significa “salvar” ou “libertar” — com o tetragrama sagrado abreviado Yahu, expressando a solene confissão: “O SENHOR é salvação”. Quando as Escrituras foram traduzidas para o grego na Septuaginta, o nome foi grafado como Esaias, que mais tarde se tornou Isaias no latim da Vulgata, dando origem à forma Isaías em nossa língua. Este título não é apenas uma designação biográfica, mas a chave teológica de toda a obra: frequentemente chamado de “o quinto evangelista” pelo vigor com que antecipa o Evangelho, Isaías proclama que a salvação não procede do poder militar nem da diplomacia terrena, mas unicamente da graça soberana do Deus de Israel."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Filho de Amoz, Isaías exerceu seu nobre ministério em Jerusalém durante a segunda metade do século VIII antes de Cristo, atravessando os reinados de Uzias, Jotão, Acaz e Ezequias. O profeta viveu em uma das eras mais turbulentas da antiguidade, quando o implacável Império Assírio avançava sobre o Oriente Médio, enquanto o povo de Judá sucumbia à hipocrisia religiosa, à idolatria e à opressão social contra órfãos e viúvas. Diante desse colapso moral, o livro proclama a transcendência inegociável de Deus como “o Santo de Israel” — título predileto de Isaías. O propósito profético é confrontar a falsa segurança pactual, advertir sobre o julgamento purificador e assegurar que o Senhor preservará um remanescente santo, cumprindo suas promessas eternas feitas à linhagem davídica."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A profecia de Isaías desdobra-se em três grandiosos movimentos literários de incomparável elevação poética. O primeiro movimento, que abrange do capítulo 1 ao 39, concentra-se no confronto histórico e no juízo divino contra a infidelidade de Judá e o orgulho das nações circunvizinhas; nele destacam-se a sublime visão do trono celestial no capítulo 6, o anúncio profético do Emanuel e do Príncipe da Paz, e o miraculoso livramento de Jerusalém diante do cerco assírio de Senaqueribe. O segundo movimento, do capítulo 40 ao 55, ecoa como um cântico arrebatador de consolo e redenção aos exilados na Babilônia, contrastando a majestade infinita do Deus Criador com a fragilidade ridícula dos ídolos e culminando nos célebres cânticos do Servo do SENHOR — cujo clímax no capítulo 53 revela a expiação vicária do Cordeiro traspassado pelas nossas transgressões. O terceiro movimento, do capítulo 56 ao 66, projeta a consumação escatológica e a glória da nova comunidade da aliança, onde as boas-novas aos quebrantados desaguam na promessa resplandecente de novos céus e nova terra, quando povos de todas as nações se achegarão para adorar o Rei soberano."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Ao longo de todo o livro de Isaías resplandece com vigor insuperável o mistério da redenção e a esperança messiânica: nele contemplamos o Emanuel nascido da virgem, a Luz que resplandece sobre a Galileia, o Príncipe da Paz cujo governo não terá fim e, de modo comovente, o Servo Sofredor que levou sobre Si as nossas dores para nos reconciliar com Deus. Ele nos ensina que, por mais profundas que sejam as trevas do pecado e da angústia humana, o Santo de Israel reina soberano e conduz a criação rumo a novos céus e nova terra. Que a leitura e a escuta desta sublime profecia preparem o nosso coração para contemplar a majestade de Deus e acolher com reverência a salvação eterna operada por sua graça."
+    }
+  ]
+}

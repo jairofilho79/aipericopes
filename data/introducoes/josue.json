@@ -1,0 +1,30 @@
+{
+  "livro": "Josué",
+  "slug": "josue",
+  "abbrev": "Js",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Josué",
+  "titulo_introducao": "Introdução ao Livro de Josué",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "No cânon hebraico, este livro leva o nome de seu protagonista, Yehoshua, que significa “O SENHOR é salvação” ou “Iavé salva”. Na antiga tradução grega da Septuaginta, esse nome foi vertido como Iēsous — a mesmíssima forma que mais tarde designaria, no Novo Testamento, a Jesus de Nazaré —, passando à Vulgata latina e ao português como Josué. Longe de ser apenas um título biográfico, o nome sintetiza o coração de toda a narrativa: a conquista da terra não se deu pela proeza militar de Israel, mas pela mão poderosa e salvífica de Deus, que realizou milagres em favor do seu povo."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Abrindo a seção que a tradição hebraica denomina de Profetas Anteriores, o livro é tradicionalmente associado ao próprio Josué, filho de Num, com adições finais de memorial redigidas por líderes piedosos de sua época. O cenário histórico marca a transição crucial da peregrinação no deserto para a entrada e fixação em Canaã. O propósito primordial da obra é proclamar a fidelidade absoluta de Deus à aliança abraâmica: a promessa de uma terra para a posteridade dos patriarcas finalmente se concretiza. Contudo, o livro deixa claro que a permanência e a paz nessa herança dependem da obediência incondicional à Lei divina revelada a Moisés."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A narrativa se desenrola em três grandes movimentos dramáticos. O primeiro movimento, do capítulo 1 ao 12, narra a marcha triunfal de conquista: a travessia miraculosa do rio Jordão em terra seca, a derrocada imponente das muralhas de Jericó e as campanhas decisivas no centro, no sul e no norte do território, onde o SENHOR combateu por Israel. O segundo movimento, do capítulo 13 ao 21, descreve a partilha meticulosa da terra prometida entre as doze tribos, incluindo o estabelecimento das cidades de refúgio e das cidades dos levitas, evidenciando que cada clã recebeu sua porção designada pela providência. O terceiro movimento, do capítulo 22 ao 24, culmina na pacificação das tribos orientais e nos solenes discursos de despedida do envelhecido líder, encerrando com a renovação da aliança em Siquém e o desafio inesquecível: escolhei hoje a quem haveis de servir."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Josué ressoa como uma celebração incontestável da fidelidade divina, assegurando que nenhuma só palavra falhou de tudo quanto o SENHOR havia prometido. Ele aponta profeticamente para o verdadeiro Josué — Cristo Jesus —, que conduz o povo eleito ao descanso celestial definitivo e nos faz mais do que vencedores na herança eterna da redenção."
+    }
+  ]
+}

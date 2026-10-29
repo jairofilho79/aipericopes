@@ -1,0 +1,30 @@
+{
+  "livro": "Daniel",
+  "slug": "daniel",
+  "abbrev": "Dn",
+  "testamento": "vt",
+  "titulo_canonico": "Daniel",
+  "titulo_introducao": "Introdução ao Livro de Daniel",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Estadista na Babilônia e o Nome do Livro",
+      "texto": "O livro recebe o nome de seu eminente protagonista, Daniyel, formado pelo substantivo verbal dan — derivado da raiz que exprime “julgar”, “fazer justiça” ou “reivindicar a causa” — aliado ao nome divino El, significando literalmente “Deus é meu juiz” ou “Deus faz a minha justiça”. A Septuaginta grega preservou o nome intacto como Daniel, mantido de igual modo pela Vulgata em latim e transportado integralmente para a língua portuguesa. Muito embora o poder imperial babilônico tenha rebatizado o jovem judeu com o nome de Beltessazar em uma estratégia deliberada de assimilação cultural, o registro sagrado preserva seu nome hebraico como testemunho permanente: acima de todos os tribunais pagãos e imperadores terrenos, a corte celestial do Altíssimo é quem pronuncia o veredito final e governa o destino dos homens."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Jovem de linhagem nobre e real em Judá, Daniel foi levado como prisioneiro para a Babilônia na primeira incursão militar de Nabucodonosor no ano 605 antes de Cristo, durante os dias do rei Jeoaquim. Excepcionalmente instruído na literatura e nas ciências dos caldeus, exerceu funções governamentais de primeiro escalão ao longo de mais de sete décadas sob sucessivos regimes — desde o apogeu babilônico com Nabucodonosor e Belsazar até a transição para o domínio medo-persa com Dario e Ciro. O texto destaca-se por sua composição literária bilíngue: redigido em hebraico nos capítulos iniciais e finais, adota o aramaico imperial do capítulo 2 ao 7 para proclamar abertamente a todas as nações o senhorio universal de Deus. O propósito teológico central da obra é fortalecer a fé e a fidelidade irredutível do povo da aliança sob a tirania de impérios gentílicos, revelando que o Altíssimo reina sobre a soberba humana, remove reis e entroniza governantes conforme a sua soberana vontade."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A arquitetura do livro distribui-se em dois movimentos simétricos e complementares que somam doze capítulos de profunda beleza narrativa e intensidade profética. O primeiro movimento, do capítulo 1 ao 6, reúne relatos históricos inesquecíveis que demonstram a proteção miraculosa de Deus aos que lhe permanecem leais em terra estrangeira; acompanhamos a recusa corajosa dos banquetes idólatras da corte, a revelação profética do sonho da colossal estátua humana de quatro metais esmiuçada pela pedra celestial, a libertação inacreditável dos três amigos na fornalha ardente ao lado do quarto homem divino, a loucura pedagógica que humilhou a soberba de Nabucodonosor, a pesagem irrevogável do festim de Belsazar anunciada pelas misteriosas letras na parede e o resgate milagroso de Daniel na cova dos leões. O segundo movimento, do capítulo 7 ao 12, transporta o leitor para o reino das grandes visões apocalípticas sobre o desfecho da história mundial; nele contemplamos a emergência das quatro feras brutais do mar, a corte majestosa do Ancião de Dias e a entronização perpétua do Filho do Homem no capítulo 7, a contagem profética das setenta semanas que assinala a vinda do Ungido e a expiação do pecado no capítulo 9, e os intensos conflitos cósmicos que desaguam na promessa final da ressurreição dos justos para o fulgor eterno do firmamento."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Daniel é a solene proclamação de que o Altíssimo governa soberano sobre a história humana e sobre os destinos de todos os impérios da terra: os reinos deste mundo, por mais ferozes e soberbos que se apresentem, são passageiros e cairão diante do Reino eterno que não será destruído. Ao descortinar a visão majestosa do Filho do Homem vindo sobre as nuvens celestiais para receber o domínio perpétuo, Daniel aponta diretamente para o triunfo absoluto de Jesus Cristo, ressurreto e vitorioso. Que a leitura e a escuta destas páginas inspirem em nossa caminhada uma coragem inabalável e uma lealdade inegociável a Deus, na bendita certeza de que o seu Reino jamais terá fim."
+    }
+  ]
+}

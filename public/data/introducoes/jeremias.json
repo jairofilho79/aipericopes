@@ -1,0 +1,30 @@
+{
+  "livro": "Jeremias",
+  "slug": "jeremias",
+  "abbrev": "Jr",
+  "testamento": "vt",
+  "titulo_canonico": "Jeremias",
+  "titulo_introducao": "Introdução ao Livro de Jeremias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Profeta das Nações e o Nome do Livro",
+      "texto": "No texto sagrado hebraico, o livro recebe o nome de Yirmeyahu — ou sua forma abreviada Yirmeyah —, que une o verbo hebraico indicando erguer, exaltar ou lançar ao nome da aliança, significando “O SENHOR exalta” ou “Aquele a quem o SENHOR estabelece e envia”. Na Septuaginta grega, o nome passou para Ieremias, vertido no latim da Vulgata de Jerônimo com a mesma grafia e consagrado em português como Jeremias. O significado etimológico harmoniza-se de maneira tocante com o chamado ministerial do profeta: antes mesmo de ser formado no ventre materno, ele foi consagrado pelo Deus soberano para ser lançado no turbilhão da história como sentinela das nações, encarregado de arrancar e derribar para depois edificar e plantar."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Natural da aldeia sacerdotal de Anatote, Jeremias, filho de Hilquias, foi chamado em sua juventude no décimo terceiro ano do reinado do piedoso rei Josias, por volta de 627 antes de Cristo. Seu ministério estendeu-se por mais de quatro décadas agonizantes, atravessando os governos desastrosos dos últimos reis de Judá até a destruição de Jerusalém pelas tropas babilônicas em 586 antes de Cristo e o posterior exílio no Egito. Contando com a colaboração de seu escriba Baruque, Jeremias enfrentou perseguições implacáveis, espancamentos e o calabouço porque ousou desmascarar a hipocrisia de um povo que confiava supersticiosamente na inviolabilidade do templo enquanto violava a lei da aliança. O propósito teológico da mensagem é demonstrar a santidade irrevogável do juízo de Deus sobre a apostasia, revelando ao mesmo tempo a dor profunda do coração do Criador e o vislumbre inabalável da graça que promete um recomeço espiritual."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A obra de Jeremias organiza-se em três vastos movimentos que entrelaçam oráculos proféticos candentes e memórias autobiográficas de rara comoção. O primeiro movimento, do capítulo 1 ao 25, inaugura o chamado vocacional do jovem profeta e expõe suas severas denúncias contra a apostasia espiritual de Judá; nele ressoam o famoso sermão da porta do templo, as dolorosas queixas íntimas de Jeremias e a profecia determinante de que o cativeiro na Babilônia perduraria por setenta anos. O segundo movimento, do capítulo 26 ao 45, concentra-se nos dramáticos conflitos biográficos, no cerco babilônico e na consumação da tragédia nacional, resguardando em seu centro o luminoso “Livro da Consolação” — nos capítulos 30 ao 33 —, onde se proclama a sublime promessa da Nova Aliança gravada não em pedras, mas na mente e no coração dos crentes. O terceiro movimento, do capítulo 46 ao 52, reúne os oráculos de julgamento soberano contra as nações gentílicas vizinhas — culminando na queda sentenciada da altiva Babilônia — e sela o livro com o relato histórico da destruição de Jerusalém e da preservação graciosa do rei Joaquim, confirmando a perfeita fidelidade de cada palavra anunciada pelo Senhor."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O testemunho de Jeremias proclama que a misericórdia de Deus triunfa sobre o julgamento: o mesmo Senhor que fere com santa justiça é aquele que cura com amor eterno, fazendo brotar na plenitude dos tempos o Renovo Justo da estirpe de Davi. Na cruz do Calvário, Cristo inaugurou a Nova Aliança antevista pelo profeta, perdoando definitivamente as nossas iniquidades e escrevendo a sua lei de amor no íntimo de nossa alma. Que a leitura e a escuta deste livro quebrantem a nossa autossuficiência, despertem em nós uma fidelidade corajosa e renovem a nossa confiança na fidelidade inabalável do Deus da aliança."
+    }
+  ]
+}

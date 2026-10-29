@@ -1,0 +1,30 @@
+{
+  "livro": "Ageu",
+  "slug": "ageu",
+  "abbrev": "Ag",
+  "testamento": "vt",
+  "titulo_canonico": "Ageu",
+  "titulo_introducao": "Introdução ao Livro de Ageu",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome Festivo e a Restauração da Glória",
+      "texto": "Na tradição hebraica, este livro leva o título de Chaggai, termo derivado do substantivo chag, que significa “festa”, “celebração solene” ou “peregrinação religiosa”, podendo ser traduzido como “festivo” ou “aquele que nasceu em dia de festa”. Preservado na Septuaginta grega como Aggaios e na Vulgata latina como Aggaeus, o nome do profeta aponta de modo inspirador para a atmosfera jubilosa que acompanha a renovação da aliança: o restabelecimento da verdadeira adoração que transforma o lamento do cativeiro em celebração perpétua na Casa de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Retorno do Exílio e a Reconstrução do Templo",
+      "texto": "Ageu é o primeiro dos três profetas pós-exílicos de Israel, ao lado de Zacarias e Malaquias. O livro se destaca pela precisão cirúrgica de suas datas históricas, registrando quatro mensagens transmitidas ao longo de apenas quatro meses no ano 520 a.C., sob o segundo ano do reinado de Dario 1º da Pérsia. Quase duas décadas antes, em 538 a.C., um remanescente judeu liderado por Zorobabel e pelo sumo sacerdote Josué retornara da Babilônia autorizado pelo decreto de Ciro, lançando os alicerces do Segundo Templo. Todavia, intimidado pela oposição dos povos vizinhos e absorvido por interesses particulares, o povo paralisou as obras por dezesseis longos anos. Enquanto os israelitas investiam recursos e empenho na construção e no embelezamento de suas próprias casas com madeiras nobres, a Casa do Senhor permanecia em ruínas. Como consequência dessa negligência espiritual, as lavouras secavam, a inflação corroía os ganhos e a frustração material se multiplicava. O propósito de Ageu é despertar a consciência da comunidade: convocar os repatriados a ordenar suas prioridades, colocar a glória de Deus em primeiro lugar e reedificar o Templo com a garantia da presença soberana do Espírito do Senhor."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e os Quatro Discursos Proféticos",
+      "texto": "O livro de Ageu é estruturado com clareza admirável em torno de quatro oráculos pontuais que transformaram a história daquela geração. O primeiro oráculo, contido no capítulo 1, confronta a cômoda desculpa do povo de que ainda não havia chegado o tempo de construir a Casa do Senhor, exorta a comunidade a considerar os seus caminhos e produz um fruto imediato de fé: líderes e povo obedecem e reiniciam os trabalhos no santuário em menos de um mês. O segundo oráculo, que abre o capítulo 2 até o versículo 9, consola os anciãos que haviam conhecido o antigo esplendor salomônico e choravam pela modéstia da nova estrutura, assegurando que o Espírito de Deus permanece no meio deles e que a glória deste último templo será maior que a do primeiro, pois o Senhor abalará as nações e trará paz àquele lugar. O terceiro oráculo, nos versículos 10 a 19 do mesmo capítulo, utiliza uma consulta sacerdotal sobre a transmissão da pureza e da impureza ritual para mostrar que a bênção de Deus substituiria a escassez agrícola a partir do momento em que o povo se dedicasse à fundação do Templo. O quarto oráculo, que encerra o livro nos versículos 20 a 23, dirige uma promessa messiânica especial a Zorobabel, declarando-o o anel de selar do Todo-Poderoso, renovando assim as promessas da dinastia davídica em meio às convulsões mundiais."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Ageu nos desafia a examinar as prioridades do coração e nos lembra de que nenhuma vida ou comunidade prospera quando a honra de Deus é negligenciada. Ao mergulhar em sua mensagem objetiva, somos encorajados a construir sobre o fundamento inabalável da presença divina, seguros de que o Senhor cumpre sua gloriosa aliança de paz."
+    }
+  ]
+}

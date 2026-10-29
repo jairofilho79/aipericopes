@@ -1,0 +1,30 @@
+{
+  "livro": "Rute",
+  "slug": "rute",
+  "abbrev": "Rt",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Rute",
+  "titulo_introducao": "Introdução ao Livro de Rute",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "O livro recebe o nome de sua notável protagonista feminina, Rut, na tradição hebraica — uma palavra que evoca as raízes semíticas de amizade, companheirismo e consolação. Mantido em sua forma original grega e latina pela Septuaginta e pela Vulgata, o título celebra a comovente história de uma jovem estrangeira de Moabe. Em contraste vívido com a dureza de coração e a infidelidade que caracterizaram aquela época, o nome de Rute brilha como um estandarte de amor leal, altruísmo e devoção filial."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Embora a autoria seja anônima — com a tradição judaica apontando para o profeta Samuel —, a narrativa se passa expressamente na época em que os juízes governavam, culminando na linhagem que introduz o rei Davi. Enquanto o Livro dos Juízes retrata as grandes crises bélicas e a corrupção moral da nação, Rute nos conduz ao ambiente íntimo e rural de Belém, onde homens e mulheres tementes a Deus vivem com integridade cotidiana. O propósito teológico do livro repousa sobre a manifestação do hesed — a bondade pactual e a fidelidade incondicional de Deus —, revelando como o SENHOR recompensa a fé autêntica e opera providencialmente através das leis do parente remidor, o go'el, para resgatar os desamparados da miséria."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "A narrativa se constrói com elegante perfeição literária em quatro atos harmoniosos, correspondentes a cada um dos quatro capítulos. No primeiro ato, no capítulo 1, testemunhamos a tragédia da perda, da viuvez e da fome em Moabe, culminando na nobre declaração de Rute, que se recusa a abandonar sua sogra Noemi e faz do Deus de Israel o seu próprio Deus ao retornar a Belém. No segundo ato, no capítulo 2, a providência guia os passos de Rute para respigar nos campos de Boaz, um proprietário próspero e compassivo que a acolhe debaixo das asas protetoras do SENHOR. No terceiro ato, no capítulo 3, desenrola-se o corajoso e solene encontro noturno na eira de cevada, onde Rute reivindica o dever de resgate pactual. No quarto ato, no capítulo 4, o acordo é selado com sabedoria perante os anciãos nas portas da cidade, culminando no casamento, na redenção da herança, no nascimento do menino Obede e na grandiosa genealogia que conduz diretamente ao rei Davi."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Rute proclama a maravilhosa verdade de que Deus governa cada detalhe das circunstâncias diárias para cumprir seus propósitos eternos de graça. Ao enxertar uma mulher gentílica na linhagem sagrada do rei de Israel, a história prefigura Cristo Jesus — o nosso perfeito e supremo Redentor —, que nos acolheu quando éramos estrangeiros e nos resgatou da indigência espiritual para nos tornar participantes da aliança eterna do Pai."
+    }
+  ]
+}

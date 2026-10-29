@@ -1,0 +1,30 @@
+{
+  "livro": "1 Samuel",
+  "slug": "1-samuel",
+  "abbrev": "1Sm",
+  "testamento": "vt",
+  "titulo_canonico": "O Primeiro Livro de Samuel",
+  "titulo_introducao": "Introdução ao Primeiro Livro de Samuel",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Livro e seu Significado",
+      "texto": "Originalmente, os livros de 1 e 2 Samuel formavam um único rolo na Bíblia hebraica denominado Shemuel, que significa “Ouvido por Deus” ou “Nome de Deus”, em alusão à fervorosa oração de sua mãe, Ana. Quando os tradutores da Septuaginta grega verteram as Escrituras, acharam o rolo demasiadamente longo e o dividiram em duas partes, chamando-os de Primeiro e Segundo Livros dos Reinos. Mais tarde, a Vulgata de Jerônimo acolheu a divisão sob a designação de 1 e 2 Reis, até que a Reforma restabeleceu o título tradicional de Samuel, homenageando o profeta e sacerdote que serviu de ponte decisiva entre os juízes e a monarquia."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A obra incorpora registros dos profetas Samuel, Natã e Gade, preservando a memória histórica dos séculos XI e X a.C. O livro aborda o momento de crise nacional em que o povo de Israel, pressionado pela supremacia bélica dos filisteus e desiludido com a impiedade dos filhos de Eli e de Samuel, exige a instituição de um monarca terreno para ser como todas as nações pagãs vizinhas. O propósito teológico central é afirmar que, mesmo sob uma realeza humana, Deus continua sendo o verdadeiro e soberano Rei de Israel. O poder político deve curvar-se à voz profética e à Lei moral do SENHOR; a soberba e a desobediência acarretam a rejeição do trono, ao passo que a humildade e a integridade de coração são coroadas pela graça divina."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Históricos",
+      "texto": "O livro é conduzido por três biografias que se entrelaçam com intensidade dramática. O primeiro movimento, do capítulo 1 ao 7, retrata a infância milagrosa e o chamado de Samuel, a decadência da casa sacerdotal de Eli, a captura humilhante da Arca da Aliança e a renovação espiritual sob a liderança intercessora do profeta. O segundo movimento, do capítulo 8 ao 15, detalha a exigência popular por um rei, a escolha e unção de Saul, suas vitórias iniciais e sua subsequente degeneração espiritual, marcada por rituais precipitados e rebeldia descarada, o que culmina em sua irrevogável desqualificação profética. O terceiro movimento, do capítulo 16 ao 31, testemunha a unção secreta de Davi pelo óleo sagrado de Samuel, o triunfo espetacular sobre Golias, a amizade pura com Jônatas, a longa e angustiante perseguição movida pelo ciúme assassino de Saul através das cavernas e desertos, encerrando com a melancólica consulta de Saul à feiticeira de En-Dor e sua queda fatídica na batalha do monte Gilboa."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Primeiro Livro de Samuel ensina com autoridade perene que o homem olha para a aparência exterior, mas o SENHOR contempla o coração, lembrando que a obediência sincera vale muito mais do que mil sacrifícios vazios. Ao rejeitar o rei segundo os caprichos humanos e erguer Davi como o homem segundo o coração de Deus, o livro prepara a estrada profética para Jesus Cristo — o Príncipe da Paz e o Rei eterno —, que governou servindo e venceu as trevas mediante a sua entrega santa."
+    }
+  ]
+}

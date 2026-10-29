@@ -9,7 +9,7 @@
  * derivados não são versionados.
  */
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync, rmSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync, rmSync, readdirSync, copyFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { livroSlug } from '../src/lib/livro-slug'
@@ -165,6 +165,17 @@ function main(): void {
         })),
       ),
     )
+  }
+
+  const introSrc = join(root, 'data/introducoes')
+  const introDest = join(outDir, 'introducoes')
+  if (existsSync(introSrc)) {
+    mkdirSync(introDest, { recursive: true })
+    for (const f of readdirSync(introSrc)) {
+      if (f.endsWith('.json')) {
+        copyFileSync(join(introSrc, f), join(introDest, f))
+      }
+    }
   }
 
   const versao = versaoDosShards()

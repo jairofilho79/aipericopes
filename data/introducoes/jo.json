@@ -1,0 +1,30 @@
+{
+  "livro": "Jó",
+  "slug": "jo",
+  "abbrev": "Jó",
+  "testamento": "vt",
+  "titulo_canonico": "O Livro de Jó",
+  "titulo_introducao": "Introdução ao Livro de Jó",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Enigma do Sofrimento e o Nome do Livro",
+      "texto": "Na tradição hebraica, este monumento sapiencial recebe o nome de seu protagonista, Iyyôv — um vocábulo com raízes antigas no mundo semítico que evoca tanto aquele que se tornou alvo de hostilidade e adversidade quanto aquele que se volta arrependido e busca restauração perante Deus. Nas antigas traduções da Septuaginta grega e da Vulgata latina, o termo foi vertido como Iōb, preservando o nome próprio que atravessou os séculos até a forma Jó em nossa língua. Longe de ser uma simples especulação filosófica abstrata, o livro ergue-se como uma coluna de sabedoria existencial no cânon sagrado, enfrentando a questão mais dilacerante da experiência humana: a dor do inocente e a justiça soberana do Criador."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Cenário Patriarcal e Propósito Teológico",
+      "texto": "Com autoria anônima nas Escrituras e ambientado na remota terra de Uz — ao oriente de Canaã —, o livro reflete os costumes, a longevidade e a espiritualidade da era patriarcal, anterior à constituição do sacerdócio levítico e da lei mosaica. Seu propósito teológico não é oferecer uma resposta acadêmica e fria para a origem do sofrimento, mas expor e demolir a teologia retributiva simplista dos contemporâneos de Jó, segundo a qual toda aflição decorreria obrigatoriamente de pecado pessoal oculto. Por meio do testemunho divino acerca da integridade irrepreensível de Jó, o texto revela que Deus é digno de confiança, adoração e amor desinteressado por quem Ele é, e não apenas pelas bênçãos materiais que generosamente distribui."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "A obra se desenvolve através de uma primorosa moldura em prosa que envolve um denso corpo de poesia hebraica em quatro movimentos marcantes. O primeiro movimento, que abrange os capítulos 1 e 2, apresenta em prosa o prólogo celestial e terreno: a piedade exemplar de Jó, as perdas catastróficas permitidas pelo Senhor e a comovente fidelidade do patriarca em meio à cinza. O segundo movimento, do capítulo 3 ao 31, abre com o lamento profundo de Jó e desdobra três ciclos dramáticos de diálogos poéticos entre Jó e seus três amigos consoladores — Elifaz, Bildade e Zofar —, culminando no hino incomparável à sabedoria inacessível no capítulo 28 e na defesa final de sua integridade. O terceiro movimento, dos capítulos 32 a 37, traz a intervenção apaixonada do jovem Eliú, que busca defender a justiça corretiva e pedagógica do Altíssimo. O quarto e decisivo movimento, do capítulo 38 ao 42, registra a teofania de Deus falando diretamente do meio de um redemoinho, confrontando a pequenez humana com o esplendor da criação e conduzindo Jó a um arrependimento reverente, seguido pelo epílogo em que sua comunhão, saúde e bens são plenamente restaurados."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Jó aponta profeticamente para o Redentor vivo que se levantará sobre a terra e que intercede pelos seus servos diante do Pai celestial. Essa esperança alcança pleno cumprimento em Jesus Cristo, o Justo inocente que suportou o peso do Calvário para redimir as nossas dores. As suas páginas nos convidam a adorar o Deus soberano mesmo na mais densa escuridão, sabendo que nenhuma de suas promessas pode ser frustrada."
+    }
+  ]
+}

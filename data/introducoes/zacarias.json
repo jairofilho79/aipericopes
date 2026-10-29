@@ -1,0 +1,30 @@
+{
+  "livro": "Zacarias",
+  "slug": "zacarias",
+  "abbrev": "Zc",
+  "testamento": "vt",
+  "titulo_canonico": "Zacarias",
+  "titulo_introducao": "Introdução ao Livro de Zacarias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Senhor Lembra-se de Sua Aliança",
+      "texto": "Na língua hebraica original, o título deste livro é Zekharyah, combinação do verbo zakhar, que significa “lembrar-se” ou “manter na memória”, com o nome pactual Yahweh, significando literalmente “Yahweh se lembrou” ou “O Senhor lembra-se”. Preservado na Septuaginta grega e na Vulgata latina sob a forma Zacharias, esse nome funcionava como um bálsamo de esperança para o remanescente repatriado da Babilônia: em meio à aparente modéstia de seus recomeços, o Deus da história não se esquecera das promessas eternas outorgadas a Abraão e a Davi."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Desafio Pós-Exílico e a Visão Escatológica",
+      "texto": "Filho de Berequias e neto de Ido, Zacarias pertencia a uma proeminente linhagem sacerdotal, exercendo simultaneamente o ofício litúrgico e a vocação profética. Contemporâneo de Ageu, ele iniciou seu ministério público no outono de 520 a.C., durante o segundo ano do reinado de Dario 1º da Pérsia. Se Ageu desafiou o povo com exortações práticas e diretas para erguer os alicerces físicos do Templo, Zacarias foi levantado para ampliar o horizonte espiritual da comunidade desiludida. Os repatriados eram um punhado frágil de colonos subordinados a um império estrangeiro, questionando-se se Jerusalém algum dia voltaria a ver a majestade profetizada pelos antigos videntes. O propósito teológico de Zacarias é reacender a fé no futuro do Reino de Deus: demonstrar que a restauração física é apenas o alvorecer de uma intervenção muito maior, operada “não por força nem por violência, mas pelo meu Espírito”, revelando com riqueza profética a figura deslumbrante do Messias como o Renovo, o Sacerdote-Rei, o Pastor humilde e traspassado por seu povo."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e os Movimentos da Visão Noturna à Vitória Messiânica",
+      "texto": "A obra de Zacarias destaca-se por sua densidade apocalíptica e profética, dividindo-se em três grandes seções literárias. A primeira seção, que se estende do capítulo 1 ao 6, após um chamado inicial à conversão sincera, desdobra oito visões noturnas carregadas de simbolismo divino: patrulheiros celestes entre as murtas, chifres mundiais derribados por ferreiros, o homem com a corda de medir Jerusalém, a purificação sacerdotal de Josué revestido de roupas festivas, o candelabro de ouro sustentado por duas oliveiras, o rolo voador da justiça, o cesto da iniquidade desterrado para Sinear e os carros de combate que apaziguam a terra, culminando na coroação simbólica de Josué como prenúncio do Messias chamado o Renovo. A segunda seção, compreendendo os capítulos 7 e 8, responde a uma consulta sobre os jejuns memoriais do cativeiro, ensinando que Deus requer a prática sincera da justiça e da misericórdia, e pintando um quadro radiante onde anciãos e crianças voltam a brincar em paz pelas praças de Sião e povos de todas as línguas seguram a orla das vestes de um judeu para adorar a Deus. A terceira seção, que reúne os capítulos 9 a 14 em dois oráculos de alcance escatológico, descortina a vinda do Rei pacífico montado sobre um jumentinho, lamenta a rejeição do Bom Pastor vendido por trinta moedas de prata, antecipa o choro de arrependimento sobre Aquele a quem traspassaram, a abertura de uma fonte purificadora para o pecado e a batalha final em que os pés do Senhor tocarão o Monte das Oliveiras, estabelecendo o Seu reino universal sobre toda a terra."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Zacarias proclama que Deus se lembra de seu povo e conduz soberanamente os tempos para a gloriosa vitória de seu Ungido. Ao nos debruçarmos sobre suas páginas proféticas, contemplamos o Messias que entra com humildade, sofre como nosso pastor e reina com majestade e paz eterna sobre toda a criação."
+    }
+  ]
+}

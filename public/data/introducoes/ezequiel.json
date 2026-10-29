@@ -1,0 +1,30 @@
+{
+  "livro": "Ezequiel",
+  "slug": "ezequiel",
+  "abbrev": "Ez",
+  "testamento": "vt",
+  "titulo_canonico": "Ezequiel",
+  "titulo_introducao": "Introdução ao Livro de Ezequiel",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Sentinela no Cativeiro e o Nome do Livro",
+      "texto": "O livro leva o nome hebraico de seu autor, Yechezkel, constituído pelo verbo chazaq — que significa “fortalecer”, “fazer vigoroso” — e o sufixo divino El, proclamando a sólida verdade: “Deus fortalece” ou “Que Deus torne forte”. A Septuaginta grega transcreveu o termo como Iezekiel, forma que passou para o latim na Vulgata como Ezechiel e chegou ao português como Ezequiel. Este nome funcionou como verdadeiro penhor ministerial ao longo de toda a sua trajetória: diante de uma geração endurecida que as Escrituras descrevem como obstinada e rebelde, o Senhor tornou o rosto de seu profeta mais duro que o diamante e mais firme que a pederneira, capacitando-o a servir como sentinela vigilante de Israel durante as agruras do exílio."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "Sacerdote de linhagem zadoquita e filho de Buzi, Ezequiel foi deportado para a Babilônia em 597 antes de Cristo, na segunda leva de cativos levados por Nabucodonosor com o jovem rei Joaquim. Radicado no assentamento de Tel-Abibe, junto às margens do canal ou rio Quebar, ele recebeu seu chamado profético aos trinta anos de idade — a mesma idade em que normalmente teria iniciado seus serviços litúrgicos no templo de Jerusalém. Seus compatriotas exilados alimentavam falsas esperanças de um livramento rápido, enganados pela ilusão de que o templo da cidade santa tornava Jerusalém intocável. O propósito teológico de Ezequiel é proclamar a majestade absoluta da glória de Deus — o Kavod Yahweh —, que não está presa a fronteiras nacionais nem a templos materiais. O profeta expõe a indignação divina diante da idolatria abominável que contaminou o santuário, demonstrando que o juízo é justo e necessário; contudo, a meta final do Senhor é a restauração espiritual: Ele purificará o seu povo, concederá um coração novo de carne e habitará eternamente em meio a eles mediante a atuação vivificadora de seu Espírito."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos",
+      "texto": "A profecia de Ezequiel exibe um traçado magistral e cronologicamente ordenado, articulando-se em três grandes atos de profunda densidade visual e simbólica. O primeiro ato, do capítulo 1 ao 24, antecede a queda definitiva de Jerusalém e focaliza a condenação dos pecados da nação; tem início com a deslumbrante teofania da carruagem cósmica com rodas cheias de olhos e querubins reluzentes, inclui a imposição de ações simbólicas dramáticas sobre o profeta mudo e culmina na estarrecedora visão em que a glória radiante do Senhor se eleva do limiar do templo e abandona a cidade entregue ao cerco. O segundo ato, do capítulo 25 ao 32, reúne sentenças de juízo implacável contra sete povos vizinhos que zombaram da desgraça de Israel — dedicando poemas grandiosos à soberba de Tiro e do Egito —, atestando que todas as nações reconhecerão o senhorio divino. O terceiro ato, do capítulo 33 ao 48, inaugura a era da esperança e da restauração após a notícia da ruína da capital; o texto repreende os maus pastores e promete o verdadeiro Pastor da estirpe davídica, descreve a maravilhosa ressurreição nacional no vale de ossos secos vivificados pelo sopro divino no capítulo 37, antecipa a aniquilação escatológica das forças de Gogue e Magogue e encerra com a minuciosa visão do novo templo celestial, do rio que jorra águas medicinais e da nova cidade batizada para sempre como Yahweh Shammah — “O SENHOR está ali”."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A mensagem monumental de Ezequiel atesta que a glória e a soberania de Deus não conhecem limites de espaço nem de tempo: o Senhor que julga com rigor a hipocrisia e a idolatria é o mesmo Deus compassivo que busca as ovelhas perdidas como verdadeiro Pastor, arranca o coração empedernido para doar um coração sensível e sopra o seu Espírito vivificador sobre vales de ossos secos. Em Jesus Cristo — o Bom Pastor divino, a Fonte de águas vivas e o Santuário supremo da presença de Deus —, essa restauração prometida torna-se realidade eterna. Que a leitura e a escuta destas visões celestiais renovem a nossa reverência diante do Todo-Poderoso e encham a nossa vida da esperança viva de que o Senhor está ali."
+    }
+  ]
+}

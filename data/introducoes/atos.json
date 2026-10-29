@@ -1,0 +1,30 @@
+{
+  "livro": "Atos",
+  "slug": "atos",
+  "abbrev": "At",
+  "testamento": "nt",
+  "titulo_canonico": "Atos dos Apóstolos",
+  "titulo_introducao": "Introdução ao Livro de Atos dos Apóstolos",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e o Significado do Nome",
+      "texto": "Na tradição textual dos manuscritos gregos, este livro recebeu a solene denominação de Praxeis Apostolon, expressão comumente traduzida como “Atos dos Apóstolos”. No mundo greco-romano clássico, o termo Praxeis identificava um gênero historiográfico dedicado a narrar os feitos memoráveis e as conquistas notáveis de líderes ilustres. No entanto, teólogos e exegetas ao longo dos séculos reconhecem que o título mais condizente com a essência de suas páginas seria “Os Atos do Espírito Santo através dos Apóstolos” ou “A Continuação dos Feitos de Jesus Cristo por meio de sua Igreja”. Como o segundo volume da monumental obra de Lucas, Atos desempenha o papel de charneira insubstituível em todo o Novo Testamento, estabelecendo a ponte histórica e teológica viva entre os quatro Evangelhos e o conjunto das cartas apostólicas."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A autoria pertence incontestavelmente a Lucas, o médico e historiador detalhista que foi companheiro fiel de ministério do apóstolo Paulo — presença comprovada pelas célebres seções narradas na primeira pessoa do plural, o conhecido “nós”. Redigido em meados da década de 60 do primeiro século e dedicado ao nobre Teófilo, o livro registra o surgimento e a célere expansão da fé cristã em meio à diversidade cultural e às pressões políticas do Império Romano. O propósito teológico central de Atos é demonstrar o cumprimento infalível da promessa do Pai: o mesmo Jesus que ressuscitou e subiu aos céus derrama o Espírito Santo na festa de Pentecostes, capacitando homens e mulheres simples com ousadia e intrepidez profética para testemunharem de sua ressurreição. Lucas evidencia que nenhuma barreira religiosa, cultural, legal ou geográfica é capaz de deter o avanço soberano da Palavra de Deus."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Literários",
+      "texto": "A narrativa de Atos desenrola-se em perfeita consonância com a profecia geográfica proferida pelo Senhor no capítulo 1, versículo 8: “Sereis minhas testemunhas tanto em Jerusalém como em toda a Judeia e Samaria e até aos confins da terra”. O primeiro movimento, do capítulo 1 ao 7, retrata a igreja primitiva em Jerusalém: a descida impetuosa do Espírito Santo, os prodígios apostólicos, a generosa comunhão fraterna, as primeiras perseguições movidas pelo Sinédrio e o heroico martírio de Estêvão. O segundo movimento, do capítulo 8 ao 12, relata a dispersão provocada pela perseguição, levando a mensagem à Judeia e à Samaria por meio do ministério de Filipe, a miraculosa conversão de Saulo na estrada para Damasco e a abertura definitiva das portas do Reino aos gentios com a visão concedida a Pedro e a conversão de Cornélio em Cesareia. O terceiro movimento, do capítulo 13 ao 28, consagra o avanço missionário até os confins do mundo conhecido sob a liderança de Paulo e seus companheiros: as três grandes viagens marítimas e terrestres através do Mediterrâneo, o histórico Concílio de Jerusalém no capítulo 15 — que reafirmou a suficiência da graça divina livre das amarras do legalismo —, as prisões e o naufrágio providencial, culminando com a chegada triunfante de Paulo a Roma, onde o livro se conclui com o apóstolo pregando o Reino de Deus com toda a liberdade e sem qualquer impedimento no centro do império."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Livro de Atos dos Apóstolos nos assegura que o Espírito Santo permanece guiando soberanamente a igreja de Cristo: o Evangelho da graça é uma força viva e invencível que atravessa as eras, convidando cada discípulo a ser testemunha fiel do Senhor ressurreto até os confins da terra."
+    }
+  ]
+}

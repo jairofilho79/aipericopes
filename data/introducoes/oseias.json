@@ -1,0 +1,30 @@
+{
+  "livro": "Oséias",
+  "slug": "oseias",
+  "abbrev": "Os",
+  "testamento": "vt",
+  "titulo_canonico": "Oseias",
+  "titulo_introducao": "Introdução ao Livro de Oséias",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Nome do Profeta e a Promessa de Salvação",
+      "texto": "Na tradição hebraica, este livro é intitulado Hoshea, que significa literalmente “Salvação” ou “Ele salva” — termo originado da mesma raiz verbal que deu forma aos nomes de Josué e de Jesus. Conhecido na Septuaginta grega e na Vulgata latina como Osee, o livro encabeça historicamente o pergaminho dos Doze Profetas Menores no cânon das Escrituras. Ao abrir essa coleção sagrada, o nome de Oséias proclama que, mesmo diante da mais profunda ruína moral e da traição pactual, a verdadeira salvação não decorre de forças humanas, mas pertence única e graciosamente ao Senhor."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Aliança e o Amor Ferido de Deus",
+      "texto": "Filho de Beeri, Oséias exerceu seu ministério no Reino do Norte, chamado também de Efraim ou Israel, durante o próspero e turbulento século 8 a.C., sob o longo reinado de Jeroboão 2º e nas décadas caóticas que antecederam a queda definitiva de Samaria. O cenário social era de riqueza exterior e idolatria desenfreada: o povo abandonara o Senhor para servir aos baalins da fertilidade. Em uma comissão dramática e desconcertante, Deus ordenou ao profeta que tomasse por esposa a Gomer, uma mulher infiel, para que a tragédia de seu matrimônio encarnasse o sofrimento do próprio Criador perante o adultério espiritual de Israel. O propósito do livro é desvelar o amor leal de Deus — o hebraico chesed —, demonstrando que o Senhor castiga a infidelidade com severa justiça, mas cura as feridas com uma misericórdia que jamais se cansa de amar."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Movimentos Proféticos",
+      "texto": "A mensagem de Oséias se organiza em dois grandes movimentos literários. No primeiro movimento, que abrange do capítulo 1 ao 3, acompanhamos o doloroso drama familiar do profeta: o nascimento de filhos com nomes de julgamento, a deserção da esposa e o posterior resgate financeiro e afetuoso de Gomer no mercado, prefigurando a redenção incondicional que Deus concede à sua nação desorientada. O segundo movimento, que se estende do capítulo 4 ao 14, apresenta um processo judicial formal de Deus contra Israel. Nesse bloco, o profeta denuncia a ausência de conhecimento divino, condena a corrupção sacerdotal e as ilusórias alianças com a Assíria e o Egito, e culmina com o comovente clamor divino do capítulo 11, onde o Senhor declara que seu coração se comove em compaixão, encerrando a profecia com um convite ao arrependimento sincero e a promessa de restauração abundante."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Oséias revela que o pecado é uma traição dolorosa contra o amor do Pai celestial, mas a graça soberana da aliança triunfa sobre o julgamento. Ao abrir estas páginas, somos convidados a ouvir o apelo enternecedor do Senhor, que nos atrai com laços de ternura e nos chama a conhecê-lo com um coração íntegro e redimido."
+    }
+  ]
+}

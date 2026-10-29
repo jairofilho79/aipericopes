@@ -1,0 +1,30 @@
+{
+  "livro": "Romanos",
+  "slug": "romanos",
+  "abbrev": "Rm",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo aos Romanos",
+  "titulo_introducao": "Introdução à Epístola aos Romanos",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título da Carta e a Capital do Império",
+      "texto": "Nos manuscritos gregos mais antigos, esta carta traz a singela inscrição Pros Rōmaious — “Aos Romanos”. O termo grego epistolē define a missiva enviada a distância, mas que, sob a inspiração do Espírito e a pena do apóstolo Paulo, transcendeu a correspondência ocasional para se tornar a mais monumental catedral teológica do Novo Testamento. Destinada aos cristãos congregados no próprio coração político e cultural do vasto Império Romano, a epístola ocupa por excelência o primeiro lugar entre as cartas apostólicas no cânon bíblico, estabelecendo com clareza definitiva as bases do Evangelho da graça de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Ocasião e Propósito Teológico",
+      "texto": "Redigida por Paulo por volta do ano 57 d.C., durante sua estada em Corinto ao final de sua terceira viagem missionária, a carta contou com o amanuense Tércio e foi levada à capital pela diaconisa Febe. Seu horizonte imediato era preparar uma futura visita à igreja imperial e angariar apoio missionário para a evangelização da Hispânia. Mais do que isso, Paulo desejava consolidar na fé uma congregação multicultural — composta por convertidos judeus e gentios —, dissipando divisões e tensões étnicas por meio da revelação da justiça divina. O propósito central da epístola é proclamar que todos pecaram e carecem da glória de Deus, e que a salvação é concedida exclusivamente pela graça, mediante a fé em Jesus Cristo, sem méritos humanos ou obras da Lei."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Grandes Movimentos",
+      "texto": "A carta ergue-se em quatro movimentos magistrais e harmoniosos. O primeiro movimento, do capítulo 1 ao 4, diagnostica a enfermidade moral universal da humanidade e estabelece a justificação pela fé, apontando para o patriarca Abraão como exemplo vivo da promessa divina. O segundo movimento, do capítulo 5 ao 8, celebra a paz com Deus, a redenção em Cristo frente à queda em Adão, a santificação e a vida triunfante no Espírito Santo, culminando na certeza inabalável de que nenhuma condenação há para os que estão em Cristo e nada pode nos separar do seu amor. O terceiro movimento, do capítulo 9 ao 11, desvenda o mistério dos propósitos soberanos de Deus para com Israel e a inclusão das nações gentílicas na oliveira da aliança. O quarto movimento, do capítulo 12 ao 16, desdobra a ética viva do Evangelho: o sacrifício diário de adoração, a diversidade dos dons no corpo de Cristo, o relacionamento com as autoridades e o cuidado mútuo entre irmãos, encerrando com calorosas saudações pessoais."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "A Epístola aos Romanos proclama solenemente que o Evangelho é o poder de Deus para a salvação de todo aquele que crê: nele, a justiça insondável e a misericórdia eterna se abraçam na cruz de Cristo para reconciliar a humanidade e inaugurar o reino da graça."
+    }
+  ]
+}

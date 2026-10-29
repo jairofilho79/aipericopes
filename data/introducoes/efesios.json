@@ -1,0 +1,30 @@
+{
+  "livro": "Efésios",
+  "slug": "efesios",
+  "abbrev": "Ef",
+  "testamento": "nt",
+  "titulo_canonico": "Epístola do Apóstolo Paulo aos Efésios",
+  "titulo_introducao": "Introdução à Epístola aos Efésios",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "A Epístola Sublime e a Encíclica dos Céus",
+      "texto": "Identificada na tradição grega como Pros Ephesious — “Aos Efésios” —, esta majestosa missiva foi acolhida pela igreja de Éfeso, capital da Ásia Menor e sede de um dos centros religiosos e econômicos mais renomados da antiguidade. Em virtude de sua amplitude universal e da ausência de controvérsias locais específicas em alguns dos mais respeitados manuscritos primitivos, a carta é amplamente reconhecida como uma circular apostólica, destinada a nutrir todas as igrejas da região com uma visão panorâmica e contemplativa dos mistérios eternos de Deus."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, a Prisão Imperial e a Glória da Igreja",
+      "texto": "Redigida por Paulo por volta dos anos 60 a 62 d.C., durante sua primeira prisão em Roma, a epístola não pretende debelar uma crise passageira, mas erguer os corações dos fiéis às regiões celestiais. Cercados pelo esplendor pagão do templo da deusa Ártemis e pelo fascínio das práticas mágicas helênicas, os cristãos precisavam compreender a imensidão da herança que receberam em Cristo. Paulo desvenda o propósito cósmico da redenção: reconciliar consigo todas as coisas, convergindo judeus e gentios em um só novo homem, derrubando a barreira secular de inimizade e edificando a Igreja como templo sagrado e habitação do Espírito Santo."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Doutrina Celestial e Prática Terrena",
+      "texto": "A arquitetura literária do livro brilha em dois movimentos perfeitamente proporcionados. O primeiro movimento, do capítulo 1 ao 3, estabelece o indicativo da graça: entoa uma sublime doxologia sobre a eleição e adoção soberanas do Pai antes da fundação do mundo, retrata o milagre da regeneração de pecadores mortos em ofensas e desvela o mistério glorioso da Igreja, coroado por uma comovente oração para que os santos compreendam o amor de Cristo que excede todo entendimento. O segundo movimento, do capítulo 4 ao 6, inaugura o imperativo da conduta prática: exorta a andar de modo digno da vocação, estimulando a unidade da fé, a renovação da mente e a pureza moral na convivência diária, iluminando a ordem nos relacionamentos entre esposos, pais, filhos, senhores e servos, e culminando na célebre convocação para cingir-se da armadura completa de Deus na guerra espiritual."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Efésios desvenda as insondáveis riquezas de Cristo e a sublime dignidade da Igreja, convocando o povo redimido a caminhar em santa comunhão, luz e intrepidez sob o senhorio do Rei vitorioso sobre todos os poderes cósmicos."
+    }
+  ]
+}

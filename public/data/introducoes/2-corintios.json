@@ -1,0 +1,30 @@
+{
+  "livro": "2 Coríntios",
+  "slug": "2-corintios",
+  "abbrev": "2Co",
+  "testamento": "nt",
+  "titulo_canonico": "Segunda Epístola do Apóstolo Paulo aos Coríntios",
+  "titulo_introducao": "Introdução à Segunda Epístola aos Coríntios",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Coração do Apóstolo e o Título da Carta",
+      "texto": "Com o cabeçalho grego Pros Korinthious B — “Segunda aos Coríntios” —, esta missiva destaca-se no cânon como o mais transparente, apaixonado e comovente testemunho autobiográfico do apóstolo Paulo. Enquanto outras epístolas tratam primariamente de doutrinas universais ou de problemas organizacionais, esta revela a vulnerabilidade, as angústias e a consolação do servo de Cristo, abrindo uma janela luminosa para a espiritualidade do ministério apostólico."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, Crise de Autoridade e Nova Aliança",
+      "texto": "Redigida por Paulo na Macedônia por volta do ano 56 d.C., logo após o reencontro com Tito, a epístola lida com as repercussões de uma dolorosa visita anterior e a ação de opositores forasteiros que haviam se infiltrado na igreja de Corinto. Esses falsos mestres, ironicamente rotulados por Paulo de “superapóstolos”, vangloriavam-se de cartas de recomendação, oratória impressionante e pretensas visões extáticas, desprezando as tribulações físicas e a simplicidade de Paulo. Inspirado pelo Espírito, o apóstolo transforma essa penosa controvérsia em uma das exposições mais profundas sobre o ministério da Nova Aliança: um tesouro celeste confiado a vasos de barro quebrantados, para que fique evidente que a glória e o poder supremo pertencem a Deus, e não ao homem."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e Movimentos de Reconciliação",
+      "texto": "A carta desdobra-se organicamente em três seções bem distintas. A primeira seção, do capítulo 1 ao 7, relata as aflições enfrentadas por Paulo na Ásia, celebra o consolo do Pai das misericórdias e contrasta a letra da antiga lei que mata com o Espírito da Nova Aliança que vivifica, proclamando o sagrado ministério da reconciliação outorgado aos embaixadores de Cristo. A segunda seção, nos capítulos 8 e 9, estabelece os mais nobres princípios da mordomia e da generosidade cristã, exortando a congregação à semeadura voluntária e alegre em favor dos crentes empobrecidos de Jerusalém. A terceira seção, do capítulo 10 ao 13, traz a defesa contundente de sua autoridade apostólica diante dos acusadores, na qual Paulo não se gaba de privilégios humanos, mas glorifica-se em suas fraquezas, sofrimentos e no célebre espinho na carne, onde a graça soberana de Deus revelou ser-lhe plenamente suficiente."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "Segunda aos Coríntios é o testemunho indelével de que a força de Deus atinge o ápice na fraqueza dos seus servos, assegurando que o ministério que glorifica a Cristo é aquele que trilha o caminho da cruz com humildade, integridade e fidelidade incondicional."
+    }
+  ]
+}

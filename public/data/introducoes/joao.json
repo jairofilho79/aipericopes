@@ -1,0 +1,30 @@
+{
+  "livro": "João",
+  "slug": "joao",
+  "abbrev": "Jo",
+  "testamento": "nt",
+  "titulo_canonico": "O Santo Evangelho segundo João",
+  "titulo_introducao": "Introdução ao Santo Evangelho segundo João",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Título Canônico e o Significado do Nome",
+      "texto": "O quarto evangelho é identificado pelo título grego Kata Ioannen, preservando o venerável nome hebraico Yochanan, que significa “o Senhor é gracioso” ou “dádiva da graça de Deus”. Na tradição unânime da igreja cristã, enquanto os três primeiros evangelhos formam o grupo dos sinóticos por compartilharem uma perspectiva histórica convergente, o relato de João sempre foi reverenciado como o “evangelho espiritual”, simbolizado historicamente pela águia que alça voos sublimes em direção às alturas celestiais. Logo em suas frases inaugurais, o texto transcende o tempo cronológico para revelar o mistério do Logos divino — a Palavra eterna e incriada que estava com Deus, que era Deus e que se fez carne para acampar entre nós, revelando uma glória singular, repleta de graça e de verdade."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria e Propósito Teológico",
+      "texto": "A autoria do livro é atribuída ao apóstolo João, filho de Zebedeu, identificado intimamente na própria narrativa como “o discípulo a quem Jesus amava”. Redigido na cidade de Éfeso ao final do primeiro século, por volta dos anos 85 a 95 da nossa era, o evangelho dirigia-se às igrejas da Ásia Menor, que enfrentavam cisões provocadas por filosofias incipientes que questionavam a divindade ou a genuína humanidade de Cristo. O próprio autor declara com límpida transparência o propósito de sua composição no capítulo 20: “Estes, porém, foram registrados para que creiais que Jesus é o Cristo, o Filho de Deus, e para que, crendo, tenhais vida em seu nome”. João articula uma teologia de incomparável profundidade sobre a luz, a vida e a verdade, descortinando a intimidade eterna entre o Pai e o Filho e prometendo aos crentes o dom do Espírito Santo, o Parácleto e Consolador."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura e Grandes Blocos Literários",
+      "texto": "A arquitetura de João revela admirável harmonia literária, organizada em duas grandes seções emolduradas por um prólogo teológico e um epílogo pastoral. O Prólogo, no capítulo 1, versículos 1 a 18, descortina a preexistência, a divindade e a encarnação do Verbo eterno. A primeira grande seção, do capítulo 1, versículo 19 até o capítulo 12, é conhecida como “O Livro dos Sinais”: nela, Jesus opera sete milagres reveladores — da transformação da água em vinho em Caná à ressurreição de Lázaro em Betânia —, acompanhados pelas solenes declarações do sagrado “Eu Sou”, nas quais o Salvador se revela como o Pão da Vida, a Luz do Mundo, a Porta das Ovelhas, o Bom Pastor, a Ressurreição e a Vida, o Caminho, a Verdade e a Vida, e a Videira Verdadeira. A segunda grande seção, do capítulo 13 ao 20, chamada “O Livro da Glória”, conduz o leitor à comunhão íntima do cenáculo no lava-pés, às instruções de despedida e à oração sacerdotal, alcançando a hora suprema na cruz — contemplada por João não como humilhação, mas como a majestosa exaltação do Cordeiro —, confirmada pelo sepulcro vazio e as aparições do Ressuscitado. O Epílogo, no capítulo 21, encerra o evangelho restaurando o apóstolo Pedro às margens do mar da Galileia, confiando-lhe a nobre missão de apascentar o rebanho do Senhor."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O Evangelho segundo João é uma solene convocação a contemplar a divindade e o amor do Verbo encarnado: aquele que deposita sua fé em Jesus recebe do Pai a vida eterna e habita para sempre na plenitude da luz divina."
+    }
+  ]
+}

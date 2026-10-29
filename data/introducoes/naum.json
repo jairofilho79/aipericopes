@@ -1,0 +1,30 @@
+{
+  "livro": "Naum",
+  "slug": "naum",
+  "abbrev": "Na",
+  "testamento": "vt",
+  "titulo_canonico": "Naum",
+  "titulo_introducao": "Introdução ao Livro de Naum",
+  "secoes": [
+    {
+      "id": "etimologia",
+      "subtitulo": "O Consolador e o Julgamento da Tirania",
+      "texto": "Em hebraico, o nome deste livro é Nachum, vocábulo originário do verbo nacham, que significa “consolar”, “aliviar” ou “trazer compaixão”, traduzindo-se como “consolador” ou “cheio de consolo”. Mantido na Septuaginta grega como Naoum e na Vulgata como Nahum, esse título carrega uma aparente e expressiva ironia: embora o livro seja uma solene sentença poética de aniquilação contra a capital assíria, a destruição do império sanguinário constituía o mais profundo consolo e sopro de alívio espiritual para Judá e para todas as nações oprimidas pela tirania militar."
+    },
+    {
+      "id": "contexto",
+      "subtitulo": "Autoria, o Fim do Império Assírio e o Caráter Santo de Deus",
+      "texto": "Designado no cabeçalho profético como “o elcosita”, Naum era natural de Elcose, cidade cuja localização exata é debatida, situada provavelmente no sul de Judá. O profeta viveu em meados do século 7 a.C., entre a conquista da célebre cidade egípcia de Tebas pelos assírios em 663 a.C. e a devastação final de Nínive em 612 a.C. pela coalizão de medos e babilônios. Por mais de dois séculos, o Império Assírio fora a superpotência mais brutal do mundo antigo, edificando sua hegemonia sobre a tortura cruel, a espoliação de cidades e a escravização de incontáveis povos. Um século após o arrependimento temporário nos dias de Jonas, Nínive retornara com voracidade insaciável aos seus crimes de sangue e arrogância idólatra. O propósito teológico de Naum é demonstrar a santidade ciumenta e a justiça inabalável de Yahweh, assegurando que o Deus verdadeiro não deixa o culpado impune e que nenhum império alicerçado na mentira e na violência armada escapará de seu juízo irrevogável."
+    },
+    {
+      "id": "estrutura",
+      "subtitulo": "Estrutura Literária e o Canto Fúnebre sobre Nínive",
+      "texto": "A composição poética de Naum desdobra-se em três movimentos de intensidade dramática e beleza lírica fulgurante. O primeiro movimento, correspondente ao capítulo 1, abre com um majestoso hino teofânico que exalta o Senhor como um Deus zeloso perante seus adversários, que cavalga a tempestade e seca os mares, mas que se revela refúgio firme no dia da angústia para aqueles que nele confiam, proclamando sobre os montes os pés do mensageiro que anuncia a paz. O segundo movimento, que ocupa o capítulo 2, descreve em cores cinematográficas e ritmo vertiginoso o cerco e o colapso militar de Nínive: o reluzir dos escudos vermelhos, o estrépito furioso dos carros que correm como relâmpagos pelas praças, as comportas dos rios se rompendo e a derrocada daquela que se ufanava de ser o covil dos leões vorazes. O terceiro movimento, contido no capítulo 3, entoa a elegia fúnebre definitiva contra a cidade sanguinária, desmascarando suas seduções e violências covardes, mostrando a inutilidade de suas defesas e concluindo com o aplauso jubiloso de todas as nações que finalmente se veem livres de sua crueldade sem fim."
+    },
+    {
+      "id": "mensagem",
+      "subtitulo": "Mensagem Central",
+      "texto": "O livro de Naum revela com vigor que a soberania de Deus governa os impérios humanos e que a tirania arrogante jamais terá a última palavra na história. Ao nos determos nesta poesia poderosa, somos revigorados pela certeza de que o Senhor é tardio em irar-se, mas fiel em defender a justiça e guardar em perfeita paz aqueles que buscam a sua proteção."
+    }
+  ]
+}
