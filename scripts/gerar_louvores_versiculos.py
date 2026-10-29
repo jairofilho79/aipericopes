@@ -40,7 +40,7 @@ DB_COLDIGOM = ROOT.parent / "coldigom" / "data" / "embeddings" / "acervo_embeddi
 HOMILETICOS_JSON = ROOT / "data" / "louvores-temas-homileticos.json"
 HOMILETICOS_NPZ = ROOT / "data" / "louvores-embeddings-homileticos.npz"
 SHORT_IDS_JSON = ROOT / "data" / "coldigom-short-ids.json"
-NAA_JSON = ROOT / "data" / "NAA.json"
+ARC_JSON = ROOT / "data" / "ARC.json"
 
 OUT_DIR_PUBLIC = ROOT / "public" / "data" / "versiculos-louvores"
 OUT_DIR_DATA = ROOT / "data" / "versiculos-louvores"
@@ -178,8 +178,8 @@ def main():
         H = np.array(h_rows, dtype=np.float32)
         print(f"   -> Homiléticos alinhados (Matriz H: {H.shape})")
 
-    # Carrega Bíblia NAA
-    with open(NAA_JSON, "r", encoding="utf-8") as f:
+    # Carrega Bíblia ARC como referência textual para os louvores
+    with open(ARC_JSON, "r", encoding="utf-8") as f:
         all_books = json.load(f)
 
     books_to_process = []
@@ -187,7 +187,7 @@ def main():
         target_name = args.livro.strip().lower()
         matched = [b for b in all_books if b["name"].strip().lower() == target_name or livro_slug(b["name"]) == livro_slug(target_name)]
         if not matched:
-            print(f"❌ Livro '{args.livro}' não encontrado em NAA.json!")
+            print(f"❌ Livro '{args.livro}' não encontrado em ARC.json!")
             sys.exit(1)
         books_to_process = matched
     else:
@@ -215,10 +215,11 @@ def main():
         versiculos_info = []
         for cap_idx, chapter in enumerate(book["chapters"]):
             cap_num = cap_idx + 1
-            for ver_idx, text in enumerate(chapter):
+            for ver_idx, raw_v in enumerate(chapter):
                 ver_num = ver_idx + 1
                 ref = f"{cap_num}:{ver_num}"
-                full_text = f"{nome_livro} {cap_num}:{ver_num} - {text}"
+                text = raw_v.get("t") or raw_v.get("texto") or "" if isinstance(raw_v, dict) else str(raw_v)
+                full_text = f"{nome_livro} {cap_num}:{ver_num} - {text.strip()}"
                 versiculos_info.append((ref, full_text))
 
         total_v = len(versiculos_info)

@@ -37,7 +37,6 @@ if not DB_EMBEDDINGS.exists():
         DB_EMBEDDINGS = alt_db
 
 ARC_PATH = REPO_PERICOPES / "data" / "ARC.json"
-BLIVRE_PATH = REPO_PERICOPES / "data" / "BLIVRE.json"
 HOMILETICOS_PATH = REPO_PERICOPES / "data" / "louvores-temas-homileticos.json"
 CITATIONS_PATH = REPO_PERICOPES / "data" / "louvores-citacoes-biblicas.json"
 
@@ -181,11 +180,10 @@ def main():
             citacoes_existentes = json.load(f)
     print(f"📂 Camada 1: {sum(len(v) for v in citacoes_existentes.values())} citações literais prévias.")
 
-    # Carrega Bíblias
-    print("📖 Carregando ARC e BLIVRE...")
+    # Carrega Bíblia ARC
+    print("📖 Carregando Bíblia ARC como referência textual...")
     arc = carregar_biblia(ARC_PATH)
-    blivre = carregar_biblia(BLIVRE_PATH)
-    print(f"   ARC: {len(arc):,} versículos | BLIVRE: {len(blivre):,} versículos")
+    print(f"   ARC: {len(arc):,} versículos carregados.")
 
     # Carrega letras do acervo SQLite
     conn = sqlite3.connect(DB_EMBEDDINGS)
@@ -275,18 +273,7 @@ def main():
                 arc_versos.append(arc[(livro, cap, v_idx)])
                 v_idx += 1
 
-        # Busca versos na BLIVRE
-        blivre_versos = []
-        for v in range(v_ini, v_fim + 1):
-            if (livro, cap, v) in blivre:
-                blivre_versos.append(blivre[(livro, cap, v)])
-        if v_fim == 999:
-            v_idx = 1
-            while (livro, cap, v_idx) in blivre:
-                blivre_versos.append(blivre[(livro, cap, v_idx)])
-                v_idx += 1
-
-        txt_biblia = " ".join(arc_versos) if arc_versos else " ".join(blivre_versos)
+        txt_biblia = " ".join(arc_versos)
         if not txt_biblia:
             continue
 

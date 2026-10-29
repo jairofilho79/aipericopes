@@ -3,7 +3,8 @@
 scripts/minerar_citacoes_literais.py
 
 Camada 1: Mineração determinística de citações bíblicas literais no acervo Coldigom.
-Cruza n-grams de letras de louvores com os versículos da Bíblia (ARC e BLIVRE).
+Cruza n-grams de letras de louvores com os versículos da Bíblia ARC (Almeida Revista e Corrigida).
+Os louvores foram historicamente compostos e arranjados tendo a ARC como padrão textual.
 Gera mapeamento determinístico de alta precisão (sem alucinações).
 
 Saída:
@@ -26,7 +27,6 @@ REPO_COLDIGOM = REPO_PERICOPES.parent / "coldigom"
 
 DB_EMBEDDINGS = REPO_COLDIGOM / "data" / "embeddings" / "acervo_embeddings.sqlite"
 ARC_PATH = REPO_PERICOPES / "data" / "ARC.json"
-BLIVRE_PATH = REPO_PERICOPES / "data" / "BLIVRE.json"
 
 OUT_DATA = REPO_PERICOPES / "data" / "louvores-citacoes-biblicas.json"
 OUT_PUBLIC = REPO_PERICOPES / "public" / "data" / "louvores-citacoes-biblicas.json"
@@ -74,11 +74,10 @@ def extrair_ngrams(words: list[str], n: int) -> list[str]:
 
 def main():
     print("=" * 70)
-    print("🔍 CAMADA 1: MINERAÇÃO DETERMINÍSTICA DE CITAÇÕES BÍBLICAS NOS LOUVORES")
+    print("🔍 CAMADA 1: MINERAÇÃO DETERMINÍSTICA DE CITAÇÕES BÍBLICAS NOS LOUVORES (ARC)")
     print("=" * 70)
 
     arc_versos = carregar_biblia(ARC_PATH, "ARC")
-    blivre_versos = carregar_biblia(BLIVRE_PATH, "BLIVRE")
 
     # Mapeamento n-gram -> lista de (livro, capitulo, versiculo)
     ngram_to_refs = defaultdict(list)
@@ -89,13 +88,7 @@ def main():
             if ng not in STOP_NGRAMS:
                 ngram_to_refs[ng].append(ref)
         for ng in extrair_ngrams(w, 4):
-            if len(ng) >= 20 and ng not in STOP_NGRAMS:
-                ngram_to_refs[ng].append(ref)
-
-    for ref, txt in blivre_versos.items():
-        w = txt.split()
-        for ng in extrair_ngrams(w, 5):
-            if ng not in STOP_NGRAMS:
+            if len(ng) >= 18 and ng not in STOP_NGRAMS:
                 ngram_to_refs[ng].append(ref)
 
     # Filtra n-grams muito frequentes (aparecem em mais de 2 capítulos da Bíblia)
@@ -103,7 +96,7 @@ def main():
         ng: refs for ng, refs in ngram_to_refs.items()
         if len(set((r[0], r[1]) for r in refs)) <= 2
     }
-    print(f"⚡ N-grams discriminativos indexados: {len(specific_ngrams):,}")
+    print(f"⚡ N-grams discriminativos indexados da ARC: {len(specific_ngrams):,}")
 
     if not DB_EMBEDDINGS.exists():
         print(f"❌ Banco Coldigom não encontrado em {DB_EMBEDDINGS}")
@@ -156,8 +149,8 @@ def main():
                 v_list = sorted(list(data["verses"]))
 
             # Critérios de alta especificidade:
-            # Pelo menos 3 n-grams distintos OU 2 versos contíguos com 2+ n-grams
-            if len(ng_list) >= 3 or (len(v_list) >= 2 and len(ng_list) >= 2):
+            # Pelo menos 2 n-grams distintos e específicos da ARC no capítulo
+            if len(ng_list) >= 2:
                 v_min, v_max = min(v_list), max(v_list)
                 if v_max - v_min <= 15:  # intervalo compacto
                     ref_str = f"{livro} {chap}:{v_min}-{v_max}" if v_min != v_max else f"{livro} {chap}:{v_min}"

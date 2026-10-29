@@ -25,6 +25,12 @@ data/enrich-state.json
 data/embeddings-progresso.json
 data/NAA.json
 data/ARC.json
+data-arc/
+*.epub
+perícopes ARC.json
+data/referencias-cruzadas-arc.json
+data/palavras-de-jesus-arc.json
+data/pericopes-arc.json
 *.npz
 data/preach-sample/
 

@@ -1,5 +1,6 @@
 {
   "modelo": "embeddinggemma-2:latest",
+  "referenciaTextual": "ARC",
   "dimensoes": 256,
   "totalPericopes": 2823,
   "stridePorPericope": 512,
@@ -2828,5 +2829,5 @@
     2645,
     2646
   ],
-  "geradoEm": "2026-10-11T01:33:19.076Z"
+  "geradoEm": "2026-10-29T02:15:58.818992Z"
 }
