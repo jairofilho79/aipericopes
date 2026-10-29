@@ -187,4 +187,41 @@ describe('AbaLouvores', () => {
 
     expect(container.textContent).toContain('Nenhum louvor associado a esta perícope.')
   })
+
+  it('permite carregar mais louvores quando há mais de 6 itens', async () => {
+    mockRetornoLouvores = Array.from({ length: 10 }, (_, i) => ({
+      id: `id-${i}`,
+      number: `${i + 1}`,
+      name: `Louvor ${i + 1}`,
+      category: 'Geral',
+      tags: '',
+      similarity: 80 - i,
+      matchTipo: 'tematico' as const,
+    }))
+
+    await act(async () => {
+      root.render(<AbaLouvores pericope={{ ordem: 2031 } as any} />)
+    })
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+    })
+
+    // Inicialmente mostra 6
+    let cards = container.querySelectorAll('.louvor-card')
+    expect(cards).toHaveLength(6)
+
+    const carregarMaisBtn = container.querySelector('.louvores-carregar-mais-btn') as HTMLButtonElement
+    expect(carregarMaisBtn).not.toBeNull()
+    expect(carregarMaisBtn.textContent).toContain('Ver mais louvores (+4)')
+
+    await act(async () => {
+      carregarMaisBtn.click()
+    })
+
+    // Agora mostra todos os 10
+    cards = container.querySelectorAll('.louvor-card')
+    expect(cards).toHaveLength(10)
+    expect(container.querySelector('.louvores-carregar-mais-btn')).toBeNull()
+  })
 })

@@ -20,6 +20,7 @@ Gera:
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 import struct
 import sys
@@ -51,6 +52,57 @@ OUT_INVERTIDO_DATA = REPO_PERICOPES / "data" / "louvores-pericopes.json"
 OUT_INVERTIDO_COLDIGOM = REPO_COLDIGOM / "data" / "louvores-pericopes.json"
 
 
+NARRATIVE_CHARACTERS = {
+    "sansão", "sansao", "dalila", "raabe", "zaqueu", "golias", "poço de jacó",
+    "poco de jaco", "noé", "noe", "arca", "baleia", "jonas", "moisés", "moises",
+    "baraque", "débora", "debora", "gideão", "gideao", "lázaro", "lazaro",
+    "bartimeu", "nicodemos", "dorcas", "ester", "rute", "boaz", "elias", "eliseu"
+}
+
+
+def parse_bref(bref: str):
+    if not bref:
+        return None, None
+    m = re.match(r"^([1-3]?\s*[A-Za-zÀ-ÿ]+)\s*(\d+)?", bref.strip())
+    if m:
+        book = m.group(1).strip().lower()
+        chap = int(m.group(2)) if m.group(2) else None
+        return book, chap
+    return None, None
+
+
+def get_scope_multiplier(pr: dict, p_meta: dict) -> float:
+    p_book = (p_meta.get("livro") or "").strip().lower()
+    c_ini = p_meta.get("capitulo_inicio")
+    c_fim = p_meta.get("capitulo_fim")
+    pname = (pr.get("name") or "").strip().lower()
+    bref = pr.get("biblical_reference") or ""
+    bref_book, bref_chap = parse_bref(bref)
+
+    pericope_text = (
+        (p_meta.get("texto") or "").lower()
+        + " "
+        + (p_meta.get("titulo_pericope_pt") or "").lower()
+    )
+
+    is_narrative_char = any(char in pname for char in NARRATIVE_CHARACTERS)
+    if is_narrative_char:
+        for char in NARRATIVE_CHARACTERS:
+            if char in pname and char in pericope_text:
+                return 1.0  # Louvor narrativo correspondente à própria perícope
+        return 0.90  # Desconto suave fora do contexto narrativo
+
+    if bref_book and bref_chap is not None:
+        if bref_book == p_book:
+            if c_ini is not None and c_fim is not None:
+                if not (c_ini <= bref_chap <= c_fim):
+                    return 0.95  # Capítulo diferente no mesmo livro
+        else:
+            return 0.93  # Livro bíblico diferente com capítulo específico ancorado
+
+    return 1.0
+
+
 def main():
     print("=" * 70)
     print("🎵 BÍBLIA PERÍCOPES × COLDIGOM — ASSOCIAÇÃO HOMILÉTICA & SEMÂNTICA")
@@ -70,11 +122,11 @@ def main():
     print("🔄 1/5: Carregando louvores do acervo Coldigom...")
     conn = sqlite3.connect(DB_EMBEDDINGS)
     c = conn.cursor()
-    c.execute("SELECT id, number, name, category, tags, embedding FROM praises_semantic")
+    c.execute("SELECT id, number, name, category, tags, biblical_reference, embedding FROM praises_semantic")
 
     praises = []
     praise_vecs = []
-    for pid, num, name, cat, tags, blob in c.fetchall():
+    for pid, num, name, cat, tags, bref, blob in c.fetchall():
         if not blob:
             continue
         uname = name.upper()
@@ -96,6 +148,7 @@ def main():
             "name": name,
             "category": cat or "Geral",
             "tags": tags or "",
+            "biblical_reference": bref or "",
         })
         praise_vecs.append(vec256)
     conn.close()
@@ -221,11 +274,18 @@ def main():
                             else:
                                 louvores_citados.append((pid, c_item))
 
-        # Pega os melhores índices para bíblico, temático, homilético e combinado
-        top_b_indices = np.argsort(-sb_row)[:8]
-        top_t_indices = np.argsort(-st_row)[:8]
-        top_h_indices = np.argsort(-sh_row)[:8]
-        top_c_indices = np.argsort(-sc_row)[:8]
+        # Multiplicador de escopo teológico suave (ajusta louvores narrativos de personagens fora do contexto)
+        multipliers = np.array([get_scope_multiplier(pr, p_meta) for pr in praises], dtype=np.float32)
+        adj_sc_row = sc_row * multipliers
+        adj_sb_row = sb_row * multipliers
+        adj_st_row = st_row * multipliers
+        adj_sh_row = sh_row * multipliers
+
+        # Pega os melhores índices para bíblico, temático, homilético e combinado ajustados
+        top_b_indices = np.argsort(-adj_sb_row)[:12]
+        top_t_indices = np.argsort(-adj_st_row)[:12]
+        top_h_indices = np.argsort(-adj_sh_row)[:12]
+        top_c_indices = np.argsort(-adj_sc_row)[:12]
 
         # Mescla preservando a prioridade dos melhores
         candidatos_indices = []
@@ -234,6 +294,9 @@ def main():
             if idx not in vistos:
                 vistos.add(idx)
                 candidatos_indices.append(idx)
+
+        # Ordena candidatos por pontuação combinada ajustada decrescente
+        candidatos_indices.sort(key=lambda idx: adj_sc_row[idx], reverse=True)
 
         lista_louvores = []
         nomes_vistos = set()
@@ -270,7 +333,7 @@ def main():
             if pr["id"] in short_id_map:
                 praise_obj["shortId"] = short_id_map[pr["id"]]
             lista_louvores.append(praise_obj)
-            if len(lista_louvores) >= 6:
+            if len(lista_louvores) >= 12:
                 break
 
         for p_idx in candidatos_indices:
@@ -280,13 +343,13 @@ def main():
                 continue
             nomes_vistos.add(nome_norm)
 
-            score_bib = round(float(sb_row[p_idx]) * 100, 1)
-            score_tem = round(float(st_row[p_idx]) * 100, 1)
-            score_hom = round(float(sh_row[p_idx]) * 100, 1)
-            score_comb = round(float(sc_row[p_idx]) * 100, 1)
+            score_bib = round(float(adj_sb_row[p_idx]) * 100, 1)
+            score_tem = round(float(adj_st_row[p_idx]) * 100, 1)
+            score_hom = round(float(adj_sh_row[p_idx]) * 100, 1)
+            score_comb = round(float(adj_sc_row[p_idx]) * 100, 1)
 
-            # Heurística estrita: descarta combinações fracas (< 70%) para evitar falsos-positivos
-            if score_comb < 70.0:
+            # Heurística estrita: descarta combinações fracas (< 68%) para evitar ruído excessivo
+            if score_comb < 68.0:
                 continue
 
             # Classifica tipo de match predominante
@@ -320,8 +383,8 @@ def main():
 
             lista_louvores.append(praise_obj)
 
-            # Seleciona até 6 louvores representativos para o card
-            if len(lista_louvores) >= 6:
+            # Seleciona até 12 louvores representativos para o card (expansão na UI)
+            if len(lista_louvores) >= 12:
                 break
 
         resultado_pericopes[str(ord_id)] = lista_louvores

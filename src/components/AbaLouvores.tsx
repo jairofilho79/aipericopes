@@ -33,6 +33,7 @@ export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersicul
   const [louvores, setLouvores] = useState<LouvorRecomendado[]>([])
   const [carregando, setCarregando] = useState(true)
   const [filtro, setFiltro] = useState<FiltroTipo>('geral')
+  const [limiteExibicao, setLimiteExibicao] = useState(6)
 
   const labelFoco = useMemo(() => {
     if (!versiculosFoco || versiculosFoco.length === 0) return ''
@@ -53,6 +54,7 @@ export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersicul
   useEffect(() => {
     let ativo = true
     setCarregando(true)
+    setLimiteExibicao(6)
 
     const livro = 'livro' in pericope && pericope.livro ? pericope.livro : ''
 
@@ -98,6 +100,10 @@ export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersicul
     }
     return lista.sort((a, b) => b.similarity - a.similarity)
   }, [louvores, filtro])
+
+  const itensVisiveis = useMemo(() => {
+    return louvoresOrdenados.slice(0, limiteExibicao)
+  }, [louvoresOrdenados, limiteExibicao])
 
   if (carregando) {
     return (
@@ -219,7 +225,7 @@ export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersicul
       </header>
 
       <ul className="louvores-lista" aria-label="Louvores recomendados">
-        {louvoresOrdenados.map((louvor) => {
+        {itensVisiveis.map((louvor) => {
           const { texto: numTexto, ehSn } = formatarNumeroLouvor(louvor.number)
           const tags = louvor.tags
             ? louvor.tags
@@ -340,6 +346,18 @@ export default function AbaLouvores({ pericope, versiculosFoco, onLimparVersicul
           )
         })}
       </ul>
+
+      {louvoresOrdenados.length > limiteExibicao && (
+        <div className="louvores-carregar-mais-container">
+          <button
+            type="button"
+            className="louvores-carregar-mais-btn"
+            onClick={() => setLimiteExibicao((prev) => prev + 6)}
+          >
+            Ver mais louvores (+{louvoresOrdenados.length - limiteExibicao})
+          </button>
+        </div>
+      )}
     </div>
   )
 }

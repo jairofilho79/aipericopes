@@ -1344,6 +1344,40 @@ button.ghost {
   outline-offset: 2px;
 }
 
+.louvores-carregar-mais-container {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 0 1rem;
+}
+
+.louvores-carregar-mais-btn {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.louvores-carregar-mais-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.louvores-carregar-mais-btn:active {
+  transform: translateY(0);
+}
+
 /* Linha de meta do cabeçalho da perícope: só a referência e a estimativa de
    tempo. O grupo ←/→/Aa que justificava o flex-wrap saiu — as setas foram
    para o pager do rodapé e o swipe, e o "Aa" para o menu Perfil. */
