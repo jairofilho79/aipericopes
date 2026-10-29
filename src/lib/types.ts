@@ -42,6 +42,8 @@ export type Pericope = PericopeIndex & {
    * 125 perícopes têm. Ver scripts/blivre-epigrafes.ts.
    */
   sobrescrito?: string
+  /** Palavras de Jesus (Red Letter) indexadas por "capítulo:versículo" (ex: "3:15") */
+  palavras_jesus?: Record<string, string[]>
   /** O que saber ANTES de ler o texto */
   contexto_historico_literario: string
   /** Apanhado do que aconteceu e por quê; Deus/Jesus só quando couber com naturalidade */
@@ -126,6 +128,8 @@ export type RawPericope = {
   texto: string
   /** Epígrafe do versículo de abertura. Ver SOBRESCRITO em Pericope. */
   sobrescrito?: string
+  /** Palavras de Jesus (Red Letter) indexadas por "capítulo:versículo" (ex: "3:15") */
+  palavras_jesus?: Record<string, string[]>
 }
 
 export type JornadaTipo = 'sequencia' | 'bloco' | 'livro' // 'cronologica' depois

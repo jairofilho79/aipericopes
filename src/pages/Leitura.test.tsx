@@ -46,6 +46,28 @@ const PERICOPE_102: Pericope = {
   perguntas_reflexao: ['Reflexão 1?'],
 }
 
+const PERICOPE_MATEUS_3: Pericope = {
+  ordem: 1607,
+  seq: 1607,
+  livro: 'Mateus',
+  abbrev: 'Mt',
+  capitulo_inicio: 3,
+  versiculo_inicio: 13,
+  capitulo_fim: 3,
+  versiculo_fim: 15,
+  minutos: 1,
+  narrado: false,
+  texto:
+    'Capítulo 3\n13 Então Jesus veio da Galileia ao Jordão.\n14 Mas João lhe impedia.\n15 Porém Jesus lhe respondeu: Permite por agora, porque assim nos convém cumprir toda a justiça. Então ele o permitiu.',
+  titulo_pericope_pt: 'O batismo de Jesus',
+  contexto_historico_literario: 'Contexto de Mateus 3.',
+  resenha: 'Resenha de Mateus 3.',
+  perguntas_reflexao: ['Reflexão?'],
+  palavras_jesus: {
+    '3:15': ['Permite por agora, porque assim nos convém cumprir toda a justiça.'],
+  },
+}
+
 const INDICE: PericopeIndex[] = [
   {
     ordem: 3146,
@@ -60,11 +82,25 @@ const INDICE: PericopeIndex[] = [
     minutos: 1,
     narrado: false,
   },
+  {
+    ordem: 1607,
+    seq: 1607,
+    livro: 'Mateus',
+    abbrev: 'Mt',
+    capitulo_inicio: 3,
+    versiculo_inicio: 13,
+    capitulo_fim: 3,
+    versiculo_fim: 15,
+    titulo_pericope_pt: 'O batismo de Jesus',
+    minutos: 1,
+    narrado: false,
+  },
 ]
 
 vi.mock('../lib/content', () => ({
   loadIndex: async () => INDICE,
-  getPericope: async (ordem: number) => (ordem === 3146 ? PERICOPE_102 : undefined),
+  getPericope: async (ordem: number) =>
+    ordem === 1607 ? PERICOPE_MATEUS_3 : ordem === 3146 ? PERICOPE_102 : undefined,
   anteriorNoTestamento: () => null,
   proximaNoTestamento: () => null,
   refLabel: () => 'Salmos 102:1–2',
@@ -272,5 +308,60 @@ describe('Leitura — aba de Louvores', () => {
 
     expect(tabLouvores?.getAttribute('aria-selected')).toBe('true')
     expect(container.querySelector('.louvores-painel')).not.toBeNull()
+  })
+})
+
+describe('Leitura — Palavras de Jesus em vermelho (Red Letter)', () => {
+  it('renderiza frases de Jesus com a classe .palavra-jesus no modo padrão', async () => {
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={['/leitura/1607']}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+
+    const verso15 = container.querySelector('[data-verse-id="3:15"]')
+    expect(verso15).not.toBeNull()
+
+    const falaJesus = verso15?.querySelector('.palavra-jesus')
+    expect(falaJesus).not.toBeNull()
+    expect(falaJesus?.textContent).toBe(
+      'Permite por agora, porque assim nos convém cumprir toda a justiça.',
+    )
+
+    // O texto do narrador antes e depois está fora do span .palavra-jesus
+    expect(verso15?.textContent).toContain('Porém Jesus lhe respondeu:')
+    expect(verso15?.textContent).toContain('Então ele o permitiu.')
+  })
+
+  it('renderiza frases de Jesus com a classe .palavra-jesus no layout corrido', async () => {
+    prefsMock = { ...prefsMock, layout: 'corrido' }
+    await act(async () => {
+      root.render(
+        <MemoryRouter initialEntries={['/leitura/1607']}>
+          <Routes>
+            <Route path="/leitura/:ordem" element={<Leitura />} />
+          </Routes>
+        </MemoryRouter>,
+      )
+    })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+
+    const verso15 = container.querySelector('[data-verse-id="3:15"]')
+    expect(verso15).not.toBeNull()
+
+    const falaJesus = verso15?.querySelector('.palavra-jesus')
+    expect(falaJesus).not.toBeNull()
+    expect(falaJesus?.textContent).toBe(
+      'Permite por agora, porque assim nos convém cumprir toda a justiça.',
+    )
   })
 })

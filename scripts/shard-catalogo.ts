@@ -149,6 +149,7 @@ function main(): void {
           ordem: p.ordem,
           texto: p.texto,
           ...(p.sobrescrito ? { sobrescrito: p.sobrescrito } : {}),
+          ...(p.palavras_jesus ? { palavras_jesus: p.palavras_jesus } : {}),
         })),
       ),
     )

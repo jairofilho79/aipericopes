@@ -84,13 +84,65 @@ import { testamentLabel, testamentOf } from '../lib/testament'
 type NotesTab = 'anotacoes' | 'topicos' | 'conversar' | 'louvores'
 type Vizinha = { ordem: number; titulo: string; narrado: boolean }
 
+function encontrarFaixasJesus(texto: string, frases?: string[]): { start: number; end: number }[] {
+  if (!frases || frases.length === 0) return []
+  const faixas: { start: number; end: number }[] = []
+  let buscaDesde = 0
+  for (const f of frases) {
+    if (!f) continue
+    let idx = texto.indexOf(f, buscaDesde)
+    if (idx === -1) {
+      idx = texto.indexOf(f)
+    }
+    if (idx !== -1) {
+      faixas.push({ start: idx, end: idx + f.length })
+      buscaDesde = idx + f.length
+    }
+  }
+  return faixas.sort((a, b) => a.start - b.start)
+}
+
 /**
  * Quebra em palavras só a unidade em fala — o resto da página fica com o nó de
- * texto único de sempre. O espaço entre os spans é um nó de texto real: é o
- * que faz "selecionar e copiar" continuar devolvendo o versículo legível.
+ * texto único de sempre (ou spans coloridos para as Palavras de Jesus). O espaço
+ * entre os spans é um nó de texto real: é o que faz "selecionar e copiar" continuar
+ * devolvendo o versículo legível.
  */
-function TextoFalado({ texto, ativo }: { texto: string; ativo: boolean }) {
-  if (!ativo) return <>{texto}</>
+function TextoFalado({
+  texto,
+  ativo,
+  frasesJesus,
+}: {
+  texto: string
+  ativo: boolean
+  frasesJesus?: string[]
+}) {
+  const faixas = useMemo(() => encontrarFaixasJesus(texto, frasesJesus), [texto, frasesJesus])
+
+  if (!ativo) {
+    if (faixas.length === 0) return <>{texto}</>
+    const partes: ReactNode[] = []
+    let pos = 0
+    for (let i = 0; i < faixas.length; i++) {
+      const { start, end } = faixas[i]
+      if (start > pos) {
+        partes.push(texto.slice(pos, start))
+      }
+      partes.push(
+        <span key={`j-${start}`} className="palavra-jesus">
+          {texto.slice(start, end)}
+        </span>,
+      )
+      pos = end
+    }
+    if (pos < texto.length) {
+      partes.push(texto.slice(pos))
+    }
+    return <>{partes}</>
+  }
+
+  const todosTokens = tokens(texto)
+  let offset = 0
   return (
     <>
       {/* `data-w` tem que numerar exatamente como `tokens()` — é a mesma
@@ -105,11 +157,21 @@ function TextoFalado({ texto, ativo }: { texto: string; ativo: boolean }) {
           que sai encolhe para a direita enquanto a que entra cresce da
           esquerda, as duas metades se tocam na fronteira e o realce vira uma
           faixa contínua que desliza. O texto renderizado é o mesmo. */}
-      {tokens(texto).map((tk, k, todos) => (
-        <span data-w={k} key={k}>
-          {k < todos.length - 1 ? `${tk} ` : tk}
-        </span>
-      ))}
+      {todosTokens.map((tk, k) => {
+        const start = offset
+        const end = offset + tk.length
+        offset = end + 1
+        const eJesus = faixas.some((f) => (start >= f.start && start < f.end) || (end > f.start && end <= f.end))
+        return (
+          <span
+            data-w={k}
+            key={k}
+            className={eJesus ? 'palavra-jesus' : undefined}
+          >
+            {k < todosTokens.length - 1 ? `${tk} ` : tk}
+          </span>
+        )
+      })}
     </>
   )
 }
@@ -1381,7 +1443,11 @@ export default function Leitura() {
                           >
                             {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                             <span className="verse-text">
-                              <TextoFalado texto={b.text} ativo={falando === b.id} />
+                              <TextoFalado
+                                texto={b.text}
+                                ativo={falando === b.id}
+                                frasesJesus={p?.palavras_jesus?.[b.id]}
+                              />
                             </span>
                           </button>{' '}
                         </Fragment>
@@ -1415,7 +1481,11 @@ export default function Leitura() {
                         >
                           {b.verse > 0 && <sup className="verse-num">{b.verse}</sup>}
                           <span className="verse-text">
-                            <TextoFalado texto={b.text} ativo={falando === b.id} />
+                            <TextoFalado
+                              texto={b.text}
+                              ativo={falando === b.id}
+                              frasesJesus={p?.palavras_jesus?.[b.id]}
+                            />
                           </span>
                         </button>
                       ),

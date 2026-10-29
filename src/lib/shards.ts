@@ -74,7 +74,7 @@ async function carregar(tipo: Tipo, slug: string): Promise<Map<number, unknown>>
  * bíblico ("Salmo de Davi, quando ele fugia…") e viaja junto com o texto, não
  * com o material editorial.
  */
-export type TextoShard = { texto: string; sobrescrito?: string }
+export type TextoShard = { texto: string; sobrescrito?: string; palavras_jesus?: Record<string, string[]> }
 
 export async function carregarTexto(slug: string): Promise<Map<number, TextoShard>> {
   return (await carregar('texto', slug)) as Map<number, TextoShard>

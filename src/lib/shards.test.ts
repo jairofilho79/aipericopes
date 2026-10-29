@@ -47,6 +47,26 @@ describe('carregarTexto', () => {
     })
   })
 
+  it('carrega as palavras de Jesus junto com o texto', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () =>
+        respostaJson([
+          {
+            ordem: 1607,
+            texto: 'Capítulo 3\n15 Permite por agora',
+            palavras_jesus: { '3:15': ['Permite por agora'] },
+          },
+        ]),
+      ),
+    )
+
+    expect((await carregarTexto('mateus')).get(1607)).toEqual({
+      texto: 'Capítulo 3\n15 Permite por agora',
+      palavras_jesus: { '3:15': ['Permite por agora'] },
+    })
+  })
+
   it('não busca o mesmo livro duas vezes', async () => {
     const fetchMock = vi.fn(async () => respostaJson([{ ordem: 1, texto: 'a' }]))
     vi.stubGlobal('fetch', fetchMock)
